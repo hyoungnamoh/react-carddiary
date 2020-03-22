@@ -2,33 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/front/components/AppLayout.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front/pages/_app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front/pages/_document.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/react-carddiary.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/react-carddiary.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/config/config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/models/comment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/models/diary.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/models/hashtag.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/models/image.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/models/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/models/user.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/nodemon.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/passport/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/passport/local.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/routes/diaries.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/routes/diary.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/routes/sign.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/routes/user.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/pages/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/reducers/diary.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/reducers/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/reducers/user.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/sagas/diary.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/sagas/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/sagas/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/public/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/App.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/App.test.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/Customer.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/CustomerAdd.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/components/CustomerDelete.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/pages/Main.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/pages/SignUp.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/signUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/serviceWorker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/src/setupTests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/_app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/signUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/signUp.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +49,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/front/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/front/sagas" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -58,10 +60,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\ReactWorkspace\react-carddiary\front\components" />
+      <recent name="C:\ReactWorkspace\react-carddiary\front\sagas" />
+      <recent name="C:\ReactWorkspace\react-carddiary\front\reducers" />
+      <recent name="C:\ReactWorkspace\react-carddiary\back" />
       <recent name="C:\ReactWorkspace\react-carddiary\front" />
-      <recent name="C:\ReactWorkspace\react-carddiary\front\pages" />
-      <recent name="C:\ReactWorkspace\react-carddiary\front\src" />
+      <recent name="C:\ReactWorkspace\react-carddiary\front\components" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\ReactWorkspace\react-carddiary\front\pages" />
@@ -79,7 +82,7 @@
       <updated>1584779688600</updated>
       <workItem from="1584779693133" duration="23000" />
       <workItem from="1584780837514" duration="1068000" />
-      <workItem from="1584850597572" duration="10033000" />
+      <workItem from="1584850597572" duration="37776000" />
     </task>
     <servers />
   </component>
@@ -91,13 +94,37 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="618" y="169" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1707.1027@0.0.1707.1027" timestamp="1584853803864" />
-    <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584858293055">
+    <state x="1011" y="260" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1584862909622">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1707.1027@0.0.1707.1027" timestamp="1584858293055" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1584858867679">
+    <state x="1011" y="260" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1707.1027@0.0.1707.1027" timestamp="1584862909622" />
+    <state width="832" height="275" key="GridCell.Tab.0.bottom" timestamp="1584864209932">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1584858867679" />
+    <state width="832" height="275" key="GridCell.Tab.0.bottom/0.0.1707.1027@0.0.1707.1027" timestamp="1584864209932" />
+    <state width="832" height="275" key="GridCell.Tab.0.center" timestamp="1584864209932">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state width="832" height="275" key="GridCell.Tab.0.center/0.0.1707.1027@0.0.1707.1027" timestamp="1584864209932" />
+    <state width="832" height="275" key="GridCell.Tab.0.left" timestamp="1584864209931">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state width="832" height="275" key="GridCell.Tab.0.left/0.0.1707.1027@0.0.1707.1027" timestamp="1584864209931" />
+    <state width="832" height="275" key="GridCell.Tab.0.right" timestamp="1584864209932">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state width="832" height="275" key="GridCell.Tab.0.right/0.0.1707.1027@0.0.1707.1027" timestamp="1584864209932" />
+    <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584873745460">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1707.1027@0.0.1707.1027" timestamp="1584873745460" />
+    <state x="970" y="244" width="620" height="538" key="find.popup" timestamp="1584883534913">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state x="970" y="244" width="620" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1584883534913" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1584892256595">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1584892256595" />
   </component>
 </project>

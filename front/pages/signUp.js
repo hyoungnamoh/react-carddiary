@@ -1,19 +1,19 @@
-import React, {useState, useRef} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {post} from "axios";
-import Alert from 'sweetalert2';
+import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {SIGN_UP_REQUEST} from "../reducers/user";
+import Router from 'next/router';
 
 const Copyright = () => {
     return (
@@ -28,6 +28,7 @@ const Copyright = () => {
     );
 }
 
+//style
 const useStyles = makeStyles(theme => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -49,113 +50,158 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SignUp = () => {
+    //dispatch
+    const dispatch = useDispatch();
+    const {isSignedUp, me} = useSelector(state => state.user);
+    
+    //회원가입 성공 시
+    if(isSignedUp){
+        console.log('회원가입');
+        Router.push('/');
+    }
+
+    //style
     const classes = useStyles();
-    const [lastName, setLastName] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [isChecked, setIsChecked] = useState(false);
-    const [isEmailValid, setIsEmailValid] = useState(true);
-    const [isLastNameValid, setIsLastNameValid] = useState(true);
-    const [isFirstNameValid, setIsFirstNameValid] = useState(true);
-    const [isPasswordValid, setIsPasswordValid] = useState(true);
-    const [pass, setPass] = useState(false);
 
-    const lastNameRef = useRef('');
+    //state
+    const [userName, setUserName] = useState(''); //이름
+    const [email, setEmail] = useState(''); //이메일
+    const [password, setPassword] = useState(''); //비밀번호
+    const [confirmPassword, setConfirmPassword] = useState(''); //비밀번호 확인
+    const [userNameError, setUserNameError] = useState(''); //이름 에러문구
+    const [emailError, setEmailError] = useState(''); //이메일 에러문구
+    const [passwordError, setPasswordError] = useState(''); //비밀번호 에러문구
+    const [confirmPasswordError, setConfirmPasswordError] = useState(''); //비밀번호 확인 에러문구
+    const [isUserNameValid, setIsUserNameValid] = useState(true); //이름 유효성검사
+    const [isEmailValid, setIsEmailValid] = useState(true); //이메일 유효성검사
+    const [isPasswordValid, setIsPasswordValid] = useState(true); //비밀번호 유효성검사
+    const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState(true); //비밀번호 일치여부
 
+    //각 input Ref
+    const userNameRef = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+    const confirmPasswordRef = useRef(null);
+
+    //정규표현식
     const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     const nameRegex = /^[가-힣]{1,4}$/;
-    const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+    const passwordRegExp = /^[a-zA-z0-9]{8,20}$/;
 
-
-    const switchingCheck = (e) => {
-        setIsChecked(e.target.checked);
-    }
-
-    const checkLastName = () => {
-        setIsLastNameValid(nameRegex.test(lastName));
-        console.log(isLastNameValid);
-    }
-
-    const checkFirstName = () => {
-        setIsFirstNameValid(nameRegex.test(firstName));
-    }
-
-    const checkEmail = () => {
-        setIsEmailValid(emailRegex.test(email));
-    }
-
-    const checkPassword = () => {
-        let num = password.search(/[0-9]/g);
-        let eng = password.search(/[a-z]/ig);
-        let spe = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-        let length = true;
-        let space = true;
-        let pass = false;
-        console.log(password.length);
-        if(password.length < 8 || password.length > 20){
-            length = false;
+    //이름 유효성검사
+    const checkUserName = useCallback(() => {
+        if(userName ===""){
+            setUserNameError('');
+            setIsUserNameValid(true);
+            return;
         }
-        if(password.search(/\s/) != -1){
-            space = false;
+        if(!nameRegex.test(userName)){
+            setIsUserNameValid(false);
+            setUserNameError('이름을 확인해 주세요.');
+            return;
         }
-        if(num > 0 && eng > 0 && spe > 0 ){
-            pass = true;
+        setUserNameError('');
+        setIsUserNameValid(true);
+    }, [userName]);
+
+    //이메일 유효성검사
+    const checkEmail = useCallback(() => {
+        if(email ===""){
+            setEmailError('');
+            setIsEmailValid(true);
+            return;
         }
-        console.log(pass,length,space);
-        if(pass && length && space){
+        if(!emailRegex.test(email)){
+            setEmailError('이메일 형식이 올바르지 않습니다.');
+            setIsEmailValid(false);
+            return;
+        }
+        axios.post('/sign/emailCheck', {
+            email,
+        }).then((result) => {
+            if(result.data){
+                setEmailError('이미 사용중인 이메일입니다.');
+                setIsEmailValid(false);
+                return;
+            }
+        });
+        setIsEmailValid(true);
+        setEmailError('');
+    },[email]);
+    
+    //비밀번호 유효성 검사
+    const checkPassword = useCallback(() => {
+        if(password ===""){
             setIsPasswordValid(true);
-        } else{
+            setPasswordError('');
+            return;
+        }
+        if(!passwordRegExp.test(password)){
             setIsPasswordValid(false);
+            setPasswordError('영문 숫자 혼용하여 8~20자 입력해주세요.');
+            return;
         }
-    }
+        setIsPasswordValid(true);
+        setPasswordError('');
+        return;
+    }, [password]);
 
-    //서버에 회원가입 요청
-    const userSignUp = () => {
-        const url = '/api/userSignUp';
-        console.log(lastName);
-        let params = {
-            lastName: lastName,
-            firstName: firstName,
-            email: email,
-            password: password
+
+    //비밀번호, 비밀번호 확인 일치 여부 확인
+    const onChangeConfirmPassword = useCallback((e) => {
+        setConfirmPassword(e.target.value);
+        if(e.target.value !== password){
+            setIsConfirmPasswordValid(false);
+            setConfirmPasswordError('비밀번호가 일치하지 않습니다.');
+            return;
         }
-        return post(url, params);
-    }
-
-    const handleFormSubmit = (e) => {
+        setIsConfirmPasswordValid(true);
+        setConfirmPasswordError('');
+    }, [confirmPassword]);
+    
+    //회원가입 버튼 클릭
+    const onSubmitForm = useCallback((e) => {
         e.preventDefault();
-        console.log(isPasswordValid);
+        
+        //공백 체크
+        if(userName === ""){
+            alert('이름을 입력해주세요.');
+            userNameRef.current.focus();
+            return;
+        }
+        if(email === ""){
+            alert('이메일을 입력해주세요.');
+            emailRef.current.focus();
+            return;
+        }
+        if(password === ""){
+            alert('비밀번호를 입력해주세요.');
+            passwordRef.current.focus();
+            return;
+        }
+        if(confirmPassword === ""){
+            alert('비밀번호를 입력해주세요.');
+            confirmPasswordRef.current.focus();
+            return;
+        }
 
-        if(firstName === "" || lastName === "" || !isLastNameValid || !isFirstNameValid){
-            Alert.fire({
-                icon: 'error',
-                title: '가입 실패',
-                text: '이름을 확인해주세요!',
-            })
+        //유효성 검사
+        if(!isUserNameValid || !isPasswordValid || !isEmailValid || !isConfirmPasswordValid){
             return;
         }
-        if(email === "" || !isEmailValid){
-            Alert.fire({
-                icon: 'error',
-                title: '가입 실패',
-                text: '이메일을 입력해주세요!',
-            })
-            return;
-        }
-        if(password === "" || !isPasswordValid){
-            Alert.fire({
-                icon: 'error',
-                title: '가입 실패',
-                text: '비밀번호를 입력해주세요!',
-            })
-            return;
-        }
-        userSignUp()
-            .then((response) => {
-                console.log('userSignUp');
-            });
-    }
+
+        dispatch({
+            type: SIGN_UP_REQUEST,
+            data: {
+                userName,
+                email,
+                password,
+            }
+        });
+
+
+    }, [userName, email, password, confirmPassword]);
+
 
 
 
@@ -171,43 +217,28 @@ const SignUp = () => {
                 </Typography>
                 <form className={classes.form} noValidate>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12}  >
                             <TextField
-                                autoComplete="name"
-                                name="firstName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="firstName"
-                                label="First Name"
-                                autoFocus
-                                value={firstName}
-                                onChange={(e) => {setFirstName(e.target.value)}}
-                                error={!isFirstNameValid}
-                                onBlur={checkFirstName}
-                                helperText={!isFirstNameValid ? "이름을 입력해주세요." : ""}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6} ref={lastNameRef}>
-                            <TextField
+                                inputRef={userNameRef}
                                 type="text"
                                 variant="outlined"
                                 required
                                 fullWidth
-                                id="lastName"
-
-                                label="Last Name"
-                                name="lastName"
+                                id="userName"
+                                label="Name"
+                                name="userName"
                                 autoComplete="lname"
-                                value={lastName}
-                                onChange={(e) => {setLastName(e.target.value)}}
-                                error={!isLastNameValid}
-                                onBlur={checkLastName}
-                                helperText={!isLastNameValid ? "이름을 입력해주세요." : ""}
+                                value={userName}
+                                onChange={(e) => {setUserName(e.target.value)}}
+                                error={!isUserNameValid}
+                                onBlur={checkUserName}
+                                helperText={userNameError}
+                                autoFocus
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                inputRef={emailRef}
                                 variant="outlined"
                                 required
                                 fullWidth
@@ -219,11 +250,12 @@ const SignUp = () => {
                                 value={email}
                                 onChange={(e) => {setEmail(e.target.value)}}
                                 onBlur={checkEmail}
-                                helperText={!isEmailValid ? "올바르지 않은 이메일 형식입니다." : ""}
+                                helperText={emailError}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                inputRef={passwordRef}
                                 variant="outlined"
                                 required
                                 fullWidth
@@ -236,14 +268,24 @@ const SignUp = () => {
                                 onBlur={checkPassword}
                                 onChange={(e) => {setPassword(e.target.value)}}
                                 value={password}
-                                helperText={!isPasswordValid ? "특수문자 영문 숫자 혼용 8~20자리를 입력해주세요" : ""}
+                                helperText={passwordError}
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox color="primary" checked={isChecked} onChange={switchingCheck}/>}
-                                // onChange={(e) => {return e.target.checked == false ? setIsChecked(true) : setIsChecked(false)}}
-                                label="이벤트 등 프로모션 알림 메일 및 수신(선택)"
+                            <TextField
+                                inputRef={confirmPasswordRef}
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="confirmPassword"
+                                label="Confirm Password"
+                                type="password"
+                                id="confirmPassword"
+                                autoComplete="current-password"
+                                error={!isConfirmPasswordValid}
+                                onChange={onChangeConfirmPassword}
+                                value={confirmPassword}
+                                helperText={confirmPasswordError}
                             />
                         </Grid>
                     </Grid>
@@ -253,7 +295,7 @@ const SignUp = () => {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={handleFormSubmit}
+                        onClick={onSubmitForm}
                     >
                         Sign Up
                     </Button>

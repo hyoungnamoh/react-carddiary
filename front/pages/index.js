@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Link from 'next/link';
+import {LOAD_USER_REQUEST, LOG_IN_REQUEST} from "../reducers/user";
+import Router from "next/router";
+import {useDispatch, useSelector} from "react-redux";
+
 
 const Copyright = () => {
     return (
@@ -55,8 +59,67 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Main = () => {
+const Index = () => {
+    const { user } = useSelector(state => state.user);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(!user){
+            dispatch({
+                type: LOAD_USER_REQUEST,
+            });
+        }
+    }, []);
+
+    if(user){
+        console.log('로그인 성공');
+        Router.push('/main');
+    }
+
+    //styles
     const classes = useStyles();
+
+    //state
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    //onChange
+    const onChangeEmail = (e) => {
+        setEmail(e.target.value);
+    }
+    const onChangePassword = (e) => {
+        setPassword(e.target.value);
+    }
+
+    //input Ref
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+
+    //로그인 버튼
+    const onSubmitForm = useCallback((e) => {
+        e.preventDefault();
+
+        //공백체크
+        if(email === ""){
+            alert('이메일을 입력해주세요.');
+            emailRef.current.focus();
+            return;
+        }
+        if(password === ""){
+            alert('비밀번호를 입력해주세요.');
+            passwordRef.current.focus();
+            return;
+        }
+
+        dispatch({
+            type: LOG_IN_REQUEST,
+            data: {
+                email: email,
+                password: password,
+            },
+        });
+    },[email, password]);
+
     return (
         <Grid container component="main" className={classes.root}>
             <CssBaseline />
@@ -80,6 +143,9 @@ const Main = () => {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            value={email}
+                            onChange={onChangeEmail}
+                            inputRef={emailRef}
                         />
                         <TextField
                             variant="outlined"
@@ -91,17 +157,21 @@ const Main = () => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            value={password}
+                            onChange={onChangePassword}
+                            inputRef={passwordRef}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
                         />
                         <Button
-                            type="submit"
+                            type="button"
                             fullWidth
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClick={onSubmitForm}
                         >
                             Sign In
                         </Button>
@@ -124,4 +194,4 @@ const Main = () => {
 };
 
 
-export default Main;
+export default Index;
