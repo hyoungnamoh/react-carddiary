@@ -10,8 +10,9 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import {BrowserRouter, HashRouter, Route, Link, Switch} from 'react-router-dom';
+import {makeStyles} from '@material-ui/core/styles';
+import Link from 'next/link';
+
 const Copyright = () => {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -56,7 +57,6 @@ const useStyles = makeStyles(theme => ({
 
 const Main = () => {
     const classes = useStyles();
-
     return (
         <Grid container component="main" className={classes.root}>
             <CssBaseline />
@@ -107,14 +107,10 @@ const Main = () => {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
+                                <Link href="/#" ><a><Button>Forgot password?</Button></a></Link>
                             </Grid>
                             <Grid item>
-                                <Link to="/main/signUp" variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
+                                <Link href="/signUp" ><a><Button>Don't have an account? Sign Up</Button></a></Link>
                             </Grid>
                         </Grid>
                         <Box mt={5}>
@@ -125,6 +121,7 @@ const Main = () => {
             </Grid>
         </Grid>
     );
-}
+};
+
 
 export default Main;

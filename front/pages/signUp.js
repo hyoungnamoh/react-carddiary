@@ -1,5 +1,4 @@
 import React, {useState, useRef} from 'react';
-import {useHistory} from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -68,7 +67,6 @@ const SignUp = () => {
     const nameRegex = /^[가-힣]{1,4}$/;
     const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
-    const history = useHistory();
 
     const switchingCheck = (e) => {
         setIsChecked(e.target.checked);
@@ -155,7 +153,7 @@ const SignUp = () => {
         }
         userSignUp()
             .then((response) => {
-                history.push('/');
+                console.log('userSignUp');
             });
     }
 
