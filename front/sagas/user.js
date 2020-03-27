@@ -22,7 +22,7 @@ import axios from 'axios';
  */
 function logOutAPI() {
     //서버에 요청을 보내는 부분
-    return axios.post('/user/logout', {}, {
+    return axios.post('/sign/logout', {}, {
         withCredentials: true,
     });
 }
@@ -32,7 +32,6 @@ function* logOut(action) {
         const result = yield call(logOutAPI, action.data);//성공 시 다음 줄 실행
         yield put({
             type: LOG_OUT_SUCCESS, //실행
-            data: result.data,
         })
     } catch (e) { //실패 시
         console.error(e);
@@ -43,32 +42,35 @@ function* logOut(action) {
 }
 
 function* watchLogOut() {
-    //(호출되길 기다리는 액션, 호출되면 실행할 함수)
-    //LOG_IN 액션이 호출되면 login 실행
     yield takeLatest(LOG_OUT_REQUEST, logOut);
 }
 
 /*
     유저 정보가져오기
  */
-function loadUserAPI() {
-    //서버에 요청을 보내는 부분
-    return axios.get('/user', {
-        withCredentials: true, //다른 도메인과 쿠키 주고받을 수 있게 함, 추가로 서버쪽에 cors 설정 해줘야 함
+function loadUserAPI(userId) {
+    // 서버에 요청을 보내는 부분
+    return axios.get(userId ? `/user/${userId}` : '/user/', {
+        withCredentials: true,
     });
 }
 function* loadUser(action) {
-    try{
-        const result = yield call(loadUserAPI, action.data);//성공 시 다음 줄 실행
-        yield put({
-            type: LOAD_USER_SUCCESS, //실행
+    try {
+        console.log('loadUser 액션!!')
+        // yield call(loadUserAPI);
+        const result = yield call(loadUserAPI, action.data);
+        console.log("resultresultresultresultresult", result);
+        yield put({ // put은 dispatch 동일
+            type: LOAD_USER_SUCCESS,
             data: result.data,
-        })
-    } catch (e) { //실패 시
+            me: !action.data,
+        });
+    } catch (e) { // loginAPI 실패
         console.error(e);
         yield put({
-            type: LOAD_USER_FAILURE
-        })
+            type: LOAD_USER_FAILURE,
+            error: e,
+        });
     }
 }
 function* watchLoadUser() {

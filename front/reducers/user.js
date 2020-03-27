@@ -44,7 +44,6 @@ const reducer = (state = initialState, action) => {
             }
         }
         case LOG_IN_SUCCESS: {
-            console.log(action.data);
             return {
                 //스프레드 문법, 새로운 객체 생성, 불변성
                 ...state,
@@ -102,7 +101,6 @@ const reducer = (state = initialState, action) => {
             return{
                 ...state,
                 isLoggingOut: false,
-                logInErrorReason: action.error,
             }
         }
         case LOAD_USER_REQUEST : {
@@ -120,7 +118,6 @@ const reducer = (state = initialState, action) => {
             return{
                 ...state,
                 isSigningUp: false,
-                signUpErrorReason: action.error,
             }
         }
         default : {

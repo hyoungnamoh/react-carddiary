@@ -23,33 +23,7 @@ import Main from "../components/main";
 
 
 const Index = () => {
-    // const { user } = useSelector(state => state.user);
-    // const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     if(!user){
-    //         dispatch({
-    //             type: LOAD_USER_REQUEST,
-    //         });
-    //     }
-    // }, []);
-    //
-    // if(user){
-    //     console.log('로그인 성공');
-    //     Router.push('/main');
-    // }
-
     const { user } = useSelector(state => state.user);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if(!user){
-            dispatch({
-                type: LOAD_USER_REQUEST,
-            });
-        }
-    }, []);
-
     return (
         <>
             {user ?
@@ -60,6 +34,5 @@ const Index = () => {
         </>
     );
 };
-
 
 export default Index;

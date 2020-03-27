@@ -77,4 +77,11 @@ router.post('/signIn', (req, res, next) => {//(Strategy 명
     })(req, res, next);
 });
 
+// 로그아웃 기능
+router.post('/logout', (req, res) => {
+    req.logout();
+    req.session.destroy();
+    res.send('logout 성공');
+});
+
 module.exports = router;
