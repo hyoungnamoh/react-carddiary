@@ -10,6 +10,7 @@ import createSagaMiddleware from 'redux-saga';
 import {applyMiddleware, compose, createStore} from 'redux';
 import rootSaga from '../sagas';
 import {LOAD_USER_REQUEST} from "../reducers/user";
+import withReduxSaga from "next-redux-saga";
 
 const CardDiary = ({Component, store, pageProps}) => {
 
@@ -36,8 +37,12 @@ const CardDiary = ({Component, store, pageProps}) => {
     );
 };
 
+CardDiary.propTypes = {
+    Component: PropTypes.elementType,
+};
+
 CardDiary.getInitialProps = async (context) => {
-    const { ctx, Component } = context;
+    const { ctx } = context;
     let pageProps = {};
     const state = ctx.store.getState();
     const cookie = ctx.isServer ? ctx.req.headers.cookie : ''; //server가 아닐 때 ctx.req.headers.cookie 얘가 undefined 임
@@ -45,24 +50,20 @@ CardDiary.getInitialProps = async (context) => {
         axios.defaults.headers.Cookie = cookie;
     }
 
+    console.log('state.user.user', state.user.loginUser);
     //user 정보 가져오기
-    if(!state.user.user){
+    if(!state.user.loginUser){
         ctx.store.dispatch({
             type: LOAD_USER_REQUEST,
         });
-        console.log('state.user.user 후 1', state.user.user);
+        console.log('state.user.user', state.user.loginUser);
     }
 
-    if(Component.getInitialProps){
+    if(context.Component.getInitialProps){
         pageProps = await context.Component.getInitialProps(ctx);
     }
-    console.log('state.user.user 후 2', state.user.user);
     return {pageProps};
 }
-
-CardDiary.propTypes = {
-    Component: PropTypes.elementType,
-};
 
 const configureStore = (initialState, options) => {
     //사가 미들웨어 생성
@@ -84,6 +85,7 @@ const configureStore = (initialState, options) => {
 
     //미들웨어에 root사가 연결
     sagaMiddleware.run(rootSaga);
+    store.sagaTask = sagaMiddleware.run(rootSaga);
     return store;
 }
-export default withRedux(configureStore)(CardDiary);
+export default withRedux(configureStore)(withReduxSaga(CardDiary));

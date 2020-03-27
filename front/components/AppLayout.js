@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import Link from 'next/link';
 /*
     material - ui
@@ -26,7 +26,10 @@ import { ThemeProvider } from '@material-ui/core/styles';
     material - ui
  */
 
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {LOG_OUT_REQUEST} from "../reducers/user";
+import Main from "./main";
+import {useRouter} from "next/router";
 
 const drawerWidth = 240;
 
@@ -107,7 +110,7 @@ const useStyles = makeStyles(theme => ({
 
 const AppLayout = ({ children }) => {
     //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
-    const { user } = useSelector(state => state.user);
+    const { loginUser } = useSelector(state => state.user);
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -119,35 +122,57 @@ const AppLayout = ({ children }) => {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    console.log('appbar', user);
+    
+    //내가만든거
+    const router = useRouter();
+    
+    //디스패치
+    const dispatch = useDispatch();
+
+    //로그아웃 버튼
+    const onLogOut = useCallback(() => {
+        //로그아웃 하시겠습니까? 추가
+        dispatch({
+            type:LOG_OUT_REQUEST,
+        });
+    }, []);
+
+    //작성하기 버튼
+    const onClickWritePage = () => {
+        console.log('write');
+        router.push("/write");
+    }
     return (
         <>
-            {user ?
+            {loginUser ?
                 <div className={classes.root}>
                     <CssBaseline />
-                    <AppBar
-                        position="fixed"
-                        className={clsx(classes.appBar, {
-                            [classes.appBarShift]: open,
-                        })}
-                    >
-                        <Toolbar>
-                            <IconButton
-                                color="inherit"
-                                aria-label="open drawer"
-                                onClick={handleDrawerOpen}
-                                edge="start"
-                                className={clsx(classes.menuButton, {
-                                    [classes.hide]: open,
-                                })}
-                            >
-                                <MenuIcon />
-                            </IconButton>
-                            <IconButton variant="h6" noWrap>
-                                Card Diary
-                            </IconButton>
-                        </Toolbar>
-                    </AppBar>
+                    <ThemeProvider theme={theme}>
+                        <AppBar
+                            position="fixed"
+                            className={clsx(classes.appBar, {
+                                [classes.appBarShift]: open,
+                            })}
+                        >
+                            <Toolbar>
+                                <IconButton
+                                    color="inherit"
+                                    aria-label="open drawer"
+                                    onClick={handleDrawerOpen}
+                                    edge="start"
+                                    className={clsx(classes.menuButton, {
+                                        [classes.hide]: open,
+                                    })}
+                                >
+                                    <MenuIcon />
+                                </IconButton>
+                                <IconButton variant="h6" noWrap>
+                                    Card Diary
+                                </IconButton>
+                                <input type="button" onClick={onLogOut} value="로그아웃"/>
+                            </Toolbar>
+                        </AppBar>
+                    </ThemeProvider>
                     <Drawer
                         variant="permanent"
                         className={clsx(classes.drawer, {
@@ -168,12 +193,18 @@ const AppLayout = ({ children }) => {
                         </div>
                         <Divider />
                         <List>
-                            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                    <ListItemText primary={text} />
-                                </ListItem>
-                            ))}
+                            {/*{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (*/}
+                            {/*    <ListItem button key={text}>*/}
+                            {/*        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
+                            {/*        <ListItemText primary={text} />*/}
+                            {/*    </ListItem>*/}
+                            {/*))}*/}
+                            <ListItem button key="write">
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" onClick={onClickWritePage}/>
+                            </ListItem>
                         </List>
                         <Divider />
                         <List>
@@ -187,9 +218,7 @@ const AppLayout = ({ children }) => {
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.toolbar} />
-                        {/*
-                            컨텐츠
-                        */}
+                        <Main/>
                     </main>
                 </div>
             :

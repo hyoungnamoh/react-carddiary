@@ -59,11 +59,11 @@ function* loadUser(action) {
         console.log('loadUser 액션!!')
         // yield call(loadUserAPI);
         const result = yield call(loadUserAPI, action.data);
-        console.log("resultresultresultresultresult", result);
+        console.log("resultresultresultresultresult", result.data);
         yield put({ // put은 dispatch 동일
             type: LOAD_USER_SUCCESS,
             data: result.data,
-            me: !action.data,
+            loginUser: !action.data,
         });
     } catch (e) { // loginAPI 실패
         console.error(e);

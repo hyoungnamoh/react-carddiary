@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/back/routes/middleware.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/pages/write.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/task.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/routes/sign.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/routes/sign.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/routes/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/AppLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/AppLayout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/_app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/reducers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/reducers/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/sagas/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/sagas/user.js" afterDir="false" />
     </list>
@@ -66,7 +66,7 @@
       <workItem from="1584780837514" duration="1068000" />
       <workItem from="1584850597572" duration="41636000" />
       <workItem from="1585228992542" duration="11386000" />
-      <workItem from="1585297387434" duration="1381000" />
+      <workItem from="1585297387434" duration="11915000" />
     </task>
     <servers />
   </component>
@@ -82,22 +82,22 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="1011" y="260" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1707.1027@0.0.1707.1027" timestamp="1584862909622" />
-    <state width="1685" height="277" key="GridCell.Tab.0.bottom" timestamp="1584935317193">
+    <state width="1685" height="277" key="GridCell.Tab.0.bottom" timestamp="1585321574114">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state width="1685" height="277" key="GridCell.Tab.0.bottom/0.0.1707.1027@0.0.1707.1027" timestamp="1584935317193" />
-    <state width="1685" height="277" key="GridCell.Tab.0.center" timestamp="1584935317193">
+    <state width="1685" height="277" key="GridCell.Tab.0.bottom/0.0.1707.1027@0.0.1707.1027" timestamp="1585321574114" />
+    <state width="1685" height="277" key="GridCell.Tab.0.center" timestamp="1585321574114">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state width="1685" height="277" key="GridCell.Tab.0.center/0.0.1707.1027@0.0.1707.1027" timestamp="1584935317193" />
-    <state width="1685" height="277" key="GridCell.Tab.0.left" timestamp="1584935317193">
+    <state width="1685" height="277" key="GridCell.Tab.0.center/0.0.1707.1027@0.0.1707.1027" timestamp="1585321574114" />
+    <state width="1685" height="277" key="GridCell.Tab.0.left" timestamp="1585321574113">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state width="1685" height="277" key="GridCell.Tab.0.left/0.0.1707.1027@0.0.1707.1027" timestamp="1584935317193" />
-    <state width="1685" height="277" key="GridCell.Tab.0.right" timestamp="1584935317193">
+    <state width="1685" height="277" key="GridCell.Tab.0.left/0.0.1707.1027@0.0.1707.1027" timestamp="1585321574113" />
+    <state width="1685" height="277" key="GridCell.Tab.0.right" timestamp="1585321574114">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state width="1685" height="277" key="GridCell.Tab.0.right/0.0.1707.1027@0.0.1707.1027" timestamp="1584935317193" />
+    <state width="1685" height="277" key="GridCell.Tab.0.right/0.0.1707.1027@0.0.1707.1027" timestamp="1585321574114" />
     <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585298615423">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
@@ -106,9 +106,9 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="970" y="244" width="620" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1584883534913" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1585297610914">
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1585325149967">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1585297610914" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1585325149967" />
   </component>
 </project>

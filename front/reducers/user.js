@@ -6,7 +6,7 @@ export const initialState = { //초기값
     isSignedUp: false, //회원가입 성공
     isSigningUp: false, //회원가입 시도중
     signUpErrorReason: '', //회원가입 실패 사유
-    user: null,
+    loginUser: null,
 };
 
 //로그인하는 액션
@@ -48,7 +48,7 @@ const reducer = (state = initialState, action) => {
                 //스프레드 문법, 새로운 객체 생성, 불변성
                 ...state,
                 isLoggingIn: false,
-                user: action.data,
+                loginUser: action.data,
                 isLoading: false,
             };
         }
@@ -57,7 +57,6 @@ const reducer = (state = initialState, action) => {
             return{
                 ...state,
                 isLoggingIn: false,
-                user: null,
                 logInErrorReason: action.error,
                 isLoading: false,
             }
@@ -94,7 +93,7 @@ const reducer = (state = initialState, action) => {
             return{
                 ...state,
                 isLoggingOut: false,
-                user: null
+                loginUser: null
             }
         }
         case LOG_OUT_FAILURE : {
@@ -109,10 +108,12 @@ const reducer = (state = initialState, action) => {
             }
         }
         case LOAD_USER_SUCCESS : {
+            console.log("LOAD_USER_SUCCESS", action.data);
             return{
                 ...state,
-                user: action.data,
+                loginUser: action.data,
             }
+            console.log(loginUser);
         }
         case LOAD_USER_FAILURE : {
             return{
