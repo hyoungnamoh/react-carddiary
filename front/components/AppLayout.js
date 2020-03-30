@@ -109,8 +109,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AppLayout = ({ children }) => {
-    //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
-    const { loginUser } = useSelector(state => state.user);
+
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -124,8 +123,15 @@ const AppLayout = ({ children }) => {
     };
     
     //내가만든거
+    //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
+    const { loginUser } = useSelector(state => state.user);
     const router = useRouter();
-    
+
+    // //
+    // if(!loginUser){
+    //     router.push("/");
+    // }
+
     //디스패치
     const dispatch = useDispatch();
 
@@ -135,12 +141,17 @@ const AppLayout = ({ children }) => {
         dispatch({
             type:LOG_OUT_REQUEST,
         });
+        router.push('/');
     }, []);
 
     //작성하기 버튼
     const onClickWritePage = () => {
-        console.log('write');
         router.push("/write");
+    }
+
+    //로고, 메인화면 이동
+    const onClickLogo = () => {
+        router.push("/");
     }
     return (
         <>
@@ -166,7 +177,7 @@ const AppLayout = ({ children }) => {
                                 >
                                     <MenuIcon />
                                 </IconButton>
-                                <IconButton variant="h6" noWrap>
+                                <IconButton variant="h6" onClick={onClickLogo}>
                                     Card Diary
                                 </IconButton>
                                 <input type="button" onClick={onLogOut} value="로그아웃"/>
@@ -193,17 +204,11 @@ const AppLayout = ({ children }) => {
                         </div>
                         <Divider />
                         <List>
-                            {/*{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (*/}
-                            {/*    <ListItem button key={text}>*/}
-                            {/*        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>*/}
-                            {/*        <ListItemText primary={text} />*/}
-                            {/*    </ListItem>*/}
-                            {/*))}*/}
-                            <ListItem button key="write">
+                            <ListItem button key="write" onClick={onClickWritePage}>
                                 <ListItemIcon>
                                     <InboxIcon />
                                 </ListItemIcon>
-                                <ListItemText primary="작성하기" onClick={onClickWritePage}/>
+                                <ListItemText primary="작성하기" />
                             </ListItem>
                         </List>
                         <Divider />
@@ -218,7 +223,7 @@ const AppLayout = ({ children }) => {
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.toolbar} />
-                        <Main/>
+                        {children}
                     </main>
                 </div>
             :

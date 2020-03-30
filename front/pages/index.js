@@ -23,10 +23,10 @@ import Main from "../components/main";
 
 
 const Index = () => {
-    const { user } = useSelector(state => state.user);
+    const { loginUser } = useSelector(state => state.user);
     return (
         <>
-            {user ?
+            {loginUser ?
                 <Main/>
                 :
                 <SignInIndex/>

@@ -292,13 +292,14 @@ const FlexibleSpace = withStyles(styles, { name: 'ToolbarRoot' })(({ classes, ..
 ));
 
 const Main = () => {
-    console.log(appointments);
-
+    //오늘 날짜
     const newDate = new Date();
     const day = newDate.getDate() < 10 ? '0' + newDate.getDate() : newDate.getDate();
     const month = (newDate.getMonth() + 1) < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1;
     const year = newDate.getFullYear();
     const today = year + "-" + month + "-" + day;
+
+
 
     return (
         <Paper>
