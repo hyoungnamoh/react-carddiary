@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Button, Grid, Input, InputBase, Paper,FormControlLabel, Radio, Checkbox} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,6 +7,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormLabel from '@material-ui/core/FormLabel';
+import {ADD_DIARY_REQUEST, ADDED_DAIRY_SWITCHING, UPLOAD_IMAGES_REQUEST} from "../reducers/diary";
+import {useDispatch, useSelector} from "react-redux";
+import {useRouter} from "next/router";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {blue, green} from '@material-ui/core/colors';
 const useStyles = makeStyles((theme) => ({
     root: {
         '& .MuiTextField-root': {
@@ -27,6 +32,18 @@ const useStyles = makeStyles((theme) => ({
     inputBaseMargin: {
         marginTop: theme.spacing(2),
     },
+    buttonProgress: {
+        color: blue[500],
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        marginTop: -12,
+        marginLeft: -40,
+    },
+    wrapper: {
+        margin: theme.spacing(1),
+        position: 'relative',
+    },
 }));
 
 
@@ -36,6 +53,9 @@ const WritePage = () => {
     // if(!loginUser){
     //     router.push("/");
     // }
+    const dispatch = useDispatch();
+    const {imagePaths, cardDiaries, isDiaryAdding, diaryAdded} = useSelector(state => state.diary);
+    const router = useRouter();
 
     const classes = useStyles();
 
@@ -45,23 +65,28 @@ const WritePage = () => {
     const [diaryTitle, setDiaryTitle] = useState(''); //다이어리 제목
     const [diaryContent, setDiaryContent] = useState(''); //다이어리 내용
     const [isFavorite, setIsFavorite] = useState(false);
+    const [isSuccess, setIseSuccess] = useState(false);
 
-
-    
     /*
         드랍존 핸들링
     */
     const handleChange = (files) => {
 
         setFiles(files);
+    }
+    const onChangeImages = useCallback((files) => { //이미지 업로드
+        setFiles(files);
         console.log(files);
-    }
-
-    const handleClose= () => {
-        setFiles([]);
-        console.log("handleClose", files);
-        setIsOpened(false);
-    }
+        const imageFormData = new FormData();
+        imageFormData.append('image', files);
+        [].forEach.call(files, (f) => {
+                    imageFormData.append('image', f);
+                });
+        dispatch({
+            type: UPLOAD_IMAGES_REQUEST,
+            data: imageFormData,
+        })
+    }, []);
 
     const handleSave = (files) => {
         //Saving files to state for further use and closing Modal.
@@ -70,15 +95,6 @@ const WritePage = () => {
         setIsOpened(false);
     }
 
-    const handleOpen = () => {
-        console.log("handleOpen", files);
-        setIsOpened(true);
-    }
-
-    const handleDelete = () => {
-        console.log('삭제');
-    }
-    
     /*
         폼 핸들링
     */
@@ -89,7 +105,6 @@ const WritePage = () => {
         setDiaryContent(e.target.value);
     }
     const radioChange = (e) => { //공개여부
-        console.log(e.target.value);
         setIsPublic(e.target.value);
     };
     const onChangeFavorite = (e) => { //즐겨찾기 체크
@@ -107,13 +122,33 @@ const WritePage = () => {
             imagePaths.forEach((i) => {
             formData.append('image', i);
         });
-        formData.append('content', text);
+        formData.append('diaryTitle', diaryTitle);
+        formData.append('diaryContent', diaryContent);
+        formData.append('isPublic', isPublic);
+        if(isFavorite){
+            formData.append('isFavorite', "isFavorite");
+        }
         dispatch({
-            type: ADD_POST_REQUEST,
+            type: ADD_DIARY_REQUEST,
             data: formData,
-        })
+        });
 
     }
+
+    /*
+        글 작성 완료 후 페이지 이동
+    */
+    useEffect(() => {
+
+        if(diaryAdded){
+            dispatch({
+                type: ADDED_DAIRY_SWITCHING,
+            });
+            router.push('/');
+        }
+
+    }, [diaryAdded === true]);
+
 
     return(
 
@@ -137,6 +172,7 @@ const WritePage = () => {
                                 value={diaryContent}
                                 onChange={onChangeDiaryContent}
                             />
+
                         </Grid>
                         <Grid item md={3}/>
                         </Grid>
@@ -144,7 +180,7 @@ const WritePage = () => {
                             <Grid item md={3}/>
                             <Grid item md={3} style={{marginLeft: 10}}>
                                 <DropzoneArea
-                                    onChange={handleChange}
+                                    onChange={onChangeImages}
                                     dropzoneText="이미지 추가하기"
                                     dropzoneClass={classes.dropZone}
                                 />
@@ -156,7 +192,7 @@ const WritePage = () => {
                                         required={true}
                                         native
                                         // value={}
-                                        onChange={handleChange}
+                                        // onChange={handleChange}
                                         // inputProps={{
                                         //     name: 'age',
                                         //     id: 'outlined-age-native-simple',
@@ -172,7 +208,6 @@ const WritePage = () => {
                                     
                                     <div>
                                         <h3>공개여부</h3>
-                                        {/*공개여부*/}
                                         <RadioGroup row aria-label="position" name="position" defaultValue="top" value={isPublic} onChange={radioChange}>
                                             <FormControlLabel
                                                 value="publicDiary"
@@ -197,11 +232,19 @@ const WritePage = () => {
                                         />
                                     </div>
                                 </FormControl>
-                                <Button variant="outlined" color="primary" style={{marginTop:"32%", marginLeft:"10%"}}>
-                                    작성하기
-                                </Button>
+                                <div className={classes.wrapper} >
+                                    <Button variant="outlined"
+                                            className={classes.buttonClassname}
+                                            disabled={isDiaryAdding}
+                                            onClick={onSubmitForm} color="primary" style={{marginLeft:"32%"}}>
+                                        작성하기
+                                    </Button>
+                                    {isDiaryAdding && <CircularProgress size={24} className={classes.buttonProgress} />}
+                                </div>
+
                         </Grid>
                     </Grid>
+
             </form>
         </Paper>
 
@@ -211,8 +254,6 @@ const WritePage = () => {
 
 WritePage.getInitialProps = async (context) => {
     const state = context.store.getState();
-
-    console.log("stateee" , state);
 
 }
 

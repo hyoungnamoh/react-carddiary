@@ -9,5 +9,6 @@ axios.defaults.baseURL = 'http://localhost:3603/api';
 export default function* rootSaga() {
     yield all([
         fork(user),
+        fork(diary),
     ]);
 }
