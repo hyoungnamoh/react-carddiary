@@ -45,6 +45,10 @@ app.use(expressSessin({ //session 사용하게 해 줌
     },
     name: 'hyoungnam'
 }));
+
+//이미지 업로드
+app.use('/', express.static('uploads')); //이미지 미리보기, express 안에 static 미들웨어 사용, 경로(두번째 인자)를 지정하면 다른서버에서 자유롭게 가져갈 수 있게 해줌, 첫번째 인자는 uploads 폴더를 루트처럼 사용할 수 있게 하겠다. . .
+
 app.use(passport.initialize()); //서버 쪽 세션 두기, 프론트쪽에 쿠키 보내기, 매번 누가 로그인 했는지 확인하는작업을 얘가 다 해 줌
 app.use(passport.session()); //얘는 express session 아래에 넣어줘야함, 의존관계
 

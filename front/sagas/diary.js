@@ -3,7 +3,12 @@ import {
 
     UPLOAD_IMAGES_SUCCESS,
     UPLOAD_IMAGES_FAILURE,
-    UPLOAD_IMAGES_REQUEST, ADD_DIARY_REQUEST, ADD_DIARY_FAILURE, ADD_DIARY_SUCCESS,
+    UPLOAD_IMAGES_REQUEST,
+    ADD_DIARY_REQUEST,
+    ADD_DIARY_FAILURE,
+    ADD_DIARY_SUCCESS,
+    LOAD_USER_DIARIES_REQUEST,
+    LOAD_USER_DIARIES_SUCCESS, LOAD_USER_DIARIES_FAILURE,
 
 } from "../reducers/diary";
 import axios from 'axios';
@@ -21,7 +26,6 @@ function uploadImagesAPI(formData) {
 
 function* uploadImages(action) { //action = watch함수에서 받은 req액션안에 값, dispatch할때 같이 있던 값
     try {
-        console.log("uploadImages action.data", action.data);
         const result = yield call(uploadImagesAPI, action.data);
         yield put({
             type: UPLOAD_IMAGES_SUCCESS,
@@ -49,7 +53,6 @@ function addDiaryAPI(diaryData) {
 function* addDiary(action) {
     try {
         const result = yield call(addDiaryAPI, action.data);
-        console.log("addDiaryaddDiary", result);
         yield put({
             type:ADD_DIARY_SUCCESS,
             data: result.data,
@@ -66,11 +69,41 @@ function* watchAddPost() {
     yield takeLatest(ADD_DIARY_REQUEST, addDiary);
 }
 
+/*
+    유저 다이어리들 가져오기
+ */
+function loadUserDiariesAPI(id) {
+    return axios.get(`/diaries/${id || 0}`, {
+        withCredentials: true,
+    });
+}
+
+function* loadUserDiaries(action) {
+    try {
+        const result = yield call(loadUserDiariesAPI, action.data);
+        // console.log("loadUserDiaries", result.data);
+        yield put({
+            type:LOAD_USER_DIARIES_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: LOAD_USER_DIARIES_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchLoadUserDiaries() {
+    yield takeLatest(LOAD_USER_DIARIES_REQUEST, loadUserDiaries);
+}
+
 
 //시작점
 export default function* postSaga() {
     yield all([
         fork(watchUploadImages),
         fork(watchAddPost),
+        fork(watchLoadUserDiaries),
     ]);
 }

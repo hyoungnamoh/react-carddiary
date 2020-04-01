@@ -56,10 +56,7 @@ function loadUserAPI(userId) {
 }
 function* loadUser(action) {
     try {
-        console.log('loadUser 액션!!')
-        // yield call(loadUserAPI);
         const result = yield call(loadUserAPI, action.data);
-        console.log("resultresultresultresultresult", result.data);
         yield put({ // put은 dispatch 동일
             type: LOAD_USER_SUCCESS,
             data: result.data,

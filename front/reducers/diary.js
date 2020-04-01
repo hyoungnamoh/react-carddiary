@@ -17,6 +17,12 @@ export const ADD_DIARY_REQUEST = 'ADD_DIARY_REQUEST';
 export const ADD_DIARY_SUCCESS = 'ADD_DIARY_SUCCESS';
 export const ADD_DIARY_FAILURE = 'ADD_DIARY_FAILURE';
 
+//자신의 다이어리들 가져오는 액션
+export const LOAD_USER_DIARIES_REQUEST = 'LOAD_USER_DIARIES_REQUEST';
+export const LOAD_USER_DIARIES_SUCCESS = 'LOAD_USER_DIARIES_SUCCESS';
+export const LOAD_USER_DIARIES_FAILURE = 'LOAD_USER_DIARIES_FAILURE';
+
+
 //완료 후 다시 added 초기화 해주는 액션
 export const ADDED_DAIRY_SWITCHING = 'ADDED_DAIRY_SWITCHING';
 
@@ -38,9 +44,6 @@ const reducer = (state = initialState, action) => {
             case ADD_DIARY_REQUEST: {
                 draft.isDiaryAdding = true;
                 draft.diaryAdded = false;
-                // draft.isAddingPost = true;
-                // draft.addingPostErrorReason = '';
-                // draft.postAdded = false;
                 break;
             }
             case ADD_DIARY_SUCCESS: {
@@ -56,6 +59,21 @@ const reducer = (state = initialState, action) => {
             }
             case ADDED_DAIRY_SWITCHING: {
                 draft.diaryAdded = false;
+            }
+            case LOAD_USER_DIARIES_REQUEST: {
+                // draft.cardDiaries = !action.lastId ? [] : draft.cardDiaries;
+                // draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
+                break;
+            }
+            case LOAD_USER_DIARIES_SUCCESS: {
+                action.data.forEach((diary) => {
+                    draft.cardDiaries.push(diary);
+                });
+                // draft.hasMorePost = action.data.length === 10;
+                break;
+            }
+            case LOAD_USER_DIARIES_FAILURE: {
+                break;
             }
             default: {
                 break;

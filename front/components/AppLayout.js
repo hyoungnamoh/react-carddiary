@@ -122,7 +122,6 @@ const AppLayout = ({ children }) => {
         setOpen(false);
     };
     
-    //내가만든거
     //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
     const { loginUser } = useSelector(state => state.user);
     const router = useRouter();
@@ -144,15 +143,19 @@ const AppLayout = ({ children }) => {
         router.push('/');
     }, []);
 
-    //작성하기 버튼
+    //작성페이지 이동
     const onClickWritePage = () => {
         router.push("/write");
+    }
+    //글목록 이동
+    const onClickDiaryListPage = () => {
+        router.push("/cardDiaries");
     }
 
     //로고, 메인화면 이동
     const onClickLogo = () => {
         router.push("/");
-    }
+    }    
     return (
         <>
             {loginUser ?
@@ -209,6 +212,12 @@ const AppLayout = ({ children }) => {
                                     <InboxIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
                             </ListItem>
                         </List>
                         <Divider />

@@ -44,6 +44,10 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         position: 'relative',
     },
+    papers:{
+        width: "75%",
+        marginLeft: "12.5%"
+    }
 }));
 
 
@@ -91,7 +95,6 @@ const WritePage = () => {
     const handleSave = (files) => {
         //Saving files to state for further use and closing Modal.
         setFiles(files);
-        console.log("handleSave", files);
         setIsOpened(false);
     }
 
@@ -117,6 +120,9 @@ const WritePage = () => {
         }
         if(!diaryContent || !diaryContent.trim()){
             return alert('내용을 작성하세요.');
+        }
+        if(files.length === 0){
+            return alert('사진을 첨부해주세요.');
         }
         const formData = new FormData();
             imagePaths.forEach((i) => {
@@ -152,7 +158,7 @@ const WritePage = () => {
 
     return(
 
-        <Paper variant="outlined">
+        <Paper variant="outlined" className={classes.papers}>
             <form  noValidate autoComplete="off" className={classes.root} style={{marginTop:"1%", marginBottom:"2%"}}>
                     <Grid container>
                         <Grid item md={3}/>
@@ -178,34 +184,36 @@ const WritePage = () => {
                         </Grid>
                         <Grid container>
                             <Grid item md={3}/>
-                            <Grid item md={3} style={{marginLeft: 10}}>
+                            <Grid item md={6} style={{marginLeft: 10}}>
                                 <DropzoneArea
                                     onChange={onChangeImages}
                                     dropzoneText="이미지 추가하기"
                                     dropzoneClass={classes.dropZone}
                                 />
                             </Grid>
-                            <Grid item md={5}>
+                            <Grid  item md={3}/>
+                            <Grid item md={6}>
                                 <FormControl variant="outlined" className={classes.formControl}>
-                                    <h3>저장위치</h3>
-                                    <Select
-                                        required={true}
-                                        native
-                                        // value={}
-                                        // onChange={handleChange}
-                                        // inputProps={{
-                                        //     name: 'age',
-                                        //     id: 'outlined-age-native-simple',
-                                        // }}
-                                        style={{height:"30px", width:"100%", textAlign:"right", }}
-                                    >
-                                        <option aria-label="None" value="" />
-                                        <option value={10}>Ten</option>
-                                        <option value={20}>Twenty</option>
-                                        <option value={30}>Thirty</option>
-                                    </Select>
+                                    <Grid item md={4}>
+                                        <h3>저장위치</h3>
+                                        <Select
+                                            required={true}
+                                            native
+                                            // value={}
+                                            // onChange={handleChange}
+                                            // inputProps={{
+                                            //     name: 'age',
+                                            //     id: 'outlined-age-native-simple',
+                                            // }}
+                                            style={{height:"30px", width:"100%", textAlign:"right", }}
+                                        >
+                                            <option aria-label="None" value="" />
+                                            <option value={10}>Ten</option>
+                                            <option value={20}>Twenty</option>
+                                            <option value={30}>Thirty</option>
+                                        </Select>
+                                    </Grid>
                                 {/*    중요도*/}
-                                    
                                     <div>
                                         <h3>공개여부</h3>
                                         <RadioGroup row aria-label="position" name="position" defaultValue="top" value={isPublic} onChange={radioChange}>
