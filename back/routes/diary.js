@@ -22,14 +22,14 @@ const upload = multer({
 //게시글 작성하기
 router.post('/',  upload.none(), async (req, res, next) => {
     try{
-        console.log("req.bodyreq.bodyreq.body", req.body);
-        let isFavorite = 1;
-        let isPublic = 1;
+        // console.log("req.bodyreq.bodyreq.body", req.body);
+        let isFavorite = 0;
+        let isPublic = 0;
         if(req.body.isFavorite){
-            isFavorite = 0;
+            isFavorite = 1;
         }
         if(req.body.isPublic.trim() === "publicDiary"){
-            isPublic = 0;
+            isPublic = 1;
         }
         const newDiary = await db.Diary.create({
             diaryContent: req.body.diaryContent,
@@ -67,6 +67,31 @@ router.post('/',  upload.none(), async (req, res, next) => {
 //이미지 업로드하기
 router.post('/images', upload.array('image'), (req, res) => {
     res.json(req.files.map(v => v.filename));
+});
+
+//즐겨찾기 버튼 클릭
+router.patch('/favorite', async (req, res, next) => {
+    try{
+        const diary = await db.Diary.findOne({ where: { id: req.body.id, UserId: req.user.id }});
+        if(diary.isFavorite){
+            await db.Diary.update({
+                isFavorite: 0,
+            },{
+                where: { id: req.body.id, UserId: req.user.id },
+            });
+        } else {
+            await db.Diary.update({
+                isFavorite: 1,
+            },{
+                where: { id: req.body.id, UserId: req.user.id },
+            });
+        }
+        const favoriteDiaries = await db.Diary.findAll({ where: { UserId: req.user.id, isFavorite: 1 }});
+        res.json(favoriteDiaries);
+    } catch(e){
+        console.error(e);
+        next(e);
+    }
 });
 
 module.exports = router;

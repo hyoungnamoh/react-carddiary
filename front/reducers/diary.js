@@ -5,6 +5,7 @@ export const initialState = {
     cardDiaries:[], //다이어리들
     isDiaryAdding: false, //프로그래스바 로딩중
     diaryAdded: false, //글작성 완료(route)
+    favoriteDiaries:[], //별 누른 다이어리들
 };
 
 //이미지 업로드하는 액션
@@ -22,7 +23,15 @@ export const LOAD_USER_DIARIES_REQUEST = 'LOAD_USER_DIARIES_REQUEST';
 export const LOAD_USER_DIARIES_SUCCESS = 'LOAD_USER_DIARIES_SUCCESS';
 export const LOAD_USER_DIARIES_FAILURE = 'LOAD_USER_DIARIES_FAILURE';
 
+//즐겨찾기 별 누르는 액션
+export const ONCLICK_FAVORITE_REQUEST = 'ONCLICK_FAVORITE_REQUEST';
+export const ONCLICK_FAVORITE_SUCCESS = 'ONCLICK_FAVORITE_SUCCESS';
+export const ONCLICK_FAVORITE_FAILURE = 'ONCLICK_FAVORITE_FAILURE';
 
+//첫 로딩 시 즐겨찾기 가져오는 액션
+export const LOAD_FAVORITE_REQUEST = 'LOAD_FAVORITE_REQUEST';
+export const LOAD_FAVORITE_SUCCESS = 'LOAD_FAVORITE_SUCCESS';
+export const LOAD_FAVORITE_FAILURE = 'LOAD_FAVORITE_FAILURE';
 //완료 후 다시 added 초기화 해주는 액션
 export const ADDED_DAIRY_SWITCHING = 'ADDED_DAIRY_SWITCHING';
 
@@ -61,6 +70,7 @@ const reducer = (state = initialState, action) => {
                 draft.diaryAdded = false;
             }
             case LOAD_USER_DIARIES_REQUEST: {
+                draft.cardDiaries = [];
                 // draft.cardDiaries = !action.lastId ? [] : draft.cardDiaries;
                 // draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
                 break;
@@ -73,6 +83,19 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_USER_DIARIES_FAILURE: {
+                break;
+            }
+            case LOAD_FAVORITE_REQUEST:
+            case ONCLICK_FAVORITE_REQUEST: {
+                break;
+            }
+            case LOAD_FAVORITE_SUCCESS:
+            case ONCLICK_FAVORITE_SUCCESS: {
+                draft.favoriteDiaries = action.data;
+                break;
+            }
+            case LOAD_FAVORITE_FAILURE:
+            case ONCLICK_FAVORITE_FAILURE: {
                 break;
             }
             default: {

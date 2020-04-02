@@ -72,7 +72,6 @@ const WritePage = () => {
     const [diaryTitle, setDiaryTitle] = useState(''); //다이어리 제목
     const [diaryContent, setDiaryContent] = useState(''); //다이어리 내용
     const [isFavorite, setIsFavorite] = useState(false);
-    const [isSuccess, setIseSuccess] = useState(false);
 
     /*
         드랍존 핸들링
@@ -153,7 +152,7 @@ const WritePage = () => {
             dispatch({
                 type: ADDED_DAIRY_SWITCHING,
             });
-            router.push('/');
+            // router.push('/');
         }
 
     }, [diaryAdded === true]);
@@ -258,7 +257,7 @@ const WritePage = () => {
                                                 onClick={onSubmitForm} color="primary" style={{marginTop:"70%"}}>
                                             작성하기
                                         </Button>
-                                        {!isDiaryAdding && <CircularProgress size={24} className={classes.buttonProgress} />}
+                                        {isDiaryAdding && <CircularProgress size={24} className={classes.buttonProgress} />}
                                     </div>
                                 </Grid>
                         </Grid>

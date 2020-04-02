@@ -8,7 +8,11 @@ import {
     ADD_DIARY_FAILURE,
     ADD_DIARY_SUCCESS,
     LOAD_USER_DIARIES_REQUEST,
-    LOAD_USER_DIARIES_SUCCESS, LOAD_USER_DIARIES_FAILURE,
+    LOAD_USER_DIARIES_SUCCESS,
+    LOAD_USER_DIARIES_FAILURE,
+    ONCLICK_FAVORITE_REQUEST,
+    ONCLICK_FAVORITE_SUCCESS,
+    ONCLICK_FAVORITE_FAILURE, LOAD_FAVORITE_REQUEST, LOAD_FAVORITE_SUCCESS, LOAD_FAVORITE_FAILURE,
 
 } from "../reducers/diary";
 import axios from 'axios';
@@ -97,7 +101,63 @@ function* loadUserDiaries(action) {
 function* watchLoadUserDiaries() {
     yield takeLatest(LOAD_USER_DIARIES_REQUEST, loadUserDiaries);
 }
+/*
+    즐겨찾기 추가
+ */
+function onClickFavoriteAPI(diaryId) {
+    // console.log("onClickFavoriteAPI", diaryId);
+    return axios.patch(`/diary/favorite`, diaryId, {
+        withCredentials: true,
+    });
+}
 
+function* onClickFavorite(action) {
+    try {
+        const result = yield call(onClickFavoriteAPI, action.data);
+        // console.log("onClickFavorite", result.data);
+        yield put({
+            type:ONCLICK_FAVORITE_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: ONCLICK_FAVORITE_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchOnclickFavorite() {
+    yield takeLatest(ONCLICK_FAVORITE_REQUEST, onClickFavorite);
+}
+
+/*
+    즐겨찾기 목록 가져오기
+ */
+function loadFavoriteAPI() {
+    return axios.patch(`/diaries/favorite`, {}, {
+        withCredentials: true,
+    });
+}
+
+function* loadFavorite() {
+    try {
+        const result = yield call(loadFavoriteAPI);
+        yield put({
+            type:LOAD_FAVORITE_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: LOAD_FAVORITE_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchLoadFavorite() {
+    yield takeLatest(LOAD_FAVORITE_REQUEST, loadFavorite);
+}
 
 //시작점
 export default function* postSaga() {
@@ -105,5 +165,7 @@ export default function* postSaga() {
         fork(watchUploadImages),
         fork(watchAddPost),
         fork(watchLoadUserDiaries),
+        fork(watchOnclickFavorite),
+        fork(watchLoadFavorite),
     ]);
 }
