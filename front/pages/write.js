@@ -37,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         top: '50%',
         left: '50%',
-        marginTop: -12,
-        marginLeft: -40,
+        marginTop: 20,
+        marginLeft: -13,
     },
     wrapper: {
         margin: theme.spacing(1),
@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
     papers:{
         width: "75%",
         marginLeft: "12.5%"
+    },
+    buttonClassname:{
+        padding:"9%"
     }
 }));
 
@@ -178,7 +181,6 @@ const WritePage = () => {
                                 value={diaryContent}
                                 onChange={onChangeDiaryContent}
                             />
-
                         </Grid>
                         <Grid item md={3}/>
                         </Grid>
@@ -191,10 +193,12 @@ const WritePage = () => {
                                     dropzoneClass={classes.dropZone}
                                 />
                             </Grid>
-                            <Grid  item md={3}/>
-                            <Grid item md={6}>
-                                <FormControl variant="outlined" className={classes.formControl}>
-                                    <Grid item md={4}>
+                            <Grid  item md={2}/>
+                            {/*옵션 시작*/}
+                            <Grid container>
+                                <Grid item md={3}/>
+                                <Grid item md={2}>
+                                    <FormControl variant="outlined" className={classes.formControl}>
                                         <h3>저장위치</h3>
                                         <Select
                                             required={true}
@@ -212,44 +216,51 @@ const WritePage = () => {
                                             <option value={20}>Twenty</option>
                                             <option value={30}>Thirty</option>
                                         </Select>
-                                    </Grid>
-                                {/*    중요도*/}
-                                    <div>
-                                        <h3>공개여부</h3>
-                                        <RadioGroup row aria-label="position" name="position" defaultValue="top" value={isPublic} onChange={radioChange}>
-                                            <FormControlLabel
-                                                value="publicDiary"
-                                                control={<Radio color="primary" />}
-                                                label="공개"
-                                                labelPlacement="end"
-                                            />
-                                            <FormControlLabel
-                                                value="privateDiary"
-                                                control={<Radio color="primary" />}
-                                                label="비공개"
-                                                labelPlacement="end"
-                                            />
-                                        </RadioGroup>
-                                        <FormControlLabel
-                                            checked={isFavorite}
-                                            control={<Checkbox color="primary" />}
-                                            label="즐겨찾기"
-                                            labelPlacement="start"
-                                            style={{marginLeft:0, marginTop:2}}
-                                            onChange={onChangeFavorite}
-                                        />
-                                    </div>
-                                </FormControl>
-                                <div className={classes.wrapper} >
-                                    <Button variant="outlined"
-                                            className={classes.buttonClassname}
-                                            disabled={isDiaryAdding}
-                                            onClick={onSubmitForm} color="primary" style={{marginLeft:"32%"}}>
-                                        작성하기
-                                    </Button>
-                                    {isDiaryAdding && <CircularProgress size={24} className={classes.buttonProgress} />}
-                                </div>
+                                    </FormControl>
+                                </Grid>
+                                {/*공개 여부*/}
+                                <Grid item md={2}>
+                                    <FormControl variant="outlined" className={classes.formControl}>
+                                            <h3>공개여부</h3>
+                                            <RadioGroup row aria-label="position" name="position" defaultValue="top" value={isPublic} onChange={radioChange}>
+                                                <FormControlLabel
+                                                    value="publicDiary"
+                                                    control={<Radio color="primary" />}
+                                                    label="공개"
+                                                    labelPlacement="end"
+                                                />
+                                                <FormControlLabel
+                                                    value="privateDiary"
+                                                    control={<Radio color="primary" />}
+                                                    label="비공개"
+                                                    labelPlacement="end"
+                                                />
+                                            </RadioGroup>
+                                    </FormControl>
+                                </Grid>
+                                {/*즐겨찾기*/}
+                                <Grid item md={1}>
+                                    <FormControlLabel
+                                        checked={isFavorite}
+                                        control={<Checkbox color="primary" />}
+                                        label="즐겨찾기"
+                                        labelPlacement="start"
+                                        style={{marginLeft:0, marginTop:2}}
+                                        onChange={onChangeFavorite}
+                                    />
 
+                                </Grid>
+                                <Grid item md={1}>
+                                    <div className={classes.wrapper} >
+                                        <Button variant="outlined"
+                                                className={classes.buttonClassname}
+                                                disabled={isDiaryAdding}
+                                                onClick={onSubmitForm} color="primary" style={{marginTop:"70%"}}>
+                                            작성하기
+                                        </Button>
+                                        {!isDiaryAdding && <CircularProgress size={24} className={classes.buttonProgress} />}
+                                    </div>
+                                </Grid>
                         </Grid>
                     </Grid>
 
