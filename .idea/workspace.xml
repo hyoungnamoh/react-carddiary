@@ -2,11 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/front/pages/cardDiaryDetails.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front/pages/practice2.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/routes/diary.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/routes/diary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/components/AppLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/AppLayout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/CardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/CardDiary.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/cardDiaries.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/cardDiaries.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/cardDiaryDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/cardDiaryDetails.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/pages/practice.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/practice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/reducers/diary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/reducers/diary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/sagas/diary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/sagas/diary.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +31,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/back/routes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/front" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -35,16 +41,16 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\ReactWorkspace\react-carddiary\front\components" />
-      <recent name="C:\ReactWorkspace\react-carddiary\front\pages" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\ReactWorkspace\react-carddiary\back\routes" />
       <recent name="C:\ReactWorkspace\react-carddiary\front" />
+      <recent name="C:\ReactWorkspace\react-carddiary\back\routes" />
       <recent name="C:\ReactWorkspace\react-carddiary\front\sagas" />
       <recent name="C:\ReactWorkspace\react-carddiary\front\reducers" />
       <recent name="C:\ReactWorkspace\react-carddiary\back" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\ReactWorkspace\react-carddiary\front\components" />
+      <recent name="C:\ReactWorkspace\react-carddiary\front\pages" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -65,7 +71,8 @@
       <workItem from="1585571606471" duration="250000" />
       <workItem from="1585664873880" duration="13372000" />
       <workItem from="1585717777358" duration="18080000" />
-      <workItem from="1585739524442" duration="35058000" />
+      <workItem from="1585739524442" duration="43727000" />
+      <workItem from="1585833923395" duration="7036000" />
     </task>
     <servers />
   </component>
@@ -105,13 +112,13 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1707.1027@0.0.1707.1027" timestamp="1585817886593" />
-    <state x="970" y="244" width="620" height="538" key="find.popup" timestamp="1585670496343">
+    <state x="929" y="244" width="776" height="538" key="find.popup" timestamp="1585831145609">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="970" y="244" width="620" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1585670496343" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1585818550315">
+    <state x="929" y="244" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1585831145609" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1585840792836">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1585818550315" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1585840792836" />
   </component>
 </project>

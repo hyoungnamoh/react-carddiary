@@ -3,6 +3,7 @@ import produce from 'immer';
 export const initialState = {
     imagePaths:[], //이미지 경로
     cardDiaries:[], //다이어리들
+    cardDiary:{}, //개별 다이어리
     isDiaryAdding: false, //프로그래스바 로딩중
     diaryAdded: false, //글작성 완료(route)
     favoriteDiaries:[], //별 누른 다이어리들
@@ -32,8 +33,14 @@ export const ONCLICK_FAVORITE_FAILURE = 'ONCLICK_FAVORITE_FAILURE';
 export const LOAD_FAVORITE_REQUEST = 'LOAD_FAVORITE_REQUEST';
 export const LOAD_FAVORITE_SUCCESS = 'LOAD_FAVORITE_SUCCESS';
 export const LOAD_FAVORITE_FAILURE = 'LOAD_FAVORITE_FAILURE';
+
 //완료 후 다시 added 초기화 해주는 액션
 export const ADDED_DAIRY_SWITCHING = 'ADDED_DAIRY_SWITCHING';
+
+//다이어리 하나 불러오는 액션
+export const LOAD_DIARY_REQUEST = 'LOAD_DIARY_REQUEST';
+export const LOAD_DIARY_SUCCESS = 'LOAD_DIARY_SUCCESS';
+export const LOAD_DIARY_FAILURE = 'LOAD_DIARY_FAILURE';
 
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
@@ -96,6 +103,16 @@ const reducer = (state = initialState, action) => {
             }
             case LOAD_FAVORITE_FAILURE:
             case ONCLICK_FAVORITE_FAILURE: {
+                break;
+            }
+            case LOAD_DIARY_REQUEST: {
+                break;
+            }
+            case LOAD_DIARY_SUCCESS: {
+                draft.cardDiary = action.data;
+                break;
+            }
+            case LOAD_DIARY_FAILURE: {
                 break;
             }
             default: {

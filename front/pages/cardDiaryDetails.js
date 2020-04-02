@@ -1,25 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Link from "next/link";
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
-import {LOAD_FAVORITE_REQUEST, LOAD_USER_DIARIES_REQUEST, ONCLICK_FAVORITE_REQUEST} from "../reducers/diary";
-import CardDiaries from "./cardDiaries";
+import {
+    LOAD_DIARY_REQUEST,
+    LOAD_FAVORITE_REQUEST,
+    LOAD_USER_DIARIES_REQUEST,
+    ONCLICK_FAVORITE_REQUEST
+} from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +53,15 @@ const cardDiaryDetails = () => {
     const {loginUser} = useSelector(state => state.user);
     const {cardDiaries} = useSelector(state => state.diary);
     console.log(cardDiaries);
-    const diary = cardDiaries[0];
+    const diary = cardDiaries[1];
+
+    const [isViewMore, setViewMore] = useState(false);
+
+    const onClickViewMore = () => {
+        setViewMore(!isViewMore);
+    }
+
+
 
     return (
         <Card className={classes.root}>
@@ -72,7 +79,7 @@ const cardDiaryDetails = () => {
                     </IconButton>
                 }
                 // 제목
-                title={diary.diaryTitle.length > 12 ? diary.diaryTitle.slice(0,12) + " ..." : diary.diaryTitle}
+                title={diary.diaryTitle && diary.diaryTitle.length > 12 ? diary.diaryTitle.slice(0,12) + " ..." : diary.diaryTitle}
 
                 // 날짜
                 subheader={diary.createdAt}
@@ -84,15 +91,20 @@ const cardDiaryDetails = () => {
                 title={diary.diaryTitle}
             />
             {/*내용*/}
-            <CardContent style={{height:"102px"}}>
-                <Typography variant="body" color="textSecondary" component="p">
-                    {diary.diaryContent.slice(0,100)}
-                    {diary.diaryContent.length > 100
-                        ? <a href="#"> ...더보기</a>
-                        : ""}
+
+            <CardContent>
+                {!isViewMore ?
+                    <Typography variant="body" color="textSecondary" component="p" style={{fontSize:"1em"}}>
+                    {diary.diaryContent.slice(0,400)}
+                    {diary.diaryContent.length > 400
+                    ?
+                        <a href="#" onClick={onClickViewMore}> ...더보기</a>
+                    : ""}
                 </Typography>
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
-                </Collapse>
+                :
+                <Typography variant="body" color="textSecondary" component="p">{diary.diaryContent}
+                    <a onClick={onClickViewMore}>접기</a>
+                </Typography>}
             </CardContent>
 
             <CardActions disableSpacing>
@@ -115,14 +127,11 @@ const cardDiaryDetails = () => {
 }
 
 cardDiaryDetails.getInitialProps = async (context) => {
-    const state = context.store.getState();
     context.store.dispatch({
-        type: LOAD_USER_DIARIES_REQUEST,
-        data: state.user.loginUser && state.user.loginUser.id,
+        type: LOAD_DIARY_REQUEST,
+        data: context.query.id,
     });
-    context.store.dispatch({
-        type: LOAD_FAVORITE_REQUEST,
-    });
-}
+    return { id: parseInt(context.query.id, 10) };
+};
 
 export default cardDiaryDetails;

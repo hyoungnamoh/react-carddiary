@@ -94,4 +94,15 @@ router.patch('/favorite', async (req, res, next) => {
     }
 });
 
+//개별 다이어리 가져오기
+router.get('/', async (req, res, next) => {
+    try{
+        const diary = await db.Diary.findOne({ where: {id: req.params.id}});
+        res.json(diary);
+    } catch(e){
+        console.error(e);
+        next(e);
+    }
+});
+
 module.exports = router;

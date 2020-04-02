@@ -12,7 +12,12 @@ import {
     LOAD_USER_DIARIES_FAILURE,
     ONCLICK_FAVORITE_REQUEST,
     ONCLICK_FAVORITE_SUCCESS,
-    ONCLICK_FAVORITE_FAILURE, LOAD_FAVORITE_REQUEST, LOAD_FAVORITE_SUCCESS, LOAD_FAVORITE_FAILURE,
+    ONCLICK_FAVORITE_FAILURE,
+    LOAD_FAVORITE_REQUEST,
+    LOAD_FAVORITE_SUCCESS,
+    LOAD_FAVORITE_FAILURE,
+    LOAD_DIARY_REQUEST,
+    LOAD_DIARY_SUCCESS, LOAD_DIARY_FAILURE,
 
 } from "../reducers/diary";
 import axios from 'axios';
@@ -105,7 +110,6 @@ function* watchLoadUserDiaries() {
     즐겨찾기 추가
  */
 function onClickFavoriteAPI(diaryId) {
-    // console.log("onClickFavoriteAPI", diaryId);
     return axios.patch(`/diary/favorite`, diaryId, {
         withCredentials: true,
     });
@@ -114,7 +118,6 @@ function onClickFavoriteAPI(diaryId) {
 function* onClickFavorite(action) {
     try {
         const result = yield call(onClickFavoriteAPI, action.data);
-        // console.log("onClickFavorite", result.data);
         yield put({
             type:ONCLICK_FAVORITE_SUCCESS,
             data: result.data,
@@ -159,6 +162,34 @@ function* watchLoadFavorite() {
     yield takeLatest(LOAD_FAVORITE_REQUEST, loadFavorite);
 }
 
+/*
+    개별 다이어리 가져오기
+ */
+function loadDiaryAPI(diaryId) {
+    return axios.get(`/diary/${diaryId}`, {
+        withCredentials: true,
+    });
+}
+
+function* loadDiary(action) {
+    try {
+        const result = yield call(loadDiaryAPI, action.data);
+        yield put({
+            type:LOAD_DIARY_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: LOAD_DIARY_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchLoadDiary() {
+    yield takeLatest(LOAD_DIARY_REQUEST, loadDiary);
+}
+
 //시작점
 export default function* postSaga() {
     yield all([
@@ -167,5 +198,6 @@ export default function* postSaga() {
         fork(watchLoadUserDiaries),
         fork(watchOnclickFavorite),
         fork(watchLoadFavorite),
+        fork(watchLoadDiary),
     ]);
 }

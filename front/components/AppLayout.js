@@ -155,7 +155,14 @@ const AppLayout = ({ children }) => {
     //로고, 메인화면 이동
     const onClickLogo = () => {
         router.push("/");
-    }    
+    }
+
+    const onClick1 = () => {
+        router.push("/cardDiaryDetails");
+    }
+    const onClick2 = () => {
+        router.push("/practice");
+    }
     return (
         <>
             {loginUser ?
@@ -222,12 +229,18 @@ const AppLayout = ({ children }) => {
                         </List>
                         <Divider />
                         <List>
-                            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                    <ListItemText primary={text} />
-                                </ListItem>
-                            ))}
+                            <ListItem button key="diaryList" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
                         </List>
                     </Drawer>
                     <main className={classes.content}>
