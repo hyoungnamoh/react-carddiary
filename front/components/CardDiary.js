@@ -15,7 +15,8 @@ import {Card, Grid} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {red, yellow} from "@material-ui/core/colors";
 import {useDispatch, useSelector} from "react-redux";
-import {ONCLICK_FAVORITE_REQUEST} from "../reducers/diary";
+import {LOAD_FAVORITE_REQUEST, LOAD_USER_DIARIES_REQUEST, ONCLICK_FAVORITE_REQUEST} from "../reducers/diary";
+import RecipeReviewCard from "../pages/cardDiaries";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -73,7 +74,7 @@ const CardDiary = ({diary}) => {
                 <CardMedia
                     className={classes.media}
                     image={`http://localhost:3603/${diary.Images[0] && diary.Images[0].src}`}
-                    title="Paella dish"
+                    title={diary.diaryTitle}
                 />
                 {/*내용*/}
                 <CardContent style={{height:"102px"}}>

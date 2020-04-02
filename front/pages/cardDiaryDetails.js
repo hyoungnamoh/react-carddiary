@@ -15,10 +15,18 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Link from "next/link";
+import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
+import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
+import {LOAD_FAVORITE_REQUEST, LOAD_USER_DIARIES_REQUEST, ONCLICK_FAVORITE_REQUEST} from "../reducers/diary";
+import CardDiaries from "./cardDiaries";
+import {useDispatch, useSelector} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        maxWidth: 345,
+        // maxWidth: 345,
+        width: "70%",
+
     },
     media: {
         height: 0,
@@ -39,62 +47,82 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function RecipeReviewCard() {
+const cardDiaryDetails = () => {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
-
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
+    const dispatch = useDispatch();
+    const {loginUser} = useSelector(state => state.user);
+    const {cardDiaries} = useSelector(state => state.diary);
+    console.log(cardDiaries);
+    const diary = cardDiaries[0];
 
     return (
         <Card className={classes.root}>
             <CardHeader
+                // 아바타
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
-                        R
+                        {loginUser.userName[0]}
                     </Avatar>
                 }
+                // 땡땡땡 옵션
                 action={
                     <IconButton aria-label="settings">
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title="Shrimp and Chorizo Paella"
-                subheader="September 14, 2016"
+                // 제목
+                title={diary.diaryTitle.length > 12 ? diary.diaryTitle.slice(0,12) + " ..." : diary.diaryTitle}
+
+                // 날짜
+                subheader={diary.createdAt}
             />
+            {/*사진*/}
             <CardMedia
                 className={classes.media}
-                image="/static/images/cards/paella.jpg"
-                title="Paella dish"
+                image={`http://localhost:3603/${diary.Images[0] && diary.Images[0].src}`}
+                title={diary.diaryTitle}
             />
-            <CardContent>
-                <Typography>
-                    This impressive paella is a perfect party dish and a fun meal to cook together with your
-                    guests. Add 1 cup of frozen peas along with the mussels, if you like.
+            {/*내용*/}
+            <CardContent style={{height:"102px"}}>
+                <Typography variant="body" color="textSecondary" component="p">
+                    {diary.diaryContent.slice(0,100)}
+                    {diary.diaryContent.length > 100
+                        ? <a href="#"> ...더보기</a>
+                        : ""}
                 </Typography>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                 </Collapse>
             </CardContent>
+
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
+                {/*하트 아이콘*/}
+                <IconButton aria-label="add to favorites" color="secondary">
+                    <FavoriteBorderRoundedIcon fontSize="large" />
                 </IconButton>
+                {/*공유 아이콘*/}
                 <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton>
-                <IconButton
-                    className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                    })}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <ExpandMoreIcon />
+                {/*별 아이콘*/}
+                <IconButton aria-label="share">
+                        <StarBorderRoundedIcon fontSize="large" color="inherit" />
+
                 </IconButton>
             </CardActions>
-
         </Card>
     );
 }
+
+cardDiaryDetails.getInitialProps = async (context) => {
+    const state = context.store.getState();
+    context.store.dispatch({
+        type: LOAD_USER_DIARIES_REQUEST,
+        data: state.user.loginUser && state.user.loginUser.id,
+    });
+    context.store.dispatch({
+        type: LOAD_FAVORITE_REQUEST,
+    });
+}
+
+export default cardDiaryDetails;
