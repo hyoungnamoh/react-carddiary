@@ -101,14 +101,14 @@ const CardDiary = ({diary}) => {
                     onClick={getDiary(diary.id)}
 
                     // 날짜
-                    subheader={diary.createdAt}
+                    subheader={diary.createdAt && diary.createdAt}
                 />
                 {/*사진*/}
                 {/*<Link style={{textDecoration:'none'}} href={{ pathname: '/cardDiaryDetails', query: { id: diary.id}}} as={`/CardDiary`}><a>*/}
                 <CardMedia
                     className={classes.media}
                     image={`http://localhost:3603/${diary.Images[0] && diary.Images[0].src}`}
-                    title={diary.diaryTitle}
+                    title={diary.diaryTitle && diary.diaryTitle}
                     onClick={onCarousel}
                 />
                 <AutoRotatingCarousel

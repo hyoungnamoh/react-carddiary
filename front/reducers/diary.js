@@ -77,15 +77,17 @@ const reducer = (state = initialState, action) => {
                 draft.diaryAdded = false;
             }
             case LOAD_USER_DIARIES_REQUEST: {
-                draft.cardDiaries = [];
+                draft.cardDiaries = draft.cardDiaries;
                 // draft.cardDiaries = !action.lastId ? [] : draft.cardDiaries;
                 // draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
                 break;
             }
             case LOAD_USER_DIARIES_SUCCESS: {
-                action.data.forEach((diary) => {
-                    draft.cardDiaries.push(diary);
-                });
+                if(draft.cardDiaries.length === 0){
+                    action.data.forEach((diary) => {
+                        draft.cardDiaries.push(diary);
+                    });
+                }
                 // draft.hasMorePost = action.data.length === 10;
                 break;
             }
