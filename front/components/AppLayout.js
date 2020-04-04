@@ -229,13 +229,13 @@ const AppLayout = ({ children }) => {
                         </List>
                         <Divider />
                         <List>
-                            <ListItem button key="diaryList" onClick={onClick1}>
+                            <ListItem button key="onClick1" onClick={onClick1}>
                                 <ListItemIcon>
                                     <MailIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="글 목록" />
                             </ListItem>
-                            <ListItem button key="diaryList" onClick={onClick2}>
+                            <ListItem button key="onClick2" onClick={onClick2}>
                                 <ListItemIcon>
                                     <MailIcon />
                                 </ListItemIcon>

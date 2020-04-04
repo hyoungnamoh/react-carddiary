@@ -13,6 +13,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
+import { Carousel } from 'react-responsive-carousel';
 import {
     LOAD_DIARY_REQUEST,
     LOAD_FAVORITE_REQUEST,
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         // maxWidth: 345,
         width: "70%",
+        marginLeft: "15%",
 
     },
     media: {
@@ -51,17 +53,13 @@ const cardDiaryDetails = () => {
     const [expanded, setExpanded] = React.useState(false);
     const dispatch = useDispatch();
     const {loginUser} = useSelector(state => state.user);
-    const {cardDiaries} = useSelector(state => state.diary);
-    console.log(cardDiaries);
-    const diary = cardDiaries[1];
+    const {cardDiary} = useSelector(state => state.diary);
 
     const [isViewMore, setViewMore] = useState(false);
 
     const onClickViewMore = () => {
         setViewMore(!isViewMore);
     }
-
-
 
     return (
         <Card className={classes.root}>
@@ -79,30 +77,31 @@ const cardDiaryDetails = () => {
                     </IconButton>
                 }
                 // 제목
-                title={diary.diaryTitle && diary.diaryTitle.length > 12 ? diary.diaryTitle.slice(0,12) + " ..." : diary.diaryTitle}
+                title={cardDiary.diaryTitle && cardDiary.diaryTitle.length > 12 ? cardDiary.diaryTitle.slice(0,12) + " ..." : cardDiary.diaryTitle}
 
                 // 날짜
-                subheader={diary.createdAt}
+                subheader={cardDiary.createdAt}
             />
             {/*사진*/}
-            <CardMedia
-                className={classes.media}
-                image={`http://localhost:3603/${diary.Images[0] && diary.Images[0].src}`}
-                title={diary.diaryTitle}
-            />
+            <div className="carousel-wrapper">
+                <Carousel infiniteLoop showThumbs={false}>
+                    {cardDiary.Images && cardDiary.Images.map((v, i) => (
+                        <div><img src={`http://localhost:3603/${cardDiary.Images[i].src}`}/></div>
+                        ))}
+                </Carousel>
+            </div>
             {/*내용*/}
-
             <CardContent>
                 {!isViewMore ?
-                    <Typography variant="body" color="textSecondary" component="p" style={{fontSize:"1em"}}>
-                    {diary.diaryContent.slice(0,400)}
-                    {diary.diaryContent.length > 400
+                    <Typography variant="body2" color="textSecondary" component="p" style={{fontSize:"1em"}}>
+                    {cardDiary.diaryContent && cardDiary.diaryContent.slice(0,400)}
+                    {cardDiary.diaryContent && cardDiary.diaryContent.length > 400
                     ?
                         <a href="#" onClick={onClickViewMore}> ...더보기</a>
                     : ""}
                 </Typography>
                 :
-                <Typography variant="body" color="textSecondary" component="p">{diary.diaryContent}
+                <Typography variant="body2" color="textSecondary" component="p">{cardDiary.diaryContent && cardDiary.diaryContent}
                     <a onClick={onClickViewMore}>접기</a>
                 </Typography>}
             </CardContent>

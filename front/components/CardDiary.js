@@ -91,11 +91,11 @@ const CardDiary = ({diary}) => {
                     // title={<Link href={{ pathname: '/diary', query: { id: diary.id}}} as={`/diary/${diary.id}`}><a>{diary.diaryTitle.length > 12}</a></Link> ? diary.diaryTitle.slice(0,12) + " ..." : diary.diaryTitle}
                     title={diary.diaryTitle && diary.diaryTitle.length > 15
                         ?
-                            <Link style={{textDecoration:'none'}} href={{ pathname: '/cardDiaryDetails', query: { id: diary.id}}} as={`/CardDiary`}><a>
+                            <Link href={{ pathname: '/cardDiaryDetails', query: { id: diary.id}}} as={`/diary/${diary.id}`}><a>
                                 {diary.diaryTitle.slice(0,15)+ " ..."}
                             </a></Link>
                         :
-                            <Link style={{textDecoration:'none'}} href={{ pathname: '/cardDiaryDetails', query: { id: diary.id}}} as={`/CardDiary`}><a>
+                            <Link href={{ pathname: '/cardDiaryDetails', query: { id: diary.id}}} as={`/diary/${diary.id}`}><a>
                                 {diary.diaryTitle}
                             </a></Link>}
                     onClick={getDiary(diary.id)}
@@ -146,10 +146,10 @@ const CardDiary = ({diary}) => {
                 {/*</a></Link>*/}
                 {/*내용*/}
                 <CardContent style={{height:"102px"}}>
-                    <Typography variant="body" color="textSecondary" component="p">
+                    <Typography variant="body2" color="textSecondary" component="p">
                         {diary.diaryContent && diary.diaryContent.slice(0,100)}
                         {diary.diaryContent && diary.diaryContent.length > 100
-                            ? <Link style={{textDecoration:'none'}} href={{ pathname: '/cardDiaryDetails', query: { id: diary.id}}} as={`/CardDiary`}><a>...자세히보기</a></Link>
+                            ? <Link href={{ pathname: '/cardDiaryDetails', query: { id: diary.id}}} as={`/diary/${diary.id}`}><a>...자세히보기</a></Link>
                             : ""}
                     </Typography>
                 </CardContent>

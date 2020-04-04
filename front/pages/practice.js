@@ -1,43 +1,23 @@
 import React from 'react';
-import Carousel from 'react-material-ui-carousel'
-import {Button, Paper} from '@material-ui/core'
+import { Carousel } from 'react-responsive-carousel';
 
 
-function Item(props)
-{
+const practice = () => {
     return (
-        <Paper>
-            <h2>{props.item.name}</h2>
-            <p>{props.item.description}</p>
-
-            <Button className="CheckButton">
-                Check it out!
-            </Button>
-        </Paper>
-    )
+        <div className="carousel-wrapper">
+            <Carousel infiniteLoop >
+                <div>
+                    <img src="http://placekitten.com/g/400/200"/>
+                </div>
+                <div>
+                    <img src="http://placekitten.com/g/400/200"/>
+                </div>
+                <div>
+                    <img src="http://placekitten.com/g/400/200"/>
+                </div>
+            </Carousel>
+        </div>
+    );
 }
 
-function Example(props)
-{
-    var items = [
-        {
-            name: "Random Name #1",
-            description: "Probably the most random thing you have ever seen!"
-        },
-        {
-            name: "Random Name #2",
-            description: "Hello World!"
-        }
-    ]
-
-    return (
-        <Carousel>
-            {
-                items.map( item => {
-                    <Item item={item} />
-                })
-            }
-        </Carousel>
-    )
-}
-
+export default practice;

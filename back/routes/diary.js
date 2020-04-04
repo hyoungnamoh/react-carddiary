@@ -95,9 +95,20 @@ router.patch('/favorite', async (req, res, next) => {
 });
 
 //개별 다이어리 가져오기
-router.get('/', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     try{
-        const diary = await db.Diary.findOne({ where: {id: req.params.id}});
+        const diary = await db.Diary.findOne(
+            {
+                where: {id: req.params.id},
+                include: [
+                    {
+                        model: db.User,
+                        attributes: ['id', 'userName'],
+                    }, {
+                        model: db.Image,
+                    }
+                ],
+            });
         res.json(diary);
     } catch(e){
         console.error(e);

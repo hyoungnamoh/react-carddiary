@@ -11,13 +11,14 @@ const CardDiaries = () => {
     const dispatch = useDispatch();
     const {loginUser} = useSelector(state => state.user);
     const {cardDiaries, isFavoriteCard} = useSelector(state => state.diary);
+    console.log("cardDiaries", cardDiaries);
 
     return (
         <Paper variant="outlined">
             <Grid container spacing={3} style={{position:"absolute", top:0, left:0, bottom:0, right:0, height:"10%", margin:"10%", maxWidth:"1500px"}}>
                 {cardDiaries.map(v => {
                     return (
-                        <CardDiary diary={v}/>
+                        <CardDiary key={v.id} diary={v}/>
                     )})}
             </Grid>
         </Paper>

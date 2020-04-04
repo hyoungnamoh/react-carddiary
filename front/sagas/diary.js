@@ -166,6 +166,7 @@ function* watchLoadFavorite() {
     개별 다이어리 가져오기
  */
 function loadDiaryAPI(diaryId) {
+
     return axios.get(`/diary/${diaryId}`, {
         withCredentials: true,
     });
