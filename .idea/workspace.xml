@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/CardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/CardDiary.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/reducers/diary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/reducers/diary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,16 +32,16 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\ReactWorkspace\react-carddiary\front\components" />
+      <recent name="C:\ReactWorkspace\react-carddiary\front\pages" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\ReactWorkspace\react-carddiary\front" />
       <recent name="C:\ReactWorkspace\react-carddiary\back\routes" />
       <recent name="C:\ReactWorkspace\react-carddiary\front\sagas" />
       <recent name="C:\ReactWorkspace\react-carddiary\front\reducers" />
       <recent name="C:\ReactWorkspace\react-carddiary\back" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\ReactWorkspace\react-carddiary\front\components" />
-      <recent name="C:\ReactWorkspace\react-carddiary\front\pages" />
     </key>
   </component>
   <component name="SvnConfiguration">
