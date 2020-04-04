@@ -19,15 +19,10 @@ import styled from 'styled-components';
 import {
     ONCLICK_FAVORITE_REQUEST
 } from "../reducers/diary";
-import {AutoRotatingCarousel, Slide} from "material-auto-rotating-carousel";
-
-const StyledLink = styled(Link)`
-    text-decoration: none;
-
-    &:focus, &:hover, &:visited, &:link, &:active {
-        text-decoration: none;
-    }
-`;
+import {Carousel} from "react-responsive-carousel";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import Modal from "@material-ui/core/Modal";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -43,7 +38,18 @@ const useStyles = makeStyles(theme => ({
     },
     starIcon:{
         color: yellow[700],
-    }
+    },
+    modal: {
+        marginLeft: '35%',
+        marginTop: '20%',
+        maxWidth: '500px',
+        maxHeight: '500px',
+        width: '40%%',
+        height: '40%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 }));
 const CardDiary = ({diary}) => {
     const classes = useStyles();
@@ -55,6 +61,9 @@ const CardDiary = ({diary}) => {
 
     const onCarousel = () => {
         setIsOpenCarousel(true);
+    }
+    const onCloseCarousel = () => {
+        setIsOpenCarousel(false);
     }
 
     //즐겨찾기 등록
@@ -111,38 +120,27 @@ const CardDiary = ({diary}) => {
                     title={diary.diaryTitle && diary.diaryTitle}
                     onClick={onCarousel}
                 />
-                <AutoRotatingCarousel
+                <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    className={classes.modal}
                     open={isOpenCarousel}
-                    autoplay={false}
-                    onClose={() => setIsOpenCarousel(false)}
-                    onStart={() => setIsOpenCarousel(false)}
-                    style={{ position: "absolute" }}
-                    containerStyle={{background:'none', }}
+                    onClose={onCloseCarousel}
+                    closeAfterTransition
                 >
-                    <Slide style={{height:"100%"}}
-                        media={
-                            <img src={`http://localhost:3603/${diary.Images[0] && diary.Images[0].src}`} style={{width:"100%", height:"100%", zIndex:5000}}/>
-                        }
-                    />
-                    <Slide
-                        media={
-                            <img src={`http://localhost:3603/${diary.Images[0] && diary.Images[0].src}`} />
-                        }
-                        mediaBackgroundStyle={{ backgroundColor: blue[400] }}
-                        style={{ backgroundColor: blue[600] }}
-                        title="Ever wanted to be popular?"
-                        subtitle="Well just mix two colors and your are good to go!"
-                    />
-                    <Slide
-                        media={
-                            <img src={`http://localhost:3603/${diary.Images[0] && diary.Images[0].src}`} />
-                        }
-                        mediaBackgroundStyle={{ backgroundColor: green[400] }}
-                        style={{ backgroundColor: green[600] }}
-                        title="May the force be with you"
-                        subtitle="The Force is a metaphysical and ubiquitous power in the Star Wars fictional universe."
-                    />
-                </AutoRotatingCarousel>
+                    <Fade in={isOpenCarousel}>
+                        <div className="carousel-wrapper" >
+                            <Carousel
+                            >
+                                {diary.Images && diary.Images.map((v, i) => (
+                                    <div><img src={`http://localhost:3603/${diary.Images[i].src}`}/></div>
+                                ))}
+                            </Carousel>
+                        </div>
+                    </Fade>
+                </Modal>
+
+
                 {/*</a></Link>*/}
                 {/*내용*/}
                 <CardContent style={{height:"102px"}}>

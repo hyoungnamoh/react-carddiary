@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import Button from "@material-ui/core/Button";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { red, blue, green } from "@material-ui/core/colors";
-import { AutoRotatingCarousel, Slide } from "material-auto-rotating-carousel";
 const practice2 = () => {
     const [handleOpen, setHandleOpen] = useState({ open: false });
     const handleClick = () => {
