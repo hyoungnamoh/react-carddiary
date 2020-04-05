@@ -10,7 +10,6 @@ const { isLoggedIn } = require('./middleware');
 router.get('/', isLoggedIn, (req, res) => { //api = 다른 서비스가 내 서비스의 기능을 실행할 수 있게 열어둔 창구
     const user = Object.assign({}, req.user.toJSON()); //db에서 가져오 데이터를 다시 가공하는 경우 toJSON() 해줘야함
     delete user.password;
-    console.log('user', user);
     return res.json(req.user);
 });
 
@@ -43,29 +42,25 @@ router.get('/:id', async (req, res, next) => { //남의 정보 가져오기 :id 
     }
 });
 
-// :id 팔로우 정보 가져오기
-router.get('/:id/follow', (req, res) => {
-
+router.patch('/edit', async (req, res, next) => {
+    try{
+        const hashedPassword = await bcrypt.hash(req.body.password, 12);
+        await db.User.update({
+            userName: req.body.userName,
+            email: req.body.email,
+            password: hashedPassword,
+        },{
+            where: { id: req.user.id },
+        });
+        const user = Object.assign({}, req.user.toJSON());
+        delete user.password;
+        res.send(user);
+        console.log('업데이트 후 user', user);
+    }catch (e) {
+        console.error(e);
+        next(e);
+    }
 });
 
-//:id 팔로우 하기
-router.post('/:id/follow', (req, res) => {
-
-});
-
-//:id 팔로우 취소
-router.delete('/:id/follow', (req, res) => {
-
-});
-
-//:id 팔로워 취소
-router.delete('/:id/follower', (req, res) => {
-
-});
-
-//:id 게시물 모두 가져오기
-router.get('/:id/diaries', (req, res) => {
-
-});
 
 module.exports = router;

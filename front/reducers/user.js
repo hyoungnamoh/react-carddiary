@@ -1,4 +1,6 @@
 //유저 정보 store
+import produce from "immer";
+
 export const initialState = { //초기값
     isLoggingOut: false, //로그아웃 시도중
     isLoggingIn: false, //로그인 시도중
@@ -29,103 +31,94 @@ export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST';
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 
+//사용자 정보 변경 액션
+export const EDIT_USER_REQUEST = 'EDIT_USER_REQUEST';
+export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
+export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
+
 
 
 //setState
 const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case LOG_IN_REQUEST : {
-            return{
-                //스프레드 문법, 새로운 객체 생성, 불변성
-                ...state,
-                isLoggingIn: true,
-                logInErrorReason: '',
-                isLoading: true,
+    return produce(state, (draft) => {
+        switch (action.type) {
+            case LOG_IN_REQUEST : {
+                draft.isLoggingIn= true;
+                draft.logInErrorReason = null;
+                draft.isLoading = true;
+                break;
             }
-        }
-        case LOG_IN_SUCCESS: {
-            return {
-                //스프레드 문법, 새로운 객체 생성, 불변성
-                ...state,
-                isLoggingIn: false,
-                loginUser: action.data,
-                isLoading: false,
-            };
-        }
+            case LOG_IN_SUCCESS: {
+                draft.isLoggingIn = false;
+                draft.loginUser = action.data;
+                draft.isLoading = false;
+                break;
+            }
 
-        case LOG_IN_FAILURE : {
-            return{
-                ...state,
-                isLoggingIn: false,
-                logInErrorReason: action.error,
-                isLoading: false,
+            case LOG_IN_FAILURE : {
+                draft.isLoggingIn = false;
+                draft.logInErrorReason = action.error;
+                draft.isLoading = false;
+                break;
+            }
+            case SIGN_UP_REQUEST : {
+                draft.isSigningUp = true;
+                draft.signUpErrorReason = '';
+                break;
+            }
+            case SIGN_UP_SUCCESS : {
+                draft.isSigningUp = false;
+                draft.isSignedUp = true;
+                break;
+            }
+            case SIGN_UP_FAILURE : {
+                draft.isSigningUp = false;
+                draft.signUpErrorReason = action.error;
+                break;
+            }
+            case LOG_OUT_REQUEST : {
+                draft.isLoggingOut = true;
+                draft.logInErrorReason = '';
+                break;
+            }
+            case LOG_OUT_SUCCESS : {
+                draft.isLoggingOut= false;
+                draft.loginUser= null;
+                break;
+            }
+            case LOG_OUT_FAILURE : {
+                draft.isLoggingOut= false;
+                console.log(action.error);
+                break;
+            }
+            case LOAD_USER_REQUEST : {
+                break;
+            }
+            case LOAD_USER_SUCCESS : {
+                draft.loginUser= action.data;
+                break;
+            }
+            case LOAD_USER_FAILURE : {
+                draft.isSigningUp= false;
+                console.log(action.error);
+                break;
+            }
+            case EDIT_USER_REQUEST : {
+                break;
+            }
+            case EDIT_USER_SUCCESS : {
+                draft.loginUser = action.data;
+                break;
+            }
+            case EDIT_USER_FAILURE : {
+                console.log(action.error);
+                break;
+            }
+            default : {
+              break;
             }
         }
-        case SIGN_UP_REQUEST : {
-            return{
-                ...state,
-                isSigningUp: true,
-                signUpErrorReason:'',
-            }
-        }
-        case SIGN_UP_SUCCESS : {
-            return{
-                ...state,
-                isSigningUp: false,
-                isSignedUp: true,
-            }
-        }
-        case SIGN_UP_FAILURE : {
-            return{
-                ...state,
-                isSigningUp: false,
-                signUpErrorReason: action.error,
-            }
-        }
-        case LOG_OUT_REQUEST : {
-            return{
-                ...state,
-                isLoggingOut: true,
-                logInErrorReason:'',
-            }
-        }
-        case LOG_OUT_SUCCESS : {
-            return{
-                ...state,
-                isLoggingOut: false,
-                loginUser: null
-            }
-        }
-        case LOG_OUT_FAILURE : {
-            return{
-                ...state,
-                isLoggingOut: false,
-            }
-        }
-        case LOAD_USER_REQUEST : {
-            return{
-                ...state,
-            }
-        }
-        case LOAD_USER_SUCCESS : {
-            return{
-                ...state,
-                loginUser: action.data,
-            }
-            console.log(loginUser);
-        }
-        case LOAD_USER_FAILURE : {
-            return{
-                ...state,
-                isSigningUp: false,
-            }
-        }
-        default : {
-            return{
-                ...state,
-            }
-        }
-    }
+    });
 };
 //reducer와 initialState는 자주 쓰이므로 export 함
 export default reducer;

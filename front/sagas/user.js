@@ -11,7 +11,7 @@ import {
     LOG_OUT_SUCCESS,
     LOAD_USER_REQUEST,
     LOAD_USER_SUCCESS,
-    LOAD_USER_FAILURE
+    LOAD_USER_FAILURE, EDIT_USER_REQUEST, EDIT_USER_SUCCESS, EDIT_USER_FAILURE
 } from "../reducers/user";
 import axios from 'axios';
 
@@ -128,6 +128,31 @@ function* watchLogin() {
     yield takeLatest(LOG_IN_REQUEST, login);
 }
 
+/*
+    유저 정보 수정
+ */
+function editUserAPI(editData) {
+    return axios.patch('/user/edit', editData, {
+        withCredentials: true,
+    });
+}
+function* editUser(action) {
+    try{
+        yield call(editUserAPI, action.data);// (함수, 인자)
+        yield put({
+            type: EDIT_USER_SUCCESS //실행
+        })
+    } catch (e) { //실패 시
+        yield put({
+            type: EDIT_USER_FAILURE,
+            error: e
+        })
+    }
+}
+function* watchEditUser() {
+    yield takeEvery(EDIT_USER_REQUEST, editUser);
+}
+
 //시작점
 export default function* userSaga() {
     //watch = 이벤트 리스너
@@ -137,5 +162,6 @@ export default function* userSaga() {
         fork(watchSignUp),
         fork(watchLogOut),
         fork(watchLoadUser),
+        fork(watchEditUser),
     ]);
 }

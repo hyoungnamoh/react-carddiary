@@ -16,8 +16,7 @@ router.post('/emailCheck', async (req, res, next) => {
         return exEmail ? res.send(true) : res.send(false);
     }catch (e) {
         console.error(e);
-        //에러처리 후에 next로 넘겨야함
-        return next(e); //알아서 프론트에 에러가 났다고 알려줌
+        return next(e);
     }
 });
 
