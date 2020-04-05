@@ -3,10 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/back/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/components/AppLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/AppLayout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/CardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/CardDiary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/components/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/cardDiaries.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/cardDiaries.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/pages/practice.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/practice.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/pages/practice2.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/practice2.js" afterDir="false" />
     </list>
@@ -35,6 +37,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2019.3.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -113,9 +116,13 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="929" y="244" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1585988265386" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1585989507763">
+    <state x="510" y="238" key="run.anything.popup" timestamp="1586062265641">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1585989507763" />
+    <state x="510" y="238" key="run.anything.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586062265641" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586062302444">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586062302444" />
   </component>
 </project>

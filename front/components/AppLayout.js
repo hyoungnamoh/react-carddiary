@@ -30,6 +30,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {LOG_OUT_REQUEST} from "../reducers/user";
 import Main from "./main";
 import {useRouter} from "next/router";
+import {Button} from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -190,7 +191,8 @@ const AppLayout = ({ children }) => {
                                 <IconButton variant="h6" onClick={onClickLogo}>
                                     Card Diary
                                 </IconButton>
-                                <input type="button" onClick={onLogOut} value="로그아웃"/>
+                                {/*<input type="button" onClick={onLogOut} value="로그아웃"/>*/}
+                                <Button color="inherit" type="button"  onClick={onLogOut}>로그아웃</Button>
                             </Toolbar>
                         </AppBar>
                     </ThemeProvider>
