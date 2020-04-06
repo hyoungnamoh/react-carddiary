@@ -9,6 +9,7 @@ export const initialState = { //초기값
     isSigningUp: false, //회원가입 시도중
     signUpErrorReason: '', //회원가입 실패 사유
     loginUser: null,
+    isEditing: false, //수정중 상태
 };
 
 //로그인하는 액션
@@ -35,6 +36,9 @@ export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 export const EDIT_USER_REQUEST = 'EDIT_USER_REQUEST';
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
+
+//사용자 수정 중 상태 액션
+export const USER_EDITFORM_REQUEST = 'USER_EDITFORM_REQUEST';
 
 
 
@@ -112,6 +116,10 @@ const reducer = (state = initialState, action) => {
             }
             case EDIT_USER_FAILURE : {
                 console.log(action.error);
+                break;
+            }
+            case USER_EDITFORM_REQUEST: {
+                draft.isEditing = !draft.isEditing;
                 break;
             }
             default : {

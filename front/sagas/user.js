@@ -138,9 +138,10 @@ function editUserAPI(editData) {
 }
 function* editUser(action) {
     try{
-        yield call(editUserAPI, action.data);// (함수, 인자)
+        const result = yield call(editUserAPI, action.data);
         yield put({
-            type: EDIT_USER_SUCCESS //실행
+            type: EDIT_USER_SUCCESS, //실행
+            data: result.data
         })
     } catch (e) { //실패 시
         yield put({

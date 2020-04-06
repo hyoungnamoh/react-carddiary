@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
@@ -57,14 +57,14 @@ const CardDiary = ({diary}) => {
     const {loginUser} = useSelector(state => state.user);
     const {cardDiaries, favoriteDiaries} = useSelector(state => state.diary);
     const liked = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === diary.id);
-    const [isOpenCarousel, setIsOpenCarousel] = useState(false);
+    const [isOpenedCarousel, setIsOpenedCarousel] = useState(false);
 
-    const onCarousel = () => {
-        setIsOpenCarousel(true);
-    }
-    const onCloseCarousel = () => {
-        setIsOpenCarousel(false);
-    }
+    const onCarousel = useCallback(() => {
+        setIsOpenedCarousel(true);
+    }, [isOpenedCarousel]);
+    const onCloseCarousel = useCallback(() => {
+        setIsOpenedCarousel(false);
+    }, [isOpenedCarousel]);
 
     //즐겨찾기 등록
     const onClickFavorite = (id) => () => {
@@ -74,11 +74,6 @@ const CardDiary = ({diary}) => {
                 id: id
             }
         });
-    };
-
-    //개별 포스트 가져오기
-    const getDiary = (id) => () => {
-
     };
     return (
         <Grid item>
@@ -106,7 +101,6 @@ const CardDiary = ({diary}) => {
                             <Link href={{ pathname: '/cardDiaryDetails', query: { id: diary.id}}} as={`/diary/${diary.id}`}><a>
                                 {diary.diaryTitle}
                             </a></Link>}
-                    onClick={getDiary(diary.id)}
 
                     // 날짜
                     subheader={diary.createdAt && diary.createdAt}
@@ -122,16 +116,16 @@ const CardDiary = ({diary}) => {
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"
                     className={classes.modal}
-                    open={isOpenCarousel}
+                    open={isOpenedCarousel}
                     onClose={onCloseCarousel}
                     closeAfterTransition
                 >
-                    <Fade in={isOpenCarousel}>
+                    <Fade in={isOpenedCarousel}>
                         <div className="carousel-wrapper" >
                             <Carousel
                             >
                                 {diary.Images && diary.Images.map((v, i) => (
-                                    <div><img src={`http://localhost:3603/${diary.Images[i].src}`}/></div>
+                                    <div key={v}><img src={`http://localhost:3603/${diary.Images[i].src}`}/></div>
                                 ))}
                             </Carousel>
                         </div>

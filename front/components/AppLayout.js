@@ -192,7 +192,7 @@ const AppLayout = ({ children }) => {
                                     Card Diary
                                 </IconButton>
                                 {/*<input type="button" onClick={onLogOut} value="로그아웃"/>*/}
-                                <Button color="inherit" type="button"  onClick={onLogOut}>로그아웃</Button>
+                                <Button style={{float:"right"}} color="inherit" type="button"  onClick={onLogOut}>로그아웃</Button>
                             </Toolbar>
                         </AppBar>
                     </ThemeProvider>

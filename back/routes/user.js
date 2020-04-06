@@ -55,7 +55,6 @@ router.patch('/edit', async (req, res, next) => {
         const user = Object.assign({}, req.user.toJSON());
         delete user.password;
         res.send(user);
-        console.log('업데이트 후 user', user);
     }catch (e) {
         console.error(e);
         next(e);
