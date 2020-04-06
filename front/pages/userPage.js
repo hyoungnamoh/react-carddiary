@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const MyPage = () => {
+const UserPage = () => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -149,13 +149,17 @@ const MyPage = () => {
     );
 };
 
-MyPage.getInitialProps = async (context) => {
+UserPage.getInitialProps = async (context) => {
     const state = context.store.getState();
+    console.log('UserPage state', context.req);
     context.store.dispatch({
         type: LOAD_USER_DIARIES_REQUEST,
     });
     context.store.dispatch({
         type: LOAD_FAVORITE_REQUEST,
     });
+    context.store.dispatch({
+        type: LOAD_USER_REQUEST,
+    });
 }
-export default MyPage;
+export default UserPage;

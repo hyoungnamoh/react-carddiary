@@ -30,14 +30,24 @@ app.prepare().then(() => {
        },
     }));
 
-    server.get('/diaries/:id', (req, res) => {
-        return app.render(req, res, '/diaries', {id: req.params.id});
-    });
+   //유저별 모든 다이어리 가져오기
+   //  server.get('/diaries/:id', (req, res) => {
+   //      console.log('유저별 모든 다이어리 가져오기');
+   //      return app.render(req, res, '/diaries', {id: req.params.id});
+   //  });
+    //다이어리 상세보기
     server.get('/diary/:id', (req, res) => {
+        console.log('다이어리 상세보기', req.params);
         return app.render(req, res, '/cardDiaryDetails', {id: req.params.id});
     });
+    //유저 별 마이페이지
+    server.get('/user/:id', (req, res) => {
+        console.log('유저 별 마이페이지', req);
 
-   server.get('*', (req, res) => { //* 모든 get 요청 처리
+        return app.render(req, res, '/userPage', {id: req.params.userId});
+    });
+    //* 모든 get 요청 처리
+   server.get('*', (req, res) => {
        return handle(req, res);
    });
 

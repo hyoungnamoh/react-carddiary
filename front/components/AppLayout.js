@@ -150,7 +150,7 @@ const AppLayout = ({ children }) => {
     }
     //글목록 이동
     const onClickDiaryListPage = () => {
-        router.push("/myPage");
+        router.push("/userPage");
     }
 
     //로고, 메인화면 이동

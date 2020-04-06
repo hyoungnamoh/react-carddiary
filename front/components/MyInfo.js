@@ -52,7 +52,6 @@ const MyInfo = ({loginUser}) => {
         })
     }, [isEditing]);
 
-    console.log("loginUser.ProfileImage", loginUser.ProfileImage);
     return (
         <>
             <Button style={{float:"right"}} onClick={onEdit}><EditIcon /></Button>

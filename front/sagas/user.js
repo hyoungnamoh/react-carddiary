@@ -50,6 +50,7 @@ function* watchLogOut() {
     유저 정보가져오기
  */
 function loadUserAPI(userId) {
+    console.log('유저 정보가져오기', userId);
     // 서버에 요청을 보내는 부분
     return axios.get(userId ? `/user/${userId}` : '/user/', {
         withCredentials: true,

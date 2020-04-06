@@ -75,15 +75,16 @@ const CardDiary = ({diary}) => {
             }
         });
     };
+    console.log(diary);
     return (
         <Grid item>
             <Card className={classes.root}>
                 <CardHeader
                     // 아바타
                     avatar={
-                        <Avatar aria-label="recipe" className={classes.avatar}>
+                        <Link href={{ pathname: '/userPage', query: { userId: diary.UserId}}} as={`/userPage/${diary.UserId}`}><a><Avatar aria-label="recipe" className={classes.avatar}>
                             {loginUser.userName[0]}
-                        </Avatar>
+                        </Avatar></a></Link>
                     }
                     // 땡땡땡 옵션
                     action={
