@@ -82,7 +82,6 @@ const WritePage = () => {
     }
     const onChangeImages = useCallback((files) => { //이미지 업로드
         setFiles(files);
-        console.log(files);
         const imageFormData = new FormData();
         imageFormData.append('image', files);
         [].forEach.call(files, (f) => {
@@ -161,7 +160,7 @@ const WritePage = () => {
     return(
 
         <Paper variant="outlined" className={classes.papers}>
-            <form  noValidate autoComplete="off" className={classes.root} style={{marginTop:"1%", marginBottom:"2%"}}>
+            <form  noValidate autoComplete="off" className={classes.root} style={{marginTop:"1%", marginBottom:"2%"}} encType={"multipart/form-data"}>
                     <Grid container>
                         <Grid item md={3}/>
                         <Grid item md={6}>
@@ -202,12 +201,6 @@ const WritePage = () => {
                                         <Select
                                             required={true}
                                             native
-                                            // value={}
-                                            // onChange={handleChange}
-                                            // inputProps={{
-                                            //     name: 'age',
-                                            //     id: 'outlined-age-native-simple',
-                                            // }}
                                             style={{height:"30px", width:"100%", textAlign:"right", }}
                                         >
                                             <option aria-label="None" value="" />

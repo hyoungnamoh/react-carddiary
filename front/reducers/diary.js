@@ -7,12 +7,19 @@ export const initialState = {
     isDiaryAdding: false, //프로그래스바 로딩중
     diaryAdded: false, //글작성 완료(route)
     favoriteDiaries:[], //별 누른 다이어리들
+
+
 };
 
 //이미지 업로드하는 액션
 export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST';
 export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
 export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
+
+//프로필 이미지 업로드하는 액션
+export const UPLOAD_PROFILE_REQUEST = 'UPLOAD_PROFILE_REQUEST';
+export const UPLOAD_PROFILE_SUCCESS = 'UPLOAD_PROFILE_SUCCESS';
+export const UPLOAD_PROFILE_FAILURE = 'UPLOAD_PROFILE_FAILURE';
 
 //다이어리 업로드하는 액션
 export const ADD_DIARY_REQUEST = 'ADD_DIARY_REQUEST';
@@ -117,6 +124,7 @@ const reducer = (state = initialState, action) => {
             case LOAD_DIARY_FAILURE: {
                 break;
             }
+
             default: {
                 break;
             }

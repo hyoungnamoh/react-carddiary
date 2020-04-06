@@ -1,5 +1,6 @@
 //유저 정보 store
 import produce from "immer";
+import {UPLOAD_PROFILE_FAILURE, UPLOAD_PROFILE_REQUEST, UPLOAD_PROFILE_SUCCESS} from "./diary";
 
 export const initialState = { //초기값
     isLoggingOut: false, //로그아웃 시도중
@@ -10,6 +11,7 @@ export const initialState = { //초기값
     signUpErrorReason: '', //회원가입 실패 사유
     loginUser: null,
     isEditing: false, //수정중 상태
+    profileImagePath: '', //프로필 이미지 미리보기 경로
 };
 
 //로그인하는 액션
@@ -120,6 +122,17 @@ const reducer = (state = initialState, action) => {
             }
             case USER_EDITFORM_REQUEST: {
                 draft.isEditing = !draft.isEditing;
+                break;
+            }
+            case UPLOAD_PROFILE_REQUEST: {
+                break;
+            }
+            case UPLOAD_PROFILE_SUCCESS: {
+                console.log('UPLOAD_PROFILE_SUCCESS', action.data);
+                draft.profileImagePath = action.data;
+                break;
+            }
+            case UPLOAD_PROFILE_FAILURE: {
                 break;
             }
             default : {

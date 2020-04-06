@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Avatar, Button, Grid, Paper, TextField} from "@material-ui/core";
 import {LOAD_FAVORITE_REQUEST, LOAD_USER_DIARIES_REQUEST, ONCLICK_FAVORITE_REQUEST} from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
@@ -8,7 +8,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import axios from "axios";
-import {EDIT_USER_REQUEST, USER_EDITFORM_REQUEST} from "../reducers/user";
+import {EDIT_USER_REQUEST, LOAD_USER_REQUEST, USER_EDITFORM_REQUEST} from "../reducers/user";
 import MyInfoEdit from "../components/MyInfoEdit";
 import MyInfo from "../components/MyInfo";
 
@@ -43,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CardDiaries = () => {
-    const classes = useStyles();
 
+    const classes = useStyles();
     const dispatch = useDispatch();
     const {loginUser, isEditing} = useSelector(state => state.user);
     const {cardDiaries, isFavoriteCard} = useSelector(state => state.diary);
@@ -52,6 +52,9 @@ const CardDiaries = () => {
     const [editPassword, setEditPassword] = useState('');
     const [editPasswordConfirm, setEditPasswordConfirm] = useState('');
     const [setEditEmailExt] = useState('');
+
+
+
 
 
     return (

@@ -37,13 +37,13 @@ const MyInfo = ({loginUser}) => {
     const classes = useStyles();
     const {isEditing} = useSelector(state => state.user);
 
-    useEffect(() => {
-        dispatch({
-            type: LOAD_USER_REQUEST
-        })
-
-    }, []);
-    console.log('MyInfo loginUser', loginUser);
+    // useEffect(() => {
+    //     dispatch({
+    //         type: LOAD_USER_REQUEST
+    //     })
+    //     console.log('useEffect', loginUser);
+    // }, []);
+    // console.log('MyInfo loginUser', loginUser);
 
 
     const onEdit = useCallback(() => {

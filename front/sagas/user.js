@@ -14,6 +14,7 @@ import {
     LOAD_USER_FAILURE, EDIT_USER_REQUEST, EDIT_USER_SUCCESS, EDIT_USER_FAILURE
 } from "../reducers/user";
 import axios from 'axios';
+import {UPLOAD_PROFILE_FAILURE, UPLOAD_PROFILE_REQUEST, UPLOAD_PROFILE_SUCCESS} from "../reducers/diary";
 
 
 
@@ -154,6 +155,34 @@ function* watchEditUser() {
     yield takeEvery(EDIT_USER_REQUEST, editUser);
 }
 
+/*
+    프로필 이미지 업로드
+ */
+function uploadProfileAPI(formData) {
+    return axios.post(`/user/profile`, formData, {
+        withCredentials: true,
+    });
+}
+
+function* uploadProfile(action) { //action = watch함수에서 받은 req액션안에 값, dispatch할때 같이 있던 값
+    try {
+        const result = yield call(uploadProfileAPI, action.data);
+        console.log('uploadProfile', result);
+        yield put({
+            type: UPLOAD_PROFILE_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        yield put({
+            type: UPLOAD_PROFILE_FAILURE,
+            error: e,
+        });
+    }
+}
+function* wathUploadProfile() {
+    yield takeLatest(UPLOAD_PROFILE_REQUEST, uploadProfile);
+}
+
 //시작점
 export default function* userSaga() {
     //watch = 이벤트 리스너
@@ -164,5 +193,6 @@ export default function* userSaga() {
         fork(watchLogOut),
         fork(watchLoadUser),
         fork(watchEditUser),
+        fork(wathUploadProfile),
     ]);
 }

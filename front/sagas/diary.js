@@ -17,7 +17,7 @@ import {
     LOAD_FAVORITE_SUCCESS,
     LOAD_FAVORITE_FAILURE,
     LOAD_DIARY_REQUEST,
-    LOAD_DIARY_SUCCESS, LOAD_DIARY_FAILURE,
+    LOAD_DIARY_SUCCESS, LOAD_DIARY_FAILURE, UPLOAD_PROFILE_REQUEST, UPLOAD_PROFILE_SUCCESS, UPLOAD_PROFILE_FAILURE,
 
 } from "../reducers/diary";
 import axios from 'axios';
@@ -191,6 +191,7 @@ function* watchLoadDiary() {
     yield takeLatest(LOAD_DIARY_REQUEST, loadDiary);
 }
 
+
 //시작점
 export default function* postSaga() {
     yield all([
@@ -200,5 +201,6 @@ export default function* postSaga() {
         fork(watchOnclickFavorite),
         fork(watchLoadFavorite),
         fork(watchLoadDiary),
+
     ]);
 }
