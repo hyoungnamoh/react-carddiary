@@ -47,7 +47,6 @@ router.get('/', isLoggedIn, async (req, res) => { //api = 다른 서비스가 �
 // :id 다른사람 정보 가져오기
 router.get('/:id', async (req, res, next) => { //남의 정보 가져오기 :id 는 req.params.id 로 가져옴
     try{
-        console.log(':id 다른사람 정보 가져오기:id 다른사람 정보 가져오기:id 다른사람 정보 가져오기:id 다른사람 정보 가져오기:id 다른사람 정보 가져오기');
         const user = await db.User.findOne({
             where : { id: parseInt(req.params.id, 10)},
             include: [{

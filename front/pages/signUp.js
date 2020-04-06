@@ -56,7 +56,6 @@ const SignUp = () => {
     
     //회원가입 성공 시
     if(isSignedUp){
-        console.log('회원가입');
         Router.push('/');
     }
 

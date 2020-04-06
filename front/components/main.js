@@ -23,6 +23,7 @@ import Opacity from '@material-ui/icons/Opacity';
 import ColorLens from '@material-ui/icons/ColorLens';
 import { withStyles } from '@material-ui/core/styles';
 import { owners } from '../task';
+import {useSelector} from "react-redux";
 
 
 
@@ -300,7 +301,8 @@ const Main = () => {
     const month = (newDate.getMonth() + 1) < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1;
     const year = newDate.getFullYear();
     const today = year + "-" + month + "-" + day;
-
+    const {loginUser} = useSelector(state => state.user);
+    // console.log(loginUser);
 
 
     return (

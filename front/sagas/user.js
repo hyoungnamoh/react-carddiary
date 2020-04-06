@@ -58,7 +58,6 @@ function loadUserAPI(userId) {
 function* loadUser(action) {
     try {
         const result = yield call(loadUserAPI, action.data);
-        console.log('loadUser(action)', result);
         yield put({ // put은 dispatch 동일
             type: LOAD_USER_SUCCESS,
             data: result.data,
@@ -112,7 +111,6 @@ function loginAPI(loginData) {
 function* login(action) {
     try{
        const result = yield call(loginAPI, action.data);//성공 시 다음 줄 실행
-        console.log(result);
         yield put({
             type: LOG_IN_SUCCESS, //실행
             data: result.data,
@@ -141,7 +139,6 @@ function editUserAPI(editData) {
 function* editUser(action) {
     try{
         const result = yield call(editUserAPI, action.data);
-        console.log('editUser(action)', result);
         yield put({
             type: EDIT_USER_SUCCESS, //실행
             data: result.data
@@ -169,7 +166,6 @@ function uploadProfileAPI(formData) {
 function* uploadProfile(action) { //action = watch함수에서 받은 req액션안에 값, dispatch할때 같이 있던 값
     try {
         const result = yield call(uploadProfileAPI, action.data);
-        console.log('uploadProfile', result);
         yield put({
             type: UPLOAD_PROFILE_SUCCESS,
             data: result.data,

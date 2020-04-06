@@ -51,6 +51,8 @@ const MyInfo = ({loginUser}) => {
             type: USER_EDITFORM_REQUEST
         })
     }, [isEditing]);
+
+    console.log("loginUser.ProfileImage", loginUser.ProfileImage);
     return (
         <>
             <Button style={{float:"right"}} onClick={onEdit}><EditIcon /></Button>
@@ -59,7 +61,7 @@ const MyInfo = ({loginUser}) => {
             <div>
                 <Avatar
                     alt="Remy Sharp"
-                    src={ !profileImagePath ? loginUser.ProfileImage[0].src && `http://localhost:3603/${loginUser.ProfileImage[0].src}` : `http://localhost:3603/${profileImagePath}`}
+                    src={ profileImagePath ? `http://localhost:3603/${profileImagePath}` : loginUser.ProfileImage ? `http://localhost:3603/${loginUser.ProfileImage[0].src}` :  ''}
                     className={classes.avatar}
                 />
             </div>

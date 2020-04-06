@@ -6,7 +6,6 @@ const db = require('../models');
 
 // 이메일 중복검사
 router.post('/emailCheck', async (req, res, next) => {
-    console.log("emailCheck");
     try {
         const exEmail = await db.User.findOne({
             where: { //조회
@@ -58,14 +57,17 @@ router.post('/signIn', (req, res, next) => {//(Strategy 명
                     return next(loginErr);
                 }
                 const fullUser = await db.User.findOne({
-                    where: { id: user.id}, //여기엔 로그인할 때 사용한 email 이 아니라 id 식별값을 넣어줘야함
+                    where: { id: user.id},
                     include: [{
                         model: db.Diary,
                         as: 'Diaries',
-                        attributes: ['id'], //id만 보냄, 비밀번호 등 다른정보는 보내지 않음, 여기엔 로그인할 때 사용한 email 이 아니라 id 식별값을 넣어줘야함
-                    },
-                    ],
-                    attributes: ['userName', 'id', 'email'], //비밀번호 제외하고 보냄
+                        attributes: ['id'],
+                    },{
+                        model: db.ProfileImage,
+                        as: 'ProfileImage',
+                        attributes: ['src'],
+                    },],
+                    attributes: ['userName', 'id', 'email'],
                 });
                 return res.json(fullUser);
             } catch (e) {
