@@ -9,21 +9,16 @@ module.exports = (sequelize, DataTypes) => {
         collate: 'utf8mb4_general_ci',
     });
 
+    ProfileImage.associate = (db) => {
+        db.ProfileImage.belongsTo(db.User);
+    };
+
     sequelize.query('CREATE TRIGGER trigger_default_image AFTER INSERT ON users' +
         ' FOR EACH ROW' +
         ' BEGIN' +
         ' insert into profileimages (src, createdAt, updatedAt, userid) values("KakaoTalk_20190526_1309307561585741495097", NOW(), NOW(), new.id);' +
         'END;')
-    
-    // CREATE TRIGGER trigger_default_image
-    // AFTER INSERT ON users
-    // FOR EACH ROW
-    // BEGIN
-    // INSERT INTO profileimages(src, createdAt, updatedAt)
-    // VALUES("ddd", NOW(), NOW());
-    // END;
-    ProfileImage.associate = (db) => {
-        db.ProfileImage.belongsTo(db.User);
-    };
+
+
     return ProfileImage;
 }

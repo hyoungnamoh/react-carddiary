@@ -113,6 +113,7 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case EDIT_USER_SUCCESS : {
+                draft.profileImagePath = null;
                 draft.loginUser = action.data;
                 break;
             }
@@ -128,7 +129,6 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case UPLOAD_PROFILE_SUCCESS: {
-                console.log('UPLOAD_PROFILE_SUCCESS', action.data);
                 draft.profileImagePath = action.data;
                 break;
             }

@@ -26,6 +26,8 @@ module.exports = (sequelize, DataTypes) => {
         //반대로 쓰는 foreignKet가 남의 테이블 id를 가리키기 때문에 as foreignKey 반대로 써줘야함
         db.User.belongsToMany(db.User, { through: 'Follow', as: 'Followers', foreignKey: 'followingId'}); //as 는 자바스크립트에서 구분하는 이름, foreignKey 는 디비에서 구분하는 이름
         db.User.belongsToMany(db.User, { through: 'Follow', as: 'Followings', foreignKey: 'followerId'});
+        db.User.hasMany(db.ProfileImage, {as: 'ProfileImage'});
+
     };
 
     return User;

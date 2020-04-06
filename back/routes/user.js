@@ -25,15 +25,29 @@ const upload = multer({
 
 
 // 내 정보 가져오기
-router.get('/', isLoggedIn, (req, res) => { //api = 다른 서비스가 내 서비스의 기능을 실행할 수 있게 열어둔 창구
-    const user = Object.assign({}, req.user.toJSON()); //db에서 가져오 데이터를 다시 가공하는 경우 toJSON() 해줘야함
-    delete user.password;
-    return res.json(req.user);
+router.get('/', isLoggedIn, async (req, res) => { //api = 다른 서비스가 내 서비스의 기능을 실행할 수 있게 열어둔 창구
+    // const user = Object.assign({}, req.user.toJSON()); //db에서 가져오 데이터를 다시 가공하는 경우 toJSON() 해줘야함
+    try {
+        const user = await db.User.findOne({
+            where: {id: req.user.id},
+            include: [{
+                model: db.ProfileImage,
+                as: 'ProfileImage',
+                attributes: ['src'],
+            },]
+        })
+        delete user.password;
+        return res.json(user);
+    } catch (e) {
+        console.error(e);
+        next(e);
+    }
 });
 
 // :id 다른사람 정보 가져오기
 router.get('/:id', async (req, res, next) => { //남의 정보 가져오기 :id 는 req.params.id 로 가져옴
     try{
+        console.log(':id 다른사람 정보 가져오기:id 다른사람 정보 가져오기:id 다른사람 정보 가져오기:id 다른사람 정보 가져오기:id 다른사람 정보 가져오기');
         const user = await db.User.findOne({
             where : { id: parseInt(req.params.id, 10)},
             include: [{
@@ -48,7 +62,11 @@ router.get('/:id', async (req, res, next) => { //남의 정보 가져오기 :id 
                 model: db.User,
                 as: 'Followers',
                 attributes: ['id'],
-            }],
+            }, {
+                model: db.ProfileImage,
+                as: 'ProfileImage',
+                attributes: ['id'],
+            },],
             attributes: ['id', 'nickname'],
         });
         const jsonUser = user.toJSON();
@@ -63,6 +81,12 @@ router.get('/:id', async (req, res, next) => { //남의 정보 가져오기 :id 
 router.patch('/edit', async (req, res, next) => {
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 12);
+
+        await db.ProfileImage.update({
+           src: req.body.profileImagePath,
+        },{
+            where: { id: req.user.id},
+        });
         await db.User.update({
             userName: req.body.userName,
             email: req.body.email,
@@ -70,7 +94,18 @@ router.patch('/edit', async (req, res, next) => {
         },{
             where: { id: req.user.id },
         });
-        const user = Object.assign({}, req.user.toJSON());
+        const user = await db.User.findOne({
+            where: {id: req.user.id},
+            include:[{
+                model: db.ProfileImage,
+                as: 'ProfileImage',
+                attributes: ['src'],
+            }]
+        });
+        // const user = Object.assign({}, req.user.toJSON());
+        // const profileImage = await db.ProfileImage.findOne({
+        //     where: {UserId: req.user.id}
+        // })
         delete user.password;
         res.send(user);
     }catch (e) {

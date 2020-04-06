@@ -58,6 +58,7 @@ function loadUserAPI(userId) {
 function* loadUser(action) {
     try {
         const result = yield call(loadUserAPI, action.data);
+        console.log('loadUser(action)', result);
         yield put({ // put은 dispatch 동일
             type: LOAD_USER_SUCCESS,
             data: result.data,
@@ -140,6 +141,7 @@ function editUserAPI(editData) {
 function* editUser(action) {
     try{
         const result = yield call(editUserAPI, action.data);
+        console.log('editUser(action)', result);
         yield put({
             type: EDIT_USER_SUCCESS, //실행
             data: result.data

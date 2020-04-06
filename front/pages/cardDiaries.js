@@ -52,6 +52,7 @@ const CardDiaries = () => {
     const [editPassword, setEditPassword] = useState('');
     const [editPasswordConfirm, setEditPasswordConfirm] = useState('');
     const [setEditEmailExt] = useState('');
+    console.log('MyInfoEdit loginUser',loginUser);
 
 
 

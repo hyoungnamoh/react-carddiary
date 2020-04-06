@@ -37,11 +37,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 const MyInfoEdit = ({loginUser}) => {
+    // console.log('MyInfoEdit', loginUser.ProfileImage[0]);
     const dispatch = useDispatch();
     const classes = useStyles();
     const {isEditing, profileImagePath} = useSelector(state => state.user);
-    console.log('MyInfoEdit', loginUser);
-    console.log('MyInfoEdit profileImagePath', profileImagePath);
 
     //정규표현식
     const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -116,6 +115,7 @@ const MyInfoEdit = ({loginUser}) => {
                 userName: editUserName,
                 email: editEmail,
                 password: editPassword,
+                profileImagePath: profileImagePath,
             }
         });
         dispatch({
@@ -154,7 +154,6 @@ const MyInfoEdit = ({loginUser}) => {
     //실제로 이미지 업로드 했을 때
     const onChangeImages = useCallback((e) => {
         const imageFormData = new FormData();
-        console.log('onChangeImages', e);
         // imageFormData.append('image', e.target.file);
         [].forEach.call(e.target.files, (f) => {
             imageFormData.append('image', f);
@@ -173,7 +172,7 @@ const MyInfoEdit = ({loginUser}) => {
             <div>
                     <Avatar
                         alt="Remy Sharp"
-                        src={ !profileImagePath ? "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRs63AZTe8al7iTmr5BndAyf7QV1UZsS29Qi7DYXIvY8Z1gvMAp&usqp=CAU" : `http://localhost:3603/${profileImagePath}`}
+                        src={ !profileImagePath ? loginUser.ProfileImage[0].src && `http://localhost:3603/${loginUser.ProfileImage[0].src}` : `http://localhost:3603/${profileImagePath}`}
                         className={classes.avatar}
                         onClick={onClickImageUpload}
                     />

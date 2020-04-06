@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const MyInfo = ({loginUser}) => {
     const dispatch = useDispatch();
     const classes = useStyles();
-    const {isEditing} = useSelector(state => state.user);
+    const {isEditing, profileImagePath} = useSelector(state => state.user);
 
     // useEffect(() => {
     //     dispatch({
@@ -59,7 +59,7 @@ const MyInfo = ({loginUser}) => {
             <div>
                 <Avatar
                     alt="Remy Sharp"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRs63AZTe8al7iTmr5BndAyf7QV1UZsS29Qi7DYXIvY8Z1gvMAp&usqp=CAU"
+                    src={ !profileImagePath ? loginUser.ProfileImage[0].src && `http://localhost:3603/${loginUser.ProfileImage[0].src}` : `http://localhost:3603/${profileImagePath}`}
                     className={classes.avatar}
                 />
             </div>

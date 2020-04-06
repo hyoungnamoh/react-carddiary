@@ -53,7 +53,6 @@ router.post('/signIn', (req, res, next) => {//(Strategy 명
         }
         //에러가 없을 경우
         return req.login(user, async (loginErr) => {
-            console.log("Diaries.emailDiaries.emailDiaries.emailDiaries.emailDiaries.emailDiaries.emailDiaries.email",user.id);
             try {//login 중 에러
                 if (loginErr) {
                     return next(loginErr);
