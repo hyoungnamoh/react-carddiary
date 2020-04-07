@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useRef, useState} from "react";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
@@ -11,18 +11,24 @@ import CardActions from "@material-ui/core/CardActions";
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
 import ShareIcon from "@material-ui/icons/Share";
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
-import {Card, Grid} from "@material-ui/core";
+import {Card, ClickAwayListener, Grid, Grow, MenuList, Paper, Popper} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {blue, green, red, yellow} from "@material-ui/core/colors";
 import {useDispatch, useSelector} from "react-redux";
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
 import {
+    DELETE_DIARY_REQUEST,
     ONCLICK_FAVORITE_REQUEST
 } from "../reducers/diary";
 import {Carousel} from "react-responsive-carousel";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
+import DeleteIcon from '@material-ui/icons/Delete';
+import BorderColorIcon from '@material-ui/icons/BorderColor';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -54,10 +60,12 @@ const useStyles = makeStyles(theme => ({
 const CardDiary = ({diary}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const {loginUser} = useSelector(state => state.user);
+    const { personalUser, loginUser} = useSelector(state => state.user);
     const {cardDiaries, favoriteDiaries} = useSelector(state => state.diary);
     const liked = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === diary.id);
     const [isOpenedCarousel, setIsOpenedCarousel] = useState(false);
+    const [listOpened, setListOpened] = useState(false); //떙땡땡 리스트 제어
+    const anchorRef = useRef(null);//떙땡땡 버튼 ref
 
     const onCarousel = useCallback(() => {
         setIsOpenedCarousel(true);
@@ -75,6 +83,36 @@ const CardDiary = ({diary}) => {
             }
         });
     };
+    
+    //떙땡땡 리스트 제어
+    const handleToggle = () => {
+        setListOpened((prevOpen) => !prevOpen);
+    };
+
+    const handleClose = (event) => {
+        if (anchorRef.current && anchorRef.current.contains(event.target)) {
+            return;
+        }
+        setListOpened(false);
+    };
+
+    function handleListKeyDown(event) {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            setListOpened(false);
+        }
+    }
+
+    const onClickDelete = (diaryId) => () => {
+        dispatch({
+            type: DELETE_DIARY_REQUEST,
+            data: diaryId,
+        })
+        return;
+    }
+    const onClickModify = (diaryId) => () => {
+        return;
+    };
 
     return (
         <Grid item>
@@ -88,7 +126,7 @@ const CardDiary = ({diary}) => {
                     }
                     // 땡땡땡 옵션
                     action={
-                        <IconButton aria-label="settings">
+                        <IconButton aria-label="settings" onClick={handleToggle} ref={anchorRef}>
                             <MoreVertIcon />
                         </IconButton>
                     }
@@ -106,6 +144,31 @@ const CardDiary = ({diary}) => {
                     // 날짜
                     subheader={diary.createdAt && diary.createdAt}
                 />
+                <Popper open={listOpened} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                    {({ TransitionProps, placement }) => (
+                        <Grow
+                            {...TransitionProps}
+                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                        >
+                            <Paper>
+                                <ClickAwayListener onClickAway={handleClose}>
+                                    {
+                                        (!personalUser || loginUser.id === personalUser.id)
+                                            ?
+                                            <MenuList autoFocusItem={listOpened} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                                                <MenuItem onClick={onClickDelete(diary.id)}><DeleteIcon style={{marginRight:10}}/> 삭제 </MenuItem>
+                                                <MenuItem onClick={onClickModify(diary.id)}><BorderColorIcon style={{marginRight:10}}/> 수정 </MenuItem>
+                                            </MenuList>
+                                            :
+                                            <MenuList autoFocusItem={listOpened} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                                                <MenuItem onClick={onClickDelete(diary.id)}>신고</MenuItem>
+                                            </MenuList>
+                                    }
+                                </ClickAwayListener>
+                            </Paper>
+                        </Grow>
+                    )}
+                </Popper>
                 {/*사진*/}
                 <CardMedia
                     className={classes.media}

@@ -54,6 +54,11 @@ export const LOAD_DIARIES_REQUEST = 'LOAD_DIARIES_REQUEST';
 export const LOAD_DIARIES_SUCCESS = 'LOAD_DIARIES_SUCCESS';
 export const LOAD_DIARIES_FAILURE = 'LOAD_DIARIES_FAILURE';
 
+//모든 다이어리 가져오는 액션
+export const DELETE_DIARY_REQUEST = 'DELETE_DIARY_REQUEST';
+export const DELETE_DIARY_SUCCESS = 'DELETE_DIARY_SUCCESS';
+export const DELETE_DIARY_FAILURE = 'DELETE_DIARY_FAILURE';
+
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
         switch (action.type) {
@@ -141,6 +146,17 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_DIARIES_FAILURE: {
+                break;
+            }
+            case DELETE_DIARY_REQUEST: {
+                break;
+            }
+            case DELETE_DIARY_SUCCESS: {
+                const index = draft.cardDiaries.findIndex(v => v.id === action.data);
+                draft.cardDiaries.splice(index, 1);
+                break;
+            }
+            case DELETE_DIARY_FAILURE: {
                 break;
             }
 

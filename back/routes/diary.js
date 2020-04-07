@@ -116,4 +116,15 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+//다이어리 삭제하기
+router.delete('/:id', async (req, res, next) => {
+    try{
+        await db.Diary.destroy({ where: {id: req.params.id }});
+        res.send(req.params.id);
+    } catch(e){
+        console.error(e);
+        next(e);
+    }
+});
+
 module.exports = router;

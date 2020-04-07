@@ -22,7 +22,12 @@ import {
     UPLOAD_PROFILE_REQUEST,
     UPLOAD_PROFILE_SUCCESS,
     UPLOAD_PROFILE_FAILURE,
-    LOAD_DIARIES_SUCCESS, LOAD_DIARIES_REQUEST, LOAD_DIARIES_FAILURE,
+    LOAD_DIARIES_SUCCESS,
+    LOAD_DIARIES_REQUEST,
+    LOAD_DIARIES_FAILURE,
+    DELETE_DIARY_REQUEST,
+    DELETE_DIARY_SUCCESS,
+    DELETE_DIARY_FAILURE,
 
 } from "../reducers/diary";
 import axios from 'axios';
@@ -208,7 +213,6 @@ function loadDiariesAPI(id) {
 function* loadDiaries(action) {
     try {
         const result = yield call(loadDiariesAPI, action.data);
-        console.log('loadDiaries', result);
         yield put({
             type:LOAD_DIARIES_SUCCESS,
             data: result.data,
@@ -225,6 +229,35 @@ function* watchLoadDiaries() {
     yield takeLatest(LOAD_DIARIES_REQUEST, loadDiaries);
 }
 
+/*
+    다이어리 삭제하기
+ */
+function deleteDiaryAPI(diaryId) {
+    return axios.delete(`/diary/${diaryId}`, {
+        withCredentials: true,
+    });
+}
+
+function* deleteDiary(action) {
+    try {
+        const result = yield call(deleteDiaryAPI, action.data);
+        console.log('deleteDiary', result);
+        yield put({
+            type:DELETE_DIARY_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: DELETE_DIARY_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchDeleteDiary() {
+    yield takeLatest(DELETE_DIARY_REQUEST, deleteDiary);
+}
+
 //시작점
 export default function* postSaga() {
     yield all([
@@ -235,6 +268,7 @@ export default function* postSaga() {
         fork(watchLoadFavorite),
         fork(watchLoadDiary),
         fork(watchLoadDiaries),
+        fork(watchDeleteDiary),
 
     ]);
 }
