@@ -155,7 +155,22 @@ const WritePage = () => {
         }
 
     }, [diaryAdded === true]);
-
+    
+    /*
+        드랍존 출력 메세지 커스터마이징
+    */
+    const getFileRemovedMessage = (fileName) => {
+        return `${fileName}가 삭제되었습니다!`
+    }
+    const getFileAddedMessage = (fileName) => {
+        return `${fileName}가 추가되었습니다!`
+    }
+    const getFileLimitExceedMessage = (filesLimit) => {
+        return `최대 ${filesLimit}장까지만 첨부할 수 있습니다.`
+    }
+    const getDropRejectMessage = (rejectedFile, acceptedFiles, maxFileSize) => {
+        return `${acceptedFiles} 파일 형식만 첨부할 수 있습니다.`;
+    }
 
     return(
 
@@ -189,6 +204,13 @@ const WritePage = () => {
                                     onChange={onChangeImages}
                                     dropzoneText="이미지 추가하기"
                                     dropzoneClass={classes.dropZone}
+                                    filesLimit={10}
+                                    getFileRemovedMessage={getFileRemovedMessage}
+                                    getFileAddedMessage={getFileAddedMessage}
+                                    getFileLimitExceedMessage={getFileLimitExceedMessage}
+                                    getDropRejectMessage={getDropRejectMessage}
+                                    acceptedFiles={['image/*']}
+
                                 />
                             </Grid>
                             <Grid  item md={2}/>
