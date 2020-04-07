@@ -16,7 +16,9 @@ import {LOAD_USER_REQUEST, LOG_IN_REQUEST} from "../reducers/user";
 import Router from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import SignInIndex from '../components/signInIndex';
-import Main from "../components/main";
+import Main from "../components/Main";
+import Main2 from "../components/Main2";
+import {LOAD_DIARIES_REQUEST} from "../reducers/diary";
 
 
 
@@ -27,12 +29,17 @@ const Index = () => {
     return (
         <>
             {loginUser ?
-                <Main/>
+                <Main2/>
                 :
                 <SignInIndex/>
             }
         </>
     );
+};
+Index.getInitialProps = async (context) => {
+    context.store.dispatch({
+        type: LOAD_DIARIES_REQUEST,
+    })
 };
 
 export default Index;

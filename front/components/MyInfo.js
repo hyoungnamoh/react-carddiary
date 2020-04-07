@@ -38,7 +38,6 @@ const MyInfo = () => {
     const {isEditing, profileImagePath, personalUser, loginUser} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser;
     // console.log('MyInfo', user.ProfileImage[0].src);
-    console.log('MyInfo', user.ProfileImage[0].src);
     // console.log(null);
     // console.log('MyInfo', user);
     // console.log('MyInfo', loginUser, personalUser);

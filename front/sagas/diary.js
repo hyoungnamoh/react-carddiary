@@ -17,7 +17,12 @@ import {
     LOAD_FAVORITE_SUCCESS,
     LOAD_FAVORITE_FAILURE,
     LOAD_DIARY_REQUEST,
-    LOAD_DIARY_SUCCESS, LOAD_DIARY_FAILURE, UPLOAD_PROFILE_REQUEST, UPLOAD_PROFILE_SUCCESS, UPLOAD_PROFILE_FAILURE,
+    LOAD_DIARY_SUCCESS,
+    LOAD_DIARY_FAILURE,
+    UPLOAD_PROFILE_REQUEST,
+    UPLOAD_PROFILE_SUCCESS,
+    UPLOAD_PROFILE_FAILURE,
+    LOAD_DIARIES_SUCCESS, LOAD_DIARIES_REQUEST, LOAD_DIARIES_FAILURE,
 
 } from "../reducers/diary";
 import axios from 'axios';
@@ -191,6 +196,34 @@ function* watchLoadDiary() {
     yield takeLatest(LOAD_DIARY_REQUEST, loadDiary);
 }
 
+/*
+    모든 다이어리들 가져오기
+ */
+function loadDiariesAPI(id) {
+    return axios.get('/diaries', {
+        withCredentials: true,
+    });
+}
+
+function* loadDiaries(action) {
+    try {
+        const result = yield call(loadDiariesAPI, action.data);
+        console.log('loadDiaries', result);
+        yield put({
+            type:LOAD_DIARIES_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: LOAD_DIARIES_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchLoadDiaries() {
+    yield takeLatest(LOAD_DIARIES_REQUEST, loadDiaries);
+}
 
 //시작점
 export default function* postSaga() {
@@ -201,6 +234,7 @@ export default function* postSaga() {
         fork(watchOnclickFavorite),
         fork(watchLoadFavorite),
         fork(watchLoadDiary),
+        fork(watchLoadDiaries),
 
     ]);
 }

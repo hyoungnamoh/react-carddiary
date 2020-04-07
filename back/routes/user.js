@@ -71,7 +71,6 @@ router.get('/:id', async (req, res, next) => { //남의 정보 가져오기 :id 
 router.patch('/edit', async (req, res, next) => {
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 12);
-        console.log(req.body.profileImagePath);
         //update into ProfileImage set src='KakaoTalk_20190526_1309312191586235206818.jpg', updataAt=now(), where id=1
         await db.ProfileImage.update({
            src: req.body.profileImagePath,

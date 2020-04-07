@@ -28,7 +28,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 import {useDispatch, useSelector} from "react-redux";
 import {LOG_OUT_REQUEST} from "../reducers/user";
-import Main from "./main";
+import Main from "./Main";
 import {useRouter} from "next/router";
 import {Button} from "@material-ui/core";
 
@@ -215,6 +215,412 @@ const AppLayout = ({ children }) => {
                             </IconButton>
                         </div>
                         <Divider />
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <List>
+                            <ListItem button key="write" onClick={onClickWritePage}>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="작성하기" />
+                            </ListItem>
+                            <ListItem button key="diaryList" onClick={onClickDiaryListPage}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
+                        <Divider />
+                        <List>
+                            <ListItem button key="onClick1" onClick={onClick1}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                            <ListItem button key="onClick2" onClick={onClick2}>
+                                <ListItemIcon>
+                                    <MailIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="글 목록" />
+                            </ListItem>
+                        </List>
                         <List>
                             <ListItem button key="write" onClick={onClickWritePage}>
                                 <ListItemIcon>

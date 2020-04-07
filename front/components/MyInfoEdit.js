@@ -45,7 +45,6 @@ const MyInfoEdit = ({loginUser}) => {
     const userProfileImage = user.ProfileImage[0] && user.ProfileImage[0].src;
 
     // console.log('MyInfo', user.ProfileImage[0].src);
-    console.log('MyInfoEdit', user);
 
     //정규표현식
     const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -113,7 +112,6 @@ const MyInfoEdit = ({loginUser}) => {
         if(editPassword !== editPasswordConfirm){
             return alert('같은 비밀번호를 두번 입력해주세요.');
         }
-        console.log('dispatch 직전', profileImagePath);
         dispatch({
             type: EDIT_USER_REQUEST,
             data:{
