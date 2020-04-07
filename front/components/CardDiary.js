@@ -82,7 +82,7 @@ const CardDiary = ({diary}) => {
                 <CardHeader
                     // 아바타
                     avatar={
-                        <Link href={{ pathname: '/userPage', query: { userId: diary.UserId}}} as={`/userPage/${diary.UserId}`}><a><Avatar aria-label="recipe" className={classes.avatar}>
+                        <Link href={{ pathname: '/user', query: { userId: diary.UserId}}} as={`/user/${diary.UserId}`}><a><Avatar aria-label="recipe" className={classes.avatar}>
                             {loginUser.userName[0]}
                         </Avatar></a></Link>
                     }

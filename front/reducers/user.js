@@ -9,7 +9,8 @@ export const initialState = { //초기값
     isSignedUp: false, //회원가입 성공
     isSigningUp: false, //회원가입 시도중
     signUpErrorReason: '', //회원가입 실패 사유
-    loginUser: null,
+    loginUser: null, //로그인한 유저
+    personalUser: null, //로그인한 유저가 아닌 다른 유저정보
     isEditing: false, //수정중 상태
     profileImagePath: '', //프로필 이미지 미리보기 경로
 };
@@ -98,10 +99,19 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_USER_REQUEST : {
+                console.log('LOAD_USER_REQUEST');
+                draft.personalUser = null;
                 break;
             }
             case LOAD_USER_SUCCESS : {
-                draft.loginUser= action.data;
+                if (action.loginUser) {
+                    draft.loginUser = action.data;
+                    // console.log('LOAD_USER_SUCCESS', draft.loginUser);
+                    break;
+                }
+                draft.loginUser = action.data;
+                draft.personalUser = action.data;
+                // console.log('LOAD_USER_SUCCESS', draft.loginUser);
                 break;
             }
             case LOAD_USER_FAILURE : {

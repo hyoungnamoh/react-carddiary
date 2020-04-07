@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const UserPage = () => {
+const User = () => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -149,17 +149,40 @@ const UserPage = () => {
     );
 };
 
-UserPage.getInitialProps = async (context) => {
+User.getInitialProps = async (context) => {
     const state = context.store.getState();
-    console.log('UserPage state', context.req);
+    // console.log('context.req.params', context.req.params.id);
+
+    const loginUserId = state.user.loginUser && state.user.loginUser.id;
+    let data = 0;
+    // console.log('User.getInitialProps', queryId);
+    const queryId = context.query.id && parseInt(context.query.id, 10);
+
+    // console.log('User.getInitialProps loginUserId', loginUserId);
+    // console.log('User.getInitialProps queryId', queryId);
+    console.log('User.getInitialProps state.user.loginUser', state.user);
+
+    // if(queryId){
+    //     if(queryId === loginUserId){
+    //         data = 0;
+    //     } else{
+    //         data = queryId;
+    //     }
+    // }
+
+    context.store.dispatch({
+        type: LOAD_USER_REQUEST,
+        data: data,
+    });
+
     context.store.dispatch({
         type: LOAD_USER_DIARIES_REQUEST,
+        data: data,
     });
     context.store.dispatch({
         type: LOAD_FAVORITE_REQUEST,
+        data: data,
     });
-    context.store.dispatch({
-        type: LOAD_USER_REQUEST,
-    });
+
 }
-export default UserPage;
+export default User;

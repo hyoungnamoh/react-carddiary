@@ -58,7 +58,6 @@ CardDiary.getInitialProps = async (context) => {
             type: LOAD_USER_REQUEST,
         });
     }
-
     if(context.Component.getInitialProps){
         pageProps = await context.Component.getInitialProps(ctx) || {};
     }

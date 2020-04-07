@@ -8,6 +8,7 @@ router.get('/', async (req, res, next) => {
 //유저 다이어리들 가져오기
 router.get('/:id', async (req, res, next) => {
     try{
+        console.log('유저 다이어리들 가져오기', parseInt(req.params.id, 10) || (req.user && req.user.id) || 0);
         const diaries = await db.Diary.findAll({
             where: {
                 UserId: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0,
@@ -15,6 +16,7 @@ router.get('/:id', async (req, res, next) => {
             include: [{
                 model: db.User,
                 attributes: ['id', 'userName'],
+                as:'User',
             }, {
                 model: db.Image,
             },
@@ -34,10 +36,15 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+
 // 첫 로딩 시 즐겨찾기 한 다이어리 가져오기
 router.patch('/favorite', async (req, res, next) => {
     try{
-        const favoriteDiaries = await db.Diary.findAll({ where: { UserId: req.user.id, isFavorite: 1 }});
+        const favoriteDiaries = await db.Diary.findAll({
+            where: {
+                UserId: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0, isFavorite: 1
+            }
+        });
         res.json(favoriteDiaries);
     } catch(e){
         console.error(e);

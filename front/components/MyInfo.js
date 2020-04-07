@@ -32,10 +32,16 @@ const useStyles = makeStyles((theme) => ({
         marginBottom:"5%",
     }
 }));
-const MyInfo = ({loginUser}) => {
+const MyInfo = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
-    const {isEditing, profileImagePath} = useSelector(state => state.user);
+    const {isEditing, profileImagePath, personalUser, loginUser} = useSelector(state => state.user);
+    const user = personalUser ? personalUser : loginUser;
+    // console.log('MyInfo', user.ProfileImage[0].src);
+    // console.log('MyInfo', user.ProfileImage[0].src);
+    // console.log(null);
+    console.log('MyInfo', loginUser, personalUser);
+
 
     // useEffect(() => {
     //     dispatch({
@@ -54,20 +60,26 @@ const MyInfo = ({loginUser}) => {
 
     return (
         <>
-            <Button style={{float:"right"}} onClick={onEdit}><EditIcon /></Button>
-            <div>내 정보 페이지 </div>
+            {!personalUser &&
+                <>
+                    <Button style={{float: "right"}} onClick={onEdit}><EditIcon/></Button>
+                    <div> 내 정보 페이지 </div>
+                </>
+            }
 
             <div>
                 <Avatar
                     alt="Remy Sharp"
-                    src={ profileImagePath ? `http://localhost:3603/${profileImagePath}` : loginUser.ProfileImage ? `http://localhost:3603/${loginUser.ProfileImage[0].src}` :  ''}
+                    src={ user.ProfileImage[0].src ? `http://localhost:3603/${user.ProfileImage[0].src}` :  null}
+                    // src={null }
+                    // src={ !profileImagePath ? loginUser.ProfileImage[0].src && `http://localhost:3603/${loginUser.ProfileImage[0].src}` : `http://localhost:3603/${profileImagePath}`}
                     className={classes.avatar}
                 />
             </div>
             {/*내 정보 텍스트 필드*/}
             <div className={classes.textFieldWrapper}>
-                <TextField required id="standard-required-email" label="이메일" value={loginUser.email} className={classes.textFields}  disabled/>
-                <TextField required id="standard-required-name" label="이름" value={loginUser.userName} className={classes.textFields} disabled/>
+                <TextField required id="standard-required-email" label="이메일" value={user.email} className={classes.textFields}  disabled/>
+                <TextField required id="standard-required-name" label="이름" value={user.userName} className={classes.textFields} disabled/>
                 <TextField
                     id="standard-password-input"
                     label="비밀번호"

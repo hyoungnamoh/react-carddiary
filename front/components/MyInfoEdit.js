@@ -40,7 +40,12 @@ const MyInfoEdit = ({loginUser}) => {
     // console.log('MyInfoEdit', loginUser.ProfileImage[0]);
     const dispatch = useDispatch();
     const classes = useStyles();
-    const {isEditing, profileImagePath} = useSelector(state => state.user);
+    const {isEditing, profileImagePath, personalUser} = useSelector(state => state.user);
+    const user = personalUser ? personalUser : loginUser; //페이지가 자기 페이지인지, 다른 유저 페이지인지 구분해서 user 분기처리
+    const userProfileImage = user.ProfileImage[0] && user.ProfileImage[0].src;
+
+    // console.log('MyInfo', user.ProfileImage[0].src);
+    console.log('MyInfoEdit', user);
 
     //정규표현식
     const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -48,8 +53,8 @@ const MyInfoEdit = ({loginUser}) => {
     const passwordRegExp = /^[a-zA-z0-9]{8,20}$/;
 
 
-    const [editEmail, setEditEmail] = useState(loginUser.email && loginUser.email);
-    const [editUserName, setEditUserName] = useState(loginUser.userName && loginUser.userName);
+    const [editEmail, setEditEmail] = useState(user.email && user.email);
+    const [editUserName, setEditUserName] = useState(user.userName && user.userName);
     const [editPassword, setEditPassword] = useState('');
     const [editPasswordConfirm, setEditPasswordConfirm] = useState('');
     const [isDropzoneOpend, setIsDropzoneOpend] = useState(false);
@@ -108,7 +113,7 @@ const MyInfoEdit = ({loginUser}) => {
         if(editPassword !== editPasswordConfirm){
             return alert('같은 비밀번호를 두번 입력해주세요.');
         }
-
+        console.log('dispatch 직전', profileImagePath);
         dispatch({
             type: EDIT_USER_REQUEST,
             data:{
@@ -172,7 +177,7 @@ const MyInfoEdit = ({loginUser}) => {
             <div>
                     <Avatar
                         alt="Remy Sharp"
-                        src={ !profileImagePath ? loginUser.ProfileImage[0].src && `http://localhost:3603/${loginUser.ProfileImage[0].src}` : `http://localhost:3603/${profileImagePath}`}
+                        src={ profileImagePath ?  `http://localhost:3603/${profileImagePath}` : userProfileImage  ? `http://localhost:3603/${userProfileImage}` : userProfileImage}
                         className={classes.avatar}
                         onClick={onClickImageUpload}
                     />

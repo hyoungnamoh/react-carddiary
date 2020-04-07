@@ -50,19 +50,19 @@ function* watchLogOut() {
     유저 정보가져오기
  */
 function loadUserAPI(userId) {
-    console.log('유저 정보가져오기', userId);
     // 서버에 요청을 보내는 부분
     return axios.get(userId ? `/user/${userId}` : '/user/', {
         withCredentials: true,
     });
 }
 function* loadUser(action) {
+    // console.log('loadUser', !action.data);
     try {
         const result = yield call(loadUserAPI, action.data);
         yield put({ // put은 dispatch 동일
             type: LOAD_USER_SUCCESS,
             data: result.data,
-            loginUser: !action.data,
+            loginUser: !action.data, //action.data 로 회원 id 보내주는데 없으면 자기 자신이므로 true 가 되고 없으면 false 가 되어 reducer 에서 분기처리 됨
         });
     } catch (e) { // loginAPI 실패
         console.error(e);
