@@ -75,7 +75,8 @@ const CardDiary = ({diary}) => {
             }
         });
     };
-    console.log(diary);
+
+    console.log('loginUser',loginUser);
     return (
         <Grid item>
             <Card className={classes.root}>

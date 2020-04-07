@@ -57,7 +57,7 @@ router.get('/:id', async (req, res, next) => { //남의 정보 가져오기 :id 
                 as: 'ProfileImage',
                 attributes: ['src'],
             },],
-            attributes: ['id', 'email'],
+            attributes: ['id', 'email', 'userName'],
         });
         const jsonUser = user.toJSON();
         jsonUser.Diary = jsonUser.Diary ? jsonUser.Diary.length : 0;

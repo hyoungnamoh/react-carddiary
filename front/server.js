@@ -42,7 +42,7 @@ app.prepare().then(() => {
     });
     //유저 별 마이페이지
     server.get('/user/:id', (req, res) => {
-        console.log('유저 별 마이페이지', req.params);
+        console.log('유저 별 마이페이지');
         return app.render(req, res, '/user', {id: req.params.id});
     });
     //* 모든 get 요청 처리

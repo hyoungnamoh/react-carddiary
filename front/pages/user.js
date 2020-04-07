@@ -151,37 +151,32 @@ const User = () => {
 
 User.getInitialProps = async (context) => {
     const state = context.store.getState();
-    // console.log('context.req.params', context.req.params.id);
 
     const loginUserId = state.user.loginUser && state.user.loginUser.id;
-    let data = 0;
-    // console.log('User.getInitialProps', queryId);
+    // console.log('User.getInitialProps loginUserId', loginUserId);
+    let userId = 0;
     const queryId = context.query.id && parseInt(context.query.id, 10);
+    // console.log('User.getInitialProps queryId', queryId);
 
     // console.log('User.getInitialProps loginUserId', loginUserId);
     // console.log('User.getInitialProps queryId', queryId);
-    console.log('User.getInitialProps state.user.loginUser', state.user);
 
-    // if(queryId){
-    //     if(queryId === loginUserId){
-    //         data = 0;
-    //     } else{
-    //         data = queryId;
-    //     }
-    // }
+    if(queryId){
+        userId = queryId;
+    }
 
     context.store.dispatch({
         type: LOAD_USER_REQUEST,
-        data: data,
+        data: userId,
     });
 
     context.store.dispatch({
         type: LOAD_USER_DIARIES_REQUEST,
-        data: data,
+        data: userId,
     });
     context.store.dispatch({
         type: LOAD_FAVORITE_REQUEST,
-        data: data,
+        data: userId,
     });
 
 }

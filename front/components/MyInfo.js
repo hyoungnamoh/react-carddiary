@@ -38,18 +38,12 @@ const MyInfo = () => {
     const {isEditing, profileImagePath, personalUser, loginUser} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser;
     // console.log('MyInfo', user.ProfileImage[0].src);
-    // console.log('MyInfo', user.ProfileImage[0].src);
+    console.log('MyInfo', user.ProfileImage[0].src);
     // console.log(null);
-    console.log('MyInfo', loginUser, personalUser);
+    // console.log('MyInfo', user);
+    // console.log('MyInfo', loginUser, personalUser);
 
 
-    // useEffect(() => {
-    //     dispatch({
-    //         type: LOAD_USER_REQUEST
-    //     })
-    //     console.log('useEffect', loginUser);
-    // }, []);
-    // console.log('MyInfo loginUser', loginUser);
 
 
     const onEdit = useCallback(() => {
@@ -60,7 +54,7 @@ const MyInfo = () => {
 
     return (
         <>
-            {!personalUser &&
+            {(!personalUser || loginUser.id === personalUser.id) &&
                 <>
                     <Button style={{float: "right"}} onClick={onEdit}><EditIcon/></Button>
                     <div> 내 정보 페이지 </div>
