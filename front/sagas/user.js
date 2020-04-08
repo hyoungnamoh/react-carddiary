@@ -11,7 +11,18 @@ import {
     LOG_OUT_SUCCESS,
     LOAD_USER_REQUEST,
     LOAD_USER_SUCCESS,
-    LOAD_USER_FAILURE, EDIT_USER_REQUEST, EDIT_USER_SUCCESS, EDIT_USER_FAILURE
+    LOAD_USER_FAILURE,
+    EDIT_USER_REQUEST,
+    EDIT_USER_SUCCESS,
+    EDIT_USER_FAILURE,
+    ADD_FOLLOW_REQUEST,
+    ADD_FOLLOW_SUCCESS,
+    ADD_FOLLOW_FAILURE,
+    LOAD_FOLLOWINGS_REQUEST,
+    LOAD_FOLLOWINGS_SUCCESS,
+    LOAD_FOLLOWINGS_FAILURE,
+    REMOVE_FOLLOW_REQUEST,
+    REMOVE_FOLLOW_SUCCESS, REMOVE_FOLLOW_FAILURE
 } from "../reducers/user";
 import axios from 'axios';
 import {UPLOAD_PROFILE_FAILURE, UPLOAD_PROFILE_REQUEST, UPLOAD_PROFILE_SUCCESS} from "../reducers/diary";
@@ -181,6 +192,87 @@ function* wathUploadProfile() {
     yield takeLatest(UPLOAD_PROFILE_REQUEST, uploadProfile);
 }
 
+/*
+   팔로우 하기
+ */
+function addFollowAPI(userId) {
+    return axios.post(`/user/${userId}/follow`, {}, {
+        withCredentials: true,
+    });
+}
+
+function* addFollow(action) {
+    try {
+        const result = yield call(addFollowAPI, action.data);
+        yield put({
+            type: ADD_FOLLOW_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        yield put({
+            type: ADD_FOLLOW_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchAddFollow() {
+    yield takeLatest(ADD_FOLLOW_REQUEST, addFollow);
+}
+
+/*
+   팔로잉 목록 가져오기
+ */
+function loadFollowingsAPI(userId) {
+    return axios.get(`/user/followings`,{
+        withCredentials: true,
+    });
+}
+
+function* loadFollowings(action) {
+    try {
+        const result = yield call(loadFollowingsAPI, action.data);
+        yield put({
+            type: LOAD_FOLLOWINGS_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        yield put({
+            type: LOAD_FOLLOWINGS_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchLoadFollowings() {
+    yield takeLatest(LOAD_FOLLOWINGS_REQUEST, loadFollowings);
+}
+
+/*
+   팔로우 취소하기
+ */
+function removeFollowAPI(userId) {
+    return axios.delete(`/user/${userId}/follow`,{
+        withCredentials: true,
+    });
+}
+
+function* removeFollow(action) {
+    try {
+        const result = yield call(removeFollowAPI, action.data);
+        yield put({
+            type: REMOVE_FOLLOW_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        yield put({
+            type: REMOVE_FOLLOW_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchRemoveFollow() {
+    yield takeLatest(REMOVE_FOLLOW_REQUEST, removeFollow);
+}
+
 //시작점
 export default function* userSaga() {
     //watch = 이벤트 리스너
@@ -192,5 +284,8 @@ export default function* userSaga() {
         fork(watchLoadUser),
         fork(watchEditUser),
         fork(wathUploadProfile),
+        fork(watchAddFollow),
+        fork(watchLoadFollowings),
+        fork(watchRemoveFollow),
     ]);
 }

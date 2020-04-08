@@ -8,7 +8,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import axios from "axios";
-import {EDIT_USER_REQUEST, LOAD_USER_REQUEST, USER_EDITFORM_REQUEST} from "../reducers/user";
+import {EDIT_USER_REQUEST, LOAD_FOLLOWINGS_REQUEST, LOAD_USER_REQUEST, USER_EDITFORM_REQUEST,} from "../reducers/user";
 import MyInfoEdit from "../components/MyInfoEdit";
 import MyInfo from "../components/MyInfo";
 import SearchIcon from '@material-ui/icons/Search';
@@ -162,9 +162,6 @@ const User = () => {
                             }
                             </IconButton>
                         </div>
-
-
-
                     </div>
                     <Grid md={12}/>
                     {filteredDiaries.map(v => {
@@ -188,11 +185,12 @@ User.getInitialProps = async (context) => {
 
     // console.log('User.getInitialProps loginUserId', loginUserId);
     // console.log('User.getInitialProps queryId', queryId);
-
+    // console.log('User.getInitialProps', queryId);
     if(queryId){
         userId = queryId;
     }
-
+    // console.log('context.query',context.query);
+    console.log('User.getInitialProps', queryId);
     context.store.dispatch({
         type: LOAD_USER_REQUEST,
         data: userId,
@@ -206,6 +204,12 @@ User.getInitialProps = async (context) => {
         type: LOAD_FAVORITE_REQUEST,
         data: userId,
     });
+    context.store.dispatch({
+        type: LOAD_FOLLOWINGS_REQUEST,
+    });
+    // context.store.dispatch({
+    //    type: LOAD_FO
+    // });
 
 }
 export default User;

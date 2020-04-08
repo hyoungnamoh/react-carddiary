@@ -19,11 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     User.associate = (db) => {
-        db.User.hasMany(db.Diary, {as: 'Diaries'}); //한사람이 여러개 쓸 수 있음
+        db.User.hasMany(db.Diary, {as: 'Diaries'});
         db.User.hasMany(db.Comment);
-        //belongsToMany 사용 시 웬만하면 as 붙여주는게 좋음
         db.User.belongsToMany(db.Diary, {through: 'Like', as: 'Liked'}); //게시글에 좋아요 클릭, 다 : 다
-        //반대로 쓰는 foreignKet가 남의 테이블 id를 가리키기 때문에 as foreignKey 반대로 써줘야함
+        //반대로 쓰는 foreignKey 가 남의 테이블 id를 가리키기 때문에 as foreignKey 반대로 써줘야함
         db.User.belongsToMany(db.User, { through: 'Follow', as: 'Followers', foreignKey: 'followingId'}); //as 는 자바스크립트에서 구분하는 이름, foreignKey 는 디비에서 구분하는 이름
         db.User.belongsToMany(db.User, { through: 'Follow', as: 'Followings', foreignKey: 'followerId'});
         db.User.hasMany(db.ProfileImage, {as: 'ProfileImage'});

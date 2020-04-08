@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import {Avatar, Button, makeStyles, TextField} from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import {useDispatch, useSelector} from "react-redux";
-import {LOAD_USER_REQUEST, USER_EDITFORM_REQUEST} from "../reducers/user";
+import {LOAD_USER_REQUEST, USER_EDITFORM_REQUEST, ADD_FOLLOW_REQUEST, REMOVE_FOLLOW_REQUEST} from "../reducers/user";
 import {useRouter} from "next/router";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,8 +36,9 @@ const useStyles = makeStyles((theme) => ({
 const MyInfo = () => {
     const dispatch = useDispatch();
     const classes = useStyles();
-    const {isEditing, profileImagePath, personalUser, loginUser} = useSelector(state => state.user);
+    const {isEditing, profileImagePath, personalUser, loginUser, followingList} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser;
+    const [followText, setFollowText] = useState('팔로우');
     // console.log('MyInfo personalUser', personalUser);
     // console.log('MyInfo loginUser', loginUser);
     // console.log('MyInfo', user.ProfileImage[0].src);
@@ -59,6 +60,34 @@ const MyInfo = () => {
             type: USER_EDITFORM_REQUEST
         })
     }, [isEditing]);
+
+    const onClickFollow = (userId) => () => {
+        // console.log(userId);
+
+        if(followText === '팔로우'){
+            dispatch({
+                type: ADD_FOLLOW_REQUEST,
+                data: userId,
+            });
+            setFollowText('팔로우 취소');
+            return;
+        }
+        dispatch({
+            type: REMOVE_FOLLOW_REQUEST,
+            data: userId,
+        });
+        setFollowText('팔로우');
+        return;
+    };
+
+    console.log('followerList', followingList);
+    useEffect(() => {
+        if (personalUser){
+            if(followingList.indexOf(personalUser.id)){
+                setFollowText('팔로우 취소');
+            }
+        }
+    }, [followingList]);
 
     return (
         <>
@@ -99,9 +128,9 @@ const MyInfo = () => {
                     disabled
                 />
                 {personalUser && (personalUser.id !== loginUser.id) &&
-                    <>
-                        <Button style={{marginTop:'10%', marginLeft:'25%', width:'40%'}}>하이</Button>
-                    </>
+                    <Button variant="outlined" color="primary" style={{marginTop:'10%', marginLeft:'25%', width:'40%'}} onClick={onClickFollow(personalUser.id)}>
+                        {followText}
+                    </Button>
                 }
             </div>
         </>

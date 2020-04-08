@@ -13,6 +13,7 @@ export const initialState = { //초기값
     personalUser: null, //로그인한 유저가 아닌 다른 유저정보
     isEditing: false, //수정중 상태
     profileImagePath: '', //프로필 이미지 미리보기 경로
+    followingList: [],
 };
 
 //로그인하는 액션
@@ -39,6 +40,21 @@ export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 export const EDIT_USER_REQUEST = 'EDIT_USER_REQUEST';
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
+
+//팔로워 추가하는 액션
+export const ADD_FOLLOW_REQUEST = 'ADD_FOLLOW_REQUEST';
+export const ADD_FOLLOW_SUCCESS = 'ADD_FOLLOW_SUCCESS';
+export const ADD_FOLLOW_FAILURE = 'ADD_FOLLOW_FAILURE';
+
+//팔로잉 목록 가져오는 액션
+export const LOAD_FOLLOWINGS_REQUEST = 'LOAD_FOLLOWINGS_REQUEST';
+export const LOAD_FOLLOWINGS_SUCCESS = 'LOAD_FOLLOWINGS_SUCCESS';
+export const LOAD_FOLLOWINGS_FAILURE = 'LOAD_FOLLOWINGS_FAILURE';
+
+//팔로잉 취소하는 액션
+export const REMOVE_FOLLOW_REQUEST = 'REMOVE_FOLLOW_REQUEST';
+export const REMOVE_FOLLOW_SUCCESS = 'REMOVE_FOLLOW_SUCCESS';
+export const REMOVE_FOLLOW_FAILURE = 'REMOVE_FOLLOW_FAILURE';
 
 //사용자 수정 중 상태 액션
 export const USER_EDITFORM_REQUEST = 'USER_EDITFORM_REQUEST';
@@ -142,6 +158,41 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case UPLOAD_PROFILE_FAILURE: {
+                break;
+            }
+            case ADD_FOLLOW_REQUEST: {
+                break;
+            }
+            case ADD_FOLLOW_SUCCESS: {
+                draft.followingList.push(action.data);
+                break;
+            }
+            case ADD_FOLLOW_FAILURE: {
+                break;
+            }
+            case LOAD_FOLLOWINGS_REQUEST: {
+                break;
+            }
+            case LOAD_FOLLOWINGS_SUCCESS: {
+                draft.followingList = [];
+                // console.log('LOAD_FOLLOWINGS_SUCCESS', action.data);
+                action.data.forEach((d) => {
+                    console.log('LOAD_FOLLOWINGS_SUCCESS', d);
+                    draft.followingList.push(d);
+                });
+                break;
+            }
+            case LOAD_FOLLOWINGS_FAILURE: {
+                break;
+            }
+            case REMOVE_FOLLOW_REQUEST: {
+                break;
+            }
+            case REMOVE_FOLLOW_SUCCESS: {
+                draft.followingList = draft.followingList.filter(v => v !== action.data);
+                break;
+            }
+            case REMOVE_FOLLOW_FAILURE: {
                 break;
             }
             default : {

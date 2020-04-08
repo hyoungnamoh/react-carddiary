@@ -78,7 +78,6 @@ const CardDiary = ({diary}) => {
 
     //즐겨찾기 등록
     const onClickFavorite = (id) => () => {
-        console.log(id);
         dispatch({
             type: ONCLICK_FAVORITE_REQUEST,
             data: {
@@ -116,14 +115,14 @@ const CardDiary = ({diary}) => {
     const onClickModify = (diaryId) => () => {
         return;
     };
-    console.log(diary);
     return (
         <Grid item>
             <Card className={classes.root}>
                 <CardHeader
                     // 아바타
                     avatar={
-                        <Link href={{ pathname: '/user', query: { userId: diary.UserId}}} as={`/user/${diary.UserId}`}><a><Avatar aria-label="recipe" className={classes.avatar}>
+                        // 아니 href 안에 query:{userId: diary.UserId} 로 바꾸면 왜 안되는거지? 진짜 어이없네
+                        <Link href={{ pathname: '/user', query: { id: diary.UserId}}} as={`/user/${diary.UserId}`}><a><Avatar aria-label="recipe" className={classes.avatar}>
                             {diary.User.userName[0]}
                         </Avatar></a></Link>
                     }

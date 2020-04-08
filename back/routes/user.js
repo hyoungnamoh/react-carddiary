@@ -112,6 +112,57 @@ router.post('/profile', upload.single('image'), (req, res) => { //array(프론�
     // console.log(req.file.filename);
 });
 
+//:id 팔로우 하기
+router.post('/:id/follow', async (req, res, next) => {
+    try{
+        const user = await db.User.findOne({
+            where: {
+                id: req.user.id,
+            }
+        });
+        await user.addFollowing(req.params.id);
+        res.send(req.params.id);
+    }catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
+
+//내 팔로잉 목록 가져오기
+router.get('/followings', async (req, res, next) => {
+    try{
+        console.log('내 팔로잉 목록 가져오기', req.params);
+        const user = await db.User.findOne({
+            where: { id: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0,},
+        });
+        const followings = await user.getFollowings({
+            attributes: ['id', 'userName', 'email'],
+            // limit: parseInt(req.query.limit, 10),
+            // offset: parseInt(req.query.offset, 10),
+        });
+        res.json(followings);
+    }catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
+
+//팔로우 취소하기
+router.delete('/:id/follow', async (req, res, next) => {
+    try{
+        const user = await db.User.findOne({
+            where:{
+                id: req.user.id,
+            }
+        });
+        await user.removeFolloing(req.params.id);
+        res.send(req.params.id);
+    }catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
+
 
 
 module.exports = router;

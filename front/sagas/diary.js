@@ -241,7 +241,6 @@ function deleteDiaryAPI(diaryId) {
 function* deleteDiary(action) {
     try {
         const result = yield call(deleteDiaryAPI, action.data);
-        console.log('deleteDiary', result);
         yield put({
             type:DELETE_DIARY_SUCCESS,
             data: result.data,

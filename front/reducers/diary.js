@@ -95,17 +95,15 @@ const reducer = (state = initialState, action) => {
                 draft.diaryAdded = false;
             }
             case LOAD_USER_DIARIES_REQUEST: {
-                draft.loginUserCardDiaries = draft.loginUserCardDiaries;
+                draft.loginUserCardDiaries = [];
                 // draft.cardDiaries = !action.lastId ? [] : draft.cardDiaries;
                 // draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
                 break;
             }
             case LOAD_USER_DIARIES_SUCCESS: {
-                if(draft.loginUserCardDiaries.length === 0){
-                    action.data.forEach((diary) => {
-                        draft.loginUserCardDiaries.push(diary);
-                    });
-                }
+                action.data.forEach((diary) => {
+                    draft.loginUserCardDiaries.push(diary);
+                });
                 // draft.hasMorePost = action.data.length === 10;
                 break;
             }
@@ -139,7 +137,6 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_DIARIES_SUCCESS: {
-                console.log('LOAD_DIARIES_SUCCESS', action.data);
                 draft.cardDiaries = [];
                 action.data.forEach((diary) => {
                     draft.cardDiaries.push(diary);

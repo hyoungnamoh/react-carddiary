@@ -37,12 +37,10 @@ app.prepare().then(() => {
    //  });
     //다이어리 상세보기
     server.get('/diary/:id', (req, res) => {
-        console.log('다이어리 상세보기', req.params);
         return app.render(req, res, '/cardDiaryDetails', {id: req.params.id});
     });
     //유저 별 마이페이지
     server.get('/user/:id', (req, res) => {
-        console.log('유저 별 마이페이지');
         return app.render(req, res, '/user', {id: req.params.id});
     });
     //* 모든 get 요청 처리
