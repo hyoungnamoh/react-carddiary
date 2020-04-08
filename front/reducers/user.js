@@ -175,16 +175,14 @@ const reducer = (state = initialState, action) => {
             }
             case LOAD_FOLLOWINGS_SUCCESS: {
                 draft.followingList = [];
-                // console.log('LOAD_FOLLOWINGS_SUCCESS', action.data);
-                action.data.forEach((d) => {
-                    console.log('LOAD_FOLLOWINGS_SUCCESS', d);
-                    draft.followingList.push(d);
-                });
+                // action.data.forEach((d) => {
+                //     draft.followingList.push(d);
+                // });
                 break;
             }
             case LOAD_FOLLOWINGS_FAILURE: {
                 break;
-            }
+            }x
             case REMOVE_FOLLOW_REQUEST: {
                 break;
             }

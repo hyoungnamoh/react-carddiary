@@ -180,9 +180,8 @@ User.getInitialProps = async (context) => {
     const loginUserId = state.user.loginUser && state.user.loginUser.id;
     // console.log('User.getInitialProps loginUserId', loginUserId);
     let userId = 0;
-    const queryId = context.query.id && parseInt(context.query.id, 10);
+    const queryId = context.query.userId && parseInt(context.query.userId, 10);
     // console.log('User.getInitialProps queryId', queryId);
-
     // console.log('User.getInitialProps loginUserId', loginUserId);
     // console.log('User.getInitialProps queryId', queryId);
     // console.log('User.getInitialProps', queryId);
@@ -190,7 +189,6 @@ User.getInitialProps = async (context) => {
         userId = queryId;
     }
     // console.log('context.query',context.query);
-    console.log('User.getInitialProps', queryId);
     context.store.dispatch({
         type: LOAD_USER_REQUEST,
         data: userId,

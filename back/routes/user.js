@@ -128,20 +128,17 @@ router.post('/:id/follow', async (req, res, next) => {
     }
 });
 
-//내 팔로잉 목록 가져오기
+//팔로잉 목록 가져오기
 router.get('/followings', async (req, res, next) => {
-    try{
-        console.log('내 팔로잉 목록 가져오기', req.params);
+    try {
         const user = await db.User.findOne({
-            where: { id: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0,},
+            where: { id: req.user.id },
         });
         const followings = await user.getFollowings({
             attributes: ['id', 'userName', 'email'],
-            // limit: parseInt(req.query.limit, 10),
-            // offset: parseInt(req.query.offset, 10),
         });
         res.json(followings);
-    }catch (e) {
+    } catch (e) {
         console.error(e);
         next(e);
     }

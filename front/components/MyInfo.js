@@ -2,7 +2,13 @@ import React, {useCallback, useEffect, useState} from "react";
 import {Avatar, Button, makeStyles, TextField} from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import {useDispatch, useSelector} from "react-redux";
-import {LOAD_USER_REQUEST, USER_EDITFORM_REQUEST, ADD_FOLLOW_REQUEST, REMOVE_FOLLOW_REQUEST} from "../reducers/user";
+import {
+    LOAD_USER_REQUEST,
+    USER_EDITFORM_REQUEST,
+    ADD_FOLLOW_REQUEST,
+    REMOVE_FOLLOW_REQUEST,
+    LOAD_FOLLOWINGS_REQUEST
+} from "../reducers/user";
 import {useRouter} from "next/router";
 
 const useStyles = makeStyles((theme) => ({
@@ -80,14 +86,6 @@ const MyInfo = () => {
         return;
     };
 
-    console.log('followerList', followingList);
-    useEffect(() => {
-        if (personalUser){
-            if(followingList.indexOf(personalUser.id)){
-                setFollowText('팔로우 취소');
-            }
-        }
-    }, [followingList]);
 
     return (
         <>

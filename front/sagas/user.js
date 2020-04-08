@@ -236,6 +236,7 @@ function* loadFollowings(action) {
             data: result.data,
         });
     }catch (e) {
+        console.log(e);
         yield put({
             type: LOAD_FOLLOWINGS_FAILURE,
             error: e,

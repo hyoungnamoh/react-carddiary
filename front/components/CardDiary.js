@@ -122,7 +122,7 @@ const CardDiary = ({diary}) => {
                     // 아바타
                     avatar={
                         // 아니 href 안에 query:{userId: diary.UserId} 로 바꾸면 왜 안되는거지? 진짜 어이없네
-                        <Link href={{ pathname: '/user', query: { id: diary.UserId}}} as={`/user/${diary.UserId}`}><a><Avatar aria-label="recipe" className={classes.avatar}>
+                        <Link href={{ pathname: '/user', query: { userId: diary.UserId}}} as={`/user/${diary.UserId}`}><a><Avatar aria-label="recipe" className={classes.avatar}>
                             {diary.User.userName[0]}
                         </Avatar></a></Link>
                     }

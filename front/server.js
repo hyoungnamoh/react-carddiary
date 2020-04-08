@@ -41,7 +41,7 @@ app.prepare().then(() => {
     });
     //유저 별 마이페이지
     server.get('/user/:id', (req, res) => {
-        return app.render(req, res, '/user', {id: req.params.id});
+        return app.render(req, res, '/user', {userId: req.params.id});
     });
     //* 모든 get 요청 처리
    server.get('*', (req, res) => {
