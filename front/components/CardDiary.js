@@ -29,6 +29,7 @@ import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
 import DeleteIcon from '@material-ui/icons/Delete';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
+import AnnouncementIcon from '@material-ui/icons/Announcement';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -115,7 +116,7 @@ const CardDiary = ({diary}) => {
     const onClickModify = (diaryId) => () => {
         return;
     };
-
+    console.log(diary);
     return (
         <Grid item>
             <Card className={classes.root}>
@@ -123,7 +124,7 @@ const CardDiary = ({diary}) => {
                     // 아바타
                     avatar={
                         <Link href={{ pathname: '/user', query: { userId: diary.UserId}}} as={`/user/${diary.UserId}`}><a><Avatar aria-label="recipe" className={classes.avatar}>
-                            {loginUser.userName[0]}
+                            {diary.User.userName[0]}
                         </Avatar></a></Link>
                     }
                     // 땡땡땡 옵션
@@ -155,7 +156,7 @@ const CardDiary = ({diary}) => {
                             <Paper>
                                 <ClickAwayListener onClickAway={handleClose}>
                                     {
-                                        (!personalUser || loginUser.id === personalUser.id)
+                                        (loginUser.id === diary.UserId)
                                             ?
                                             <MenuList autoFocusItem={listOpened} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                                                 <MenuItem onClick={onClickDelete(diary.id)}><DeleteIcon style={{marginRight:10}}/> 삭제 </MenuItem>
@@ -163,7 +164,7 @@ const CardDiary = ({diary}) => {
                                             </MenuList>
                                             :
                                             <MenuList autoFocusItem={listOpened} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                                <MenuItem onClick={onClickDelete(diary.id)}>신고</MenuItem>
+                                                <MenuItem onClick={onClickDelete(diary.id)}><AnnouncementIcon style={{marginRight:10}} />신고</MenuItem>
                                             </MenuList>
                                     }
                                 </ClickAwayListener>
@@ -220,12 +221,14 @@ const CardDiary = ({diary}) => {
                         <ShareIcon />
                     </IconButton>
                     {/*별 아이콘*/}
+                    {loginUser.id === diary.UserId &&
                     <IconButton aria-label="share" onClick={onClickFavorite(diary.id)}>
                         {liked
                             ? <StarBorderRoundedIcon fontSize="large" color="inherit" className={classes.starIcon} />
                             : <StarBorderRoundedIcon fontSize="large" color="inherit" />}
 
                     </IconButton>
+                    }
                 </CardActions>
             </Card>
         </Grid>

@@ -2,6 +2,7 @@ import produce from 'immer';
 
 export const initialState = {
     imagePaths:[], //이미지 경로
+    loginUserCardDiaries:[], //다이어리들
     cardDiaries:[], //다이어리들
     cardDiary:{}, //개별 다이어리
     isDiaryAdding: false, //프로그래스바 로딩중
@@ -94,15 +95,15 @@ const reducer = (state = initialState, action) => {
                 draft.diaryAdded = false;
             }
             case LOAD_USER_DIARIES_REQUEST: {
-                draft.cardDiaries = draft.cardDiaries;
+                draft.loginUserCardDiaries = draft.loginUserCardDiaries;
                 // draft.cardDiaries = !action.lastId ? [] : draft.cardDiaries;
                 // draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
                 break;
             }
             case LOAD_USER_DIARIES_SUCCESS: {
-                if(draft.cardDiaries.length === 0){
+                if(draft.loginUserCardDiaries.length === 0){
                     action.data.forEach((diary) => {
-                        draft.cardDiaries.push(diary);
+                        draft.loginUserCardDiaries.push(diary);
                     });
                 }
                 // draft.hasMorePost = action.data.length === 10;

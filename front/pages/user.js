@@ -95,7 +95,7 @@ const User = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const {loginUser, isEditing, personalUser} = useSelector(state => state.user);
-    const {cardDiaries, isFavoriteCard} = useSelector(state => state.diary);
+    const {loginUserCardDiaries, isFavoriteCard} = useSelector(state => state.diary);
     const [editPassword, setEditPassword] = useState('');
     const [editPasswordConfirm, setEditPasswordConfirm] = useState('');
     const [setEditEmailExt] = useState('');
@@ -111,12 +111,12 @@ const User = () => {
     const onChangeSearchKeyword = (e) => {
         setSearchKeyword(e.target.value);
     }
-    const filteredDiaries = useCallback(cardDiaries.filter((v) => { //data 를 받아 객체안에 name이라는 속성에 searchKeyword가 있으면
+    const filteredDiaries = useCallback(loginUserCardDiaries.filter((v) => { //data 를 받아 객체안에 name이라는 속성에 searchKeyword가 있으면
         if(onFilteredSearching){
             return v.isFavorite && (v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1);
         }
         return v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1; //값을 data에 저장
-    }), [onFilteredSearching, cardDiaries, searchKeyword]);
+    }), [onFilteredSearching, loginUserCardDiaries, searchKeyword]);
     return (
         <Paper variant="outlined" style={{marginRight:"5%", marginLeft:'-5%'}}>
             <Grid container>
