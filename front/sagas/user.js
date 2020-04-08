@@ -73,7 +73,7 @@ function* loadUser(action) {
 }
 function* watchLoadUser() {
     //(호출되길 기다리는 액션, 호출되면 실행할 함수)
-    yield takeLatest(LOAD_USER_REQUEST, loadUser);
+    yield takeEvery(LOAD_USER_REQUEST, loadUser);
 }
 
 /*

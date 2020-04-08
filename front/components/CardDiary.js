@@ -63,10 +63,11 @@ const CardDiary = ({diary}) => {
     const { personalUser, loginUser} = useSelector(state => state.user);
     const {cardDiaries, favoriteDiaries} = useSelector(state => state.diary);
     const liked = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === diary.id);
-    const [isOpenedCarousel, setIsOpenedCarousel] = useState(false);
+    const [isOpenedCarousel, setIsOpenedCarousel] = useState(false); //carousel 제어
     const [listOpened, setListOpened] = useState(false); //떙땡땡 리스트 제어
     const anchorRef = useRef(null);//떙땡땡 버튼 ref
 
+    //사진
     const onCarousel = useCallback(() => {
         setIsOpenedCarousel(true);
     }, [isOpenedCarousel]);
@@ -76,6 +77,7 @@ const CardDiary = ({diary}) => {
 
     //즐겨찾기 등록
     const onClickFavorite = (id) => () => {
+        console.log(id);
         dispatch({
             type: ONCLICK_FAVORITE_REQUEST,
             data: {

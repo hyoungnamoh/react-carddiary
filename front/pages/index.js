@@ -18,7 +18,7 @@ import {useDispatch, useSelector} from "react-redux";
 import SignInIndex from '../components/signInIndex';
 import Main from "../components/Main";
 import Main2 from "../components/Main2";
-import {LOAD_DIARIES_REQUEST} from "../reducers/diary";
+import {LOAD_DIARIES_REQUEST, LOAD_FAVORITE_REQUEST} from "../reducers/diary";
 
 
 
@@ -37,9 +37,33 @@ const Index = () => {
     );
 };
 Index.getInitialProps = async (context) => {
+    const state = context.store.getState();
+
+    const loginUserId = state.user.loginUser && state.user.loginUser.id;
+    // console.log('User.getInitialProps loginUserId', loginUserId);
+    let userId = 0;
+    const queryId = context.query.id && parseInt(context.query.id, 10);
+    // console.log('User.getInitialProps queryId', queryId);
+
+    // console.log('User.getInitialProps loginUserId', loginUserId);
+    // console.log('User.getInitialProps queryId', queryId);
+
+    if(queryId){
+        userId = queryId;
+    }
+    context.store.dispatch({
+        type: LOAD_USER_REQUEST,
+        data: userId,
+    });
+
     context.store.dispatch({
         type: LOAD_DIARIES_REQUEST,
-    })
+    });
+
+    context.store.dispatch({
+        type: LOAD_FAVORITE_REQUEST,
+        data: userId,
+    });
 };
 
 export default Index;

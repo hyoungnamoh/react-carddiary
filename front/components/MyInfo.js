@@ -3,6 +3,7 @@ import {Avatar, Button, makeStyles, TextField} from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import {useDispatch, useSelector} from "react-redux";
 import {LOAD_USER_REQUEST, USER_EDITFORM_REQUEST} from "../reducers/user";
+import {useRouter} from "next/router";
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -37,13 +38,21 @@ const MyInfo = () => {
     const classes = useStyles();
     const {isEditing, profileImagePath, personalUser, loginUser} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser;
+    // console.log('MyInfo personalUser', personalUser);
+    // console.log('MyInfo loginUser', loginUser);
     // console.log('MyInfo', user.ProfileImage[0].src);
     // console.log(null);
     // console.log('MyInfo', user);
     // console.log('MyInfo', loginUser, personalUser);
 
-
-
+    // const router = useRouter();
+    // useEffect(() => {
+    //     console.log('useEffect');
+    //     if (!loginUser){
+    //         router.push('/');
+    //         return alert('로그인이 필요합니다.');
+    //     }
+    // }, [loginUser]);
 
     const onEdit = useCallback(() => {
         dispatch({
@@ -89,6 +98,11 @@ const MyInfo = () => {
                     defaultValue='0000000000'
                     disabled
                 />
+                {personalUser && (personalUser.id !== loginUser.id) &&
+                    <>
+                        <Button style={{marginTop:'10%', marginLeft:'25%', width:'40%'}}>하이</Button>
+                    </>
+                }
             </div>
         </>
     );

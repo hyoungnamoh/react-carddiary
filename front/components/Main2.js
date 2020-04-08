@@ -15,6 +15,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import {LOAD_DIARIES_REQUEST} from "../reducers/diary";
 import {useSelector} from "react-redux";
+import CardDiary from "./CardDiary";
 
 const drawerWidth = 300;
 
@@ -40,6 +41,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing(3),
     },
+    diariesContainer: {
+        marginTop:"5%",
+        marginBottom:"5%",
+        marginLeft:0,
+    },
 }));
 const Main2 = () => {
     const classes = useStyles();
@@ -53,11 +59,14 @@ const Main2 = () => {
     return (
         <>
             <div>main2</div>
+            <hr/>
             <Grid container>
-                <Grid item md={9}>
-                    <hr/>
-                    {cardDiaries.map( v => (v.diaryContent))
-                    }
+                <Grid container md={11} spacing={3} className={classes.diariesContainer}>
+
+                    {cardDiaries.map(v => {
+                        return (
+                            <CardDiary key={v.id} diary={v}/>
+                        )})}
                 </Grid>
                 <Grid item md={3}>
                     <Drawer

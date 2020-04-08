@@ -99,7 +99,6 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_USER_REQUEST : {
-                console.log('LOAD_USER_REQUEST');
                 draft.personalUser = null;
                 break;
             }
@@ -109,7 +108,7 @@ const reducer = (state = initialState, action) => {
                     // console.log('LOAD_USER_SUCCESS', draft.loginUser);
                     break;
                 }
-                draft.loginUser = action.data;
+                // draft.loginUser = action.data;
                 draft.personalUser = action.data;
                 // console.log('LOAD_USER_SUCCESS', draft.loginUser);
                 break;

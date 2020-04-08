@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import AppLayout from '../components/AppLayout';
 import axios from "axios";
 import reducer from "../reducers";
@@ -18,12 +18,16 @@ const CardDiary = ({Component, store, pageProps}) => {
 
     //공용으로 사용할 axios base url
     axios.defaults.baseURL = 'http://localhost:3603/api';
-
+    // const {loginUser} = useSelector(state => state.user);
+    // const router = useRouter();
     useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles) {
             jssStyles.parentNode.removeChild(jssStyles);
         }
+        // if (loginUser){
+        //     router.push('/');
+        // }
     }, [])
 
     return (

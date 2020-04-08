@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 
+//내 팔로잉 사람들 게시물 전부 가져오기
 router.get('/', async (req, res, next) => {
     try{
         const diaries = await db.Diary.findAll({
@@ -11,7 +12,8 @@ router.get('/', async (req, res, next) => {
                 as:'User',
             },{
                 model: db.Image,
-            }]
+            }],
+            order: [['createdAt', 'DESC']],
         });
         res.json(diaries);
     }catch (e) {

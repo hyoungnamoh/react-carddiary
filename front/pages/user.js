@@ -12,6 +12,9 @@ import {EDIT_USER_REQUEST, LOAD_USER_REQUEST, USER_EDITFORM_REQUEST} from "../re
 import MyInfoEdit from "../components/MyInfoEdit";
 import MyInfo from "../components/MyInfo";
 import SearchIcon from '@material-ui/icons/Search';
+import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
+import {yellow} from "@material-ui/core/colors";
+import IconButton from "@material-ui/core/IconButton";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -72,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+        paddingBottom:0,
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('sm')]: {
@@ -81,29 +85,40 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
+    starIcon:{
+        color: yellow[700],
+    },
 }));
 
 const User = () => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const {loginUser, isEditing} = useSelector(state => state.user);
+    const {loginUser, isEditing, personalUser} = useSelector(state => state.user);
     const {cardDiaries, isFavoriteCard} = useSelector(state => state.diary);
     const [editPassword, setEditPassword] = useState('');
     const [editPasswordConfirm, setEditPasswordConfirm] = useState('');
     const [setEditEmailExt] = useState('');
     const [searchKeyword, setSearchKeyword] = useState('');
 
+    //즐겨찾기한 글만 보기
+    const [onFilteredSearching, setOnFilteredSearching] = useState(false);
+    const onClickFavoriteSearch = () => {
+        setOnFilteredSearching(!onFilteredSearching);
+    };
+
     //검색 기능
     const onChangeSearchKeyword = (e) => {
         setSearchKeyword(e.target.value);
     }
-    const filteredDiaries = cardDiaries.filter((v) => { //data 를 받아 객체안에 name이라는 속성에 searchKeyword가 있으면
+    const filteredDiaries = useCallback(cardDiaries.filter((v) => { //data 를 받아 객체안에 name이라는 속성에 searchKeyword가 있으면
+        if(onFilteredSearching){
+            return v.isFavorite && (v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1);
+        }
         return v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1; //값을 data에 저장
-    });
-
+    }), [onFilteredSearching, cardDiaries, searchKeyword]);
     return (
-        <Paper variant="outlined">
+        <Paper variant="outlined" style={{marginRight:"5%", marginLeft:'-5%'}}>
             <Grid container>
                 <Grid item md={3} >
                     <div className={classes.root}>
@@ -121,7 +136,9 @@ const User = () => {
                 </Grid>
 
                 <Grid container md={9} spacing={3} className={classes.diariesContainer}>
+
                     <div style={{marginLeft:'70%', marginTop: -30, marginBottom:'3%'}}>
+
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
                                 <SearchIcon />
@@ -136,7 +153,18 @@ const User = () => {
                                 value={searchKeyword}
                                 onChange={onChangeSearchKeyword}
                             />
+                            <IconButton aria-label="share" onClick={onClickFavoriteSearch}>
+                            {
+                                onFilteredSearching
+                                    ? <StarBorderRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
+                                    : <StarBorderRoundedIcon fontSize="large" color="inherit" />
+
+                            }
+                            </IconButton>
                         </div>
+
+
+
                     </div>
                     <Grid md={12}/>
                     {filteredDiaries.map(v => {
