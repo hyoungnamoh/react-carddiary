@@ -16,23 +16,13 @@ import MailIcon from '@material-ui/icons/Mail';
 import {LOAD_DIARIES_REQUEST} from "../reducers/diary";
 import {useSelector} from "react-redux";
 import CardDiary from "./CardDiary";
+import FollowDrawer from "./FollowDrawer";
 
-const drawerWidth = 300;
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-    },
-    appBar: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-    },
-    drawerPaper: {
-        width: drawerWidth,
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
@@ -44,69 +34,25 @@ const useStyles = makeStyles((theme) => ({
     diariesContainer: {
         marginTop:"5%",
         marginBottom:"5%",
-        marginLeft:0,
+        marginLeft:"8%",
     },
 }));
 const Main2 = () => {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-
     const {cardDiaries} = useSelector(state => state.diary);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
     return (
         <>
             <div>main2</div>
             <hr/>
             <Grid container>
                 <Grid container md={11} spacing={3} className={classes.diariesContainer}>
-
                     {cardDiaries.map(v => {
                         return (
                             <CardDiary key={v.id} diary={v}/>
                         )})}
                 </Grid>
                 <Grid item md={3}>
-                    <Drawer
-                        className={classes.drawer}
-                        variant="permanent"
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        anchor="right"
-                    >
-                        <div className={classes.toolbar} />
-                        <Tabs
-                            value={value}
-                            onChange={handleChange}
-                            indicatorColor="primary"
-                            textColor="primary"
-                            centered
-                        >
-                            <Tab label="팔로워" />
-                            <Tab label="팔로윙" />
-                        </Tabs>
-                        <Divider />
-                        <List>
-                            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                    <ListItemText primary={text} />
-                                </ListItem>
-                            ))}
-                        </List>
-                        <Divider />
-                        <List>
-                            {['All mail', 'Trash'].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                    <ListItemText primary={text} />
-                                </ListItem>
-                            ))}
-                        </List>
-                    </Drawer>
+                    <FollowDrawer/>
                 </Grid>
             </Grid>
         </>
