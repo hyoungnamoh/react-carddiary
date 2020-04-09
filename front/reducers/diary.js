@@ -60,10 +60,16 @@ export const DELETE_DIARY_REQUEST = 'DELETE_DIARY_REQUEST';
 export const DELETE_DIARY_SUCCESS = 'DELETE_DIARY_SUCCESS';
 export const DELETE_DIARY_FAILURE = 'DELETE_DIARY_FAILURE';
 
+//다이어리 수정하는 액션
+export const EDIT_DIARY_REQUEST = 'EDIT_DIARY_REQUEST';
+export const EDIT_DIARY_SUCCESS = 'EDIT_DIARY_SUCCESS';
+export const EDIT_DIARY_FAILURE = 'EDIT_DIARY_FAILURE';
+
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
         switch (action.type) {
             case UPLOAD_IMAGES_REQUEST: {
+                draft.imagePaths = [];
                 break;
             }
             case UPLOAD_IMAGES_SUCCESS: {
@@ -157,7 +163,21 @@ const reducer = (state = initialState, action) => {
             case DELETE_DIARY_FAILURE: {
                 break;
             }
-
+            case EDIT_DIARY_REQUEST: {
+                draft.isDiaryAdding = true;
+                draft.diaryAdded = false;
+                break;
+            }
+            case EDIT_DIARY_SUCCESS: {
+                draft.imagePaths = [];
+                draft.isDiaryAdding = false;
+                draft.diaryAdded = true;
+                break;
+            }
+            case EDIT_DIARY_FAILURE: {
+                draft.isDiaryAdding = false;
+                break;
+            }
             default: {
                 break;
             }

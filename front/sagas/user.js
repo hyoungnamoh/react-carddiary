@@ -18,11 +18,12 @@ import {
     ADD_FOLLOW_REQUEST,
     ADD_FOLLOW_SUCCESS,
     ADD_FOLLOW_FAILURE,
-    LOAD_FOLLOWINGS_REQUEST,
-    LOAD_FOLLOWINGS_SUCCESS,
-    LOAD_FOLLOWINGS_FAILURE,
     REMOVE_FOLLOW_REQUEST,
-    REMOVE_FOLLOW_SUCCESS, REMOVE_FOLLOW_FAILURE
+    REMOVE_FOLLOW_SUCCESS,
+    REMOVE_FOLLOW_FAILURE,
+    LOAD_FOLLOWINGSLIST_FAILURE,
+    LOAD_FOLLOWINGSLIST_SUCCESS,
+    LOAD_FOLLOWINGSLIST_REQUEST
 } from "../reducers/user";
 import axios from 'axios';
 import {UPLOAD_PROFILE_FAILURE, UPLOAD_PROFILE_REQUEST, UPLOAD_PROFILE_SUCCESS} from "../reducers/diary";
@@ -222,29 +223,31 @@ function* watchAddFollow() {
 /*
    팔로잉 목록 가져오기
  */
-function loadFollowingsAPI(userId) {
-    return axios.get(`/user/followings`,{
+function loadFollowingListAPI() {
+    return axios.get(`/user/followerList`,{
         withCredentials: true,
     });
 }
 
-function* loadFollowings(action) {
+function* loadFollowingList() {
     try {
-        const result = yield call(loadFollowingsAPI, action.data);
+        // console.log('loadFollowings', action.data);
+        const result = yield call(loadFollowingListAPI);
+        console.log('loadFollowingList', result.data);
         yield put({
-            type: LOAD_FOLLOWINGS_SUCCESS,
+            type: LOAD_FOLLOWINGSLIST_SUCCESS,
             data: result.data,
         });
     }catch (e) {
         console.log(e);
         yield put({
-            type: LOAD_FOLLOWINGS_FAILURE,
+            type: LOAD_FOLLOWINGSLIST_FAILURE,
             error: e,
         });
     }
 }
-function* watchLoadFollowings() {
-    yield takeLatest(LOAD_FOLLOWINGS_REQUEST, loadFollowings);
+function* watchLoadFollowingList() {
+    yield takeLatest(LOAD_FOLLOWINGSLIST_REQUEST, loadFollowingList);
 }
 
 /*
@@ -286,7 +289,7 @@ export default function* userSaga() {
         fork(watchEditUser),
         fork(wathUploadProfile),
         fork(watchAddFollow),
-        fork(watchLoadFollowings),
+        fork(watchLoadFollowingList),
         fork(watchRemoveFollow),
     ]);
 }

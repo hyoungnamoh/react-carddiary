@@ -2,14 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/front/pages/editDiary.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/routes/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/CardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/CardDiary.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/MyInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/MyInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/_app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/cardDiaryDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/cardDiaryDetails.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/pages/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/write.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/write.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/reducers/diary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/reducers/diary.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/reducers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/reducers/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/sagas/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/sagas/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +25,6 @@
   <component name="ProjectId" id="1ZQmS6trOBzYxlbDGLj6Le9NgET" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -72,12 +74,15 @@
       <workItem from="1585739524442" duration="43727000" />
       <workItem from="1585833923395" duration="7837000" />
       <workItem from="1585923690023" duration="1108000" />
-      <workItem from="1586225691957" duration="61884000" />
+      <workItem from="1586225691957" duration="62348000" />
+      <workItem from="1586399155526" duration="8756000" />
+      <workItem from="1586408092839" duration="5613000" />
+      <workItem from="1586414244043" duration="6661000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
     <state x="618" y="169" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584853803864">
@@ -112,17 +117,17 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1707.1027@0.0.1707.1027" timestamp="1586248292511" />
-    <state x="929" y="244" width="776" height="538" key="find.popup" timestamp="1586347974956">
+    <state x="929" y="244" width="776" height="538" key="find.popup" timestamp="1586419604383">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="929" y="244" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586347974956" />
-    <state x="510" y="238" key="run.anything.popup" timestamp="1586062265641">
+    <state x="929" y="244" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586419604382" />
+    <state x="510" y="238" key="run.anything.popup" timestamp="1586403964261">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="510" y="238" key="run.anything.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586062265641" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586335769963">
+    <state x="510" y="238" key="run.anything.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586403964261" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586420408847">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586335769963" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586420408847" />
   </component>
 </project>

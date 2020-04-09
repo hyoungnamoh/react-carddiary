@@ -19,9 +19,6 @@ const useStyles = makeStyles((theme) => ({
             width: '100%',
         },
     },
-    dropZone:{
-        height: "10px",
-    },
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
@@ -85,14 +82,13 @@ const WritePage = () => {
         const imageFormData = new FormData();
         imageFormData.append('image', files);
         [].forEach.call(files, (f) => {
-                    imageFormData.append('image', f);
-                });
+            imageFormData.append('image', f);
+        });
         dispatch({
             type: UPLOAD_IMAGES_REQUEST,
             data: imageFormData,
         })
     }, []);
-
     const handleSave = (files) => {
         //Saving files to state for further use and closing Modal.
         setFiles(files);
@@ -139,9 +135,7 @@ const WritePage = () => {
             type: ADD_DIARY_REQUEST,
             data: formData,
         });
-
     }
-
     /*
         글 작성 완료 후 페이지 이동
     */
@@ -203,14 +197,12 @@ const WritePage = () => {
                                 <DropzoneArea
                                     onChange={onChangeImages}
                                     dropzoneText="이미지 추가하기"
-                                    dropzoneClass={classes.dropZone}
                                     filesLimit={10}
                                     getFileRemovedMessage={getFileRemovedMessage}
                                     getFileAddedMessage={getFileAddedMessage}
                                     getFileLimitExceedMessage={getFileLimitExceedMessage}
                                     getDropRejectMessage={getDropRejectMessage}
                                     acceptedFiles={['image/*']}
-
                                 />
                             </Grid>
                             <Grid  item md={2}/>

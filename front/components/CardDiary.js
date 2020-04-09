@@ -30,6 +30,7 @@ import Modal from "@material-ui/core/Modal";
 import DeleteIcon from '@material-ui/icons/Delete';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
+import Router, {useRouter} from 'next/router'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -61,6 +62,7 @@ const useStyles = makeStyles(theme => ({
 const CardDiary = ({diary}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const router = useRouter();
     const { personalUser, loginUser} = useSelector(state => state.user);
     const {cardDiaries, favoriteDiaries} = useSelector(state => state.diary);
     const liked = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === diary.id);
@@ -112,7 +114,19 @@ const CardDiary = ({diary}) => {
         })
         return;
     }
-    const onClickModify = (diaryId) => () => {
+    const onClickEdit = (diaryId) => () => {
+        // router.query = {id: diaryId};
+        // router.asPath = `/editDiary/${diaryId}`;
+        // router.push('/editDiary');
+        // router.push(`/editDiary/${diaryId}`, )
+        // router.asPath = `/editDiary/${diaryId}`;
+        // router.query = {id: diaryId};
+        // router.pathname = 'editDiary';
+        Router.push({
+            pathname: '/editDiary',
+            query: { id: diaryId},
+            asPath:`/editDiary/${diaryId}`,
+        });
         return;
     };
     return (
@@ -159,7 +173,7 @@ const CardDiary = ({diary}) => {
                                             ?
                                             <MenuList autoFocusItem={listOpened} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                                                 <MenuItem onClick={onClickDelete(diary.id)}><DeleteIcon style={{marginRight:10}}/> 삭제 </MenuItem>
-                                                <MenuItem onClick={onClickModify(diary.id)}><BorderColorIcon style={{marginRight:10}}/> 수정 </MenuItem>
+                                                <MenuItem onClick={onClickEdit(diary.id)}><BorderColorIcon style={{marginRight:10}} /> 수정 </MenuItem>
                                             </MenuList>
                                             :
                                             <MenuList autoFocusItem={listOpened} id="menu-list-grow" onKeyDown={handleListKeyDown}>

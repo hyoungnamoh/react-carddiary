@@ -51,7 +51,7 @@ router.get('/:id', async (req, res, next) => { //남의 정보 가져오기 :id 
             include: [{
                 model: db.Diary,
                 as: 'Diaries',
-                attributes: ['id'],
+                attributes: ['id', 'diaryTitle', 'diaryContent'],
             }, {
                 model: db.ProfileImage,
                 as: 'ProfileImage',
@@ -61,13 +61,14 @@ router.get('/:id', async (req, res, next) => { //남의 정보 가져오기 :id 
         });
         const jsonUser = user.toJSON();
         jsonUser.Diary = jsonUser.Diary ? jsonUser.Diary.length : 0;
-        res.json(jsonUser);
+        return res.json(jsonUser);
     } catch (e) {
         console.error(e);
         next(e);
     }
 });
 
+//유저 정보 수정하기
 router.patch('/edit', async (req, res, next) => {
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 12);
@@ -98,7 +99,7 @@ router.patch('/edit', async (req, res, next) => {
         //     where: {UserId: req.user.id}
         // })
         delete user.password;
-        res.send(user);
+        return res.send(user);
     }catch (e) {
         console.error(e);
         next(e);
@@ -121,7 +122,7 @@ router.post('/:id/follow', async (req, res, next) => {
             }
         });
         await user.addFollowing(req.params.id);
-        res.send(req.params.id);
+        return res.send(req.params.id);
     }catch (e) {
         console.error(e);
         next(e);
@@ -129,20 +130,20 @@ router.post('/:id/follow', async (req, res, next) => {
 });
 
 //팔로잉 목록 가져오기
-router.get('/followings', async (req, res, next) => {
-    try {
-        const user = await db.User.findOne({
-            where: { id: req.user.id },
-        });
-        const followings = await user.getFollowings({
-            attributes: ['id', 'userName', 'email'],
-        });
-        res.json(followings);
-    } catch (e) {
-        console.error(e);
-        next(e);
-    }
-});
+// router.get('/followerList', async (req, res, next) => {
+//     try {
+//         console.log('followingsfollowingsfollowingsfollowingsfollowings', req.user.id);
+//         const user = await db.User.findOne({
+//             where: { id: req.user.id },
+//         });
+//         const followings = await user.getFollowings({
+//             attributes: ['id'],
+//         });
+//     } catch (e) {
+//         console.error(e);
+//         next(e);
+//     }
+// });
 
 //팔로우 취소하기
 router.delete('/:id/follow', async (req, res, next) => {
@@ -153,7 +154,7 @@ router.delete('/:id/follow', async (req, res, next) => {
             }
         });
         await user.removeFolloing(req.params.id);
-        res.send(req.params.id);
+        return res.send(req.params.id);
     }catch (e) {
         console.error(e);
         next(e);

@@ -61,6 +61,7 @@ const cardDiaryDetails = () => {
         setViewMore(!isViewMore);
     }
 
+    console.log('cardDiary', cardDiary);
     return (
         <Card className={classes.root}>
             <CardHeader

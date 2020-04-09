@@ -47,9 +47,9 @@ export const ADD_FOLLOW_SUCCESS = 'ADD_FOLLOW_SUCCESS';
 export const ADD_FOLLOW_FAILURE = 'ADD_FOLLOW_FAILURE';
 
 //팔로잉 목록 가져오는 액션
-export const LOAD_FOLLOWINGS_REQUEST = 'LOAD_FOLLOWINGS_REQUEST';
-export const LOAD_FOLLOWINGS_SUCCESS = 'LOAD_FOLLOWINGS_SUCCESS';
-export const LOAD_FOLLOWINGS_FAILURE = 'LOAD_FOLLOWINGS_FAILURE';
+export const LOAD_FOLLOWINGSLIST_REQUEST = 'LOAD_FOLLOWINGSLIST_REQUEST';
+export const LOAD_FOLLOWINGSLIST_SUCCESS = 'LOAD_FOLLOWINGSLIST_SUCCESS';
+export const LOAD_FOLLOWINGSLIST_FAILURE = 'LOAD_FOLLOWINGSLIST_FAILURE';
 
 //팔로잉 취소하는 액션
 export const REMOVE_FOLLOW_REQUEST = 'REMOVE_FOLLOW_REQUEST';
@@ -170,17 +170,17 @@ const reducer = (state = initialState, action) => {
             case ADD_FOLLOW_FAILURE: {
                 break;
             }
-            case LOAD_FOLLOWINGS_REQUEST: {
+            case LOAD_FOLLOWINGSLIST_REQUEST: {
                 break;
             }
-            case LOAD_FOLLOWINGS_SUCCESS: {
-                draft.followingList = [];
+            case LOAD_FOLLOWINGSLIST_SUCCESS: {
+                // draft.followingList = [];
                 // action.data.forEach((d) => {
                 //     draft.followingList.push(d);
                 // });
                 break;
             }
-            case LOAD_FOLLOWINGS_FAILURE: {
+            case LOAD_FOLLOWINGSLIST_FAILURE: {
                 break;
             }x
             case REMOVE_FOLLOW_REQUEST: {

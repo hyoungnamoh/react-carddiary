@@ -72,7 +72,10 @@ const configureStore = (initialState, options) => {
     //사가 미들웨어 생성
     const sagaMiddleware = createSagaMiddleware();
 
-    const middlewares = [sagaMiddleware];
+    const middlewares = [sagaMiddleware, (store) => (next) => (action) => {
+        console.log(action);
+        next(action);
+    }];
 
     //redux의 기능을 향상시킴
     const enhancer = process.env.NODE_ENV === 'production' //실제 서비스면
