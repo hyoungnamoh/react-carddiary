@@ -80,10 +80,21 @@ const editPage = () => {
 
     const [files, setFiles] = useState([]); //드랍존 이미지 파일
     const [isPublic, setIsPublic] = useState(cardDiary.isPublic ? "publicDiary" : "privateDiary"); //공개여부 라디오버튼
-    const [diaryTitle, setDiaryTitle] = useState(cardDiary.diaryTitle); //다이어리 제목
-    const [diaryContent, setDiaryContent] = useState(cardDiary.diaryContent); //다이어리 내용
-    const [isFavorite, setIsFavorite] = useState(!!cardDiary.isFavorite); //즐겨찾기
-    const [uploadedImage, setUploadedImage] = useState(cardDiary.Images);
+    const [diaryTitle, setDiaryTitle] = useState(''); //다이어리 제목
+    const [diaryContent, setDiaryContent] = useState(''); //다이어리 내용
+    const [isFavorite, setIsFavorite] = useState(false); //즐겨찾기
+    const [uploadedImage, setUploadedImage] = useState('');
+    // const [uploadedImage, setUploadedImage] = useState(cardDiary.Images);
+
+    useEffect(() => {
+        setDiaryTitle(cardDiary.diaryTitle);
+        setDiaryContent(cardDiary.diaryContent);
+        console.log(cardDiary.isFavorite);
+        cardDiary.isFavorite ? setIsFavorite(true) : setIsFavorite(false);
+        // setIsFavorite(!!cardDiary.isFavorite);
+        setUploadedImage(cardDiary.Images);
+        cardDiary.isPublic ? setIsPublic("publicDiary") : setIsPublic("privateDiary");
+    }, [cardDiary]);
 
     const onChangeImages = useCallback((file) => { //이미지 업로드
         setFiles(file);
@@ -96,7 +107,7 @@ const editPage = () => {
             type: UPLOAD_IMAGES_REQUEST,
             data: imageFormData,
         })
-    }, []);
+    }, [files]);
 
     /*
         폼 핸들링
@@ -115,6 +126,7 @@ const editPage = () => {
     }
     const onSubmitForm = (e) => {
         e.preventDefault();
+        const editFormdata = new FormData();
         if(!diaryTitle || !diaryTitle.trim()){
             return alert('제목을 작성하세요.');
         }
@@ -124,23 +136,23 @@ const editPage = () => {
         if(files.length === 0 && uploadedImage.length === 0){
             return alert('사진을 첨부해주세요.');
         }
-        const formData = new FormData();
         imagePaths.forEach((i) => {
-            formData.append('image', i);
+            editFormdata.append('image', i);
         });
         uploadedImage.forEach((i) => {
-            formData.append('image', i);
+            editFormdata.append('image', i.src);
         });
-        formData.append('diaryTitle', diaryTitle);
-        formData.append('diaryContent', diaryContent);
-        formData.append('isPublic', isPublic);
+        editFormdata.append('diaryTitle', diaryTitle);
+        editFormdata.append('diaryContent', diaryContent);
+        editFormdata.append('isPublic', isPublic);
         if(isFavorite){
-            formData.append('isFavorite', "isFavorite");
+            editFormdata.append('isFavorite', "isFavorite");
         }
-        formData.append('id', cardDiary.id);
+        editFormdata.append('id', cardDiary.id);
+
         dispatch({
             type: EDIT_DIARY_REQUEST,
-            data: formData,
+            data: editFormdata
         });
     }
     /*
@@ -181,7 +193,7 @@ const editPage = () => {
     return(
 
         <Paper variant="outlined" className={classes.papers}>
-            <form  noValidate autoComplete="off" className={classes.root} style={{marginTop:"1%", marginBottom:"2%"}} encType={"multipart/form-data"}>
+            <form  noValidate autoComplete="off" className={classes.root} style={{marginTop:"1%", marginBottom:"2%"}} encType="multipart/form-data">
                 <Grid container>
                     <Grid item md={3}/>
                     <Grid item md={6}>

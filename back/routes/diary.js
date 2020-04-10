@@ -22,7 +22,7 @@ const upload = multer({
 //게시글 작성하기
 router.post('/',  upload.none(), async (req, res, next) => {
     try{
-        // console.log("req.bodyreq.bodyreq.body", req.body);
+        console.log("req.bodyreq.bodyreq.body", req.body);
         let isFavorite = 0;
         let isPublic = 0;
         if(req.body.isFavorite){
@@ -121,6 +121,44 @@ router.delete('/:id', async (req, res, next) => {
     try{
         await db.Diary.destroy({ where: {id: req.params.id }});
         res.send(req.params.id);
+    } catch(e){
+        console.error(e);
+        next(e);
+    }
+});
+
+//다이어리 수정하기
+router.patch('/editDiary', upload.none(), async (req, res, next) => {
+    try{
+        console.log("req.editDiary.editDiary.editDiary", req.body);
+        const isFavorite = req.body.isFavorite ? 0 : 1;
+        const isPublic = req.body.isPublic.trim() === "publicDiary"  ? 1 : 0;
+
+        const diary = await db.Diary.findOne({ where: { id: req.body.id}});
+
+        //원래 있던 이미지를 모두 지움
+        await db.Image.destroy({ where: {DiaryId: req.body.id }});
+
+        let image;
+        if(Array.isArray(req.body.image)){
+            image = await Promise.all(req.body.image.map((image) => {
+                return db.Image.create({ src: image });
+            }));
+        }else{ //한장일 경우
+            image = await db.Image.create({ src: req.body.image });
+        }
+        //다이어리 업데이트
+        await db.Diary.update({
+            isPublic: isPublic,
+            diaryTitle: req.body.diaryTitle,
+            diaryContent: req.body.diaryContent,
+            isFavorite: isFavorite,
+        },{
+            where: { id: req.body.id},
+        });
+        //새로운 이미지 추가
+        await diary.addImage(image);
+        res.json(diary);
     } catch(e){
         console.error(e);
         next(e);

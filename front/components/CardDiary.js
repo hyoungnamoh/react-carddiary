@@ -62,7 +62,6 @@ const useStyles = makeStyles(theme => ({
 const CardDiary = ({diary}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const router = useRouter();
     const { personalUser, loginUser} = useSelector(state => state.user);
     const {cardDiaries, favoriteDiaries} = useSelector(state => state.diary);
     const liked = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === diary.id);
@@ -125,7 +124,7 @@ const CardDiary = ({diary}) => {
         Router.push({
             pathname: '/editDiary',
             query: { id: diaryId},
-            asPath:`/editDiary/${diaryId}`,
+            as:`/editDiary/${diaryId}`,
         });
         return;
     };
@@ -205,7 +204,7 @@ const CardDiary = ({diary}) => {
                             <Carousel
                             >
                                 {diary.Images && diary.Images.map((v, i) => (
-                                    <div key={v}><img src={`http://localhost:3603/${diary.Images[i].src}`}/></div>
+                                    <div style={{height: '500px'}} key={v}><img  src={`http://localhost:3603/${diary.Images[i].src}`}/></div>
                                 ))}
                             </Carousel>
                         </div>

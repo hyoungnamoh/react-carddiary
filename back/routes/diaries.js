@@ -56,9 +56,13 @@ router.get('/:id', async (req, res, next) => {
 //즐겨찾기 목록 가져오기
 router.get('/favorite', async (req, res, next) => {
     try{
+        console.log('favoritefavorite', req.user.id);
         const favoriteDiaries = await db.Diary.findAll(
             {
-                where: {UserId: req.user.id, isFavorite: 1},
+                where: {
+                    isFavorite: 1,
+                    UserId: req.user.id,
+                },
             });
         res.json(favoriteDiaries);
     } catch(e){

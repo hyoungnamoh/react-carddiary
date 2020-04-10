@@ -84,10 +84,10 @@ const cardDiaryDetails = () => {
                 subheader={cardDiary.createdAt}
             />
             {/*사진*/}
-            <div className="carousel-wrapper">
-                <Carousel infiniteLoop showThumbs={false}>
+            <div className="carousel-wrapper"  >
+                <Carousel infiniteLoop showThumbs={false} >
                     {cardDiary.Images && cardDiary.Images.map((v, i) => (
-                        <div><img src={`http://localhost:3603/${cardDiary.Images[i].src}`}/></div>
+                        <div style={{height: '900px'}}><img src={`http://localhost:3603/${cardDiary.Images[i].src}`}/></div>
                         ))}
                 </Carousel>
             </div>

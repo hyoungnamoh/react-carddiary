@@ -88,7 +88,7 @@ const WritePage = () => {
             type: UPLOAD_IMAGES_REQUEST,
             data: imageFormData,
         })
-    }, []);
+    }, [files]);
     const handleSave = (files) => {
         //Saving files to state for further use and closing Modal.
         setFiles(files);
@@ -122,7 +122,7 @@ const WritePage = () => {
             return alert('사진을 첨부해주세요.');
         }
         const formData = new FormData();
-            imagePaths.forEach((i) => {
+        imagePaths.forEach((i) => {
             formData.append('image', i);
         });
         formData.append('diaryTitle', diaryTitle);

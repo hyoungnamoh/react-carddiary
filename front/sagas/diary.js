@@ -27,7 +27,7 @@ import {
     LOAD_DIARIES_FAILURE,
     DELETE_DIARY_REQUEST,
     DELETE_DIARY_SUCCESS,
-    DELETE_DIARY_FAILURE,
+    DELETE_DIARY_FAILURE, EDIT_DIARY_REQUEST, EDIT_DIARY_SUCCESS, EDIT_DIARY_FAILURE,
 
 } from "../reducers/diary";
 import axios from 'axios';
@@ -62,7 +62,7 @@ function* watchUploadImages() {
 }
 
 /*
-    다이어리 작성
+    다이어리 작성하기
  */
 function addDiaryAPI(diaryData) {
     return axios.post('/diary', diaryData, {
@@ -156,6 +156,7 @@ function loadFavoriteAPI() {
 function* loadFavorite() {
     try {
         const result = yield call(loadFavoriteAPI);
+        console.log('loadFavorite', result);
         yield put({
             type:LOAD_FAVORITE_SUCCESS,
             data: result.data,
@@ -257,6 +258,35 @@ function* watchDeleteDiary() {
     yield takeLatest(DELETE_DIARY_REQUEST, deleteDiary);
 }
 
+/*
+    다이어리 수정하기
+ */
+function editDiaryAPI(editData) {
+    return axios.patch(`/diary/editDiary`, editData, {
+        withCredentials: true,
+    });
+}
+
+function* editDiary(action) {
+    try {
+        const result = yield call(editDiaryAPI, action.data);
+        console.log('editDiary', result.data);
+        yield put({
+            type:EDIT_DIARY_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: EDIT_DIARY_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchEditDiary() {
+    yield takeLatest(EDIT_DIARY_REQUEST, editDiary);
+}
+
 //시작점
 export default function* postSaga() {
     yield all([
@@ -268,6 +298,6 @@ export default function* postSaga() {
         fork(watchLoadDiary),
         fork(watchLoadDiaries),
         fork(watchDeleteDiary),
-
+        fork(watchEditDiary),
     ]);
 }
