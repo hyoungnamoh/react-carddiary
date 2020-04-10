@@ -148,7 +148,7 @@ function* watchOnclickFavorite() {
     즐겨찾기 목록 가져오기
  */
 function loadFavoriteAPI() {
-    return axios.patch(`/diaries/favorite`, {}, {
+    return axios.get(`/diaries/favorite`, {
         withCredentials: true,
     });
 }
