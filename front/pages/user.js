@@ -93,12 +93,8 @@ const useStyles = makeStyles((theme) => ({
 const User = () => {
 
     const classes = useStyles();
-    const dispatch = useDispatch();
     const {loginUser, isEditing, personalUser} = useSelector(state => state.user);
     const {loginUserCardDiaries, isFavoriteCard} = useSelector(state => state.diary);
-    const [editPassword, setEditPassword] = useState('');
-    const [editPasswordConfirm, setEditPasswordConfirm] = useState('');
-    const [setEditEmailExt] = useState('');
     const [searchKeyword, setSearchKeyword] = useState('');
 
     //즐겨찾기한 글만 보기
@@ -117,6 +113,7 @@ const User = () => {
         }
         return v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1; //값을 data에 저장
     }), [onFilteredSearching, loginUserCardDiaries, searchKeyword]);
+
     return (
         <Paper variant="outlined" style={{marginRight:"5%", marginLeft:'-5%'}}>
             <Grid container>
@@ -176,14 +173,11 @@ const User = () => {
 
 User.getInitialProps = async (context) => {
     const state = context.store.getState();
-
-    // const loginUserId = state.user.loginUser && state.user.loginUser.id;
     let userId = 0;
     const queryId = context.query.userId && parseInt(context.query.userId, 10);
     if(queryId){
         userId = queryId;
     }
-    console.log('User.getInitialProps', queryId);
     context.store.dispatch({
         type: LOAD_USER_REQUEST,
         data: userId,

@@ -63,7 +63,7 @@ function* watchLogOut() {
  */
 function loadUserAPI(userId) {
     // 서버에 요청을 보내는 부분
-    return axios.get(userId ? `/user/${userId}` : '/user', {
+    return axios.get(userId ? `/user/userPage/${userId}` : '/user', {
         withCredentials: true,
     });
 }
@@ -224,7 +224,7 @@ function* watchAddFollow() {
    팔로잉 목록 가져오기
  */
 function loadFollowingListAPI() {
-    return axios.get(`/user/followerList`,{
+    return axios.get(`/user/followingList`,{
         withCredentials: true,
     });
 }

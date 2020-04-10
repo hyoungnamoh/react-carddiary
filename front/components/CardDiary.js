@@ -114,13 +114,6 @@ const CardDiary = ({diary}) => {
         return;
     }
     const onClickEdit = (diaryId) => () => {
-        // router.query = {id: diaryId};
-        // router.asPath = `/editDiary/${diaryId}`;
-        // router.push('/editDiary');
-        // router.push(`/editDiary/${diaryId}`, )
-        // router.asPath = `/editDiary/${diaryId}`;
-        // router.query = {id: diaryId};
-        // router.pathname = 'editDiary';
         Router.push({
             pathname: '/editDiary',
             query: { id: diaryId},

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Tab, Tabs} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
@@ -37,10 +37,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 const FollowDrawer = () => {
     const classes = useStyles();
+    const {followingList} = useSelector(state => state.user);
     const [value, setValue] = React.useState(0);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    useEffect(() => {
+
+    }, [followingList])
+    console.log('followingList', followingList);
+
     return (
         <Drawer
             className={classes.drawer}
@@ -63,19 +69,10 @@ const FollowDrawer = () => {
             </Tabs>
             <Divider />
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
+                {followingList.map((v, i) => (
+                    <ListItem button key={v.id}>
+                        <ListItemIcon>{i % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                        <ListItemText primary={v.userName} />
                     </ListItem>
                 ))}
             </List>

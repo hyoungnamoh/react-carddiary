@@ -85,6 +85,7 @@ const MyInfo = () => {
         setFollowText('팔로우');
         return;
     };
+    console.log(user.ProfileImage[0].src);
 
 
     return (

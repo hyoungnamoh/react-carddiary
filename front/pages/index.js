@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from '@material-ui/core/styles';
 import Link from 'next/link';
-import {LOAD_USER_REQUEST, LOG_IN_REQUEST} from "../reducers/user";
+import {LOAD_FOLLOWINGSLIST_REQUEST, LOAD_USER_REQUEST, LOG_IN_REQUEST} from "../reducers/user";
 import Router from "next/router";
 import {useDispatch, useSelector} from "react-redux";
 import SignInIndex from '../components/signInIndex';
@@ -63,6 +63,9 @@ Index.getInitialProps = async (context) => {
     context.store.dispatch({
         type: LOAD_FAVORITE_REQUEST,
         data: userId,
+    });
+    context.store.dispatch({
+        type: LOAD_FOLLOWINGSLIST_REQUEST,
     });
 };
 

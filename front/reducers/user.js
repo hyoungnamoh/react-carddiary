@@ -121,12 +121,10 @@ const reducer = (state = initialState, action) => {
             case LOAD_USER_SUCCESS : {
                 if (action.loginUser) {
                     draft.loginUser = action.data;
-                    // console.log('LOAD_USER_SUCCESS', draft.loginUser);
                     break;
                 }
                 // draft.loginUser = action.data;
                 draft.personalUser = action.data;
-                // console.log('LOAD_USER_SUCCESS', draft.loginUser);
                 break;
             }
             case LOAD_USER_FAILURE : {
@@ -174,15 +172,15 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_FOLLOWINGSLIST_SUCCESS: {
-                // draft.followingList = [];
-                // action.data.forEach((d) => {
-                //     draft.followingList.push(d);
-                // });
+                draft.followingList = [];
+                action.data.forEach((d) => {
+                    draft.followingList.push(d);
+                });
                 break;
             }
             case LOAD_FOLLOWINGSLIST_FAILURE: {
                 break;
-            }x
+            }
             case REMOVE_FOLLOW_REQUEST: {
                 break;
             }

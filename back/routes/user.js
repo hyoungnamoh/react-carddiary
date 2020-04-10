@@ -24,8 +24,7 @@ const upload = multer({
 });
 
 // 내 정보 가져오기
-router.get('/', isLoggedIn, async (req, res) => { //api = 다른 서비스가 내 서비스의 기능을 실행할 수 있게 열어둔 창구
-    // const user = Object.assign({}, req.user.toJSON()); //db에서 가져오 데이터를 다시 가공하는 경우 toJSON() 해줘야함
+router.get('/', isLoggedIn, async (req, res) => {
     try {
         const user = await db.User.findOne({
             where: {id: req.user.id},
@@ -44,7 +43,7 @@ router.get('/', isLoggedIn, async (req, res) => { //api = 다른 서비스가 �
 });
 
 // :id 다른사람 정보 가져오기
-router.get('/:id', async (req, res, next) => { //남의 정보 가져오기 :id 는 req.params.id 로 가져옴
+router.get('/userPage/:id', async (req, res, next) => { //남의 정보 가져오기 :id 는 req.params.id 로 가져옴
     try{
         const user = await db.User.findOne({
             where : { id: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0},
@@ -72,7 +71,6 @@ router.get('/:id', async (req, res, next) => { //남의 정보 가져오기 :id 
 router.patch('/edit', async (req, res, next) => {
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 12);
-        //update into ProfileImage set src='KakaoTalk_20190526_1309312191586235206818.jpg', updataAt=now(), where id=1
         await db.ProfileImage.update({
            src: req.body.profileImagePath,
         },{
@@ -94,10 +92,6 @@ router.patch('/edit', async (req, res, next) => {
                 attributes: ['src'],
             }]
         });
-        // const user = Object.assign({}, req.user.toJSON());
-        // const profileImage = await db.ProfileImage.findOne({
-        //     where: {UserId: req.user.id}
-        // })
         delete user.password;
         return res.send(user);
     }catch (e) {
@@ -130,20 +124,20 @@ router.post('/:id/follow', async (req, res, next) => {
 });
 
 //팔로잉 목록 가져오기
-// router.get('/followerList', async (req, res, next) => {
-//     try {
-//         console.log('followingsfollowingsfollowingsfollowingsfollowings', req.user.id);
-//         const user = await db.User.findOne({
-//             where: { id: req.user.id },
-//         });
-//         const followings = await user.getFollowings({
-//             attributes: ['id'],
-//         });
-//     } catch (e) {
-//         console.error(e);
-//         next(e);
-//     }
-// });
+router.get('/followingList', async (req, res, next) => {
+    try {
+        const user = await db.User.findOne({
+            where: { id: req.user.id },
+        });
+        const followings = await user.getFollowings({
+            attributes: ['id', 'userName'],
+        },);
+        res.json(followings);
+    } catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
 
 //팔로우 취소하기
 router.delete('/:id/follow', async (req, res, next) => {
