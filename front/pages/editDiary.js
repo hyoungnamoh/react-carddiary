@@ -74,6 +74,7 @@ const editPage = () => {
     const dispatch = useDispatch();
     const {imagePaths, isDiaryAdding, diaryAdded, cardDiary} = useSelector(state => state.diary);
     const router = useRouter();
+    console.log('editPage cardDiary', cardDiary);
 
     const classes = useStyles();
 
@@ -120,11 +121,14 @@ const editPage = () => {
         if(!diaryContent || !diaryContent.trim()){
             return alert('내용을 작성하세요.');
         }
-        if(files.length === 0){
+        if(files.length === 0 && uploadedImage.length === 0){
             return alert('사진을 첨부해주세요.');
         }
         const formData = new FormData();
         imagePaths.forEach((i) => {
+            formData.append('image', i);
+        });
+        uploadedImage.forEach((i) => {
             formData.append('image', i);
         });
         formData.append('diaryTitle', diaryTitle);
@@ -133,6 +137,7 @@ const editPage = () => {
         if(isFavorite){
             formData.append('isFavorite', "isFavorite");
         }
+        formData.append('id', cardDiary.id);
         dispatch({
             type: EDIT_DIARY_REQUEST,
             data: formData,

@@ -53,14 +53,13 @@ router.get('/:id', async (req, res, next) => {
 });
 
 
-// 첫 로딩 시 즐겨찾기 한 다이어리 가져오기
-router.patch('/favorite', async (req, res, next) => {
+//즐겨찾기 목록 가져오기
+router.get('/favorite', async (req, res, next) => {
     try{
-        const favoriteDiaries = await db.Diary.findAll({
-            where: {
-                UserId: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0, isFavorite: 1
-            }
-        });
+        const favoriteDiaries = await db.Diary.findAll(
+            {
+                where: {UserId: req.user.id, isFavorite: 1},
+            });
         res.json(favoriteDiaries);
     } catch(e){
         console.error(e);
