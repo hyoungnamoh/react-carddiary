@@ -44,22 +44,15 @@ const MyInfo = () => {
     const classes = useStyles();
     const {isEditing, profileImagePath, personalUser, loginUser, followingList} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser;
-    const [followText, setFollowText] = useState('팔로우');
-    // console.log('MyInfo personalUser', personalUser);
-    // console.log('MyInfo loginUser', loginUser);
-    // console.log('MyInfo', user.ProfileImage[0].src);
-    // console.log(null);
-    // console.log('MyInfo', user);
-    // console.log('MyInfo', loginUser, personalUser);
+    const [isFollowedUser, setIsFollowedUser] = useState(false);
 
-    // const router = useRouter();
-    // useEffect(() => {
-    //     console.log('useEffect');
-    //     if (!loginUser){
-    //         router.push('/');
-    //         return alert('로그인이 필요합니다.');
-    //     }
-    // }, [loginUser]);
+    useEffect(() => {
+        console.log('useEffectuseEffectuseEffect', followingList.length !== 0 && personalUser);
+        if(followingList.length !== 0 && personalUser){
+            const followedUser = followingList.filter(v => v.id === personalUser.id);
+            setIsFollowedUser(followedUser.length !== 0);
+        }
+    }, [personalUser]);
 
     const onEdit = useCallback(() => {
         dispatch({
@@ -67,25 +60,25 @@ const MyInfo = () => {
         })
     }, [isEditing]);
 
-    const onClickFollow = (userId) => () => {
+    const onClickFollow = useCallback((userId) => () => {
         // console.log(userId);
 
-        if(followText === '팔로우'){
+        if(!isFollowedUser){
             dispatch({
                 type: ADD_FOLLOW_REQUEST,
                 data: userId,
             });
-            setFollowText('팔로우 취소');
-            return;
+            setIsFollowedUser(true);
+        } else{
+            dispatch({
+                type: REMOVE_FOLLOW_REQUEST,
+                data: userId,
+            });
+            setIsFollowedUser(false);
         }
-        dispatch({
-            type: REMOVE_FOLLOW_REQUEST,
-            data: userId,
-        });
-        setFollowText('팔로우');
         return;
-    };
-    console.log(user.ProfileImage[0].src);
+    }, [isFollowedUser]);
+
 
 
     return (
@@ -128,7 +121,7 @@ const MyInfo = () => {
                 />
                 {personalUser && (personalUser.id !== loginUser.id) &&
                     <Button variant="outlined" color="primary" style={{marginTop:'10%', marginLeft:'25%', width:'40%'}} onClick={onClickFollow(personalUser.id)}>
-                        {followText}
+                        {isFollowedUser ? '언팔로우' : '팔로우'}
                     </Button>
                 }
             </div>

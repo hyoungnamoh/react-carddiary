@@ -147,7 +147,7 @@ router.delete('/:id/follow', async (req, res, next) => {
                 id: req.user.id,
             }
         });
-        await user.removeFolloing(req.params.id);
+        await user.removeFollowings(req.params.id);
         return res.send(req.params.id);
     }catch (e) {
         console.error(e);

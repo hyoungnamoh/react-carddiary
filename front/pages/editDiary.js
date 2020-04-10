@@ -89,7 +89,6 @@ const editPage = () => {
     useEffect(() => {
         setDiaryTitle(cardDiary.diaryTitle);
         setDiaryContent(cardDiary.diaryContent);
-        console.log(cardDiary.isFavorite);
         cardDiary.isFavorite ? setIsFavorite(true) : setIsFavorite(false);
         // setIsFavorite(!!cardDiary.isFavorite);
         setUploadedImage(cardDiary.Images);
