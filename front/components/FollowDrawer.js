@@ -9,9 +9,10 @@ import MailIcon from "@material-ui/icons/Mail";
 import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
 import {makeStyles} from "@material-ui/core/styles";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {LOAD_FOLLOWERLIST_REQUEST, LOAD_FOLLOWINGLIST_REQUEST, REMOVE_FOLLOW_REQUEST} from "../reducers/user";
 
-const drawerWidth = 300;
+const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const FollowDrawer = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const {followingList, followerList} = useSelector(state => state.user);
     const [drawerFollowList, setDrawerFollowList] = useState(0);
     const handleChange = (event, newValue) => {
@@ -45,8 +47,20 @@ const FollowDrawer = () => {
     useEffect(() => {
 
     }, [followingList, followerList]);
+
+    const onClickUnFollow = (userId) => () => {
+        dispatch({
+            type: REMOVE_FOLLOW_REQUEST,
+            data: userId,
+        });
+        // dispatch({
+        //     type: LOAD_FOLLOWINGLIST_REQUEST,
+        // });
+        // dispatch({
+        //     type: LOAD_FOLLOWERLIST_REQUEST,
+        // });
+    }
     console.log(followingList);
-    // console.log(followerList[0].ProfileImage[0].src);
 
     return (
         <Drawer
@@ -74,14 +88,18 @@ const FollowDrawer = () => {
                     ?
                     followingList.map((v, i) => (
                         <ListItem button key={v.id}>
-                            <ListItemAvatar>
+                            <ListItemAvatar >
                                 <Avatar
                                     aria-label="recipe"
                                     className={classes.avatar}
                                     src={ v.ProfileImage ? `http://localhost:3603/${v.ProfileImage[0].src}` :  null}
                                 />
                             </ListItemAvatar>
-                            <ListItemText primary={v.userName} />
+                            {/*<ListItemText primary={v.userName} />*/}
+                            <ListItemText primary={v.userName} secondary={v.email}/>
+                            <ListItemSecondaryAction style={{width:'30%', }}>
+                                <Button variant="outlined" color="primary" onClick={onClickUnFollow(v.id)}>언팔로우</Button>
+                            </ListItemSecondaryAction>
                         </ListItem>
                     ))
                     :
@@ -96,7 +114,9 @@ const FollowDrawer = () => {
                             </ListItemAvatar>
                             {/*<ListItemText primary={v.userName} />*/}
                             <ListItemText primary={v.userName} secondary={v.email}/>
-                            <ListItemSecondaryAction><Button style={{marginLeft:'1%'}}>언팔로우</Button></ListItemSecondaryAction>
+                            <ListItemSecondaryAction style={{width:'30%', }}>
+                                <Button variant="outlined" color="primary">팔로잉</Button>
+                            </ListItemSecondaryAction>
                         </ListItem>
                     ))
                 }

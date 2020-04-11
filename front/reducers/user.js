@@ -205,7 +205,8 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case REMOVE_FOLLOW_SUCCESS: {
-                draft.followingList = draft.followingList.filter(v => v !== action.data);
+                const index = draft.followingList.findIndex(v => v.id === action.data);
+                draft.followingList.splice(index, 1);
                 break;
             }
             case REMOVE_FOLLOW_FAILURE: {
