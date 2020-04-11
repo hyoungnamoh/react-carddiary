@@ -25,9 +25,6 @@ const CardDiary = ({Component, store, pageProps}) => {
         if (jssStyles) {
             jssStyles.parentNode.removeChild(jssStyles);
         }
-        // if (loginUser){
-        //     router.push('/');
-        // }
     }, [])
 
     return (
@@ -55,7 +52,6 @@ CardDiary.getInitialProps = async (context) => {
     if(ctx.isServer && cookie){
         axios.defaults.headers.Cookie = cookie;
     }
-
     //user 정보 가져오기
     if(!state.user.loginUser){
         await ctx.store.dispatch({

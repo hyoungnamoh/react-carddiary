@@ -73,8 +73,8 @@ const useStyles = makeStyles((theme) => ({
 const editPage = () => {
     const dispatch = useDispatch();
     const {imagePaths, isDiaryAdding, diaryAdded, cardDiary} = useSelector(state => state.diary);
+    const { loginUser, isLoggingOut, } = useSelector(state => state.user);
     const router = useRouter();
-    console.log('editPage cardDiary', cardDiary);
 
     const classes = useStyles();
 
@@ -84,7 +84,14 @@ const editPage = () => {
     const [diaryContent, setDiaryContent] = useState(''); //다이어리 내용
     const [isFavorite, setIsFavorite] = useState(false); //즐겨찾기
     const [uploadedImage, setUploadedImage] = useState('');
-    // const [uploadedImage, setUploadedImage] = useState(cardDiary.Images);
+
+    //로그아웃 또는 로그인 안한 사용자가 들어올 경우 메인으로 돌리기
+    useEffect(() => {
+        if(!loginUser){
+            router.push('/');
+            return;
+        }
+    }, [loginUser, isLoggingOut]);
 
     useEffect(() => {
         setDiaryTitle(cardDiary.diaryTitle);
@@ -94,6 +101,8 @@ const editPage = () => {
         setUploadedImage(cardDiary.Images);
         cardDiary.isPublic ? setIsPublic("publicDiary") : setIsPublic("privateDiary");
     }, [cardDiary]);
+
+
 
     const onChangeImages = useCallback((file) => { //이미지 업로드
         setFiles(file);

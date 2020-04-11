@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -21,6 +21,7 @@ import {
     ONCLICK_FAVORITE_REQUEST
 } from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
+import {useRouter} from "next/router";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,10 +53,19 @@ const cardDiaryDetails = () => {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
     const dispatch = useDispatch();
-    const {loginUser} = useSelector(state => state.user);
+    const router = useRouter();
+    const {loginUser, isLoggingOut} = useSelector(state => state.user);
     const {cardDiary} = useSelector(state => state.diary);
 
     const [isViewMore, setViewMore] = useState(false);
+
+    //로그아웃 또는 로그인 안한 사용자가 들어올 경우 메인으로 돌리기
+    useEffect(() => {
+        if(!loginUser){
+            router.push('/');
+            return;
+        }
+    }, [loginUser, isLoggingOut]);
 
     const onClickViewMore = () => {
         setViewMore(!isViewMore);

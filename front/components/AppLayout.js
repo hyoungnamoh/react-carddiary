@@ -124,7 +124,7 @@ const AppLayout = ({ children }) => {
     };
     
     //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
-    const {loginUser} = useSelector(state => state.user);
+    const {loginUser, isLoggingOut} = useSelector(state => state.user);
     const router = useRouter();
     // useEffect(() => {
     //     if (!loginUser){
@@ -137,12 +137,10 @@ const AppLayout = ({ children }) => {
 
     //로그아웃 버튼
     const onLogOut = useCallback(() => {
-        //로그아웃 하시겠습니까? 추가
         dispatch({
             type:LOG_OUT_REQUEST,
         });
-        router.push('/');
-    }, []);
+    }, [loginUser]);
 
     //작성페이지 이동
     const onClickWritePage = () => {

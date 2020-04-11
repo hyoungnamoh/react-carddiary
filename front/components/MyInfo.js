@@ -83,7 +83,7 @@ const MyInfo = () => {
 
     return (
         <>
-            {(!personalUser || loginUser.id === personalUser.id) &&
+            {loginUser && (!personalUser || loginUser.id === personalUser.id) &&
                 <>
                     <Button style={{float: "right"}} onClick={onEdit}><EditIcon/></Button>
                     <div> 내 정보 페이지 </div>
@@ -93,7 +93,7 @@ const MyInfo = () => {
             <div>
                 <Avatar
                     alt="Remy Sharp"
-                    src={ user.ProfileImage[0].src ? `http://localhost:3603/${user.ProfileImage[0].src}` :  null}
+                    src={ user && user.ProfileImage[0].src ? `http://localhost:3603/${user.ProfileImage[0].src}` :  null}
                     // src={null }
                     // src={ !profileImagePath ? loginUser.ProfileImage[0].src && `http://localhost:3603/${loginUser.ProfileImage[0].src}` : `http://localhost:3603/${profileImagePath}`}
                     className={classes.avatar}
@@ -101,8 +101,8 @@ const MyInfo = () => {
             </div>
             {/*내 정보 텍스트 필드*/}
             <div className={classes.textFieldWrapper}>
-                <TextField required id="standard-required-email" label="이메일" value={user.email} className={classes.textFields}  disabled/>
-                <TextField required id="standard-required-name" label="이름" value={user.userName} className={classes.textFields} disabled/>
+                <TextField required id="standard-required-email" label="이메일" value={user && user.email} className={classes.textFields}  disabled/>
+                <TextField required id="standard-required-name" label="이름" value={user && user.userName} className={classes.textFields} disabled/>
                 <TextField
                     id="standard-password-input"
                     label="비밀번호"
@@ -119,7 +119,7 @@ const MyInfo = () => {
                     defaultValue='0000000000'
                     disabled
                 />
-                {personalUser && (personalUser.id !== loginUser.id) &&
+                {loginUser && personalUser && (personalUser.id !== loginUser.id) &&
                     <Button variant="outlined" color="primary" style={{marginTop:'10%', marginLeft:'25%', width:'40%'}} onClick={onClickFollow(personalUser.id)}>
                         {isFollowedUser ? '언팔로우' : '팔로우'}
                     </Button>

@@ -59,9 +59,18 @@ const WritePage = () => {
     // }
     const dispatch = useDispatch();
     const {imagePaths, cardDiaries, isDiaryAdding, diaryAdded} = useSelector(state => state.diary);
+    const { loginUser, isLoggingOut, } = useSelector(state => state.user);
     const router = useRouter();
 
     const classes = useStyles();
+
+    //로그아웃 또는 로그인 안한 사용자가 들어올 경우 메인으로 돌리기
+    useEffect(() => {
+        if(!loginUser){
+            router.push('/');
+            return;
+        }
+    }, [loginUser, isLoggingOut]);
 
     const [files, setFiles] = useState([]); //드랍존 이미지 파일
     const [isOpened, setIsOpened] = useState(false); //드랍존 모달 오픈

@@ -15,6 +15,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
 import {yellow} from "@material-ui/core/colors";
 import IconButton from "@material-ui/core/IconButton";
+import {useRouter} from "next/router";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -93,9 +94,17 @@ const useStyles = makeStyles((theme) => ({
 const User = () => {
 
     const classes = useStyles();
-    const {loginUser, isEditing, personalUser, followingList} = useSelector(state => state.user);
+    const {loginUser, isEditing, personalUser, followingList, isLoggingOut} = useSelector(state => state.user);
     const {loginUserCardDiaries, isFavoriteCard} = useSelector(state => state.diary);
     const [searchKeyword, setSearchKeyword] = useState('');
+    const router = useRouter();
+
+    useEffect(() => {
+        if(!loginUser){
+            router.push('/');
+            return;
+        }
+    }, [loginUser, isLoggingOut]);
 
     //즐겨찾기한 글만 보기
     const [onFilteredSearching, setOnFilteredSearching] = useState(false);
@@ -113,11 +122,6 @@ const User = () => {
         }
         return v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1; //값을 data에 저장
     }), [onFilteredSearching, loginUserCardDiaries, searchKeyword]);
-
-    console.log('userPage followingList', followingList);
-    console.log('userPage personalUser', personalUser);
-
-
 
     return (
         <Paper variant="outlined" style={{marginRight:"5%", marginLeft:'-5%'}}>

@@ -226,7 +226,7 @@ const CardDiary = ({diary}) => {
                         <ShareIcon />
                     </IconButton>
                     {/*별 아이콘*/}
-                    {loginUser.id === diary.UserId &&
+                    {loginUser && loginUser.id === diary.UserId &&
                     <IconButton aria-label="share" onClick={onClickFavorite(diary.id)}>
                         {liked
                             ? <StarBorderRoundedIcon fontSize="large" color="inherit" className={classes.starIcon} />
