@@ -11,6 +11,7 @@ import {
 import CardDiary from "../components/CardDiary";
 import FollowDrawer from "../components/FollowDrawer";
 import {useRouter} from "next/router";
+import MainCardDiary from "../components/MainCardDiary";
 
 
 
@@ -25,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing(3),
     },
-    diariesContainer: {
-        marginTop:"5%",
-        marginBottom:"5%",
-        marginLeft:"8%",
-    },
+    // diariesContainer: {
+    //     marginTop:"5%",
+    //     marginBottom:"5%",
+    //     marginLeft:"8%",
+    // },
 }));
 const Main = () => {
     const classes = useStyles();
@@ -51,13 +52,14 @@ const Main = () => {
             <div>main2</div>
             <hr/>
             <Grid container>
-                <Grid container md={11} spacing={3} className={classes.diariesContainer}>
+                <Grid xs={3}/>
+                <Grid container xs={7} className={classes.diariesContainer}>
                     {cardDiaries.map(v => {
                         return (
-                            <CardDiary key={v.id} diary={v}/>
+                            <MainCardDiary key={v.id} diary={v}/>
                         )})}
                 </Grid>
-                <Grid item md={3}>
+                <Grid item xs={2}>
                     <FollowDrawer/>
                 </Grid>
             </Grid>

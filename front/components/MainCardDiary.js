@@ -34,8 +34,9 @@ import Router, {useRouter} from 'next/router'
 
 const useStyles = makeStyles(theme => ({
     root: {
-        width: "330px",
-        height: "430px",
+        width: "700px",
+        maxHeight: "800px",
+        marginBottom:"3%",
     },
     media: {
         height: 0,
@@ -48,18 +49,18 @@ const useStyles = makeStyles(theme => ({
         color: yellow[700],
     },
     modal: {
-        marginLeft: '35%',
-        marginTop: '20%',
-        maxWidth: '500px',
-        maxHeight: '500px',
-        width: '40%',
-        height: '40%',
+        marginLeft: '27%',
+        marginTop: '15%',
+        maxWidth: '750px',
+        maxHeight: '750px',
+        width: '60%',
+        height: '60%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
     },
 }));
-const CardDiary = ({diary}) => {
+const MainCardDiary = ({diary}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { personalUser, loginUser} = useSelector(state => state.user);
@@ -203,7 +204,7 @@ const CardDiary = ({diary}) => {
                             <Carousel
                             >
                                 {diary.Images && diary.Images.map((v, i) => (
-                                    <div style={{height: '500px'}} key={v}><img  src={`http://localhost:3603/${diary.Images[i].src}`}/></div>
+                                    <div key={v}><img  src={`http://localhost:3603/${diary.Images[i].src}`}/></div>
                                 ))}
                             </Carousel>
                         </div>
@@ -213,6 +214,7 @@ const CardDiary = ({diary}) => {
 
                 {/*</a></Link>*/}
                 {/*내용*/}
+
                 <CardContent style={{height:"102px"}}>
                     <Typography variant="body2" color="textSecondary" component="p">
                         {diary.diaryContent && diary.diaryContent.slice(0,100)}
@@ -221,7 +223,6 @@ const CardDiary = ({diary}) => {
                             : ""}
                     </Typography>
                 </CardContent>
-
                 <CardActions disableSpacing>
                     {/*하트 아이콘*/}
                     <IconButton aria-label="add to favorites" color="secondary">
@@ -246,4 +247,4 @@ const CardDiary = ({diary}) => {
     );
 }
 
-export default CardDiary;
+export default MainCardDiary;

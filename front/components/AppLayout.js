@@ -153,7 +153,7 @@ const AppLayout = ({ children }) => {
 
     //로고, 메인화면 이동
     const onClickLogo = () => {
-        router.push("/");
+        router.push("/main");
     }
 
     const onClick1 = () => {
@@ -195,8 +195,6 @@ const AppLayout = ({ children }) => {
                         </AppBar>
                     </ThemeProvider>
                     <Grid container>
-                        <Grid md={1}/>
-                        <Grid item md={11}>
                     {/*<Drawer*/}
                     {/*    variant="permanent"*/}
                     {/*    className={clsx(classes.drawer, {*/}
@@ -235,7 +233,6 @@ const AppLayout = ({ children }) => {
                                 <div className={classes.toolbar} />
                                 {children}
                             </main>
-                        </Grid>
                     </Grid>
                 </div>
             :
