@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Tab, Tabs} from "@material-ui/core";
+import {Avatar, Button, ListItemAvatar, ListItemSecondaryAction, Tab, Tabs} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -44,7 +44,9 @@ const FollowDrawer = () => {
     };
     useEffect(() => {
 
-    }, [followingList])
+    }, [followingList, followerList]);
+    console.log(followingList);
+    // console.log(followerList[0].ProfileImage[0].src);
 
     return (
         <Drawer
@@ -72,15 +74,29 @@ const FollowDrawer = () => {
                     ?
                     followingList.map((v, i) => (
                         <ListItem button key={v.id}>
-                            <ListItemIcon>{i % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                            <ListItemAvatar>
+                                <Avatar
+                                    aria-label="recipe"
+                                    className={classes.avatar}
+                                    src={ v.ProfileImage ? `http://localhost:3603/${v.ProfileImage[0].src}` :  null}
+                                />
+                            </ListItemAvatar>
                             <ListItemText primary={v.userName} />
                         </ListItem>
                     ))
                     :
                     followerList.map((v, i) => (
                         <ListItem button key={v.id}>
-                            <ListItemIcon>{i % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={v.userName} />
+                            <ListItemAvatar >
+                                <Avatar
+                                    aria-label="recipe"
+                                    className={classes.avatar}
+                                    src={ v.ProfileImage ? `http://localhost:3603/${v.ProfileImage[0].src}` :  null}
+                                />
+                            </ListItemAvatar>
+                            {/*<ListItemText primary={v.userName} />*/}
+                            <ListItemText primary={v.userName} secondary={v.email}/>
+                            <ListItemSecondaryAction><Button style={{marginLeft:'1%'}}>언팔로우</Button></ListItemSecondaryAction>
                         </ListItem>
                     ))
                 }

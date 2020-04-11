@@ -121,6 +121,7 @@ const CardDiary = ({diary}) => {
         });
         return;
     };
+    console.log(diary);
     return (
         <Grid item>
             <Card className={classes.root}>
@@ -128,9 +129,14 @@ const CardDiary = ({diary}) => {
                     // 아바타
                     avatar={
                         // 아니 href 안에 query:{userId: diary.UserId} 로 바꾸면 왜 안되는거지? 진짜 어이없네
-                        <Link href={{ pathname: '/user', query: { userId: diary.UserId}}} as={`/user/${diary.UserId}`}><a><Avatar aria-label="recipe" className={classes.avatar}>
-                            {diary.User.userName[0]}
-                        </Avatar></a></Link>
+                        <Link href={{ pathname: '/user', query: { userId: diary.UserId}}} as={`/user/${diary.UserId}`}><a>
+                            <Avatar
+                                aria-label="recipe"
+                                className={classes.avatar}
+                                src={ diary && diary.User.ProfileImage ? `http://localhost:3603/${diary.User.ProfileImage[0].src}` :  null}
+                            >
+                            </Avatar>
+                        </a></Link>
                     }
                     // 땡땡땡 옵션
                     action={

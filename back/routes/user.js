@@ -130,8 +130,12 @@ router.get('/followingList', async (req, res, next) => {
             where: { id: req.user.id },
         });
         const followings = await user.getFollowings({
-            attributes: ['id', 'userName'],
+            attributes: ['id', 'userName', 'email'],
             order: [['userName', 'ASC']], //이름 오름차순으로 정렬
+            include:[{
+                model: db.ProfileImage,
+                as:'ProfileImage'
+            }],
         },);
         res.json(followings);
     } catch (e) {
@@ -147,8 +151,12 @@ router.get('/followerList', async (req, res, next) => {
             where: { id: req.user.id },
         });
         const followers = await user.getFollowers({
-            attributes: ['id', 'userName'],
+            attributes: ['id', 'userName', 'email'],
             order: [['userName', 'ASC']], //이름 오름차순으로 정렬
+            include:[{
+                model: db.ProfileImage,
+                as:'ProfileImage'
+            }],
         },);
         res.json(followers);
     } catch (e) {

@@ -10,6 +10,10 @@ router.get('/', async (req, res, next) => {
                 model: db.User,
                 attributes: ['id', 'userName', 'email'],
                 as:'User',
+                include:[{
+                    model: db.ProfileImage,
+                    as:'ProfileImage'
+                }]
             },{
                 model: db.Image,
             }],
@@ -33,6 +37,10 @@ router.get('/user/:id', async (req, res, next) => {
                 model: db.User,
                 attributes: ['id', 'userName', 'email'],
                 as:'User',
+                include:[{
+                    model: db.ProfileImage,
+                    as:'ProfileImage'
+                }],
             }, {
                 model: db.Image,
             },
