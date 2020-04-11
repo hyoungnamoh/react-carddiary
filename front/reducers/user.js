@@ -14,6 +14,7 @@ export const initialState = { //초기값
     isEditing: false, //수정중 상태
     profileImagePath: '', //프로필 이미지 미리보기 경로
     followingList: [],
+    followerList: [],
 };
 
 //로그인하는 액션
@@ -47,9 +48,15 @@ export const ADD_FOLLOW_SUCCESS = 'ADD_FOLLOW_SUCCESS';
 export const ADD_FOLLOW_FAILURE = 'ADD_FOLLOW_FAILURE';
 
 //팔로잉 목록 가져오는 액션
-export const LOAD_FOLLOWINGSLIST_REQUEST = 'LOAD_FOLLOWINGSLIST_REQUEST';
-export const LOAD_FOLLOWINGSLIST_SUCCESS = 'LOAD_FOLLOWINGSLIST_SUCCESS';
-export const LOAD_FOLLOWINGSLIST_FAILURE = 'LOAD_FOLLOWINGSLIST_FAILURE';
+export const LOAD_FOLLOWINGLIST_REQUEST = 'LOAD_FOLLOWINGLIST_REQUEST';
+export const LOAD_FOLLOWINGLIST_SUCCESS = 'LOAD_FOLLOWINGLIST_SUCCESS';
+export const LOAD_FOLLOWINGLIST_FAILURE = 'LOAD_FOLLOWINGLIST_FAILURE';
+
+//팔로잉 목록 가져오는 액션
+export const LOAD_FOLLOWERLIST_REQUEST = 'LOAD_FOLLOWERLIST_REQUEST';
+export const LOAD_FOLLOWERLIST_SUCCESS = 'LOAD_FOLLOWERLIST_SUCCESS';
+export const LOAD_FOLLOWERLIST_FAILURE = 'LOAD_FOLLOWERLIST_FAILURE';
+
 
 //팔로잉 취소하는 액션
 export const REMOVE_FOLLOW_REQUEST = 'REMOVE_FOLLOW_REQUEST';
@@ -168,17 +175,30 @@ const reducer = (state = initialState, action) => {
             case ADD_FOLLOW_FAILURE: {
                 break;
             }
-            case LOAD_FOLLOWINGSLIST_REQUEST: {
+            case LOAD_FOLLOWINGLIST_REQUEST: {
                 break;
             }
-            case LOAD_FOLLOWINGSLIST_SUCCESS: {
+            case LOAD_FOLLOWINGLIST_SUCCESS: {
                 draft.followingList = [];
                 action.data.forEach((d) => {
                     draft.followingList.push(d);
                 });
                 break;
             }
-            case LOAD_FOLLOWINGSLIST_FAILURE: {
+            case LOAD_FOLLOWINGLIST_FAILURE: {
+                break;
+            }
+            case LOAD_FOLLOWERLIST_REQUEST: {
+                break;
+            }
+            case LOAD_FOLLOWERLIST_SUCCESS: {
+                draft.followerList = [];
+                action.data.forEach((d) => {
+                    draft.followerList.push(d);
+                });
+                break;
+            }
+            case LOAD_FOLLOWERLIST_FAILURE: {
                 break;
             }
             case REMOVE_FOLLOW_REQUEST: {

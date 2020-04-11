@@ -92,7 +92,7 @@ function* watchAddPost() {
     유저 다이어리들 가져오기
  */
 function loadUserDiariesAPI(id) {
-    return axios.get(`/diaries/${id || 0}`, {
+    return axios.get(`/diaries/user/${id || 0}`, {
         withCredentials: true,
     });
 }

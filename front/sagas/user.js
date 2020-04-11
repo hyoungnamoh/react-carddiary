@@ -21,9 +21,10 @@ import {
     REMOVE_FOLLOW_REQUEST,
     REMOVE_FOLLOW_SUCCESS,
     REMOVE_FOLLOW_FAILURE,
-    LOAD_FOLLOWINGSLIST_FAILURE,
-    LOAD_FOLLOWINGSLIST_SUCCESS,
-    LOAD_FOLLOWINGSLIST_REQUEST
+    LOAD_FOLLOWINGLIST_REQUEST,
+    LOAD_FOLLOWINGLIST_SUCCESS,
+    LOAD_FOLLOWINGLIST_FAILURE,
+    LOAD_FOLLOWERLIST_REQUEST, LOAD_FOLLOWERLIST_SUCCESS, LOAD_FOLLOWERLIST_FAILURE
 } from "../reducers/user";
 import axios from 'axios';
 import {UPLOAD_PROFILE_FAILURE, UPLOAD_PROFILE_REQUEST, UPLOAD_PROFILE_SUCCESS} from "../reducers/diary";
@@ -232,21 +233,48 @@ function loadFollowingListAPI() {
 function* loadFollowingList() {
     try {
         const result = yield call(loadFollowingListAPI);
-        console.log('loadFollowingList', result.data);
         yield put({
-            type: LOAD_FOLLOWINGSLIST_SUCCESS,
+            type: LOAD_FOLLOWINGLIST_SUCCESS,
             data: result.data,
         });
     }catch (e) {
         console.log(e);
         yield put({
-            type: LOAD_FOLLOWINGSLIST_FAILURE,
+            type: LOAD_FOLLOWINGLIST_FAILURE,
             error: e,
         });
     }
 }
 function* watchLoadFollowingList() {
-    yield takeLatest(LOAD_FOLLOWINGSLIST_REQUEST, loadFollowingList);
+    yield takeLatest(LOAD_FOLLOWINGLIST_REQUEST, loadFollowingList);
+}
+
+/*
+   팔로워 목록 가져오기
+ */
+function loadFollowerListAPI() {
+    return axios.get(`/user/followerList`,{
+        withCredentials: true,
+    });
+}
+
+function* loadFollowerList() {
+    try {
+        const result = yield call(loadFollowerListAPI);
+        yield put({
+            type: LOAD_FOLLOWERLIST_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: LOAD_FOLLOWERLIST_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchLoadFollowerList() {
+    yield takeLatest(LOAD_FOLLOWERLIST_REQUEST, loadFollowerList);
 }
 
 /*
@@ -289,6 +317,7 @@ export default function* userSaga() {
         fork(wathUploadProfile),
         fork(watchAddFollow),
         fork(watchLoadFollowingList),
+        fork(watchLoadFollowerList),
         fork(watchRemoveFollow),
     ]);
 }

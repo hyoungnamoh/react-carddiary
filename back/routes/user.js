@@ -32,7 +32,7 @@ router.get('/', isLoggedIn, async (req, res) => {
                 model: db.ProfileImage,
                 as: 'ProfileImage',
                 attributes: ['src'],
-            },]
+            },],
         })
         delete user.password;
         return res.json(user);
@@ -131,8 +131,26 @@ router.get('/followingList', async (req, res, next) => {
         });
         const followings = await user.getFollowings({
             attributes: ['id', 'userName'],
+            order: [['userName', 'ASC']], //이름 오름차순으로 정렬
         },);
         res.json(followings);
+    } catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
+
+//팔로워 목록 가져오기
+router.get('/followerList', async (req, res, next) => {
+    try {
+        const user = await db.User.findOne({
+            where: { id: req.user.id },
+        });
+        const followers = await user.getFollowers({
+            attributes: ['id', 'userName'],
+            order: [['userName', 'ASC']], //이름 오름차순으로 정렬
+        },);
+        res.json(followers);
     } catch (e) {
         console.error(e);
         next(e);

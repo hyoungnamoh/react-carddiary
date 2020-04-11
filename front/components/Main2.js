@@ -17,7 +17,6 @@ import {LOAD_DIARIES_REQUEST} from "../reducers/diary";
 import {useSelector} from "react-redux";
 import CardDiary from "./CardDiary";
 import FollowDrawer from "./FollowDrawer";
-import {LOAD_FOLLOWINGSLIST_REQUEST} from "../reducers/user";
 
 
 

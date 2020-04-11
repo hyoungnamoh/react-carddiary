@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Tab, Tabs} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
@@ -37,15 +37,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 const FollowDrawer = () => {
     const classes = useStyles();
-    const {followingList} = useSelector(state => state.user);
-    const [value, setValue] = React.useState(0);
+    const {followingList, followerList} = useSelector(state => state.user);
+    const [drawerFollowList, setDrawerFollowList] = useState(0);
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        setDrawerFollowList(newValue);
     };
     useEffect(() => {
 
     }, [followingList])
-    console.log('followingList', followingList);
 
     return (
         <Drawer
@@ -58,23 +57,33 @@ const FollowDrawer = () => {
         >
             <div className={classes.toolbar} />
             <Tabs
-                value={value}
+                value={drawerFollowList}
                 onChange={handleChange}
                 indicatorColor="primary"
                 textColor="primary"
                 centered
             >
                 <Tab label="팔로워" />
-                <Tab label="팔로윙" />
+                <Tab label="팔로잉" />
             </Tabs>
             <Divider />
             <List>
-                {followingList.map((v, i) => (
-                    <ListItem button key={v.id}>
-                        <ListItemIcon>{i % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={v.userName} />
-                    </ListItem>
-                ))}
+                {drawerFollowList
+                    ?
+                    followingList.map((v, i) => (
+                        <ListItem button key={v.id}>
+                            <ListItemIcon>{i % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                            <ListItemText primary={v.userName} />
+                        </ListItem>
+                    ))
+                    :
+                    followerList.map((v, i) => (
+                        <ListItem button key={v.id}>
+                            <ListItemIcon>{i % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                            <ListItemText primary={v.userName} />
+                        </ListItem>
+                    ))
+                }
             </List>
         </Drawer>
     );

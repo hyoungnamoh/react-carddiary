@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
 });
 
 //유저 다이어리들 가져오기
-router.get('/:id', async (req, res, next) => {
+router.get('/user/:id', async (req, res, next) => {
     try{
         const diaries = await db.Diary.findAll({
             where: {
@@ -56,7 +56,6 @@ router.get('/:id', async (req, res, next) => {
 //즐겨찾기 목록 가져오기
 router.get('/favorite', async (req, res, next) => {
     try{
-        console.log('favoritefavorite', req.user.id);
         const favoriteDiaries = await db.Diary.findAll(
             {
                 where: {

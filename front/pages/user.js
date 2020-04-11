@@ -8,7 +8,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import axios from "axios";
-import {EDIT_USER_REQUEST, LOAD_FOLLOWINGSLIST_REQUEST, LOAD_USER_REQUEST, USER_EDITFORM_REQUEST,} from "../reducers/user";
+import {
+    EDIT_USER_REQUEST,
+    LOAD_FOLLOWINGLIST_REQUEST,
+    LOAD_USER_REQUEST,
+    USER_EDITFORM_REQUEST,
+} from "../reducers/user";
 import MyInfoEdit from "../components/MyInfoEdit";
 import MyInfo from "../components/MyInfo";
 import SearchIcon from '@material-ui/icons/Search';
@@ -201,7 +206,7 @@ User.getInitialProps = async (context) => {
         data: userId,
     });
     context.store.dispatch({
-        type: LOAD_FOLLOWINGSLIST_REQUEST,
+        type: LOAD_FOLLOWINGLIST_REQUEST,
     });
 
 }
