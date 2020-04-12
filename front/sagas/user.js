@@ -24,7 +24,11 @@ import {
     LOAD_FOLLOWINGLIST_REQUEST,
     LOAD_FOLLOWINGLIST_SUCCESS,
     LOAD_FOLLOWINGLIST_FAILURE,
-    LOAD_FOLLOWERLIST_REQUEST, LOAD_FOLLOWERLIST_SUCCESS, LOAD_FOLLOWERLIST_FAILURE
+    LOAD_FOLLOWERLIST_REQUEST,
+    LOAD_FOLLOWERLIST_SUCCESS,
+    LOAD_FOLLOWERLIST_FAILURE,
+    LOAD_USERS_SUCCESS,
+    LOAD_USERS_REQUEST, LOAD_USERS_FAILURE
 } from "../reducers/user";
 import axios from 'axios';
 import {UPLOAD_PROFILE_FAILURE, UPLOAD_PROFILE_REQUEST, UPLOAD_PROFILE_SUCCESS} from "../reducers/diary";
@@ -304,6 +308,33 @@ function* watchRemoveFollow() {
     yield takeLatest(REMOVE_FOLLOW_REQUEST, removeFollow);
 }
 
+/*
+   모든 유저 가져오기
+ */
+function loadUsersAPI() {
+    return axios.get('/user/users',{
+        withCredentials: true,
+    });
+}
+
+function* loadUsers() {
+    try {
+        const result = yield call(loadUsersAPI);
+        yield put({
+            type: LOAD_USERS_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        yield put({
+            type: LOAD_USERS_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchLoadUsers() {
+    yield takeLatest(LOAD_USERS_REQUEST, loadUsers);
+}
+
 //시작점
 export default function* userSaga() {
     //watch = 이벤트 리스너
@@ -319,5 +350,6 @@ export default function* userSaga() {
         fork(watchLoadFollowingList),
         fork(watchLoadFollowerList),
         fork(watchRemoveFollow),
+        fork(watchLoadUsers),
     ]);
 }

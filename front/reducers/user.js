@@ -17,6 +17,7 @@ export const initialState = { //초기값
     followerList: [],
     currentPage:'', //현재 페이지
     defaultPage: ['User Page', 'Main Page', 'Diary Writing Page'],
+    users:[], //모든 유저
 };
 
 //로그인하는 액션
@@ -70,6 +71,11 @@ export const USER_EDITFORM_REQUEST = 'USER_EDITFORM_REQUEST';
 
 //페이지 바꾸는 액션
 export const CHANGE_CURRENTPAGE_REQUEST = 'CHANGE_CURRENTPAGE_REQUEST';
+
+//모든 유저 가져오는 액션
+export const LOAD_USERS_REQUEST = 'LOAD_USERS_REQUEST';
+export const LOAD_USERS_SUCCESS = 'LOAD_USERS_SUCCESS';
+export const LOAD_USERS_FAILURE = 'LOAD_USERS_FAILURE';
 
 
 //setState
@@ -221,6 +227,17 @@ const reducer = (state = initialState, action) => {
             }
             case CHANGE_CURRENTPAGE_REQUEST: {
                 draft.currentPage = action.data;
+                break;
+            }
+            case LOAD_USERS_REQUEST: {
+                break;
+            }
+            case LOAD_USERS_SUCCESS: {
+                console.log('LOAD_USERS_SUCCESS', action.data);
+                draft.users = action.data;
+                break;
+            }
+            case LOAD_USERS_FAILURE: {
                 break;
             }
             default : {

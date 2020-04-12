@@ -189,6 +189,23 @@ router.delete('/:id/follow', async (req, res, next) => {
     }
 });
 
+//유저 정보 전부 가져오기
+router.get('/users', async (req, res, next) => {
+    try{
+        const users = await db.User.findAll({
+            attributes: ['id', 'userName', 'email'],
+            include:[{
+                model: db.ProfileImage,
+                as:'ProfileImage'
+            }],
+        },);
+        return res.json(users);
+    }catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
+
 
 
 module.exports = router;
