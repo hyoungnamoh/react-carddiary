@@ -1,8 +1,8 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import {Grid, Tabs, Tab} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import {LOAD_DIARIES_REQUEST, LOAD_FAVORITE_REQUEST} from "../reducers/diary";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
     CHANGE_CURRENTPAGE_REQUEST,
     LOAD_FOLLOWERLIST_REQUEST,
@@ -35,10 +35,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Main = () => {
     const classes = useStyles();
-    const {cardDiaries} = useSelector(state => state.diary);
+    const {cardDiaries, hasMoreDiary} = useSelector(state => state.diary);
     const { loginUser, isLoggingOut, followingList, followerList} = useSelector(state => state.user);
-
+    const dispatch = useDispatch();
     const router = useRouter();
+    const countRef = useRef([]); //무한 스크롤링 시 lastId 를 저장 할 배열
 
     //로그아웃 또는 로그인 안한 사용자가 들어올 경우 메인으로 돌리기
     useEffect(() => {
@@ -46,7 +47,30 @@ const Main = () => {
             router.push('/');
             return;
         }
+
     }, [loginUser, isLoggingOut]);
+
+    //무한스크롤링 스크롤 이벤트
+    const onScroll = () => {
+        if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300){
+            if(hasMoreDiary){
+                const lastId = cardDiaries[cardDiaries.length -1].id;
+                if(!countRef.current.includes(lastId)){ //호출 할 lastId가 이미 사용했던거면 막음
+                    dispatch({
+                        type: LOAD_DIARIES_REQUEST,
+                        lastId: lastId,
+                    });
+                    countRef.current.push(lastId); //사용했던 lastId 배열에 저장
+                }
+            }
+        }
+    }
+    useEffect(() => {
+        window.addEventListener('scroll', onScroll);
+        return () => {
+            window.removeEventListener('scroll', onScroll)
+        }
+    }, [cardDiaries.length]);
 
     return (
         <>

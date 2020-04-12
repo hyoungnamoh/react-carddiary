@@ -5,7 +5,16 @@ const db = require('../models');
 //내 팔로잉 사람들 게시물 전부 가져오기
 router.get('/', async (req, res, next) => {
     try{
+        let where = {};
+        if(parseInt(req.query.lastId, 10)){
+            where = {
+                id: {
+                    [db.Sequelize.Op.lt]: parseInt(req.query.lastId, 10),
+                },
+            };
+        }
         const diaries = await db.Diary.findAll({
+            where,
             include: [{
                 model: db.User,
                 attributes: ['id', 'userName', 'email'],
@@ -18,6 +27,7 @@ router.get('/', async (req, res, next) => {
                 model: db.Image,
             }],
             order: [['createdAt', 'DESC']],
+            limit: parseInt(req.query.limit, 10),
         });
         res.json(diaries);
     }catch (e) {

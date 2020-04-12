@@ -8,7 +8,7 @@ export const initialState = {
     isDiaryAdding: false, //프로그래스바 로딩중
     diaryAdded: false, //글작성 완료(route)
     favoriteDiaries:[], //별 누른 다이어리들
-
+    hasMoreDiary: false, //더 불러올 다이어리가 있는지
 
 };
 
@@ -140,13 +140,15 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_DIARIES_REQUEST: {
+                draft.cardDiaries = !action.lastId ? [] : draft.cardDiaries;
+                draft.hasMoreDiary = action.lastId ? draft.hasMoreDiary : true;
                 break;
             }
             case LOAD_DIARIES_SUCCESS: {
-                draft.cardDiaries = [];
                 action.data.forEach((diary) => {
                     draft.cardDiaries.push(diary);
                 });
+                draft.hasMoreDiary = action.data.length === 5;
                 break;
             }
             case LOAD_DIARIES_FAILURE: {

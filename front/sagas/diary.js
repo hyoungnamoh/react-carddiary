@@ -1,4 +1,4 @@
-import {all, fork, takeLatest, put, call} from 'redux-saga/effects';
+import {all, fork, takeLatest, put, call, throttle} from 'redux-saga/effects';
 import {
 
     UPLOAD_IMAGES_SUCCESS,
@@ -205,15 +205,15 @@ function* watchLoadDiary() {
 /*
     모든 다이어리들 가져오기
  */
-function loadDiariesAPI(id) {
-    return axios.get('/diaries', {
+function loadDiariesAPI(lastId = 0, limit = 5) {
+    return axios.get(`/diaries?lastId=${lastId}&limit=${limit}`, {
         withCredentials: true,
     });
 }
 
 function* loadDiaries(action) {
     try {
-        const result = yield call(loadDiariesAPI, action.data);
+        const result = yield call(loadDiariesAPI, action.lastId);
         yield put({
             type:LOAD_DIARIES_SUCCESS,
             data: result.data,
@@ -227,7 +227,7 @@ function* loadDiaries(action) {
     }
 }
 function* watchLoadDiaries() {
-    yield takeLatest(LOAD_DIARIES_REQUEST, loadDiaries);
+    yield throttle(1000, LOAD_DIARIES_REQUEST, loadDiaries);
 }
 
 /*
