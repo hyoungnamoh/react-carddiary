@@ -116,7 +116,15 @@ router.post('/:id/follow', async (req, res, next) => {
             }
         });
         await user.addFollowing(req.params.id);
-        return res.send(req.params.id);
+        const followings = await user.getFollowings({
+            attributes: ['id', 'userName', 'email'],
+            order: [['userName', 'ASC']], //이름 오름차순으로 정렬
+            include:[{
+                model: db.ProfileImage,
+                as:'ProfileImage'
+            }],
+        },);
+        return res.json(followings);
     }catch (e) {
         console.error(e);
         next(e);

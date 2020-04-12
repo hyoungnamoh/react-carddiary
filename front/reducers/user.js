@@ -169,7 +169,10 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case ADD_FOLLOW_SUCCESS: {
-                draft.followingList.push(action.data);
+                draft.followingList = [];
+                action.data.forEach((d) => {
+                    draft.followingList.push(d);
+                });
                 break;
             }
             case ADD_FOLLOW_FAILURE: {

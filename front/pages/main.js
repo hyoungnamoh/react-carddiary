@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const Main = () => {
     const classes = useStyles();
     const {cardDiaries} = useSelector(state => state.diary);
-    const { loginUser, isLoggingOut} = useSelector(state => state.user);
+    const { loginUser, isLoggingOut, followingList, followerList} = useSelector(state => state.user);
 
     const router = useRouter();
 

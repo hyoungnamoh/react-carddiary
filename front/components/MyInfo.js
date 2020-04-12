@@ -47,7 +47,6 @@ const MyInfo = () => {
     const [isFollowedUser, setIsFollowedUser] = useState(false);
 
     useEffect(() => {
-        console.log('useEffectuseEffectuseEffect', followingList.length !== 0 && personalUser);
         if(followingList.length !== 0 && personalUser){
             const followedUser = followingList.filter(v => v.id === personalUser.id);
             setIsFollowedUser(followedUser.length !== 0);

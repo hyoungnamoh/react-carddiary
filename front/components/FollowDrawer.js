@@ -10,7 +10,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
 import {makeStyles} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
-import {LOAD_FOLLOWERLIST_REQUEST, LOAD_FOLLOWINGLIST_REQUEST, REMOVE_FOLLOW_REQUEST} from "../reducers/user";
+import {
+    ADD_FOLLOW_REQUEST,
+    LOAD_FOLLOWERLIST_REQUEST,
+    LOAD_FOLLOWINGLIST_REQUEST,
+    REMOVE_FOLLOW_REQUEST
+} from "../reducers/user";
+import Link from "next/link";
 
 const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
@@ -41,24 +47,25 @@ const FollowDrawer = () => {
     const dispatch = useDispatch();
     const {followingList, followerList} = useSelector(state => state.user);
     const [drawerFollowList, setDrawerFollowList] = useState(0);
+    const [filteredFollow, setFilteredFollow] = useState([]);
     const handleChange = (event, newValue) => {
         setDrawerFollowList(newValue);
     };
-    useEffect(() => {
 
-    }, [followingList, followerList]);
-
+    //언팔로우 버튼 클릭
     const onClickUnFollow = (userId) => () => {
         dispatch({
             type: REMOVE_FOLLOW_REQUEST,
             data: userId,
         });
-        // dispatch({
-        //     type: LOAD_FOLLOWINGLIST_REQUEST,
-        // });
-        // dispatch({
-        //     type: LOAD_FOLLOWERLIST_REQUEST,
-        // });
+    }
+    
+    //팔로우 버튼 클릭
+    const onClickFollow = (userId) => () => {
+        dispatch({
+            type: ADD_FOLLOW_REQUEST,
+            data: userId,
+        });
     }
     console.log(followingList);
 
@@ -87,37 +94,43 @@ const FollowDrawer = () => {
                 {drawerFollowList
                     ?
                     followingList.map((v, i) => (
-                        <ListItem button key={v.id}>
-                            <ListItemAvatar >
-                                <Avatar
-                                    aria-label="recipe"
-                                    className={classes.avatar}
-                                    src={ v.ProfileImage ? `http://localhost:3603/${v.ProfileImage[0].src}` :  null}
-                                />
-                            </ListItemAvatar>
-                            {/*<ListItemText primary={v.userName} />*/}
-                            <ListItemText primary={v.userName} secondary={v.email}/>
-                            <ListItemSecondaryAction style={{width:'30%', }}>
-                                <Button variant="outlined" color="primary" onClick={onClickUnFollow(v.id)}>언팔로우</Button>
-                            </ListItemSecondaryAction>
-                        </ListItem>
+                        <Link href={{ pathname: '/user', query: { userId: v.id}}} as={`/user/${v.id}`}>
+                            <ListItem button key={v.id}>
+                                <ListItemAvatar >
+                                    <Avatar
+                                        aria-label="recipe"
+                                        className={classes.avatar}
+                                        src={ v.ProfileImage ? `http://localhost:3603/${v.ProfileImage[0].src}` :  null}
+                                    />
+                                </ListItemAvatar>
+                                {/*<ListItemText primary={v.userName} />*/}
+                                <ListItemText primary={v.userName} secondary={v.email}/>
+                                <ListItemSecondaryAction style={{width:'30%', }}>
+                                    <Button variant="outlined" color="primary" onClick={onClickUnFollow(v.id)}>언팔로우</Button>
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                        </Link>
                     ))
                     :
                     followerList.map((v, i) => (
-                        <ListItem button key={v.id}>
-                            <ListItemAvatar >
-                                <Avatar
-                                    aria-label="recipe"
-                                    className={classes.avatar}
-                                    src={ v.ProfileImage ? `http://localhost:3603/${v.ProfileImage[0].src}` :  null}
-                                />
-                            </ListItemAvatar>
-                            {/*<ListItemText primary={v.userName} />*/}
-                            <ListItemText primary={v.userName} secondary={v.email}/>
-                            <ListItemSecondaryAction style={{width:'30%', }}>
-                                <Button variant="outlined" color="primary">팔로잉</Button>
-                            </ListItemSecondaryAction>
-                        </ListItem>
+                        <Link href={{ pathname: '/user', query: { userId: v.id}}} as={`/user/${v.id}`}>
+                            <ListItem button key={v.id}>
+                                <ListItemAvatar >
+                                    <Avatar
+                                        aria-label="recipe"
+                                        className={classes.avatar}
+                                        src={ v.ProfileImage ? `http://localhost:3603/${v.ProfileImage[0].src}` :  null}
+                                    />
+                                </ListItemAvatar>
+                                <ListItemText primary={v.userName} secondary={v.email}/>
+                                {
+                                    followingList.filter(f => f.id === v.id).length === 0 &&
+                                    <ListItemSecondaryAction style={{width:'30%', }}>
+                                        <Button variant="outlined" color="primary" onClick={onClickFollow(v.id)}>팔로우</Button>
+                                    </ListItemSecondaryAction>
+                                }
+                            </ListItem>
+                        </Link>
                     ))
                 }
             </List>

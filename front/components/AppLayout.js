@@ -195,40 +195,6 @@ const AppLayout = ({ children }) => {
                         </AppBar>
                     </ThemeProvider>
                     <Grid container>
-                    {/*<Drawer*/}
-                    {/*    variant="permanent"*/}
-                    {/*    className={clsx(classes.drawer, {*/}
-                    {/*        [classes.drawerOpen]: open,*/}
-                    {/*        [classes.drawerClose]: !open,*/}
-                    {/*    })}*/}
-                    {/*    classes={{*/}
-                    {/*        paper: clsx({*/}
-                    {/*            [classes.drawerOpen]: open,*/}
-                    {/*            [classes.drawerClose]: !open,*/}
-                    {/*        }),*/}
-                    {/*    }}*/}
-                    {/*>*/}
-                    {/*    <div className={classes.toolbar}>*/}
-                    {/*        <IconButton onClick={handleDrawerClose}>*/}
-                    {/*            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}*/}
-                    {/*        </IconButton>*/}
-                    {/*    </div>*/}
-                    {/*    <Divider />*/}
-                    {/*    <List>*/}
-                    {/*        <ListItem button key="write" onClick={onClickWritePage}>*/}
-                    {/*            <ListItemIcon>*/}
-                    {/*                <InboxIcon />*/}
-                    {/*            </ListItemIcon>*/}
-                    {/*            <ListItemText primary="작성하기" />*/}
-                    {/*        </ListItem>*/}
-                    {/*        <ListItem button key="diaryList" onClick={onClickDiaryListPage}>*/}
-                    {/*            <ListItemIcon>*/}
-                    {/*                <MailIcon />*/}
-                    {/*            </ListItemIcon>*/}
-                    {/*            <ListItemText primary="글 목록" />*/}
-                    {/*        </ListItem>*/}
-                    {/*    </List>*/}
-                    {/*</Drawer>*/}
                             <main className={classes.content}>
                                 <div className={classes.toolbar} />
                                 {children}

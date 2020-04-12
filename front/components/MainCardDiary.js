@@ -122,7 +122,7 @@ const MainCardDiary = ({diary}) => {
         });
         return;
     };
-    console.log(diary);
+    // console.log(diary);
     return (
         <Grid item>
             <Card className={classes.root}>

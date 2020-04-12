@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/front/components/MainCardDiary.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/routes/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/AppLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/AppLayout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/CardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/CardDiary.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/FollowDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/FollowDrawer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/components/MainCardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/MainCardDiary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/components/MyInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/MyInfo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/pages/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/reducers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/reducers/user.js" afterDir="false" />
     </list>
@@ -74,7 +75,7 @@
       <workItem from="1586399155526" duration="8756000" />
       <workItem from="1586408092839" duration="5613000" />
       <workItem from="1586414244043" duration="6661000" />
-      <workItem from="1586617848444" duration="7343000" />
+      <workItem from="1586617848444" duration="14876000" />
     </task>
     <servers />
   </component>
@@ -94,6 +95,10 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="1011" y="260" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1707.1027@0.0.1707.1027" timestamp="1584862909622" />
+    <state x="634" y="269" key="FileChooserDialogImpl" timestamp="1586666840012">
+      <screen x="0" y="0" width="1707" height="1027" />
+    </state>
+    <state x="634" y="269" key="FileChooserDialogImpl/0.0.1707.1027@0.0.1707.1027" timestamp="1586666840012" />
     <state width="1685" height="277" key="GridCell.Tab.0.bottom" timestamp="1585556078912">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
@@ -122,21 +127,9 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="510" y="238" key="run.anything.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586403964261" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586619861279">
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586665051907">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586619861279" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/front/reducers/user.js</url>
-          <line>188</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586665051907" />
   </component>
 </project>
