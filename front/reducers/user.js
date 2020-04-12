@@ -16,7 +16,7 @@ export const initialState = { //초기값
     followingList: [],
     followerList: [],
     currentPage:'', //현재 페이지
-    defaultPage: ['My Page', 'Main Page', 'Diary Writing Page'],
+    defaultPage: ['User Page', 'Main Page', 'Diary Writing Page'],
 };
 
 //로그인하는 액션

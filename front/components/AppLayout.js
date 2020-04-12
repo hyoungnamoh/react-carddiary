@@ -89,8 +89,7 @@ const AppLayout = ({ children }) => {
     const [open, setOpen] = useState(false);
     const {currentPage, defaultPage} = useSelector(state => state.user);
     const [pageName, setPageName] = useState('');
-    console.log('currentPage',currentPage);
-    
+
     //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
     const {loginUser, isLoggingOut} = useSelector(state => state.user);
     const router = useRouter();
@@ -102,7 +101,7 @@ const AppLayout = ({ children }) => {
             setValue(0);
         } else if(currentPage === 'Diary Writing Page'){
             setValue(1);
-        } else if(currentPage === 'My Page'){
+        } else if(currentPage === 'User Page'){
             setValue(2);
         } else{
             setValue(3);
@@ -126,7 +125,7 @@ const AppLayout = ({ children }) => {
         router.push("/write");
     }
     //글목록 이동
-    const onClickMyPage = () => {
+    const onClickUserPage = () => {
         dispatch({
             type: CHANGE_CURRENTPAGE_REQUEST,
             data: '',
@@ -187,8 +186,8 @@ const AppLayout = ({ children }) => {
                                 <Tabs value={value} onChange={handleChange} aria-label="Menu">
                                     <Tab label="Main" onClick={onClickMainPage}/>
                                     <Tab label="Diary Writing" onClick={onClickWritePage}/>
-                                    <Tab label="My Page" onClick={onClickMyPage}/>
-                                    <Tab label={pageName} />
+                                    <Tab label="User Page" onClick={onClickUserPage}/>
+                                    {pageName && <Tab label={pageName} />}
                                 </Tabs>
                                 <Button style={{float:"right"}} color="inherit" type="button"  onClick={onLogOut}>로그아웃</Button>
                             </Toolbar>
@@ -202,12 +201,10 @@ const AppLayout = ({ children }) => {
                         {/*<TabPanel value={value} index={2}>*/}
                         {/*    Item Three*/}
                         {/*</TabPanel>*/}
-                    <Grid container>
                             <main className={classes.content}>
                                 <div className={classes.toolbar} />
                                 {children}
                             </main>
-                    </Grid>
                 </div>
             :
                 <div>
