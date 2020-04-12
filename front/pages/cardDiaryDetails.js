@@ -22,6 +22,7 @@ import {
 } from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
+import {CHANGE_CURRENTPAGE_REQUEST} from "../reducers/user";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -140,6 +141,10 @@ cardDiaryDetails.getInitialProps = async (context) => {
     context.store.dispatch({
         type: LOAD_DIARY_REQUEST,
         data: context.query.id,
+    });
+    context.store.dispatch({
+        type: CHANGE_CURRENTPAGE_REQUEST,
+        data: 'diary details',
     });
     return { id: parseInt(context.query.id, 10) };
 };

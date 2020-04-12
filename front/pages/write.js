@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {blue, green} from '@material-ui/core/colors';
+import {CHANGE_CURRENTPAGE_REQUEST} from "../reducers/user";
 const useStyles = makeStyles((theme) => ({
     root: {
         '& .MuiTextField-root': {
@@ -288,7 +289,10 @@ const WritePage = () => {
 
 WritePage.getInitialProps = async (context) => {
     const state = context.store.getState();
-
+    context.store.dispatch({
+        type: CHANGE_CURRENTPAGE_REQUEST,
+        data: 'Diary Writing Page',
+    });
 }
 
 export default WritePage;

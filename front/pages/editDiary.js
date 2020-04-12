@@ -24,6 +24,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ClearIcon from '@material-ui/icons/Clear';
+import {CHANGE_CURRENTPAGE_REQUEST} from "../reducers/user";
 const useStyles = makeStyles((theme) => ({
     root: {
         '& .MuiTextField-root': {
@@ -328,6 +329,11 @@ const editPage = () => {
 
 editPage.getInitialProps = async (context) => {
     const queryId = parseInt(context.query.id, 10);
+    context.store.dispatch({
+        type: CHANGE_CURRENTPAGE_REQUEST,
+        data: 'Edit Page',
+    });
+
     context.store.dispatch({
         type: LOAD_DIARY_REQUEST,
         data: queryId,

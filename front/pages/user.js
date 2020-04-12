@@ -9,6 +9,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
 import axios from "axios";
 import {
+    CHANGE_CURRENTPAGE_REQUEST,
     EDIT_USER_REQUEST,
     LOAD_FOLLOWINGLIST_REQUEST,
     LOAD_USER_REQUEST,
@@ -207,6 +208,10 @@ User.getInitialProps = async (context) => {
     });
     context.store.dispatch({
         type: LOAD_FOLLOWINGLIST_REQUEST,
+    });
+    context.store.dispatch({
+        type: CHANGE_CURRENTPAGE_REQUEST,
+        data: 'My Page',
     });
 
 }

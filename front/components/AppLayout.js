@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Link from 'next/link';
 /*
     material - ui
@@ -21,16 +21,20 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import { ThemeProvider } from '@material-ui/core/styles';
 /*
     material - ui
  */
 
 import {useDispatch, useSelector} from "react-redux";
-import {LOG_OUT_REQUEST} from "../reducers/user";
+import {CHANGE_CURRENTPAGE_REQUEST, LOG_OUT_REQUEST} from "../reducers/user";
 import Main from "./Main";
 import {useRouter} from "next/router";
 import {Button, Grid} from "@material-ui/core";
+import {LOAD_DIARY_REQUEST} from "../reducers/diary";
+import editPage from "../pages/editDiary";
 
 const drawerWidth = 240;
 
@@ -49,7 +53,8 @@ const theme = createMuiTheme({
 //메인 스타일
 const useStyles = makeStyles(theme => ({
     root: {
-        display: 'flex',
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.paper,
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -57,17 +62,6 @@ const useStyles = makeStyles(theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-    },
-    appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: 36,
     },
     hide: {
         display: 'none',
@@ -77,24 +71,6 @@ const useStyles = makeStyles(theme => ({
         flexShrink: 0,
         whiteSpace: 'nowrap',
     },
-    drawerOpen: {
-        width: drawerWidth,
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerClose: {
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        overflowX: 'hidden',
-        width: theme.spacing(7) + 1,
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9) + 1,
-        },
-    },
     toolbar: {
         display: 'flex',
         alignItems: 'center',
@@ -103,37 +79,36 @@ const useStyles = makeStyles(theme => ({
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-    },
 }));
 
 const AppLayout = ({ children }) => {
 
 
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+    const dispatch = useDispatch();
+    const [open, setOpen] = useState(false);
+    const {currentPage, defaultPage} = useSelector(state => state.user);
+    const [pageName, setPageName] = useState('');
+    console.log('currentPage',currentPage);
     
     //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
     const {loginUser, isLoggingOut} = useSelector(state => state.user);
     const router = useRouter();
-    // useEffect(() => {
-    //     if (!loginUser){
-    //         router.push('/');
-    //     }
-    // }, [loginUser]);
-
-    //디스패치
-    const dispatch = useDispatch();
+    useEffect(() => {
+        if(defaultPage.includes(currentPage)){
+            setPageName('');
+        }
+        if(currentPage === 'Main Page'){
+            setValue(0);
+        } else if(currentPage === 'Diary Writing Page'){
+            setValue(1);
+        } else if(currentPage === 'My Page'){
+            setValue(2);
+        } else{
+            setValue(3);
+            setPageName(currentPage);
+        }
+    }, [currentPage]);
 
     //로그아웃 버튼
     const onLogOut = useCallback(() => {
@@ -144,15 +119,27 @@ const AppLayout = ({ children }) => {
 
     //작성페이지 이동
     const onClickWritePage = () => {
+        dispatch({
+            type: CHANGE_CURRENTPAGE_REQUEST,
+            data: '',
+        });
         router.push("/write");
     }
     //글목록 이동
-    const onClickDiaryListPage = () => {
+    const onClickMyPage = () => {
+        dispatch({
+            type: CHANGE_CURRENTPAGE_REQUEST,
+            data: '',
+        });
         router.push(`/user`);
     }
 
     //로고, 메인화면 이동
-    const onClickLogo = () => {
+    const onClickMainPage = () => {
+        dispatch({
+            type: CHANGE_CURRENTPAGE_REQUEST,
+            data: '',
+        });
         router.push("/main");
     }
 
@@ -162,19 +149,26 @@ const AppLayout = ({ children }) => {
     const onClick2 = () => {
         router.push("/practice");
     }
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+
+        setValue(newValue);
+    };
     return (
         <>
             {loginUser ?
                 <div className={classes.root}>
                     <CssBaseline />
-                    <ThemeProvider theme={theme}>
                         <AppBar
                             position="fixed"
                             className={clsx(classes.appBar, {
                                 [classes.appBarShift]: open,
                             })}
+                            color="default"
+                            style={{alignItems:"center"}}
                         >
-                            <Toolbar>
+                            <Toolbar >
                                 {/*<IconButton*/}
                                 {/*    color="inherit"*/}
                                 {/*    aria-label="open drawer"*/}
@@ -186,14 +180,28 @@ const AppLayout = ({ children }) => {
                                 {/*>*/}
                                 {/*    <MenuIcon />*/}
                                 {/*</IconButton>*/}
-                                <IconButton variant="h6" onClick={onClickLogo}>
+                                <IconButton variant="h6" onClick={onClickMainPage} style={{marginLeft:'-50%', marginRight:'50%'}}>
                                     Card Diary
                                 </IconButton>
-                                {/*<input type="button" onClick={onLogOut} value="로그아웃"/>*/}
+
+                                <Tabs value={value} onChange={handleChange} aria-label="Menu">
+                                    <Tab label="Main" onClick={onClickMainPage}/>
+                                    <Tab label="Diary Writing" onClick={onClickWritePage}/>
+                                    <Tab label="My Page" onClick={onClickMyPage}/>
+                                    <Tab label={pageName} />
+                                </Tabs>
                                 <Button style={{float:"right"}} color="inherit" type="button"  onClick={onLogOut}>로그아웃</Button>
                             </Toolbar>
                         </AppBar>
-                    </ThemeProvider>
+                        {/*<TabPanel value={value} index={0}>*/}
+                        {/*    Item One*/}
+                        {/*</TabPanel>*/}
+                        {/*<TabPanel value={value} index={1}>*/}
+                        {/*    Item Two*/}
+                        {/*</TabPanel>*/}
+                        {/*<TabPanel value={value} index={2}>*/}
+                        {/*    Item Three*/}
+                        {/*</TabPanel>*/}
                     <Grid container>
                             <main className={classes.content}>
                                 <div className={classes.toolbar} />
@@ -209,5 +217,9 @@ const AppLayout = ({ children }) => {
         </>
     );
 };
+
+AppLayout.getInitialProps = async (context) => {
+
+}
 
 export default AppLayout;

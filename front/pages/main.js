@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {LOAD_DIARIES_REQUEST, LOAD_FAVORITE_REQUEST} from "../reducers/diary";
 import {useSelector} from "react-redux";
 import {
+    CHANGE_CURRENTPAGE_REQUEST,
     LOAD_FOLLOWERLIST_REQUEST,
     LOAD_FOLLOWINGLIST_REQUEST,
     LOAD_USER_REQUEST
@@ -95,6 +96,10 @@ Main.getInitialProps = async (context) => {
     });
     context.store.dispatch({
         type: LOAD_FOLLOWERLIST_REQUEST,
+    });
+    context.store.dispatch({
+        type: CHANGE_CURRENTPAGE_REQUEST,
+        data: 'Main Page',
     });
 }
 export default Main;

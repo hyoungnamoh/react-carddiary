@@ -15,6 +15,8 @@ export const initialState = { //초기값
     profileImagePath: '', //프로필 이미지 미리보기 경로
     followingList: [],
     followerList: [],
+    currentPage:'', //현재 페이지
+    defaultPage: ['My Page', 'Main Page', 'Diary Writing Page'],
 };
 
 //로그인하는 액션
@@ -66,6 +68,8 @@ export const REMOVE_FOLLOW_FAILURE = 'REMOVE_FOLLOW_FAILURE';
 //사용자 수정 중 상태 액션
 export const USER_EDITFORM_REQUEST = 'USER_EDITFORM_REQUEST';
 
+//페이지 바꾸는 액션
+export const CHANGE_CURRENTPAGE_REQUEST = 'CHANGE_CURRENTPAGE_REQUEST';
 
 
 //setState
@@ -213,6 +217,10 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case REMOVE_FOLLOW_FAILURE: {
+                break;
+            }
+            case CHANGE_CURRENTPAGE_REQUEST: {
+                draft.currentPage = action.data;
                 break;
             }
             default : {

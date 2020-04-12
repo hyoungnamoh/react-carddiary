@@ -25,7 +25,9 @@ const CardDiary = ({Component, store, pageProps}) => {
         if (jssStyles) {
             jssStyles.parentNode.removeChild(jssStyles);
         }
-    }, [])
+    }, []);
+
+
 
     return (
         <Provider store={store}>
@@ -33,7 +35,7 @@ const CardDiary = ({Component, store, pageProps}) => {
                 <title>CardDiary</title>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.16.2/antd.css"/>
             </Head>
-            <AppLayout>
+            <AppLayout {...pageProps}>
                 <Component {...pageProps}/>
             </AppLayout>
         </Provider>
@@ -61,6 +63,7 @@ CardDiary.getInitialProps = async (context) => {
     if(context.Component.getInitialProps){
         pageProps = await context.Component.getInitialProps(ctx) || {};
     }
+
     return {pageProps};
 }
 
