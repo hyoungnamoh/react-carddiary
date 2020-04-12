@@ -130,7 +130,7 @@ const User = () => {
     }), [onFilteredSearching, loginUserCardDiaries, searchKeyword]);
 
     return (
-        <Paper variant="outlined" style={{marginRight:"5%", marginLeft:'-5%'}}>
+        <Paper variant="outlined" style={{marginLeft:'5%', marginRight:'5%'}}>
             <Grid container>
                 <Grid item md={3} >
                     <div className={classes.root}>
@@ -148,9 +148,7 @@ const User = () => {
                 </Grid>
 
                 <Grid container md={9} spacing={3} className={classes.diariesContainer}>
-
                     <div style={{marginLeft:'70%', marginTop: -30, marginBottom:'3%'}}>
-
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
                                 <SearchIcon />
@@ -211,7 +209,7 @@ User.getInitialProps = async (context) => {
     });
     context.store.dispatch({
         type: CHANGE_CURRENTPAGE_REQUEST,
-        data: 'My Page',
+        data: 'User Page',
     });
 
 }
