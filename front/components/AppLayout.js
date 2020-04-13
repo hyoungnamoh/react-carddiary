@@ -89,6 +89,8 @@ const AppLayout = ({ children }) => {
     const [open, setOpen] = useState(false);
     const {currentPage, defaultPage} = useSelector(state => state.user);
     const [pageName, setPageName] = useState('');
+    const [value, setValue] = useState(0);
+    const [tabMargin, setTabMargin] = useState(['40%', '-40%']);
 
     //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
     const {loginUser, isLoggingOut} = useSelector(state => state.user);
@@ -97,16 +99,23 @@ const AppLayout = ({ children }) => {
         if(defaultPage.includes(currentPage)){
             setPageName('');
         }
-        if(currentPage === 'Main Page'){
-            setValue(0);
-        } else if(currentPage === 'Diary Writing Page'){
-            setValue(1);
-        } else if(currentPage === 'User Page'){
-            setValue(2);
-        } else{
-            setValue(3);
-            setPageName(currentPage);
+        if(currentPage){
+            if(currentPage === 'Main Page'){
+                setTabMargin(['40%', '-40%']);
+                setValue(0);
+            } else if(currentPage === 'Diary Writing Page'){
+                setTabMargin(['40%', '-40%']);
+                setValue(1);
+            } else if(currentPage === 'User Page'){
+                setTabMargin(['40%', '-40%']);
+                setValue(2);
+            } else{
+                setTabMargin(['25%', '-25%']);
+                setValue(3);
+                setPageName(currentPage);
+            }
         }
+
     }, [currentPage]);
 
     //로그아웃 버튼
@@ -141,17 +150,7 @@ const AppLayout = ({ children }) => {
         });
         router.push("/main");
     }
-
-    const onClick1 = () => {
-        router.push("/cardDiaryDetails");
-    }
-    const onClick2 = () => {
-        router.push("/practice");
-    }
-    const [value, setValue] = React.useState(0);
-
     const handleChange = (event, newValue) => {
-
         setValue(newValue);
     };
     return (
@@ -168,39 +167,18 @@ const AppLayout = ({ children }) => {
                             style={{alignItems:"center"}}
                         >
                             <Toolbar >
-                                {/*<IconButton*/}
-                                {/*    color="inherit"*/}
-                                {/*    aria-label="open drawer"*/}
-                                {/*    onClick={handleDrawerOpen}*/}
-                                {/*    edge="start"*/}
-                                {/*    className={clsx(classes.menuButton, {*/}
-                                {/*        [classes.hide]: open,*/}
-                                {/*    })}*/}
-                                {/*>*/}
-                                {/*    <MenuIcon />*/}
-                                {/*</IconButton>*/}
-                                <IconButton variant="h6" onClick={onClickMainPage} style={{marginLeft:'-50%', marginRight:'50%'}}>
+                                <IconButton variant="h6" onClick={onClickMainPage} style={{marginLeft:tabMargin[1], marginRight:tabMargin[0]}}>
                                     Card Diary
                                 </IconButton>
-
                                 <Tabs value={value} onChange={handleChange} aria-label="Menu">
                                     <Tab label="Main" onClick={onClickMainPage}/>
                                     <Tab label="Diary Writing" onClick={onClickWritePage}/>
                                     <Tab label="User Page" onClick={onClickUserPage}/>
                                     {pageName && <Tab label={pageName} />}
+                                    <Tab label="Log Out" onClick={onLogOut}/>
                                 </Tabs>
-                                <Button style={{float:"right"}} color="inherit" type="button"  onClick={onLogOut}>로그아웃</Button>
                             </Toolbar>
                         </AppBar>
-                        {/*<TabPanel value={value} index={0}>*/}
-                        {/*    Item One*/}
-                        {/*</TabPanel>*/}
-                        {/*<TabPanel value={value} index={1}>*/}
-                        {/*    Item Two*/}
-                        {/*</TabPanel>*/}
-                        {/*<TabPanel value={value} index={2}>*/}
-                        {/*    Item Three*/}
-                        {/*</TabPanel>*/}
                             <main className={classes.content}>
                                 <div className={classes.toolbar} />
                                 {children}
