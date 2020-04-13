@@ -72,17 +72,23 @@ const TodoList = () => {
                         To - Do  List
                         { !onAdd
                             ?
-                            <Button style={{float:'right', marginTop:'5px',}} onClick={onClickTodoAdd}><AddIcon /></Button>
+                            <ListItemSecondaryAction>
+                                <IconButton edge="end" aria-label="remove">
+                                    <AddIcon onClick={onClickTodoAdd}/>
+                                </IconButton>
+                            </ListItemSecondaryAction>
                             :
-                            <Button style={{float:'right', marginTop:'5px',}} onClick={onClickTodoAddCancel}><ClearIcon /></Button>
-
+                            <ListItemSecondaryAction>
+                                <IconButton edge="end" aria-label="remove">
+                                    <ClearIcon onClick={onClickTodoAddCancel}/>
+                                </IconButton>
+                            </ListItemSecondaryAction>
                         }
-
                     </ListSubheader>
 
                     <Divider />
                     { onAdd &&
-                        <>
+                        <ListItem role={undefined} dense text>
                             <TextField
                                 id="outlined-size-small"
                                 variant="outlined"
@@ -91,8 +97,12 @@ const TodoList = () => {
                                 value={todoContent}
                                 onChange={onChangeTodoContent}
                             />
-                            <Button style={{float:'right', marginTop:'5px',}} onClick={onClickTodoPost}><AddCircleOutlineIcon/></Button>
-                        </>
+                            <ListItemSecondaryAction>
+                                <IconButton edge="end" aria-label="remove">
+                                    <AddCircleOutlineIcon onClick={onClickTodoPost}/>
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
                     }
 
                     {todoList.map((todo, index) => {
