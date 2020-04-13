@@ -5,12 +5,29 @@ const db = require('../models');
 //내 팔로잉 사람들 게시물 전부 가져오기
 router.get('/', async (req, res, next) => {
     try{
-        let where = {};
+        const user = await db.User.findOne({
+            where: { id: req.user.id }
+        });
+        const followings = await user.getFollowings({
+            attributes: ['id'],
+        },);
+        const followingsIdArray = followings.map(f => f.id);
+        followingsIdArray.push(user.id);
+        let where = {
+            UserId: {
+                [db.Sequelize.Op.in]: followingsIdArray,
+            },
+            isPublic: 1,
+        };
         if(parseInt(req.query.lastId, 10)){
             where = {
                 id: {
                     [db.Sequelize.Op.lt]: parseInt(req.query.lastId, 10),
                 },
+                UserId: {
+                    [db.Sequelize.Op.in]: followingsIdArray,
+                },
+                isPublic: 1,
             };
         }
         const diaries = await db.Diary.findAll({
