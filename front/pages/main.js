@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     diariesContainer: {
         marginTop:"3%",
         marginBottom:"3%",
+        marginLeft:"4%",
     },
 }));
 const Main = () => {

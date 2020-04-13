@@ -20,8 +20,8 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
 import {
-    DELETE_DIARY_REQUEST,
-    ONCLICK_FAVORITE_REQUEST
+    DELETE_DIARY_REQUEST, LIKE_DIARY_REQUEST,
+    ONCLICK_FAVORITE_REQUEST, UNLIKE_DIARY_REQUEST
 } from "../reducers/diary";
 import {Carousel} from "react-responsive-carousel";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -31,6 +31,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import Router, {useRouter} from 'next/router'
+import FavoriteTwoToneIcon from '@material-ui/icons/FavoriteTwoTone';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -64,7 +65,8 @@ const CardDiary = ({diary}) => {
     const dispatch = useDispatch();
     const { personalUser, loginUser} = useSelector(state => state.user);
     const {cardDiaries, favoriteDiaries} = useSelector(state => state.diary);
-    const liked = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === diary.id);
+    const router = useRouter();
+    const isFavorite = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === diary.id);
     const [isOpenedCarousel, setIsOpenedCarousel] = useState(false); //carousel 제어
     const [listOpened, setListOpened] = useState(false); //떙땡땡 리스트 제어
     const anchorRef = useRef(null);//떙땡땡 버튼 ref
@@ -121,6 +123,24 @@ const CardDiary = ({diary}) => {
         });
         return;
     };
+
+    const onToggleLike = useCallback(() => {
+        if(!loginUser) {
+            router.push('/');
+            return alert('로그인이 필요합니다.');
+        }
+        if(liked){ //좋아요를 누른 상태
+            dispatch({
+                type: UNLIKE_DIARY_REQUEST,
+                data: diary.id,
+            })
+        } else{ //좋아요를 누르지 않은 상태
+            dispatch({
+                type: LIKE_DIARY_REQUEST,
+                data: diary.id,
+            });
+        }
+    }, [loginUser && loginUser.id, diary && diary.id, liked]);
     console.log(diary);
     return (
         <Grid item>
@@ -232,7 +252,11 @@ const CardDiary = ({diary}) => {
                 <CardActions disableSpacing>
                     {/*하트 아이콘*/}
                     <IconButton aria-label="add to favorites" color="secondary">
-                        <FavoriteBorderRoundedIcon fontSize="large" />
+                        {liked
+                            ? <FavoriteBorderRoundedIcon fontSize="large" />
+                            : <FavoriteTwoToneIcon fontSize="large" />
+                        }
+
                     </IconButton>
                     {/*공유 아이콘*/}
                     <IconButton aria-label="share">
@@ -241,7 +265,7 @@ const CardDiary = ({diary}) => {
                     {/*별 아이콘*/}
                     {loginUser && loginUser.id === diary.UserId &&
                     <IconButton aria-label="share" onClick={onClickFavorite(diary.id)}>
-                        {liked
+                        {isFavorite
                             ? <StarBorderRoundedIcon fontSize="large" color="inherit" className={classes.starIcon} />
                             : <StarBorderRoundedIcon fontSize="large" color="inherit" />}
 

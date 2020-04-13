@@ -15,16 +15,14 @@ import {Card, ClickAwayListener, Grid, Grow, MenuList, Paper, Popper} from "@mat
 import {makeStyles} from "@material-ui/core/styles";
 import {blue, green, red, yellow} from "@material-ui/core/colors";
 import {useDispatch, useSelector} from "react-redux";
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import styled from 'styled-components';
+import StarRoundedIcon from '@material-ui/icons/StarRounded';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import {
-    DELETE_DIARY_REQUEST,
-    ONCLICK_FAVORITE_REQUEST
+    DELETE_DIARY_REQUEST, LIKE_DIARY_REQUEST,
+    ONCLICK_FAVORITE_REQUEST, UNLIKE_DIARY_REQUEST
 } from "../reducers/diary";
 import {Carousel} from "react-responsive-carousel";
-import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -65,10 +63,12 @@ const MainCardDiary = ({diary}) => {
     const dispatch = useDispatch();
     const { personalUser, loginUser} = useSelector(state => state.user);
     const {cardDiaries, favoriteDiaries} = useSelector(state => state.diary);
-    const liked = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === diary.id);
+    const router = useRouter();
+    const isFavorite = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === diary.id);
     const [isOpenedCarousel, setIsOpenedCarousel] = useState(false); //carousel 제어
     const [listOpened, setListOpened] = useState(false); //떙땡땡 리스트 제어
     const anchorRef = useRef(null);//떙땡땡 버튼 ref
+    const liked = loginUser && diary.Likers && diary.Likers.find(v => v.id === loginUser.id);
 
     //사진
     const onCarousel = useCallback(() => {
@@ -111,7 +111,7 @@ const MainCardDiary = ({diary}) => {
         dispatch({
             type: DELETE_DIARY_REQUEST,
             data: diaryId,
-        })
+        });
         return;
     }
     const onClickEdit = (diaryId) => () => {
@@ -122,6 +122,25 @@ const MainCardDiary = ({diary}) => {
         });
         return;
     };
+
+    const onClickLike = useCallback(() => {
+        console.log('onClickLike');
+        if(!loginUser) {
+            router.push('/');
+            return alert('로그인이 필요합니다.');
+        }
+        if(liked){ //좋아요를 누른 상태
+            dispatch({
+                type: UNLIKE_DIARY_REQUEST,
+                data: diary.id,
+            })
+        } else{ //좋아요를 누르지 않은 상태
+            dispatch({
+                type: LIKE_DIARY_REQUEST,
+                data: diary.id,
+            });
+        }
+    }, [loginUser && loginUser.id, diary && diary.id, liked]);
     // console.log(diary);
     return (
         <Grid item>
@@ -232,22 +251,26 @@ const MainCardDiary = ({diary}) => {
                 </CardContent>
                 <CardActions disableSpacing>
                     {/*하트 아이콘*/}
-                    <IconButton aria-label="add to favorites" color="secondary">
-                        <FavoriteBorderRoundedIcon fontSize="large" />
-                    </IconButton>
-                    {/*공유 아이콘*/}
-                    <IconButton aria-label="share">
-                        <ShareIcon />
+                    <IconButton aria-label="add to favorites" color="secondary" onClick={onClickLike}>
+                        {!liked
+                            ? <FavoriteBorderRoundedIcon fontSize="large"/>
+                            : <FavoriteIcon fontSize="large" />
+                        }
+
                     </IconButton>
                     {/*별 아이콘*/}
                     {loginUser && loginUser.id === diary.UserId &&
                     <IconButton aria-label="share" onClick={onClickFavorite(diary.id)}>
-                        {liked
-                            ? <StarBorderRoundedIcon fontSize="large" color="inherit" className={classes.starIcon} />
-                            : <StarBorderRoundedIcon fontSize="large" color="inherit" />}
-
+                        {isFavorite
+                            ? <StarRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
+                            : <StarBorderRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
+                        }
                     </IconButton>
                     }
+                    {/*공유 아이콘*/}
+                    <IconButton aria-label="share">
+                        <ShareIcon />
+                    </IconButton>
                 </CardActions>
             </Card>
         </Grid>

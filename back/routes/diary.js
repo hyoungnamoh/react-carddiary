@@ -171,6 +171,30 @@ router.patch('/editDiary', upload.none(), async (req, res, next) => {
     }
 });
 
+//좋아요 누르기
+router.post('/like/:id', async (req, res, next) => {
+    try{
+        const diary = await db.Diary.findOne({ where: { id: req.params.id }});
+        await diary.addLikers(req.user.id);
+        res.json({ userId: req.user.id, diaryId: diary.id});
+    } catch(e){
+        console.error(e);
+        next(e);
+    }
+});
+
+//좋아요 최소하기
+router.delete('/like/:id', async (req, res, next) => {
+    try{
+        const diary = await db.Diary.findOne({ where: { id: req.params.id }});
+        await diary.removeLikers(req.user.id);
+        res.json({ userId: req.user.id, diaryId: diary.id});
+    } catch(e){
+        console.error(e);
+        next(e);
+    }
+});
+
 
 
 module.exports = router;

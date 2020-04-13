@@ -42,6 +42,11 @@ router.get('/', async (req, res, next) => {
                 }]
             },{
                 model: db.Image,
+            },{
+                model: db.User, //게시글 좋아요 누른사람 include
+                through: 'Like',
+                as: 'Likers',
+                attributes: ['id'],
             }],
             order: [['createdAt', 'DESC']],
             limit: parseInt(req.query.limit, 10),
@@ -67,6 +72,11 @@ router.get('/user/:id', async (req, res, next) => {
                 include:[{
                     model: db.ProfileImage,
                     as:'ProfileImage'
+                },{
+                    model: db.User, //게시글 좋아요 누른사람 include
+                    through: 'Like',
+                    as: 'Likers',
+                    attributes: ['id'],
                 }],
             }, {
                 model: db.Image,

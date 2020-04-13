@@ -8,7 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
+import {red, yellow} from '@material-ui/core/colors';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         backgroundColor: red[500],
     },
+    starIcon:{
+        color: yellow[700],
+    },
 }));
 
 const cardDiaryDetails = () => {
@@ -57,7 +60,11 @@ const cardDiaryDetails = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const {loginUser, isLoggingOut} = useSelector(state => state.user);
-    const {cardDiary} = useSelector(state => state.diary);
+    const {cardDiary, favoriteDiaries} = useSelector(state => state.diary);
+    const isFavorite = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === cardDiary.id);
+    console.log('favoriteDiaries', favoriteDiaries);
+    console.log('isFavorite', isFavorite);
+    console.log('cardDiary', cardDiary);
 
     const [isViewMore, setViewMore] = useState(false);
 
@@ -72,8 +79,15 @@ const cardDiaryDetails = () => {
     const onClickViewMore = () => {
         setViewMore(!isViewMore);
     }
-
-    console.log('cardDiary', cardDiary);
+    //즐겨찾기 등록
+    const onClickFavorite = (id) => () => {
+        dispatch({
+            type: ONCLICK_FAVORITE_REQUEST,
+            data: {
+                id: id
+            }
+        });
+    };
     return (
         <Card className={classes.root}>
             <CardHeader
@@ -143,16 +157,27 @@ const cardDiaryDetails = () => {
                     <ShareIcon />
                 </IconButton>
                 {/*별 아이콘*/}
-                <IconButton aria-label="share">
-                        <StarBorderRoundedIcon fontSize="large" color="inherit" />
+                {loginUser && loginUser.id === cardDiary.UserId &&
+                <IconButton aria-label="share" onClick={onClickFavorite(cardDiary.id)}>
+                    {isFavorite
+                        ? <StarBorderRoundedIcon fontSize="large" color="inherit" className={classes.starIcon} />
+                        : <StarBorderRoundedIcon fontSize="large" color="inherit" />}
 
                 </IconButton>
+                }
             </CardActions>
         </Card>
     );
 }
 
 cardDiaryDetails.getInitialProps = async (context) => {
+    let userId = 0;
+    const queryId = context.query.id && parseInt(context.query.id, 10);
+
+    if(queryId){
+        userId = queryId;
+    }
+
     context.store.dispatch({
         type: LOAD_DIARY_REQUEST,
         data: context.query.id,
@@ -160,6 +185,11 @@ cardDiaryDetails.getInitialProps = async (context) => {
     context.store.dispatch({
         type: CHANGE_CURRENTPAGE_REQUEST,
         data: 'diary details',
+    });
+
+    context.store.dispatch({
+        type: LOAD_FAVORITE_REQUEST,
+        data: userId,
     });
     return { id: parseInt(context.query.id, 10) };
 };

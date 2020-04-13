@@ -68,8 +68,8 @@ const TodoList = () => {
                 height: '800px',
             }}>
                 <List dense component="div" role="list">
-                    <ListSubheader component="div" id="nested-list-subheader" style={{textAlign:'center', fontSize:25, marginLeft:30}}>
-                        To - Do  List
+                    <ListSubheader component="div" id="nested-list-subheader" style={{textAlign:'center', fontSize:25,}}>
+                        To - Do List
                         { !onAdd
                             ?
                             <ListItemSecondaryAction>

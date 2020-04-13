@@ -70,6 +70,16 @@ export const LOAD_HASHTAG_REQUEST = 'LOAD_HASHTAG_REQUEST';
 export const LOAD_HASHTAG_SUCCESS = 'LOAD_HASHTAG_SUCCESS';
 export const LOAD_HASHTAG_FAILURE = 'LOAD_HASHTAG_FAILURE';
 
+//좋아요 누르는 액션
+export const LIKE_DIARY_REQUEST = 'LIKE_DIARY_REQUEST';
+export const LIKE_DIARY_SUCCESS = 'LIKE_DIARY_SUCCESS';
+export const LIKE_DIARY_FAILURE = 'LIKE_DIARY_FAILURE';
+
+//좋아요 취소하는 액션
+export const UNLIKE_DIARY_REQUEST = 'UNLIKE_DIARY_REQUEST';
+export const UNLIKE_DIARY_SUCCESS = 'UNLIKE_DIARY_SUCCESS';
+export const UNLIKE_DIARY_FAILURE = 'UNLIKE_DIARY_FAILURE';
+
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
         switch (action.type) {
@@ -198,6 +208,29 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_HASHTAG_FAILURE: {
+                break;
+            }
+            case LIKE_DIARY_REQUEST: {
+                break;
+            }
+            case LIKE_DIARY_SUCCESS: {
+                const diaryIndex = draft.cardDiaries.findIndex(v => v.id === action.data.diaryId);
+                draft.cardDiaries[diaryIndex].Likers.unshift({ id: action.data.userId });
+                break;
+            }
+            case LIKE_DIARY_FAILURE: {
+                break;
+            }
+            case UNLIKE_DIARY_REQUEST: {
+                break;
+            }
+            case UNLIKE_DIARY_SUCCESS: {
+                const diaryIndex = draft.cardDiaries.findIndex(v => v.id === action.data.diaryId);
+                const likeIndex = draft.cardDiaries[diaryIndex].Likers.findIndex(v => v.id === action.data.userId);
+                draft.cardDiaries[diaryIndex].Likers.splice(likeIndex, 1);
+                break;
+            }
+            case UNLIKE_DIARY_FAILURE: {
                 break;
             }
             default: {

@@ -19,9 +19,6 @@ import {
     LOAD_DIARY_REQUEST,
     LOAD_DIARY_SUCCESS,
     LOAD_DIARY_FAILURE,
-    UPLOAD_PROFILE_REQUEST,
-    UPLOAD_PROFILE_SUCCESS,
-    UPLOAD_PROFILE_FAILURE,
     LOAD_DIARIES_SUCCESS,
     LOAD_DIARIES_REQUEST,
     LOAD_DIARIES_FAILURE,
@@ -32,7 +29,12 @@ import {
     EDIT_DIARY_SUCCESS,
     EDIT_DIARY_FAILURE,
     LOAD_HASHTAG_REQUEST,
-    LOAD_HASHTAG_FAILURE, LOAD_HASHTAG_SUCCESS,
+    LOAD_HASHTAG_FAILURE,
+    LOAD_HASHTAG_SUCCESS,
+    UNLIKE_DIARY_REQUEST,
+    UNLIKE_DIARY_SUCCESS,
+    UNLIKE_DIARY_FAILURE,
+    LIKE_DIARY_REQUEST, LIKE_DIARY_SUCCESS, LIKE_DIARY_FAILURE,
 
 } from "../reducers/diary";
 import axios from 'axios';
@@ -275,7 +277,6 @@ function editDiaryAPI(editData) {
 function* editDiary(action) {
     try {
         const result = yield call(editDiaryAPI, action.data);
-        console.log('editDiary', result.data);
         yield put({
             type:EDIT_DIARY_SUCCESS,
             data: result.data,
@@ -320,6 +321,59 @@ function* watchLoadHashtag() {
     yield throttle(1000, LOAD_HASHTAG_REQUEST, loadHashtag);
 }
 
+/*
+    좋아요 누르기
+ */
+function likeDiaryAPI(dairyId) {
+    return axios.post(`/diary/like/${dairyId}`, {}, {
+        withCredentials: true,
+    });
+}
+
+function* likeDiary(action) {
+    try {
+        const result = yield call(likeDiaryAPI, action.data);
+        yield put({
+            type: LIKE_DIARY_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        yield put({
+            type: LIKE_DIARY_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchLikeDiary() {
+    yield takeLatest(LIKE_DIARY_REQUEST, likeDiary);
+}
+
+/*
+    좋아요 취소하기
+ */
+function unLikePostAPI(diaryId) {
+    return axios.delete(`/diary/like/${diaryId}`, {
+        withCredentials: true,
+    });
+}
+
+function* unLikePost(action) {
+    try {
+        const result = yield call(unLikePostAPI, action.data);
+        yield put({
+            type: UNLIKE_DIARY_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        yield put({
+            type: UNLIKE_DIARY_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchUnLikeDiary() {
+    yield takeLatest(UNLIKE_DIARY_REQUEST, unLikePost);
+}
 
 //시작점
 export default function* postSaga() {
@@ -334,5 +388,7 @@ export default function* postSaga() {
         fork(watchDeleteDiary),
         fork(watchEditDiary),
         fork(watchLoadHashtag),
+        fork(watchLikeDiary),
+        fork(watchUnLikeDiary),
     ]);
 }

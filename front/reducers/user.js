@@ -294,6 +294,7 @@ const reducer = (state = initialState, action) => {
             case REMOVE_TODO_FAILURE: {
                 break;
             }
+
             default : {
               break;
             }
