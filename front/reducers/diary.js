@@ -117,6 +117,8 @@ const reducer = (state = initialState, action) => {
             }
             case LOAD_USER_DIARIES_REQUEST: {
                 draft.loginUserCardDiaries = [];
+                draft.cardDiaries=[];
+                draft.cardDiary={};
                 // draft.cardDiaries = !action.lastId ? [] : draft.cardDiaries;
                 // draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
                 break;
@@ -144,6 +146,8 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_DIARY_REQUEST: {
+                draft.loginUserCardDiaries=[];
+                draft.cardDiaries=[];
                 break;
             }
             case LOAD_DIARY_SUCCESS: {
@@ -154,6 +158,8 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_DIARIES_REQUEST: {
+                draft.loginUserCardDiaries=[];
+                draft.cardDiary={};
                 draft.cardDiaries = !action.lastId ? [] : draft.cardDiaries;
                 draft.hasMoreDiary = action.lastId ? draft.hasMoreDiary : true;
                 break;
@@ -200,7 +206,6 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_HASHTAG_SUCCESS: {
-                console.log('case LOAD_HASHTAG_SUCCESS', action.data);
                 action.data.forEach((diary) => {
                     draft.hashtagDiaries.push(diary);
                 });
@@ -219,14 +224,15 @@ const reducer = (state = initialState, action) => {
                     draft.loginUserCardDiaries[diaryIndex].Likers.unshift({ id: action.data.userId });
                     break;
                 }
-                if(draft.cardDiary){ //개별다이어리 좋아요 눌렀을 때
-                    draft.cardDiary.Likers.unshift({ id: action.data.userId });
+                if(draft.cardDiaries.length !== 0){//메인페이지 게시글 좋아요 눌렀을 때
+                    const diaryIndex = draft.cardDiaries.findIndex(v => v.id === action.data.diaryId);
+                    draft.cardDiaries[diaryIndex].Likers.unshift({ id: action.data.userId });
                     break;
                 }
-                //메인페이지 게시글 좋아요 눌렀을 때
-                const diaryIndex = draft.cardDiaries.findIndex(v => v.id === action.data.diaryId);
-                draft.cardDiaries[diaryIndex].Likers.unshift({ id: action.data.userId });
+                //개별다이어리 좋아요 눌렀을 때
+                draft.cardDiary.Likers.unshift({ id: action.data.userId });
                 break;
+
             }
             case LIKE_DIARY_FAILURE: {
                 break;
@@ -241,15 +247,17 @@ const reducer = (state = initialState, action) => {
                     draft.loginUserCardDiaries[diaryIndex].Likers.splice(likeIndex, 1);
                     break;
                 }
-                if(draft.cardDiary){ //개별다이어리 좋아요 눌렀을 때
-                    const likeIndex = draft.cardDiary.Likers.findIndex(v => v.id === action.data.userId);
-                    draft.cardDiary.Likers.splice(likeIndex, 1);
+                if(draft.cardDiaries.length !== 0){ //메인 게시물 좋아요 눌렀을 때
+                    const diaryIndex = draft.cardDiaries.findIndex(v => v.id === action.data.diaryId);
+                    const likeIndex = draft.cardDiaries[diaryIndex].Likers.findIndex(v => v.id === action.data.userId);
+                    draft.cardDiaries[diaryIndex].Likers.splice(likeIndex, 1);
                     break;
                 }
-                const diaryIndex = draft.cardDiaries.findIndex(v => v.id === action.data.diaryId);
-                const likeIndex = draft.cardDiaries[diaryIndex].Likers.findIndex(v => v.id === action.data.userId);
-                draft.cardDiaries[diaryIndex].Likers.splice(likeIndex, 1);
+                //개별다이어리 좋아요 눌렀을 때
+                const likeIndex = draft.cardDiary.Likers.findIndex(v => v.id === action.data.userId);
+                draft.cardDiary.Likers.splice(likeIndex, 1);
                 break;
+
             }
             case UNLIKE_DIARY_FAILURE: {
                 break;
