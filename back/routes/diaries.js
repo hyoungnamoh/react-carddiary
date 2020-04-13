@@ -72,22 +72,15 @@ router.get('/user/:id', async (req, res, next) => {
                 include:[{
                     model: db.ProfileImage,
                     as:'ProfileImage'
-                },{
-                    model: db.User, //게시글 좋아요 누른사람 include
-                    through: 'Like',
-                    as: 'Likers',
-                    attributes: ['id'],
-                }],
-            }, {
+                }]
+            },{
                 model: db.Image,
-            },
-            //     {
-            //     model: db.User,
-            //     through: 'Like',
-            //     as: 'Likers',
-            //     attributes: ['id'],
-            // }
-            ],
+            },{
+                model: db.User, //게시글 좋아요 누른사람 include
+                through: 'Like',
+                as: 'Likers',
+                attributes: ['id'],
+            }],
             order: [['createdAt', 'DESC']], //내림차순
         });
         res.json(diaries);

@@ -11,7 +11,6 @@ module.exports = (sequelize, DataTypes) => {
 
     Comment.associate = (db) => {
         db.Diary.belongsTo(db.Diary); //한사람이 여러개 쓸 수 있음
-        db.Diary.belongsTo(db.User); //포스트는 유저에게 속해있다, belongsTo가 있는 테이블에 다른 테이블의 id를 저장 (Post 테이블에 UserId 저장)
     };
 
     return Comment;

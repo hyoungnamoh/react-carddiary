@@ -214,6 +214,11 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LIKE_DIARY_SUCCESS: {
+                if(draft.loginUserCardDiaries.length !== 0){
+                    const diaryIndex = draft.loginUserCardDiaries.findIndex(v => v.id === action.data.diaryId);
+                    draft.loginUserCardDiaries[diaryIndex].Likers.unshift({ id: action.data.userId });
+                    break;
+                }
                 const diaryIndex = draft.cardDiaries.findIndex(v => v.id === action.data.diaryId);
                 draft.cardDiaries[diaryIndex].Likers.unshift({ id: action.data.userId });
                 break;
@@ -225,6 +230,12 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case UNLIKE_DIARY_SUCCESS: {
+                if(draft.loginUserCardDiaries.length !== 0){
+                    const diaryIndex = draft.loginUserCardDiaries.findIndex(v => v.id === action.data.diaryId);
+                    const likeIndex = draft.loginUserCardDiaries[diaryIndex].Likers.findIndex(v => v.id === action.data.userId);
+                    draft.loginUserCardDiaries[diaryIndex].Likers.splice(likeIndex, 1);
+                    break;
+                }
                 const diaryIndex = draft.cardDiaries.findIndex(v => v.id === action.data.diaryId);
                 const likeIndex = draft.cardDiaries[diaryIndex].Likers.findIndex(v => v.id === action.data.userId);
                 draft.cardDiaries[diaryIndex].Likers.splice(likeIndex, 1);

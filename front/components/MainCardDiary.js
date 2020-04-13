@@ -141,7 +141,6 @@ const MainCardDiary = ({diary}) => {
             });
         }
     }, [loginUser && loginUser.id, diary && diary.id, liked]);
-    // console.log(diary);
     return (
         <Grid item>
             <Card className={classes.root}>

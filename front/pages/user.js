@@ -124,10 +124,10 @@ const User = () => {
     }
     const filteredDiaries = useCallback(loginUserCardDiaries.filter((v) => { //data 를 받아 객체안에 name이라는 속성에 searchKeyword가 있으면
         if(onFilteredSearching){
-            return v.isFavorite && (v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1);
+            return v.isFavorite && (v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1); //즐겨찾기만 보기
         }
-        return v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1; //값을 data에 저장
-    }), [onFilteredSearching, loginUserCardDiaries, searchKeyword]);
+        return v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1; //모든 글에서 보기
+    }), [onFilteredSearching, loginUserCardDiaries, searchKeyword,]);
 
     return (
         <Paper variant="outlined" style={{marginLeft:'5%', marginRight:'5%'}}>
@@ -174,10 +174,12 @@ const User = () => {
                         </div>
                     </div>
                     <Grid md={12}/>
-                    {filteredDiaries.map(v => {
-                        return (
-                            <CardDiary key={v.id} diary={v}/>
-                        )})}
+                    {
+                        filteredDiaries.map(v => {
+                            return (
+                                <CardDiary key={v.id} diary={v}/>
+                        )})
+                    }
                 </Grid>
             </Grid>
         </Paper>

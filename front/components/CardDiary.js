@@ -32,6 +32,8 @@ import BorderColorIcon from '@material-ui/icons/BorderColor';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import Router, {useRouter} from 'next/router'
 import FavoriteTwoToneIcon from '@material-ui/icons/FavoriteTwoTone';
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import StarRoundedIcon from "@material-ui/icons/StarRounded";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -64,12 +66,13 @@ const CardDiary = ({diary}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { personalUser, loginUser} = useSelector(state => state.user);
-    const {cardDiaries, favoriteDiaries} = useSelector(state => state.diary);
+    const {cardDiaries, favoriteDiaries, loginUserCardDiaries} = useSelector(state => state.diary);
     const router = useRouter();
     const isFavorite = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === diary.id);
     const [isOpenedCarousel, setIsOpenedCarousel] = useState(false); //carousel 제어
     const [listOpened, setListOpened] = useState(false); //떙땡땡 리스트 제어
     const anchorRef = useRef(null);//떙땡땡 버튼 ref
+    const liked = loginUser && diary.Likers && diary.Likers.find(v => v.id === loginUser.id);
 
     //사진
     const onCarousel = useCallback(() => {
@@ -141,7 +144,24 @@ const CardDiary = ({diary}) => {
             });
         }
     }, [loginUser && loginUser.id, diary && diary.id, liked]);
-    console.log(diary);
+
+    const onClickLike = useCallback(() => {
+        if(!loginUser) {
+            router.push('/');
+            return alert('로그인이 필요합니다.');
+        }
+        if(liked){ //좋아요를 누른 상태
+            dispatch({
+                type: UNLIKE_DIARY_REQUEST,
+                data: diary.id,
+            })
+        } else{ //좋아요를 누르지 않은 상태
+            dispatch({
+                type: LIKE_DIARY_REQUEST,
+                data: diary.id,
+            });
+        }
+    }, [loginUser && loginUser.id, diary && diary.id, liked]);
     return (
         <Grid item>
             <Card className={classes.root}>
@@ -251,26 +271,26 @@ const CardDiary = ({diary}) => {
 
                 <CardActions disableSpacing>
                     {/*하트 아이콘*/}
-                    <IconButton aria-label="add to favorites" color="secondary">
-                        {liked
-                            ? <FavoriteBorderRoundedIcon fontSize="large" />
-                            : <FavoriteTwoToneIcon fontSize="large" />
+                    <IconButton aria-label="add to favorites" color="secondary" onClick={onClickLike}>
+                        {!liked
+                            ? <FavoriteBorderRoundedIcon fontSize="large"/>
+                            : <FavoriteIcon fontSize="large" />
                         }
 
-                    </IconButton>
-                    {/*공유 아이콘*/}
-                    <IconButton aria-label="share">
-                        <ShareIcon />
                     </IconButton>
                     {/*별 아이콘*/}
                     {loginUser && loginUser.id === diary.UserId &&
                     <IconButton aria-label="share" onClick={onClickFavorite(diary.id)}>
                         {isFavorite
-                            ? <StarBorderRoundedIcon fontSize="large" color="inherit" className={classes.starIcon} />
-                            : <StarBorderRoundedIcon fontSize="large" color="inherit" />}
-
+                            ? <StarRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
+                            : <StarBorderRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
+                        }
                     </IconButton>
                     }
+                    {/*공유 아이콘*/}
+                    <IconButton aria-label="share">
+                        <ShareIcon />
+                    </IconButton>
                 </CardActions>
             </Card>
         </Grid>

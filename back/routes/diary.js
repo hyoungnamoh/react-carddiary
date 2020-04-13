@@ -183,7 +183,7 @@ router.post('/like/:id', async (req, res, next) => {
     }
 });
 
-//좋아요 최소하기
+//좋아요 취소하기
 router.delete('/like/:id', async (req, res, next) => {
     try{
         const diary = await db.Diary.findOne({ where: { id: req.params.id }});
