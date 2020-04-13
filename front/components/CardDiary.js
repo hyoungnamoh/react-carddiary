@@ -215,7 +215,14 @@ const CardDiary = ({diary}) => {
                 {/*내용*/}
                 <CardContent style={{height:"102px"}}>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {diary.diaryContent && diary.diaryContent.slice(0,100)}
+                        {diary.diaryContent && diary.diaryContent.slice(0,100).split(/(#[^\s]+)/g).map((v) => {
+                            if(v.match(/#[^\s]+/)){
+                                return (
+                                    <Link href={{ pathname: '/hashtag', query: {tag: v.slice(1)}}} as={`/diary/hashtag/${v.slice(1)}`} key={v}><a>{v}</a></Link>
+                                );
+                            }
+                            return v;
+                        })}
                         {diary.diaryContent && diary.diaryContent.length > 100
                             ? <Link href={{ pathname: '/cardDiaryDetails', query: { id: diary.id}}} as={`/diary/${diary.id}`}><a>...자세히보기</a></Link>
                             : ""}

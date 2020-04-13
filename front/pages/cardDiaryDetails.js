@@ -23,6 +23,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
 import {CHANGE_CURRENTPAGE_REQUEST} from "../reducers/user";
+import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -106,14 +107,28 @@ const cardDiaryDetails = () => {
             <CardContent>
                 {!isViewMore ?
                     <Typography variant="body2" color="textSecondary" component="p" style={{fontSize:"1em"}}>
-                    {cardDiary.diaryContent && cardDiary.diaryContent.slice(0,400)}
+                    {cardDiary.diaryContent && cardDiary.diaryContent.slice(0,400).split(/(#[^\s]+)/g).map((v) => {
+                        if(v.match(/#[^\s]+/)){
+                            return (
+                                <Link href={{ pathname: '/hashtag', query: {tag: v.slice(1)}}} as={`/diary/hashtag/${v.slice(1)}`} key={v}><a>{v}</a></Link>
+                            );
+                        }
+                        return v;
+                    })}
                     {cardDiary.diaryContent && cardDiary.diaryContent.length > 400
                     ?
                         <a href="#" onClick={onClickViewMore}> ...더보기</a>
                     : ""}
                 </Typography>
                 :
-                <Typography variant="body2" color="textSecondary" component="p">{cardDiary.diaryContent && cardDiary.diaryContent}
+                <Typography variant="body2" color="textSecondary" component="p">{cardDiary.diaryContent && cardDiary.diaryContent.split(/(#[^\s]+)/g).map((v) => {
+                    if(v.match(/#[^\s]+/)){
+                        return (
+                            <Link href={{ pathname: '/hashtag', query: {tag: v.slice(1)}}} as={`/diary/hashtag/${v.slice(1)}`} key={v}><a>{v}</a></Link>
+                        );
+                    }
+                    return v;
+                })}}
                     <a onClick={onClickViewMore}>접기</a>
                 </Typography>}
             </CardContent>

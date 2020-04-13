@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Hashtag.associate = (db) => {
-        db.Hashtag.belongsToMany(db.Diary, {through: 'DiaryHashtag'}); //다 : 다 관계에서 필요한 PK 테이블을 through
+        db.Hashtag.belongsToMany(db.Diary, {through: 'DiaryHashtag'}); //다 : 다 관계에서 필요한 PK 테이블 자동생성 through
     };
 
     return Hashtag;

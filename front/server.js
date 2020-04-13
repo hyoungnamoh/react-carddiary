@@ -43,6 +43,12 @@ app.prepare().then(() => {
     server.get('/user/:id', (req, res) => {
         return app.render(req, res, '/user', {userId: req.params.id});
     });
+    //해시태그 페이지
+    server.get('/diary/hashtag/:tag', async (req, res) => {
+        const tag = await req.params.tag.replace(/(^\s*)|(\s*$)/gi, "");
+        console.log('/diary/hashtag/:tag', tag);
+        return app.render(req, res, '/hashtag', {tag: tag});
+    });
     //* 모든 get 요청 처리
    server.get('*', (req, res) => {
        return handle(req, res);

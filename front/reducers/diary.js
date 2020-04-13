@@ -9,7 +9,7 @@ export const initialState = {
     diaryAdded: false, //글작성 완료(route)
     favoriteDiaries:[], //별 누른 다이어리들
     hasMoreDiary: false, //더 불러올 다이어리가 있는지
-
+    hashtagDiaries: [], //해시태그 게시물들
 };
 
 //이미지 업로드하는 액션
@@ -65,6 +65,11 @@ export const EDIT_DIARY_REQUEST = 'EDIT_DIARY_REQUEST';
 export const EDIT_DIARY_SUCCESS = 'EDIT_DIARY_SUCCESS';
 export const EDIT_DIARY_FAILURE = 'EDIT_DIARY_FAILURE';
 
+//해시태그 다이어리 가져오는 액션
+export const LOAD_HASHTAG_REQUEST = 'LOAD_HASHTAG_REQUEST';
+export const LOAD_HASHTAG_SUCCESS = 'LOAD_HASHTAG_SUCCESS';
+export const LOAD_HASHTAG_FAILURE = 'LOAD_HASHTAG_FAILURE';
+
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
         switch (action.type) {
@@ -110,7 +115,6 @@ const reducer = (state = initialState, action) => {
                 action.data.forEach((diary) => {
                     draft.loginUserCardDiaries.push(diary);
                 });
-                // draft.hasMorePost = action.data.length === 10;
                 break;
             }
             case LOAD_USER_DIARIES_FAILURE: {
@@ -178,6 +182,22 @@ const reducer = (state = initialState, action) => {
             }
             case EDIT_DIARY_FAILURE: {
                 draft.isDiaryAdding = false;
+                break;
+            }
+            case LOAD_HASHTAG_REQUEST: {
+                draft.hashtagDiaries = !action.lastId ? [] : draft.hashtagDiaries;
+                draft.hasMoreDiary = action.lastId ? draft.hasMoreDiary : true;
+                break;
+            }
+            case LOAD_HASHTAG_SUCCESS: {
+                console.log('case LOAD_HASHTAG_SUCCESS', action.data);
+                action.data.forEach((diary) => {
+                    draft.hashtagDiaries.push(diary);
+                });
+                draft.hasMoreDiary = action.data.length === 20;
+                break;
+            }
+            case LOAD_HASHTAG_FAILURE: {
                 break;
             }
             default: {

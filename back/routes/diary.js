@@ -19,10 +19,10 @@ const upload = multer({
     limits: { fileSize: 20 * 1024 * 1024 }, //파일크기 제한 옵션
 });
 
-//게시글 작성하기
+//다이어리 작성하기
 router.post('/',  upload.none(), async (req, res, next) => {
     try{
-        console.log("req.bodyreq.bodyreq.body", req.body);
+        const hashtags = req.body.diaryContent.match(/#[^\s]+/g);
         let isFavorite = 0;
         let isPublic = 0;
         if(req.body.isFavorite){
@@ -38,6 +38,12 @@ router.post('/',  upload.none(), async (req, res, next) => {
             isFavorite: isFavorite,
             UserId: req.user.id, //글쓴이(나)
         });
+        if(hashtags){
+            const result = await Promise.all(hashtags.map(tag => db.Hashtag.findOrCreate({ //찾아서 있으면 찾고 없으면 생성
+                where: { name: tag.slice(1).toLowerCase() },//# 자르고 소문자로 통일
+            })));
+            await newDiary.addHashtags(result.map(r => r[0])); //시퀄라이즈가 만들어주는 함수 Diary와 Hashtag 의 관계를 추가해주는 역할, add 외에도 get,set,remove 등 있음
+        }
         if(req.body.image){
             if(Array.isArray(req.body.image)){
                 const images = await Promise.all(req.body.image.map((image) => {
@@ -164,5 +170,7 @@ router.patch('/editDiary', upload.none(), async (req, res, next) => {
         next(e);
     }
 });
+
+
 
 module.exports = router;

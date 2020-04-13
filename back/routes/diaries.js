@@ -105,4 +105,37 @@ router.get('/favorite', async (req, res, next) => {
     }
 });
 
+//해시태그 게시물 가져오기
+router.get('/hashtag/:tag', async (req, res, next) => {
+    try{
+        console.log('req.params.tag', req.params.tag);
+        let where = {};
+        if(parseInt(req.query.lastId, 10)){
+            where = {
+                id: {
+                    [db.Sequelize.Op.lt]: parseInt(req.query.lastId, 10),
+                }
+            }
+        }
+        const hashtagDiaries = await db.Diary.findAll({
+            where,
+            include: [{
+                model: db.Hashtag,
+                where: { name: decodeURIComponent(req.params.tag)},
+            }, {
+                model: db.User,
+                attributes: ['id', 'userName', "email"],
+            }, {
+                model: db.Image,
+            },],
+            order: [['createdAt', 'DESC']],
+            limit: parseInt(req.query.limit, 10),
+        });
+        res.json(hashtagDiaries);
+    } catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
+
 module.exports = router;

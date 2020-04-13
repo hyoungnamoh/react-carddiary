@@ -27,7 +27,12 @@ import {
     LOAD_DIARIES_FAILURE,
     DELETE_DIARY_REQUEST,
     DELETE_DIARY_SUCCESS,
-    DELETE_DIARY_FAILURE, EDIT_DIARY_REQUEST, EDIT_DIARY_SUCCESS, EDIT_DIARY_FAILURE,
+    DELETE_DIARY_FAILURE,
+    EDIT_DIARY_REQUEST,
+    EDIT_DIARY_SUCCESS,
+    EDIT_DIARY_FAILURE,
+    LOAD_HASHTAG_REQUEST,
+    LOAD_HASHTAG_FAILURE, LOAD_HASHTAG_SUCCESS,
 
 } from "../reducers/diary";
 import axios from 'axios';
@@ -287,6 +292,35 @@ function* watchEditDiary() {
     yield takeLatest(EDIT_DIARY_REQUEST, editDiary);
 }
 
+/*
+    해시태그 게시물들 가져오기
+ */
+function loadHashtagAPI(tag, lastId = 0, limit = 20) {
+    return axios.get(`/diaries/hashtag/${encodeURIComponent(tag)}?lastId=${lastId}&limit=${limit}`, {
+        withCredentials: true,
+    });
+}
+
+function* loadHashtag(action) {
+    try {
+        const result = yield call(loadHashtagAPI, action.tag, action.lastId);
+        yield put({
+            type:LOAD_HASHTAG_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: LOAD_HASHTAG_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchLoadHashtag() {
+    yield throttle(1000, LOAD_HASHTAG_REQUEST, loadHashtag);
+}
+
+
 //시작점
 export default function* postSaga() {
     yield all([
@@ -299,5 +333,6 @@ export default function* postSaga() {
         fork(watchLoadDiaries),
         fork(watchDeleteDiary),
         fork(watchEditDiary),
+        fork(watchLoadHashtag),
     ]);
 }

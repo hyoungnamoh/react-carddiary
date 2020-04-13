@@ -93,18 +93,20 @@ const Main = () => {
 }
 
 Main.getInitialProps = async (context) => {
-    const state = context.store.getState();
-
-    const loginUserId = state.user.loginUser && state.user.loginUser.id;
     let userId = 0;
     const queryId = context.query.id && parseInt(context.query.id, 10);
 
     if(queryId){
         userId = queryId;
     }
+
     context.store.dispatch({
         type: LOAD_USER_REQUEST,
         data: userId,
+    });
+
+    context.store.dispatch({
+        type: LOAD_FOLLOWINGLIST_REQUEST,
     });
 
     context.store.dispatch({
@@ -115,9 +117,7 @@ Main.getInitialProps = async (context) => {
         type: LOAD_FAVORITE_REQUEST,
         data: userId,
     });
-    context.store.dispatch({
-        type: LOAD_FOLLOWINGLIST_REQUEST,
-    });
+
     context.store.dispatch({
         type: LOAD_FOLLOWERLIST_REQUEST,
     });
