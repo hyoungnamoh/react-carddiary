@@ -214,11 +214,16 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LIKE_DIARY_SUCCESS: {
-                if(draft.loginUserCardDiaries.length !== 0){
+                if(draft.loginUserCardDiaries.length !== 0){ //유저페이지에 게시글 좋아요 눌렀을 때
                     const diaryIndex = draft.loginUserCardDiaries.findIndex(v => v.id === action.data.diaryId);
                     draft.loginUserCardDiaries[diaryIndex].Likers.unshift({ id: action.data.userId });
                     break;
                 }
+                if(draft.cardDiary){ //개별다이어리 좋아요 눌렀을 때
+                    draft.cardDiary.Likers.unshift({ id: action.data.userId });
+                    break;
+                }
+                //메인페이지 게시글 좋아요 눌렀을 때
                 const diaryIndex = draft.cardDiaries.findIndex(v => v.id === action.data.diaryId);
                 draft.cardDiaries[diaryIndex].Likers.unshift({ id: action.data.userId });
                 break;
@@ -234,6 +239,11 @@ const reducer = (state = initialState, action) => {
                     const diaryIndex = draft.loginUserCardDiaries.findIndex(v => v.id === action.data.diaryId);
                     const likeIndex = draft.loginUserCardDiaries[diaryIndex].Likers.findIndex(v => v.id === action.data.userId);
                     draft.loginUserCardDiaries[diaryIndex].Likers.splice(likeIndex, 1);
+                    break;
+                }
+                if(draft.cardDiary){ //개별다이어리 좋아요 눌렀을 때
+                    const likeIndex = draft.cardDiary.Likers.findIndex(v => v.id === action.data.userId);
+                    draft.cardDiary.Likers.splice(likeIndex, 1);
                     break;
                 }
                 const diaryIndex = draft.cardDiaries.findIndex(v => v.id === action.data.diaryId);

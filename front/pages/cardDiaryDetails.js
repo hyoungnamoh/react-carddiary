@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -15,15 +15,18 @@ import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded"
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
 import { Carousel } from 'react-responsive-carousel';
 import {
+    LIKE_DIARY_REQUEST,
     LOAD_DIARY_REQUEST,
     LOAD_FAVORITE_REQUEST,
     LOAD_USER_DIARIES_REQUEST,
-    ONCLICK_FAVORITE_REQUEST
+    ONCLICK_FAVORITE_REQUEST, UNLIKE_DIARY_REQUEST
 } from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
 import {CHANGE_CURRENTPAGE_REQUEST} from "../reducers/user";
 import Link from "next/link";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import StarRoundedIcon from "@material-ui/icons/StarRounded";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -56,15 +59,12 @@ const useStyles = makeStyles((theme) => ({
 
 const cardDiaryDetails = () => {
     const classes = useStyles();
-    const [expanded, setExpanded] = React.useState(false);
     const dispatch = useDispatch();
     const router = useRouter();
     const {loginUser, isLoggingOut} = useSelector(state => state.user);
     const {cardDiary, favoriteDiaries} = useSelector(state => state.diary);
     const isFavorite = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === cardDiary.id);
-    console.log('favoriteDiaries', favoriteDiaries);
-    console.log('isFavorite', isFavorite);
-    console.log('cardDiary', cardDiary);
+    const liked = loginUser && cardDiary.Likers && cardDiary.Likers.find(v => v.id === loginUser.id); //좋아요 눌렀는지 여부
 
     const [isViewMore, setViewMore] = useState(false);
 
@@ -88,14 +88,38 @@ const cardDiaryDetails = () => {
             }
         });
     };
+
+    const onClickLike = useCallback(() => {
+        console.log('onClickLike');
+        if(!loginUser) {
+            router.push('/');
+            return alert('로그인이 필요합니다.');
+        }
+        if(liked){ //좋아요를 누른 상태
+            dispatch({
+                type: UNLIKE_DIARY_REQUEST,
+                data: cardDiary.id,
+            })
+        } else{ //좋아요를 누르지 않은 상태
+            dispatch({
+                type: LIKE_DIARY_REQUEST,
+                data: cardDiary.id,
+            });
+        }
+    }, [loginUser && loginUser.id, cardDiary && cardDiary.id, liked]);
     return (
         <Card className={classes.root}>
             <CardHeader
                 // 아바타
                 avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        {loginUser.userName[0]}
-                    </Avatar>
+                    <Link href={{ pathname: '/user', query: { userId: cardDiary.UserId}}} as={`/user/${cardDiary.UserId}`}><a>
+                        <Avatar
+                            aria-label="recipe"
+                            className={classes.avatar}
+                            src={ cardDiary && cardDiary.User.ProfileImage ? `http://localhost:3603/${cardDiary.User.ProfileImage[0].src}` :  null}
+                        >
+                        </Avatar>
+                    </a></Link>
                 }
                 // 땡땡땡 옵션
                 action={
@@ -149,20 +173,25 @@ const cardDiaryDetails = () => {
 
             <CardActions disableSpacing>
                 {/*하트 아이콘*/}
-                <IconButton aria-label="add to favorites" color="secondary">
-                    <FavoriteBorderRoundedIcon fontSize="large" />
-                </IconButton>
-                {/*공유 아이콘*/}
-                <IconButton aria-label="share">
-                    <ShareIcon />
+                <IconButton aria-label="add to favorites" color="secondary" onClick={onClickLike}>
+                    {!liked
+                        ? <FavoriteBorderRoundedIcon fontSize="large"/>
+                        : <FavoriteIcon fontSize="large" />
+                    }
+
                 </IconButton>
                 {/*별 아이콘*/}
                 {loginUser && loginUser.id === cardDiary.UserId &&
                 <IconButton aria-label="share" onClick={onClickFavorite(cardDiary.id)}>
                     {isFavorite
-                        ? <StarBorderRoundedIcon fontSize="large" color="inherit" className={classes.starIcon} />
-                        : <StarBorderRoundedIcon fontSize="large" color="inherit" />}
-
+                        ? <StarRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
+                        : <StarBorderRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
+                    }
+                </IconButton>
+                }
+                {/*공유 아이콘*/}
+                <IconButton aria-label="share">
+                    <ShareIcon />
                 </IconButton>
                 }
             </CardActions>

@@ -106,14 +106,22 @@ router.get('/:id', async (req, res, next) => {
         const diary = await db.Diary.findOne(
             {
                 where: {id: req.params.id},
-                include: [
-                    {
-                        model: db.User,
-                        attributes: ['id', 'userName'],
-                    }, {
-                        model: db.Image,
-                    }
-                ],
+                include: [{
+                    model: db.User,
+                    attributes: ['id', 'userName', 'email'],
+                    as:'User',
+                    include:[{
+                        model: db.ProfileImage,
+                        as:'ProfileImage'
+                    }]
+                },{
+                    model: db.Image,
+                },{
+                    model: db.User, //게시글 좋아요 누른사람 include
+                    through: 'Like',
+                    as: 'Likers',
+                    attributes: ['id'],
+                }],
             });
         res.json(diary);
     } catch(e){
