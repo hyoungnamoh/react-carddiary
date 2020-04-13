@@ -99,7 +99,7 @@ const cardDiaryDetails = () => {
             <div className="carousel-wrapper"  >
                 <Carousel infiniteLoop showThumbs={false} >
                     {cardDiary.Images && cardDiary.Images.map((v, i) => (
-                        <div style={{height: '900px'}}><img src={`http://localhost:3603/${cardDiary.Images[i].src}`}/></div>
+                        <div style={{height: 'auto'}}><img src={`http://localhost:3603/${cardDiary.Images[i].src}`}/></div>
                         ))}
                 </Carousel>
             </div>

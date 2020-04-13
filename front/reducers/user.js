@@ -18,6 +18,7 @@ export const initialState = { //초기값
     currentPage:'', //현재 페이지
     defaultPage: ['User Page', 'Main Page', 'Diary Writing Page'],
     users:[], //모든 유저
+    todoList:[], //모든 유저
 };
 
 //로그인하는 액션
@@ -76,6 +77,21 @@ export const CHANGE_CURRENTPAGE_REQUEST = 'CHANGE_CURRENTPAGE_REQUEST';
 export const LOAD_USERS_REQUEST = 'LOAD_USERS_REQUEST';
 export const LOAD_USERS_SUCCESS = 'LOAD_USERS_SUCCESS';
 export const LOAD_USERS_FAILURE = 'LOAD_USERS_FAILURE';
+
+//투두리스트 추가하는 액션
+export const ADD_TODO_REQUEST = 'ADD_TODO_REQUEST';
+export const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
+export const ADD_TODO_FAILURE = 'ADD_TODO_FAILURE';
+
+//투두리스트 불러오는 액션
+export const LOAD_TODO_REQUEST = 'LOAD_TODO_REQUEST';
+export const LOAD_TODO_SUCCESS = 'LOAD_TODO_SUCCESS';
+export const LOAD_TODO_FAILURE = 'LOAD_TODO_FAILURE';
+
+//투두리스트 지우는 액션
+export const REMOVE_TODO_REQUEST = 'REMOVE_TODO_REQUEST';
+export const REMOVE_TODO_SUCCESS = 'REMOVE_TODO_SUCCESS';
+export const REMOVE_TODO_FAILURE = 'REMOVE_TODO_FAILURE';
 
 
 //setState
@@ -238,6 +254,44 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_USERS_FAILURE: {
+                break;
+            }
+            case ADD_TODO_REQUEST: {
+                break;
+            }
+            case ADD_TODO_SUCCESS: {
+                draft.todoList.unshift(action.data);
+                // draft.todoList = [];
+                // action.data.forEach((d) => {
+                //     draft.followingList.push(d);
+                // });
+                break;
+            }
+            case ADD_TODO_FAILURE: {
+                break;
+            }
+            case LOAD_TODO_REQUEST: {
+                break;
+            }
+            case LOAD_TODO_SUCCESS: {
+                draft.todoList = [];
+                action.data.forEach((todo) => {
+                    draft.todoList.push(todo);
+                });
+                break;
+            }
+            case LOAD_TODO_FAILURE: {
+                break;
+            }
+            case REMOVE_TODO_REQUEST: {
+                break;
+            }
+            case REMOVE_TODO_SUCCESS: {
+                const index = draft.todoList.findIndex(v => v.id === action.data);
+                draft.todoList.splice(index, 1);
+                break;
+            }
+            case REMOVE_TODO_FAILURE: {
                 break;
             }
             default : {

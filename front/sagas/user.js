@@ -28,7 +28,13 @@ import {
     LOAD_FOLLOWERLIST_SUCCESS,
     LOAD_FOLLOWERLIST_FAILURE,
     LOAD_USERS_SUCCESS,
-    LOAD_USERS_REQUEST, LOAD_USERS_FAILURE
+    LOAD_USERS_REQUEST,
+    LOAD_USERS_FAILURE,
+    ADD_TODO_REQUEST,
+    ADD_TODO_FAILURE,
+    ADD_TODO_SUCCESS,
+    LOAD_TODO_REQUEST,
+    LOAD_TODO_SUCCESS, LOAD_TODO_FAILURE, REMOVE_TODO_REQUEST, REMOVE_TODO_SUCCESS, REMOVE_TODO_FAILURE
 } from "../reducers/user";
 import axios from 'axios';
 import {UPLOAD_PROFILE_FAILURE, UPLOAD_PROFILE_REQUEST, UPLOAD_PROFILE_SUCCESS} from "../reducers/diary";
@@ -335,6 +341,91 @@ function* watchLoadUsers() {
     yield takeLatest(LOAD_USERS_REQUEST, loadUsers);
 }
 
+/*
+   투두리스트 추가하기
+ */
+function addTodoAPI(todoData) {
+    return axios.post(`/user/todo`, todoData, {
+        withCredentials: true,
+    });
+}
+
+function* addTodo(action) {
+    try {
+        const result = yield call(addTodoAPI, action.data);
+        yield put({
+            type: ADD_TODO_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: ADD_TODO_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchAddTodo() {
+    yield takeLatest(ADD_TODO_REQUEST, addTodo);
+}
+
+/*
+   투두리스트 가져오기
+ */
+function loadTodoAPI() {
+    return axios.get(`/user/todo`, {
+        withCredentials: true,
+    });
+}
+
+function* loadTodo() {
+    try {
+        const result = yield call(loadTodoAPI);
+        yield put({
+            type: LOAD_TODO_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: LOAD_TODO_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchLoadTodo() {
+    yield takeLatest(LOAD_TODO_REQUEST, loadTodo);
+}
+
+/*
+   투두리스트 삭제하기
+ */
+function removeTodoAPI(todoId) {
+    return axios.delete(`/user/todo/${todoId}`, {
+        withCredentials: true,
+    });
+}
+
+function* removeTodo(action) {
+    try {
+        console.log('removeTodo',action.data);
+        const result = yield call(removeTodoAPI, action.data);
+        yield put({
+            type: REMOVE_TODO_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: REMOVE_TODO_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchRemoveTodo() {
+    yield takeLatest(REMOVE_TODO_REQUEST, removeTodo);
+}
+
 //시작점
 export default function* userSaga() {
     //watch = 이벤트 리스너
@@ -351,5 +442,8 @@ export default function* userSaga() {
         fork(watchLoadFollowerList),
         fork(watchRemoveFollow),
         fork(watchLoadUsers),
+        fork(watchAddTodo),
+        fork(watchLoadTodo),
+        fork(watchRemoveTodo),
     ]);
 }

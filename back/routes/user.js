@@ -206,6 +206,51 @@ router.get('/users', async (req, res, next) => {
     }
 });
 
+//투두리스트 추가
+router.post('/todo', async (req, res, next) => {
+    try{
+        const newTodo = await db.Todo.create({
+            todoContent: req.body.todoContent,
+            UserId: req.user.id,
+        });
+        const todo = await db.Todo.findOne({
+            where: { id: newTodo.id },
+        });
+        res.json(todo);
+    }catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
+
+//투두리스트 불러오기
+router.get('/todo', async (req, res, next) => {
+    try{
+        const todoList = await db.Todo.findAll({
+            where: { UserId: req.user.id },
+                order:[['createdAt', 'DESC']],
+        },);
+        res.json(todoList);
+    }catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
+
+//투두리스트 지우기
+router.delete('/todo/:id', async (req, res, next) => {
+    try{
+        await db.Todo.destroy({
+            where: {id: req.params.id},
+        });
+        res.send(req.params.id);
+    }catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
+
+
 
 
 module.exports = router;

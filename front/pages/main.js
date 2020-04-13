@@ -6,13 +6,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     CHANGE_CURRENTPAGE_REQUEST,
     LOAD_FOLLOWERLIST_REQUEST,
-    LOAD_FOLLOWINGLIST_REQUEST,
+    LOAD_FOLLOWINGLIST_REQUEST, LOAD_TODO_REQUEST,
     LOAD_USER_REQUEST
 } from "../reducers/user";
 import CardDiary from "../components/CardDiary";
 import FollowDrawer from "../components/FollowDrawer";
 import {useRouter} from "next/router";
 import MainCardDiary from "../components/MainCardDiary";
+import TodoList from "../components/TodoList";
 
 
 
@@ -27,11 +28,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.default,
         padding: theme.spacing(3),
     },
-    // diariesContainer: {
-    //     marginTop:"5%",
-    //     marginBottom:"5%",
-    //     marginLeft:"8%",
-    // },
+    diariesContainer: {
+        marginTop:"3%",
+        marginBottom:"3%",
+    },
 }));
 const Main = () => {
     const classes = useStyles();
@@ -74,10 +74,10 @@ const Main = () => {
 
     return (
         <>
-            <div>main2</div>
-            <hr/>
             <Grid container>
-                <Grid xs={3}/>
+                <Grid xs={3}>
+                    <TodoList/>
+                </Grid>
                 <Grid container xs={7} className={classes.diariesContainer}>
                     {cardDiaries.map(v => {
                         return (
@@ -124,6 +124,9 @@ Main.getInitialProps = async (context) => {
     context.store.dispatch({
         type: CHANGE_CURRENTPAGE_REQUEST,
         data: 'Main Page',
+    });
+    context.store.dispatch({
+        type: LOAD_TODO_REQUEST,
     });
 }
 export default Main;

@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         color: 'rgba(255, 255, 255, 0.54)',
     },
+    diariesContainer: {
+        marginTop:"3%",
+        marginBottom:"3%",
+    },
 }));
 const Hashtag = ({tag}) => {
     const classes = useStyles();
@@ -56,8 +60,6 @@ const Hashtag = ({tag}) => {
 
     return (
         <>
-        <div>main2</div>
-        <hr/>
             <Grid container>
                 <Grid xs={3}/>
                 <Grid container xs={6} className={classes.diariesContainer}>
@@ -65,7 +67,6 @@ const Hashtag = ({tag}) => {
                             <GridListTile key="Subheader" >
                                 {/*<ListSubheader>{tag}</ListSubheader>*/}
                                 <img src={hashtagDiaries[0] && `http://localhost:3603/${hashtagDiaries[Math.floor(Math.random() * hashtagDiaries.length)].Images[0].src}`} alt={tag} style={{}}/>
-
                             </GridListTile>
                             {hashtagDiaries.length !== 0 && hashtagDiaries.map((tile) => (
                                 <GridListTile key={tile.id}>

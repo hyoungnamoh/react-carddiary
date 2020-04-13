@@ -10,6 +10,7 @@ db.Hashtag = require('./hashtag')(sequelize, Sequelize);
 db.Image = require('./image')(sequelize, Sequelize);
 db.Diary = require('./diary')(sequelize, Sequelize);
 db.User = require('./user')(sequelize, Sequelize);
+db.Todo = require('./todo')(sequelize, Sequelize);
 db.ProfileImage = require('./profileImage')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {

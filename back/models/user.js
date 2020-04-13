@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 
     User.associate = (db) => {
         db.User.hasMany(db.Diary, {as: 'Diaries'});
+        db.User.hasMany(db.Todo, {as: 'Todo'});
         db.User.hasMany(db.Comment);
         db.User.belongsToMany(db.Diary, {through: 'Like', as: 'Liked'}); //게시글에 좋아요 클릭, 다 : 다
         //반대로 쓰는 foreignKey 가 남의 테이블 id를 가리키기 때문에 as foreignKey 반대로 써줘야함
