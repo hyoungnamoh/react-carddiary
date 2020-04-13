@@ -54,7 +54,7 @@ const Main = () => {
     const onScroll = () => {
         if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300){
             if(hasMoreDiary){
-                const lastId = cardDiaries[cardDiaries.length -1].id;
+                const lastId = cardDiaries.length !== 0 && cardDiaries[cardDiaries.length -1].id ;
                 if(!countRef.current.includes(lastId)){ //호출 할 lastId가 이미 사용했던거면 막음
                     dispatch({
                         type: LOAD_DIARIES_REQUEST,
