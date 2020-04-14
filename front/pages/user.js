@@ -1,6 +1,11 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Avatar, Button, Grid, InputBase, Paper, TextField} from "@material-ui/core";
-import {LOAD_FAVORITE_REQUEST, LOAD_USER_DIARIES_REQUEST, ONCLICK_FAVORITE_REQUEST} from "../reducers/diary";
+import {
+    LOAD_DIARIES_REQUEST,
+    LOAD_FAVORITE_REQUEST,
+    LOAD_USER_DIARIES_REQUEST,
+    ONCLICK_FAVORITE_REQUEST
+} from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
 import CardDiary from "../components/CardDiary";
 import {makeStyles, fade} from "@material-ui/core";
@@ -100,9 +105,11 @@ const useStyles = makeStyles((theme) => ({
 const User = () => {
 
     const classes = useStyles();
+    const dispatch = useDispatch();
     const {loginUser, isEditing, personalUser, followingList, isLoggingOut} = useSelector(state => state.user);
-    const {loginUserCardDiaries, isFavoriteCard} = useSelector(state => state.diary);
+    const {loginUserCardDiaries, isFavoriteCard, hasMoreDiary} = useSelector(state => state.diary);
     const [searchKeyword, setSearchKeyword] = useState('');
+    const countRef = useRef([]); //무한 스크롤링 시 lastId 를 저장 할 배열
     const router = useRouter();
 
     useEffect(() => {
@@ -129,12 +136,25 @@ const User = () => {
         return v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1; //모든 글에서 보기
     }), [onFilteredSearching, loginUserCardDiaries, searchKeyword,]);
 
+    //더보기 버튼
+    const onClickViewMore = () => {
+        if(hasMoreDiary){
+            const lastId = loginUserCardDiaries.length !== 0 && loginUserCardDiaries[loginUserCardDiaries.length -1].id ;
+            if(!countRef.current.includes(lastId)){ //호출 할 lastId가 이미 사용했던거면 막음
+                dispatch({
+                    type: LOAD_USER_DIARIES_REQUEST,
+                    data: loginUser.id,
+                    lastId:lastId,
+                });
+                countRef.current.push(lastId); //사용했던 lastId 배열에 저장
+            }
+        }
+    }
     return (
         <Paper variant="outlined" style={{marginLeft:'5%', marginRight:'5%'}}>
             <Grid container>
                 <Grid item md={3} >
                     <div className={classes.root}>
-
                         {isEditing
                             ?
                             // 내 정보 수정
@@ -180,6 +200,9 @@ const User = () => {
                                 <CardDiary key={v.id} diary={v}/>
                         )})
                     }
+                    <Grid md={12} container style={{alignItems:'center'}}>
+                        <Button color="primary" size="large"  style={{marginLeft:'45%'}} onClick={onClickViewMore}>더보기</Button>
+                    </Grid>
                 </Grid>
             </Grid>
         </Paper>

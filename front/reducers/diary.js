@@ -116,17 +116,17 @@ const reducer = (state = initialState, action) => {
                 draft.diaryAdded = false;
             }
             case LOAD_USER_DIARIES_REQUEST: {
-                draft.loginUserCardDiaries = [];
                 draft.cardDiaries=[];
                 draft.cardDiary={};
-                // draft.cardDiaries = !action.lastId ? [] : draft.cardDiaries;
-                // draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
+                draft.loginUserCardDiaries = !action.lastId ? [] : draft.loginUserCardDiaries;
+                draft.hasMoreDiary = action.lastId ? draft.hasMoreDiary : true;
                 break;
             }
             case LOAD_USER_DIARIES_SUCCESS: {
                 action.data.forEach((diary) => {
                     draft.loginUserCardDiaries.push(diary);
                 });
+                draft.hasMoreDiary = action.data.length === 9;
                 break;
             }
             case LOAD_USER_DIARIES_FAILURE: {

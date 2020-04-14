@@ -45,7 +45,8 @@ const MyInfo = () => {
     const {isEditing, profileImagePath, personalUser, loginUser, followingList} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser;
     const [isFollowedUser, setIsFollowedUser] = useState(false);
-
+    
+    //내가 팔로잉 하고있는 대상인지 확인
     useEffect(() => {
         if(followingList.length !== 0 && personalUser){
             const followedUser = followingList.filter(v => v.id === personalUser.id);
@@ -53,15 +54,15 @@ const MyInfo = () => {
         }
     }, [personalUser]);
 
+    //수정하기 버튼
     const onEdit = useCallback(() => {
         dispatch({
             type: USER_EDITFORM_REQUEST
         })
     }, [isEditing]);
 
+    //팔로우 버튼
     const onClickFollow = useCallback((userId) => () => {
-        // console.log(userId);
-
         if(!isFollowedUser){
             dispatch({
                 type: ADD_FOLLOW_REQUEST,
@@ -78,21 +79,16 @@ const MyInfo = () => {
         return;
     }, [isFollowedUser]);
 
-
-
     return (
         <>
             {loginUser && (!personalUser || loginUser.id === personalUser.id) &&
-                <>
-                    <Button style={{float: "right"}} onClick={onEdit}><EditIcon/></Button>
-                    <div> 내 정보 페이지 </div>
-                </>
+                <Button style={{float: "right"}} onClick={onEdit}><EditIcon/></Button>
             }
 
             <div>
                 <Avatar
                     alt="Remy Sharp"
-                    src={ user && user.ProfileImage[0].src ? `http://localhost:3603/${user.ProfileImage[0].src}` :  null}
+                    src={ personalUser && personalUser.ProfileImage[0].src ? `http://localhost:3603/${personalUser.ProfileImage[0].src}` :  null}
                     // src={null }
                     // src={ !profileImagePath ? loginUser.ProfileImage[0].src && `http://localhost:3603/${loginUser.ProfileImage[0].src}` : `http://localhost:3603/${profileImagePath}`}
                     className={classes.avatar}
@@ -100,8 +96,8 @@ const MyInfo = () => {
             </div>
             {/*내 정보 텍스트 필드*/}
             <div className={classes.textFieldWrapper}>
-                <TextField required id="standard-required-email" label="이메일" value={user && user.email} className={classes.textFields}  disabled/>
-                <TextField required id="standard-required-name" label="이름" value={user && user.userName} className={classes.textFields} disabled/>
+                <TextField required id="standard-required-email" value={personalUser && personalUser.email} className={classes.textFields}  disabled/>
+                <TextField required id="standard-required-name"  value={personalUser && personalUser.userName} className={classes.textFields} disabled/>
                 <TextField
                     id="standard-password-input"
                     label="비밀번호"

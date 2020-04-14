@@ -61,10 +61,21 @@ router.get('/', async (req, res, next) => {
 //유저 다이어리들 가져오기
 router.get('/user/:id', async (req, res, next) => {
     try{
-        const diaries = await db.Diary.findAll({
-            where: {
+        let where = {
+            UserId: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0,
+            isPublic: 1,
+        };
+        if(parseInt(req.query.lastId, 10)) {
+            where = {
+                id: {
+                    [db.Sequelize.Op.lt]: parseInt(req.query.lastId, 10),
+                },
                 UserId: parseInt(req.params.id, 10) || (req.user && req.user.id) || 0,
-            },
+                isPublic: 1,
+            }
+        }
+        const diaries = await db.Diary.findAll({
+            where,
             include: [{
                 model: db.User,
                 attributes: ['id', 'userName', 'email'],
@@ -76,12 +87,13 @@ router.get('/user/:id', async (req, res, next) => {
             },{
                 model: db.Image,
             },{
-                model: db.User, //게시글 좋아요 누른사람 include
+                model: db.User,
                 through: 'Like',
                 as: 'Likers',
                 attributes: ['id'],
             }],
-            order: [['createdAt', 'DESC']], //내림차순
+            limit: parseInt(req.query.limit, 10),
+            order: [['createdAt', 'DESC']],
         });
         res.json(diaries);
     }catch (e) {

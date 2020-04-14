@@ -154,9 +154,9 @@ const reducer = (state = initialState, action) => {
             case LOAD_USER_SUCCESS : {
                 if (action.loginUser) {
                     draft.loginUser = action.data;
+                    draft.personalUser = action.data;
                     break;
                 }
-                // draft.loginUser = action.data;
                 draft.personalUser = action.data;
                 break;
             }

@@ -98,16 +98,20 @@ function* watchAddPost() {
 /*
     유저 다이어리들 가져오기
  */
-function loadUserDiariesAPI(id) {
-    return axios.get(`/diaries/user/${id || 0}`, {
+// function loadUserDiariesAPI(id) {
+//     return axios.get(`/diaries/user/${id || 0}`, {
+//         withCredentials: true,
+//     });
+// }
+function loadUserDiariesAPI(userId, lastId = 0, limit = 9) {
+    return axios.get(`/diaries/user/${userId}?lastId=${lastId}&limit=${limit}`, {
         withCredentials: true,
     });
 }
 
 function* loadUserDiaries(action) {
     try {
-        const result = yield call(loadUserDiariesAPI, action.data);
-        // console.log("loadUserDiaries", result.data);
+        const result = yield call(loadUserDiariesAPI, action.data, action.lastId);
         yield put({
             type:LOAD_USER_DIARIES_SUCCESS,
             data: result.data,

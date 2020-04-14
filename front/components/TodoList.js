@@ -96,6 +96,7 @@ const TodoList = () => {
                                 style={{width:'80%', marginLeft:'3%'}}
                                 value={todoContent}
                                 onChange={onChangeTodoContent}
+                                autoFocus={true}
                             />
                             <ListItemSecondaryAction>
                                 <IconButton edge="end" aria-label="remove">
