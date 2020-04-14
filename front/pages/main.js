@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from "react";
-import {Grid, Tabs, Tab} from "@material-ui/core";
+import {Grid, Tabs, Tab, Button} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import {LOAD_DIARIES_REQUEST, LOAD_FAVORITE_REQUEST} from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
@@ -14,6 +14,7 @@ import FollowDrawer from "../components/FollowDrawer";
 import {useRouter} from "next/router";
 import MainCardDiary from "../components/MainCardDiary";
 import TodoList from "../components/TodoList";
+import Typography from "@material-ui/core/Typography";
 
 
 
@@ -84,10 +85,16 @@ const Main = () => {
                         return (
                             <MainCardDiary key={v.id} diary={v}/>
                         )})}
+                    <Grid md={12}>
+                        {!hasMoreDiary &&
+                        <Typography variant="body2" color="textSecondary" align="center" style={{width:'100%', marginTop:'3%', marginLeft:'-13%'}}>더 표시할 게시물이 없습니다.</Typography>
+                        }
+                    </Grid>
                 </Grid>
                 <Grid item xs={2}>
                     <FollowDrawer/>
                 </Grid>
+
             </Grid>
         </>
     );

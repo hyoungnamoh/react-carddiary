@@ -28,6 +28,7 @@ import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
 import {yellow} from "@material-ui/core/colors";
 import IconButton from "@material-ui/core/IconButton";
 import {useRouter} from "next/router";
+import StarRoundedIcon from "@material-ui/icons/StarRounded";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -187,8 +188,8 @@ const User = () => {
                             <IconButton aria-label="share" onClick={onClickFavoriteSearch}>
                             {
                                 onFilteredSearching
-                                    ? <StarBorderRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
-                                    : <StarBorderRoundedIcon fontSize="large" color="inherit" />
+                                    ? <StarRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
+                                    : <StarBorderRoundedIcon fontSize="large" color="inherit"className={classes.starIcon} />
 
                             }
                             </IconButton>
@@ -201,9 +202,9 @@ const User = () => {
                                 <CardDiary key={v.id} diary={v}/>
                         )})
                     }
-                    <Grid md={12} container style={{alignItems:'center'}}>
+                    <Grid md={12}>
                         {hasMoreDiary
-                            ? <Button color="primary" size="large" style={{marginLeft: '45%'}} onClick={onClickViewMore}>더보기</Button>
+                            ? !searchKeyword && <Button color="primary" size="large" style={{marginLeft: '45%', marginTop:'3%'}} onClick={onClickViewMore}>더보기</Button>
                             : <Typography variant="body2" color="textSecondary" align="center" style={{width:'100%', marginTop:'3%'}}>더 표시할 게시물이 없습니다.</Typography>
                         }
                     </Grid>
