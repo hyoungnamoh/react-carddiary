@@ -250,6 +250,35 @@ router.delete('/todo/:id', async (req, res, next) => {
     }
 });
 
+//이메일 검색
+router.get('/emailSearch/:searchKeyword', async (req, res, next) => {
+    try{
+        const user = await db.User.findOne({
+            where: { email: req.params.searchKeyword },
+            attributes:['id'],
+        },);
+        res.json(user);
+    }catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
+
+
+//이메일 검색
+router.get('/hashtagSearch/:searchKeyword', async (req, res, next) => {
+    try{
+        const hashtag = await db.Hashtag.findOne({
+            where: { name: decodeURIComponent(req.params.searchKeyword) },
+            attributes:['name'],
+        },);
+        res.json(hashtag);
+    }catch (e) {
+        console.error(e);
+        next(e);
+    }
+});
+
 
 
 

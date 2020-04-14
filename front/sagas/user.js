@@ -34,7 +34,17 @@ import {
     ADD_TODO_FAILURE,
     ADD_TODO_SUCCESS,
     LOAD_TODO_REQUEST,
-    LOAD_TODO_SUCCESS, LOAD_TODO_FAILURE, REMOVE_TODO_REQUEST, REMOVE_TODO_SUCCESS, REMOVE_TODO_FAILURE
+    LOAD_TODO_SUCCESS,
+    LOAD_TODO_FAILURE,
+    REMOVE_TODO_REQUEST,
+    REMOVE_TODO_SUCCESS,
+    REMOVE_TODO_FAILURE,
+    SEARCH_EMAIL_FAILURE,
+    SEARCH_EMAIL_REQUEST,
+    SEARCH_EMAIL_SUCCESS,
+    SEARCH_HASHTAG_REQUEST,
+    SEARCH_HASHTAG_SUCCESS,
+    SEARCH_HASHTAG_FAILURE
 } from "../reducers/user";
 import axios from 'axios';
 import {UPLOAD_PROFILE_FAILURE, UPLOAD_PROFILE_REQUEST, UPLOAD_PROFILE_SUCCESS} from "../reducers/diary";
@@ -426,6 +436,62 @@ function* watchRemoveTodo() {
     yield takeLatest(REMOVE_TODO_REQUEST, removeTodo);
 }
 
+/*
+   이메일 검색하기
+ */
+function searchEmailAPI(searchKeyword) {
+    return axios.get(`/user/emailSearch/${searchKeyword}`, {
+        withCredentials: true,
+    });
+}
+
+function* searchEmail(action) {
+    try {
+        const result = yield call(searchEmailAPI, action.data);
+        yield put({
+            type: SEARCH_EMAIL_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: SEARCH_EMAIL_FAILURE,
+            error: e,
+        });
+    }
+}
+function* whatchSearchEmail() {
+    yield takeLatest(SEARCH_EMAIL_REQUEST, searchEmail);
+}
+
+/*
+   해시태그 검색하기
+ */
+function searchHashtagAPI(searchKeyword) {
+    return axios.get(`/user/hashtagSearch/${encodeURIComponent(searchKeyword)}`, {
+        withCredentials: true,
+    });
+}
+
+function* searchHashtag(action) {
+    try {
+        const result = yield call(searchHashtagAPI, action.data);
+        yield put({
+            type: SEARCH_HASHTAG_SUCCESS,
+            data: result.data,
+        });
+    }catch (e) {
+        console.log(e);
+        yield put({
+            type: SEARCH_HASHTAG_FAILURE,
+            error: e,
+        });
+    }
+}
+function* whatchSearchHashtag() {
+    yield takeLatest(SEARCH_HASHTAG_REQUEST, searchHashtag);
+}
+
 //시작점
 export default function* userSaga() {
     //watch = 이벤트 리스너
@@ -445,5 +511,7 @@ export default function* userSaga() {
         fork(watchAddTodo),
         fork(watchLoadTodo),
         fork(watchRemoveTodo),
+        fork(whatchSearchEmail),
+        fork(whatchSearchHashtag),
     ]);
 }

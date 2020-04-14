@@ -10,6 +10,7 @@ export const initialState = {
     favoriteDiaries:[], //별 누른 다이어리들
     hasMoreDiary: false, //더 불러올 다이어리가 있는지
     hashtagDiaries: [], //해시태그 게시물들
+    filteredDiaries: [], //즐겨찾기만 볼 때, 검색할 때
 };
 
 //이미지 업로드하는 액션
@@ -257,7 +258,6 @@ const reducer = (state = initialState, action) => {
                 const likeIndex = draft.cardDiary.Likers.findIndex(v => v.id === action.data.userId);
                 draft.cardDiary.Likers.splice(likeIndex, 1);
                 break;
-
             }
             case UNLIKE_DIARY_FAILURE: {
                 break;

@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Link from 'next/link';
 /*
     material - ui
  */
 import clsx from 'clsx';
-import {createMuiTheme, makeStyles, useTheme} from '@material-ui/core/styles';
+import {createMuiTheme, makeStyles, useTheme, fade, withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,12 +15,24 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import InputBase from '@material-ui/core/InputBase';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import InputLabel from '@material-ui/core/InputLabel';
 /*
     material - ui
  */
 
 import {useDispatch, useSelector} from "react-redux";
-import {CHANGE_CURRENTPAGE_REQUEST, LOG_OUT_REQUEST} from "../reducers/user";
+import {
+    CHANGE_CURRENTPAGE_REQUEST,
+    LOG_OUT_REQUEST,
+    SEARCH_EMAIL_REQUEST,
+    SEARCH_HASHTAG_REQUEST
+} from "../reducers/user";
 import Main from "./Main";
 import {useRouter} from "next/router";
 import {Button, Grid} from "@material-ui/core";
@@ -70,18 +82,100 @@ const useStyles = makeStyles(theme => ({
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
+    search: {
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: fade(theme.palette.common.white, 0.15),
+        '&:hover': {
+            backgroundColor: fade(theme.palette.common.white, 0.25),
+        },
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            // marginLeft: theme.spacing(1),
+            width: 'auto',
+        },
+    },
+    searchIcon: {
+        padding: theme.spacing(0, 2),
+        height: '100%',
+        position: 'absolute',
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    inputRoot: {
+        color: 'inherit',
+    },
+    inputInput: {
+        padding: theme.spacing(2, 1, 1, 0),
+        // vertical padding + font size from searchIcon
+        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            width: '12ch',
+            '&:focus': {
+                width: '20ch',
+            },
+        },
+    },
+    margin: {
+        margin: theme.spacing(1),
+        // marginRight:0,
+    },
 }));
 
+
+const BootstrapInput = withStyles((theme) => ({
+    root: {
+        'label + &': {
+            marginTop: theme.spacing(3),
+        },
+    },
+    input: {
+        marginTop: 5,
+        borderRadius: 4,
+        position: 'relative',
+        backgroundColor: theme.palette.background.paper,
+        border: '1px solid #ced4da',
+        fontSize: 14,
+        padding: '5px 5px 5px 5px',
+        transition: theme.transitions.create(['border-color', 'box-shadow']),
+        // Use the system font instead of the default Roboto font.
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(','),
+        '&:focus': {
+            borderRadius: 4,
+            borderColor: '#80bdff',
+            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+        },
+    },
+}))(InputBase);
 const AppLayout = ({ children }) => {
 
 
     const classes = useStyles();
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
-    const {currentPage, defaultPage} = useSelector(state => state.user);
+    const {currentPage, defaultPage, isSearching, searchResult} = useSelector(state => state.user);
     const [pageName, setPageName] = useState('');
     const [value, setValue] = useState(0);
-    const [tabMargin, setTabMargin] = useState(['40%', '-40%']);
+    const [tabMargin, setTabMargin] = useState(['25%', '-25%']); //로고 마진
+    const [searchMargin, setSearchMargin] = useState(['15%', '-15%']); //검색바 마진
+    const [searchText, setSearchText] = useState('');
+    const searchRef = useRef('');
+    const [searchOption, setSearchOption] = useState('');
 
     //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
     const {loginUser, isLoggingOut} = useSelector(state => state.user);
@@ -92,16 +186,20 @@ const AppLayout = ({ children }) => {
         }
         if(currentPage){
             if(currentPage === 'Main Page'){
-                setTabMargin(['40%', '-40%']);
+                setTabMargin(['10%', '-10%']);
+                setSearchMargin(['15%', '-15%']);
                 setValue(0);
             } else if(currentPage === 'Diary Writing Page'){
-                setTabMargin(['40%', '-40%']);
+                setTabMargin(['10%', '-10%']);
+                setSearchMargin(['15%', '-15%']);
                 setValue(1);
             } else if(currentPage === 'User Page'){
-                setTabMargin(['40%', '-40%']);
+                setTabMargin(['10%', '-10%']);
+                setSearchMargin(['15%', '-15%']);
                 setValue(2);
             } else{
-                setTabMargin(['25%', '-25%']);
+                setTabMargin(['6%', '-6%']);
+                setSearchMargin(['5%', '-5%']);
                 setValue(3);
                 setPageName(currentPage);
             }
@@ -144,6 +242,51 @@ const AppLayout = ({ children }) => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    //서치바 핸들링
+    const onChangeSearchText = (e) => {
+        setSearchText(e.target.value);
+        if(searchOption === 'email'){
+            dispatch({
+                type: SEARCH_EMAIL_REQUEST,
+                data: e.target.value,
+            });
+        }else if(searchOption === 'hashtag'){
+            dispatch({
+                type: SEARCH_HASHTAG_REQUEST,
+                data: e.target.value,
+            });
+        }
+
+    }
+    const onClickSearch = () => {
+        if(searchOption === 'email'){
+            if(!searchText){
+                return alert('검색할 이메일을 입력해주세요.');
+            }
+            if(searchResult){
+                router.push(`/user/${searchResult.id}`);
+            } else{
+                alert('존재하지 않는 이메일입니다.');
+            }
+        } else if(searchOption === 'hashtag'){
+            if(!searchText){
+                return alert('검색할 해시태그명을 입력해주세요.');
+            }
+            if(searchResult){
+                router.push(`/diary/hashtag/${searchResult.name}`);
+            } else{
+                alert('존재하지 않는 해시태그입니다.');
+            }
+        } else {
+            alert('옵션을 선택해주세요!')
+        }
+
+    }
+
+    const handleChangeSelect = (e) => {
+        setSearchOption(e.target.value);
+    };
     return (
         <>
             {loginUser ?
@@ -161,19 +304,49 @@ const AppLayout = ({ children }) => {
                                 <IconButton variant="h6" onClick={onClickMainPage} style={{marginLeft:tabMargin[1], marginRight:tabMargin[0]}}>
                                     Card Diary
                                 </IconButton>
-                                <Tabs value={value} onChange={handleChange} aria-label="Menu">
+                                <Tabs value={value} onChange={handleChange} aria-label="Menu" style={{marginLeft:'7%', marginRight:'-7%'}}>
                                     <Tab label="Main" onClick={onClickMainPage}/>
                                     <Tab label="Diary Writing" onClick={onClickWritePage}/>
                                     <Tab label="User Page" onClick={onClickUserPage}/>
                                     {pageName && <Tab label={pageName} />}
                                     <Tab label="Log Out" onClick={onLogOut}/>
                                 </Tabs>
+                                <FormControl className={classes.margin} style={{marginLeft:searchMargin[0], marginRight:searchMargin[1]}}>
+                                    <NativeSelect
+                                        id="demo-customized-select-native"
+                                        value={searchOption}
+                                        onChange={handleChangeSelect}
+                                        input={<BootstrapInput />}
+
+                                    >
+                                        <option value={'none'}>선택</option>
+                                        <option value={'email'}>이메일</option>
+                                        <option value={'hashtag'}>해시태그</option>
+                                    </NativeSelect>
+                                </FormControl>
+                                <div className={classes.search} style={{marginLeft:searchMargin[0], marginRight:searchMargin[1]}}>
+                                    <div className={classes.searchIcon}>
+                                        <SearchIcon />
+                                    </div>
+                                    <InputBase
+                                        placeholder="Search…"
+                                        classes={{
+                                            root: classes.inputRoot,
+                                            input: classes.inputInput,
+                                        }}
+                                        inputProps={{ 'aria-label': 'search' }}
+                                        value={searchText}
+                                        onChange={onChangeSearchText}
+                                        ref={searchRef}
+                                    />
+                                    <Button onClick={onClickSearch}>검색</Button>
+                                </div>
                             </Toolbar>
                         </AppBar>
-                            <main className={classes.content}>
-                                <div className={classes.toolbar} />
-                                {children}
-                            </main>
+                        <main className={classes.content}>
+                            <div className={classes.toolbar} />
+                            {children}
+                        </main>
                 </div>
             :
                 <div>

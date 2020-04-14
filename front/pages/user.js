@@ -155,7 +155,6 @@ const User = () => {
                         }
                     </div>
                 </Grid>
-
                 <Grid container md={9} spacing={3} className={classes.diariesContainer}>
                     <UserPageSearchbar/>
                     <Grid md={12}>

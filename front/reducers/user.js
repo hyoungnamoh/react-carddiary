@@ -19,6 +19,9 @@ export const initialState = { //초기값
     defaultPage: ['User Page', 'Main Page', 'Diary Writing Page'],
     users:[], //모든 유저
     todoList:[], //모든 유저
+    isSearching: false, //검색중
+    searchResult: {}, //검색결과
+    
 };
 
 //로그인하는 액션
@@ -92,6 +95,16 @@ export const LOAD_TODO_FAILURE = 'LOAD_TODO_FAILURE';
 export const REMOVE_TODO_REQUEST = 'REMOVE_TODO_REQUEST';
 export const REMOVE_TODO_SUCCESS = 'REMOVE_TODO_SUCCESS';
 export const REMOVE_TODO_FAILURE = 'REMOVE_TODO_FAILURE';
+
+//이메일 조회하는 액션
+export const SEARCH_EMAIL_REQUEST = 'SEARCH_EMAIL_REQUEST';
+export const SEARCH_EMAIL_SUCCESS = 'SEARCH_EMAIL_SUCCESS';
+export const SEARCH_EMAIL_FAILURE = 'SEARCH_EMAIL_FAILURE';
+
+//해시태그 조회하는 액션
+export const SEARCH_HASHTAG_REQUEST = 'SEARCH_HASHTAG_REQUEST';
+export const SEARCH_HASHTAG_SUCCESS = 'SEARCH_HASHTAG_SUCCESS';
+export const SEARCH_HASHTAG_FAILURE = 'SEARCH_HASHTAG_FAILURE';
 
 
 //setState
@@ -292,6 +305,27 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case REMOVE_TODO_FAILURE: {
+                break;
+            }
+            case SEARCH_EMAIL_REQUEST: {
+                break;
+            }
+            case SEARCH_EMAIL_SUCCESS: {
+                draft.searchResult = action.data;
+                break;
+            }
+            case SEARCH_EMAIL_FAILURE: {
+                break;
+            }
+            case SEARCH_HASHTAG_REQUEST: {
+                draft.isSearching = true;
+                break;
+            }
+            case SEARCH_HASHTAG_SUCCESS: {
+                draft.searchResult = action.data;
+                break;
+            }
+            case SEARCH_HASHTAG_FAILURE: {
                 break;
             }
 
