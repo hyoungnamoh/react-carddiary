@@ -12,6 +12,7 @@ import {makeStyles, fade} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import ClearIcon from '@material-ui/icons/Clear';
+import Typography from '@material-ui/core/Typography';
 import axios from "axios";
 import {
     CHANGE_CURRENTPAGE_REQUEST,
@@ -151,7 +152,7 @@ const User = () => {
         }
     }
     return (
-        <Paper variant="outlined" style={{marginLeft:'5%', marginRight:'5%'}}>
+        <Paper variant="outlined" style={{marginLeft:'5%', marginRight:'5%', marginBottom:'3%', marginTop:'3%'}}>
             <Grid container>
                 <Grid item md={3} >
                     <div className={classes.root}>
@@ -201,7 +202,10 @@ const User = () => {
                         )})
                     }
                     <Grid md={12} container style={{alignItems:'center'}}>
-                        <Button color="primary" size="large"  style={{marginLeft:'45%'}} onClick={onClickViewMore}>더보기</Button>
+                        {hasMoreDiary
+                            ? <Button color="primary" size="large" style={{marginLeft: '45%'}} onClick={onClickViewMore}>더보기</Button>
+                            : <Typography variant="body2" color="textSecondary" align="center" style={{width:'100%', marginTop:'3%'}}>더 표시할 게시물이 없습니다.</Typography>
+                        }
                     </Grid>
                 </Grid>
             </Grid>
