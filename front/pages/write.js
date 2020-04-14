@@ -43,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
     },
     papers:{
+        marginTop:"3%",
+        marginBottom:"3%",
         width: "75%",
         marginLeft: "12.5%"
     },
@@ -291,7 +293,7 @@ WritePage.getInitialProps = async (context) => {
     const state = context.store.getState();
     context.store.dispatch({
         type: CHANGE_CURRENTPAGE_REQUEST,
-        data: 'Diary Writing Page',
+        data: 'Write Page',
     });
 }
 

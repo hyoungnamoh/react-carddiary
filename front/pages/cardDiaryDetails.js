@@ -33,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
         // maxWidth: 345,
         width: "70%",
         marginLeft: "15%",
+        marginTop: "3%",
+        marginBottom:"3%",
 
     },
     media: {
@@ -107,6 +109,8 @@ const cardDiaryDetails = () => {
             });
         }
     }, [loginUser && loginUser.id, cardDiary && cardDiary.id, liked]);
+
+    console.log(cardDiary);
     return (
         <Card className={classes.root}>
             <CardHeader
@@ -116,7 +120,7 @@ const cardDiaryDetails = () => {
                         <Avatar
                             aria-label="recipe"
                             className={classes.avatar}
-                            src={ cardDiary && cardDiary.User.ProfileImage ? `http://localhost:3603/${cardDiary.User.ProfileImage[0].src}` :  null}
+                            src={ cardDiary.User && cardDiary.User.ProfileImage ? `http://localhost:3603/${cardDiary.User.ProfileImage[0].src}` :  null}
                         >
                         </Avatar>
                     </a></Link>
@@ -193,7 +197,6 @@ const cardDiaryDetails = () => {
                 <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton>
-                }
             </CardActions>
         </Card>
     );

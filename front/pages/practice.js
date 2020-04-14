@@ -149,7 +149,7 @@ const AppLayout = ({ children }) => {
         }
         if(currentPage === 'Main Page'){
             setValue(0);
-        } else if(currentPage === 'Diary Writing Page'){
+        } else if(currentPage === 'Write Page'){
             setValue(1);
         } else if(currentPage === 'User Page'){
             setValue(2);
@@ -258,7 +258,7 @@ const AppLayout = ({ children }) => {
                             </IconButton>
                             <Tabs value={value} onChange={handleChange} aria-label="Menu">
                                 <Tab label="Main" onClick={onClickMainPage}/>
-                                <Tab label="Diary Writing" onClick={onClickWritePage}/>
+                                <Tab label="Write" onClick={onClickWritePage}/>
                                 <Tab label="User Page" onClick={onClickUserPage}/>
                                 {pageName && <Tab label={pageName} />}
                                 <Tab label="Log Out" onClick={onLogOut}/>

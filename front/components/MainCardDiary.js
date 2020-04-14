@@ -164,10 +164,10 @@ const MainCardDiary = ({diary}) => {
                         </IconButton>
                     }
                     // 제목
-                    title={diary.diaryTitle && diary.diaryTitle.length > 15
+                    title={diary.diaryTitle && diary.diaryTitle.length > 35
                         ?
                             <Link href={{ pathname: '/cardDiaryDetails', query: { id: diary.id}}} as={`/diary/${diary.id}`}><a>
-                                {diary.diaryTitle.slice(0,15)+ " ..."}
+                                {diary.diaryTitle.slice(0,35)+ " ..."}
                             </a></Link>
                         :
                             <Link href={{ pathname: '/cardDiaryDetails', query: { id: diary.id}}} as={`/diary/${diary.id}`}><a>
@@ -228,14 +228,9 @@ const MainCardDiary = ({diary}) => {
                         </div>
                     </Fade>
                 </Modal>
-
-
-                {/*</a></Link>*/}
-                {/*내용*/}
-
                 <CardContent style={{height:"102px"}}>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {diary.diaryContent && diary.diaryContent.slice(0,100).split(/(#[^\s]+)/g).map((v) => {
+                        {diary.diaryContent && diary.diaryContent.slice(0,220).split(/(#[^\s]+)/g).map((v) => {
                             if(v.match(/#[^\s]+/)){
                                 return (
                                     <Link href={{ pathname: '/hashtag', query: {tag: v.slice(1)}}} as={`/diary/hashtag/${v.slice(1)}`} key={v}><a>{v}</a></Link>
@@ -243,7 +238,7 @@ const MainCardDiary = ({diary}) => {
                             }
                             return v;
                         })}
-                        {diary.diaryContent && diary.diaryContent.length > 100
+                        {diary.diaryContent && diary.diaryContent.length > 220
                             ? <Link href={{ pathname: '/cardDiaryDetails', query: { id: diary.id}}} as={`/diary/${diary.id}`}><a>...자세히보기</a></Link>
                             : ""}
                     </Typography>

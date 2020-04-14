@@ -102,7 +102,8 @@ const UserPageSearchbar = () => {
                         {
                             onFilteredSearching
                                 ? <StarRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
-                                : <StarBorderRoundedIcon fontSize="large" color="inherit"className={classes.starIcon} />
+                                : <StarBorderRoundedIcon fontSize="large" color="inherit"
+                                                         className={classes.starIcon}/>
 
                         }
                     </IconButton>

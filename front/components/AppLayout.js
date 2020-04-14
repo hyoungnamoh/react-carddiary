@@ -189,7 +189,7 @@ const AppLayout = ({ children }) => {
                 setTabMargin(['10%', '-10%']);
                 setSearchMargin(['15%', '-15%']);
                 setValue(0);
-            } else if(currentPage === 'Diary Writing Page'){
+            } else if(currentPage === 'Write Page'){
                 setTabMargin(['10%', '-10%']);
                 setSearchMargin(['15%', '-15%']);
                 setValue(1);
@@ -306,8 +306,8 @@ const AppLayout = ({ children }) => {
                                 </IconButton>
                                 <Tabs value={value} onChange={handleChange} aria-label="Menu" style={{marginLeft:'7%', marginRight:'-7%'}}>
                                     <Tab label="Main" onClick={onClickMainPage}/>
-                                    <Tab label="Diary Writing" onClick={onClickWritePage}/>
-                                    <Tab label="User Page" onClick={onClickUserPage}/>
+                                    <Tab label="Write" onClick={onClickWritePage}/>
+                                    <Tab label="User" onClick={onClickUserPage}/>
                                     {pageName && <Tab label={pageName} />}
                                     <Tab label="Log Out" onClick={onLogOut}/>
                                 </Tabs>

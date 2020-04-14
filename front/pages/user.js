@@ -160,7 +160,7 @@ const User = () => {
                     <Grid md={12}>
                         {hasMoreDiary
                             ? <Button color="primary" size="large" style={{marginLeft: '45%', marginTop:'3%'}} onClick={onClickViewMore}>더보기</Button>
-                            : <Typography variant="body2" color="textSecondary" align="center" style={{width:'100%', marginTop:'3%'}}>더 표시할 게시물이 없습니다.</Typography>
+                            : loginUserCardDiaries.length > 8 && <Typography variant="body2" color="textSecondary" align="center" style={{width:'100%', marginTop:'3%'}}>더 표시할 게시물이 없습니다.</Typography>
                         }
                     </Grid>
                 </Grid>
@@ -170,7 +170,6 @@ const User = () => {
 };
 
 User.getInitialProps = async (context) => {
-    const state = context.store.getState();
     let userId = 0;
     const queryId = context.query.userId && parseInt(context.query.userId, 10);
     if(queryId){

@@ -16,7 +16,7 @@ export const initialState = { //초기값
     followingList: [],
     followerList: [],
     currentPage:'', //현재 페이지
-    defaultPage: ['User Page', 'Main Page', 'Diary Writing Page'],
+    defaultPage: ['User Page', 'Main Page', 'Write Page'],
     users:[], //모든 유저
     todoList:[], //모든 유저
     isSearching: false, //검색중
