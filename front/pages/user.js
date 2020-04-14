@@ -29,6 +29,7 @@ import {yellow} from "@material-ui/core/colors";
 import IconButton from "@material-ui/core/IconButton";
 import {useRouter} from "next/router";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";
+import UserPageSearchbar from "../components/UserPageSearchbar";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -110,8 +111,8 @@ const User = () => {
     const dispatch = useDispatch();
     const {loginUser, isEditing, personalUser, followingList, isLoggingOut} = useSelector(state => state.user);
     const {loginUserCardDiaries, isFavoriteCard, hasMoreDiary} = useSelector(state => state.diary);
-    const [searchKeyword, setSearchKeyword] = useState('');
-    const countRef = useRef([]); //무한 스크롤링 시 lastId 를 저장 할 배열
+
+    const countRef = useRef([]);
     const router = useRouter();
 
     useEffect(() => {
@@ -121,22 +122,8 @@ const User = () => {
         }
     }, [loginUser, isLoggingOut]);
 
-    //즐겨찾기한 글만 보기
-    const [onFilteredSearching, setOnFilteredSearching] = useState(false);
-    const onClickFavoriteSearch = () => {
-        setOnFilteredSearching(!onFilteredSearching);
-    };
 
-    //검색 기능
-    const onChangeSearchKeyword = (e) => {
-        setSearchKeyword(e.target.value);
-    }
-    const filteredDiaries = useCallback(loginUserCardDiaries.filter((v) => { //data 를 받아 객체안에 name이라는 속성에 searchKeyword가 있으면
-        if(onFilteredSearching){
-            return v.isFavorite && (v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1); //즐겨찾기만 보기
-        }
-        return v.diaryTitle.indexOf(searchKeyword) > -1 || v.diaryContent.indexOf(searchKeyword) > -1; //모든 글에서 보기
-    }), [onFilteredSearching, loginUserCardDiaries, searchKeyword,]);
+
 
     //더보기 버튼
     const onClickViewMore = () => {
@@ -170,41 +157,10 @@ const User = () => {
                 </Grid>
 
                 <Grid container md={9} spacing={3} className={classes.diariesContainer}>
-                    <div style={{marginLeft:'70%', marginTop: -30, marginBottom:'3%'}}>
-                        <div className={classes.search}>
-                            <div className={classes.searchIcon}>
-                                <SearchIcon />
-                            </div>
-                            <InputBase
-                                placeholder="Search…"
-                                classes={{
-                                    root: classes.inputRoot,
-                                    input: classes.inputInput,
-                                }}
-                                inputProps={{ 'aria-label': 'search' }}
-                                value={searchKeyword}
-                                onChange={onChangeSearchKeyword}
-                            />
-                            <IconButton aria-label="share" onClick={onClickFavoriteSearch}>
-                            {
-                                onFilteredSearching
-                                    ? <StarRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
-                                    : <StarBorderRoundedIcon fontSize="large" color="inherit"className={classes.starIcon} />
-
-                            }
-                            </IconButton>
-                        </div>
-                    </div>
-                    <Grid md={12}/>
-                    {
-                        filteredDiaries.map(v => {
-                            return (
-                                <CardDiary key={v.id} diary={v}/>
-                        )})
-                    }
+                    <UserPageSearchbar/>
                     <Grid md={12}>
                         {hasMoreDiary
-                            ? !searchKeyword && <Button color="primary" size="large" style={{marginLeft: '45%', marginTop:'3%'}} onClick={onClickViewMore}>더보기</Button>
+                            ? <Button color="primary" size="large" style={{marginLeft: '45%', marginTop:'3%'}} onClick={onClickViewMore}>더보기</Button>
                             : <Typography variant="body2" color="textSecondary" align="center" style={{width:'100%', marginTop:'3%'}}>더 표시할 게시물이 없습니다.</Typography>
                         }
                     </Grid>
