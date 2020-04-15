@@ -59,6 +59,6 @@ app.use('/api/diary', diaryAPIRouter);
 app.use('/api/diaries', diariesAPIRouter);
 app.use('/api/sign', signAPIRouter);
 
-app.listen(3603, () => {
+app.listen(process.env.NODE_ENV === 'production' ? process.env.PORT :  3603, () => {
     console.log(`server is running on localhost:3603`);
 });
