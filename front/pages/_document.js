@@ -19,10 +19,10 @@ export default class RootDocument extends Document {
             ...initialProps,
             // Styles fragment is rendered after the app and page rendering finish.
             styles: (
-                <React.Fragment>
+                <>
                     {sheets.getStyleElement()}
                     {flush() || null}
-                </React.Fragment>
+                </>
             ),
         };
     }
@@ -38,6 +38,8 @@ export default class RootDocument extends Document {
             </Head>
             <body>
             <Main />
+            {process.env.NODE_ENV === 'production'
+            && <script src="https://polyfill.io/v3/polyfill.min.js?features=es6,es7,es8,es9,NodeList.prototype.forEach&flags=gated" />}
             <NextScript />
             </body>
             </html>

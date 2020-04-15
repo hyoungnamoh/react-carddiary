@@ -2,16 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/front/next.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/AppLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/AppLayout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/CardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/CardDiary.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/MainCardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/MainCardDiary.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/UserPageSearchbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/UserPageSearchbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/_document.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/_document.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/pages/cardDiaryDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/cardDiaryDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/practice.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/practice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/write.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/write.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/reducers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/reducers/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/reducers/diary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/reducers/diary.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +28,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/back/models" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -41,11 +40,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\ReactWorkspace\react-carddiary" />
       <recent name="C:\ReactWorkspace\react-carddiary\back\models" />
       <recent name="C:\ReactWorkspace\react-carddiary\front\components" />
       <recent name="C:\ReactWorkspace\react-carddiary\front\pages" />
       <recent name="C:\ReactWorkspace\react-carddiary\front" />
-      <recent name="C:\ReactWorkspace\react-carddiary\back\routes" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\ReactWorkspace\react-carddiary\front\components" />
@@ -78,7 +77,7 @@
       <workItem from="1586408092839" duration="5613000" />
       <workItem from="1586414244043" duration="6661000" />
       <workItem from="1586617848444" duration="19453000" />
-      <workItem from="1586689103226" duration="75645000" />
+      <workItem from="1586689103226" duration="90757000" />
     </task>
     <servers />
   </component>
@@ -90,10 +89,10 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="618" y="169" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1707.1027@0.0.1707.1027" timestamp="1584853803864" />
-    <state x="599" y="316" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585571847088">
+    <state x="599" y="316" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586923889806">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="599" y="316" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1707.1027@0.0.1707.1027" timestamp="1585571847088" />
+    <state x="599" y="316" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1707.1027@0.0.1707.1027" timestamp="1586923889806" />
     <state x="1011" y="260" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1584862909622">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
@@ -122,17 +121,17 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1707.1027@0.0.1707.1027" timestamp="1586522361940" />
-    <state x="842" y="242" width="776" height="538" key="find.popup" timestamp="1586855716044">
+    <state x="842" y="242" width="776" height="538" key="find.popup" timestamp="1586871640762">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="842" y="242" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586855716044" />
+    <state x="842" y="242" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586871640762" />
     <state x="510" y="238" key="run.anything.popup" timestamp="1586403964261">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="510" y="238" key="run.anything.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586403964261" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586854417963">
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586871918405">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586854417963" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586871918405" />
   </component>
 </project>
