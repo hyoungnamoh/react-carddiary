@@ -18,6 +18,7 @@ dotenv.config(); //.env 실행 password 읽어옴
 passportConfig(); //passport 실행
 
 const app = express();
+const prod = process.env.NODE_ENV === 'production';
 
 //로깅 관련 middleware
 app.use(morgan('dev')); //로깅 남겨 줌
