@@ -179,6 +179,11 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case DELETE_DIARY_SUCCESS: {
+                if(draft.loginUserCardDiaries.length !== 0){
+                    const index = draft.loginUserCardDiaries.findIndex(v => v.id === action.data);
+                    draft.loginUserCardDiaries.splice(index, 1);
+                    break;
+                }
                 const index = draft.cardDiaries.findIndex(v => v.id === action.data);
                 draft.cardDiaries.splice(index, 1);
                 break;

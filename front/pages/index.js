@@ -20,7 +20,7 @@ const Copyright = () => {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
-            Your Website
+            Card Diary
             {new Date().getFullYear()}
             {'.'}
         </Typography>
@@ -58,42 +58,38 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 const Index = () => {
-    //redux
     const dispatch = useDispatch();
-    const { loginUser, } = useSelector(state => state.user);
-
-    //router
+    const {logInErrorReason, isLoggingIn, loginUser} = useSelector(state => state.user);
     const router = useRouter();
-
-    //styles
     const classes = useStyles();
-
-    //state
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+    
+    //로그인 성공 시 메인페이지로
     useEffect(() => {
         if(loginUser){
             router.push('/main');
         }
     }, [loginUser])
+    //로그인 실패시 에러 표시
+    useEffect(() => {
+        if(logInErrorReason){
+            alert(logInErrorReason);
+        }
+    }, [isLoggingIn, logInErrorReason,]);
 
-    //onChange
+    //폼 핸들링
     const onChangeEmail = (e) => {
         setEmail(e.target.value);
     }
     const onChangePassword = (e) => {
         setPassword(e.target.value);
     }
-
-    //input Ref
-    const emailRef = useRef(null);
-    const passwordRef = useRef(null);
-
     //로그인 버튼
     const onSubmitForm = useCallback((e) => {
         e.preventDefault();
-
         //공백체크
         if(email === ""){
             alert('이메일을 입력해주세요.');
@@ -105,7 +101,6 @@ const Index = () => {
             passwordRef.current.focus();
             return;
         }
-
         dispatch({
             type: LOG_IN_REQUEST,
             data: {
@@ -156,10 +151,6 @@ const Index = () => {
                             onChange={onChangePassword}
                             inputRef={passwordRef}
                         />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
                         <Button
                             type="button"
                             fullWidth
@@ -172,7 +163,6 @@ const Index = () => {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="/#" ><a><Button>Forgot password?</Button></a></Link>
                             </Grid>
                             <Grid item>
                                 <Link href="/signUp" ><a><Button>Don't have an account? Sign Up</Button></a></Link>

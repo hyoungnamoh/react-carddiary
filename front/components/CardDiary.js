@@ -34,6 +34,7 @@ import Router, {useRouter} from 'next/router'
 import FavoriteTwoToneIcon from '@material-ui/icons/FavoriteTwoTone';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";
+import moment from "moment";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -162,6 +163,11 @@ const CardDiary = ({diary}) => {
             });
         }
     }, [loginUser && loginUser.id, diary && diary.id, liked]);
+
+    //신고버튼
+    const onClickReport = () => {
+        return alert('신고가 접수되었습니다.');
+    }
     return (
         <Grid item>
             <Card className={classes.root}>
@@ -196,7 +202,7 @@ const CardDiary = ({diary}) => {
                             </a></Link>}
 
                     // 날짜
-                    subheader={diary.createdAt && diary.createdAt}
+                    subheader={moment(diary.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
                 />
                 <Popper open={listOpened} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                     {({ TransitionProps, placement }) => (

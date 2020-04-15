@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -13,7 +13,7 @@ import Link from "next/link";
 import Box from "@material-ui/core/Box";
 import {LOG_IN_REQUEST} from "../reducers/user";
 import {makeStyles} from "@material-ui/core/styles";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const Copyright = () => {
     return (
@@ -57,32 +57,23 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 const SignInIndex = () => {
-    //redux
     const dispatch = useDispatch();
-
-    //styles
     const classes = useStyles();
-
-    //state
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    //onChange
+
+    //폼 핸들링
     const onChangeEmail = (e) => {
         setEmail(e.target.value);
     }
     const onChangePassword = (e) => {
         setPassword(e.target.value);
     }
-
-    //input Ref
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
-
-    //로그인 버튼
-    const onSubmitForm = useCallback((e) => {
+    const onSubmitForm = useCallback((e) => { //로그인 버튼
         e.preventDefault();
-
         //공백체크
         if(email === ""){
             alert('이메일을 입력해주세요.');
@@ -103,6 +94,7 @@ const SignInIndex = () => {
             },
         });
     },[email, password]);
+
     return(
         <Grid container component="main" className={classes.root}>
             <CssBaseline />

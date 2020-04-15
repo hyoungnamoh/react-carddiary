@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -15,6 +15,7 @@ import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded"
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
 import { Carousel } from 'react-responsive-carousel';
 import {
+    DELETE_DIARY_REQUEST,
     LIKE_DIARY_REQUEST,
     LOAD_DIARY_REQUEST,
     LOAD_FAVORITE_REQUEST,
@@ -22,11 +23,17 @@ import {
     ONCLICK_FAVORITE_REQUEST, UNLIKE_DIARY_REQUEST
 } from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
-import {useRouter} from "next/router";
+import Router, {useRouter} from "next/router";
 import {CHANGE_CURRENTPAGE_REQUEST} from "../reducers/user";
 import Link from "next/link";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";
+import {ClickAwayListener, Grow, MenuList, Paper, Popper} from "@material-ui/core";
+import MenuItem from "@material-ui/core/MenuItem";
+import DeleteIcon from "@material-ui/icons/Delete";
+import BorderColorIcon from "@material-ui/icons/BorderColor";
+import AnnouncementIcon from "@material-ui/icons/Announcement";
+import moment from "moment"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -65,6 +72,8 @@ const cardDiaryDetails = () => {
     const router = useRouter();
     const {loginUser, isLoggingOut} = useSelector(state => state.user);
     const {cardDiary, favoriteDiaries} = useSelector(state => state.diary);
+    const [listOpened, setListOpened] = useState(false); //떙땡땡 리스트 제어
+    const anchorRef = useRef(null);//떙땡땡 버튼 ref
     const isFavorite = loginUser && favoriteDiaries && favoriteDiaries.find(v => v.id === cardDiary.id);
     const liked = loginUser && cardDiary.Likers && cardDiary.Likers.find(v => v.id === loginUser.id); //좋아요 눌렀는지 여부
 
@@ -91,6 +100,44 @@ const cardDiaryDetails = () => {
         });
     };
 
+    //떙땡땡 리스트 제어
+    const handleToggle = () => {
+        setListOpened((prevOpen) => !prevOpen);
+    };
+
+    const handleClose = (event) => {
+        if (anchorRef.current && anchorRef.current.contains(event.target)) {
+            return;
+        }
+        setListOpened(false);
+    };
+
+    function handleListKeyDown(event) {
+        if (event.key === 'Tab') {
+            event.preventDefault();
+            setListOpened(false);
+        }
+    }
+
+    const onClickDelete = (diaryId) => () => {
+        dispatch({
+            type: DELETE_DIARY_REQUEST,
+            data: diaryId,
+        });
+        return;
+    }
+    const onClickEdit = (diaryId) => () => {
+        Router.push({
+            pathname: '/editDiary',
+            query: { id: diaryId},
+            as:`/editDiary/${diaryId}`,
+        });
+        return;
+    };
+    //신고버튼
+    const onClickReport = () => {
+        return alert('신고가 접수되었습니다.');
+    }
     const onClickLike = useCallback(() => {
         console.log('onClickLike');
         if(!loginUser) {
@@ -127,7 +174,7 @@ const cardDiaryDetails = () => {
                 }
                 // 땡땡땡 옵션
                 action={
-                    <IconButton aria-label="settings">
+                    <IconButton aria-label="settings" onClick={handleToggle} ref={anchorRef}>
                         <MoreVertIcon />
                     </IconButton>
                 }
@@ -135,8 +182,33 @@ const cardDiaryDetails = () => {
                 title={cardDiary.diaryTitle && cardDiary.diaryTitle.length > 12 ? cardDiary.diaryTitle.slice(0,12) + " ..." : cardDiary.diaryTitle}
 
                 // 날짜
-                subheader={cardDiary.createdAt}
+                subheader={moment(cardDiary.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
             />
+            <Popper open={listOpened} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                {({ TransitionProps, placement }) => (
+                    <Grow
+                        {...TransitionProps}
+                        style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                    >
+                        <Paper>
+                            <ClickAwayListener onClickAway={handleClose}>
+                                {
+                                    (loginUser.id === diary.UserId)
+                                        ?
+                                        <MenuList autoFocusItem={listOpened} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                                            <MenuItem onClick={onClickDelete(diary.id)}><DeleteIcon style={{marginRight:10}}/> 삭제 </MenuItem>
+                                            <MenuItem onClick={onClickEdit(diary.id)}><BorderColorIcon style={{marginRight:10}} /> 수정 </MenuItem>
+                                        </MenuList>
+                                        :
+                                        <MenuList autoFocusItem={listOpened} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                                            <MenuItem onClick={onClickReport}><AnnouncementIcon style={{marginRight:10}} />신고</MenuItem>
+                                        </MenuList>
+                                }
+                            </ClickAwayListener>
+                        </Paper>
+                    </Grow>
+                )}
+            </Popper>
             {/*사진*/}
             <div className="carousel-wrapper"  >
                 <Carousel infiniteLoop showThumbs={false} >

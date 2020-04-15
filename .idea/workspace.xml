@@ -2,15 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/front/next.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/routes/middleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/routes/middleware.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/CardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/CardDiary.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/MainCardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/MainCardDiary.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/components/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/TodoList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/components/signInIndex.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/signInIndex.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/_document.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/_document.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/pages/cardDiaryDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/cardDiaryDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/reducers/diary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/reducers/diary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/reducers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/reducers/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/sagas/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/sagas/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +80,7 @@
       <workItem from="1586408092839" duration="5613000" />
       <workItem from="1586414244043" duration="6661000" />
       <workItem from="1586617848444" duration="19453000" />
-      <workItem from="1586689103226" duration="90757000" />
+      <workItem from="1586689103226" duration="94451000" />
     </task>
     <servers />
   </component>
@@ -121,17 +124,17 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1707.1027@0.0.1707.1027" timestamp="1586522361940" />
-    <state x="842" y="242" width="776" height="538" key="find.popup" timestamp="1586871640762">
+    <state x="842" y="242" width="776" height="538" key="find.popup" timestamp="1586927809433">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="842" y="242" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586871640762" />
+    <state x="842" y="242" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586927809433" />
     <state x="510" y="238" key="run.anything.popup" timestamp="1586403964261">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="510" y="238" key="run.anything.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586403964261" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586871918405">
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586925828092">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586871918405" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586925828092" />
   </component>
 </project>

@@ -136,28 +136,26 @@ function* watchSignUp() {
     로그인
  */
 function loginAPI(loginData) {
-    //서버에 요청을 보내는 부분
     return axios.post('/sign/signIn', loginData, {
-        withCredentials: true, //다른 도메인과 쿠키 주고받을 수 있게 함, 추가로 서버쪽에 cors 설정 해줘야 함
+        withCredentials: true,
     });
 }
 function* login(action) {
     try{
-       const result = yield call(loginAPI, action.data);//성공 시 다음 줄 실행
+       const result = yield call(loginAPI, action.data);
         yield put({
-            type: LOG_IN_SUCCESS, //실행
+            type: LOG_IN_SUCCESS,
             data: result.data,
         })
     } catch (e) { //실패 시
         console.error(e);
         yield put({
-            type: LOG_IN_FAILURE
+            type: LOG_IN_FAILURE,
+            reason: e.response && e.response.data,
         })
     }
 }
 function* watchLogin() {
-    //(호출되길 기다리는 액션, 호출되면 실행할 함수)
-    //LOG_IN 액션이 호출되면 login 실행
     yield takeLatest(LOG_IN_REQUEST, login);
 }
 
@@ -173,10 +171,10 @@ function* editUser(action) {
     try{
         const result = yield call(editUserAPI, action.data);
         yield put({
-            type: EDIT_USER_SUCCESS, //실행
+            type: EDIT_USER_SUCCESS,
             data: result.data
         })
-    } catch (e) { //실패 시
+    } catch (e) {
         yield put({
             type: EDIT_USER_FAILURE,
             error: e
@@ -196,7 +194,7 @@ function uploadProfileAPI(formData) {
     });
 }
 
-function* uploadProfile(action) { //action = watch함수에서 받은 req액션안에 값, dispatch할때 같이 있던 값
+function* uploadProfile(action) {
     try {
         const result = yield call(uploadProfileAPI, action.data);
         yield put({

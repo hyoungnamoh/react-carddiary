@@ -125,8 +125,9 @@ const reducer = (state = initialState, action) => {
             }
 
             case LOG_IN_FAILURE : {
+                console.log('action.reason', action.reason);
+                draft.logInErrorReason = action.reason;
                 draft.isLoggingIn = false;
-                draft.logInErrorReason = action.error;
                 draft.isLoading = false;
                 break;
             }

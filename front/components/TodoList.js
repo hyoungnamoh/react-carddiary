@@ -73,19 +73,18 @@ const TodoList = () => {
                         { !onAdd
                             ?
                             <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="remove">
-                                    <AddIcon onClick={onClickTodoAdd}/>
+                                <IconButton edge="end" aria-label="remove" onClick={onClickTodoAdd}>
+                                    <AddIcon />
                                 </IconButton>
                             </ListItemSecondaryAction>
                             :
                             <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="remove">
-                                    <ClearIcon onClick={onClickTodoAddCancel}/>
+                                <IconButton edge="end" aria-label="remove" onClick={onClickTodoAddCancel}>
+                                    <ClearIcon />
                                 </IconButton>
                             </ListItemSecondaryAction>
                         }
                     </ListSubheader>
-
                     <Divider />
                     { onAdd &&
                         <ListItem role={undefined} dense text>
@@ -99,8 +98,8 @@ const TodoList = () => {
                                 autoFocus={true}
                             />
                             <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="remove">
-                                    <AddCircleOutlineIcon onClick={onClickTodoPost}/>
+                                <IconButton edge="end" aria-label="remove" onClick={onClickTodoPost}>
+                                    <AddCircleOutlineIcon />
                                 </IconButton>
                             </ListItemSecondaryAction>
                         </ListItem>
@@ -118,8 +117,8 @@ const TodoList = () => {
                                 </ListItemIcon>
                                 <ListItemText  primary={todo.todoContent} />
                                 <ListItemSecondaryAction>
-                                    <IconButton edge="end" aria-label="remove">
-                                        <RemoveCircleOutlineIcon onClick={onClickTodoRemove(todo.id)}/>
+                                    <IconButton edge="end" aria-label="remove" onClick={onClickTodoRemove(todo.id)}>
+                                        <RemoveCircleOutlineIcon/>
                                     </IconButton>
                                 </ListItemSecondaryAction>
                             </ListItem>

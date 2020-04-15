@@ -33,3 +33,5 @@ back/.env
 front/.env
 back/uploads/
 react-carddiary.pem
+front/bundles/client.html
+front/bundles/server.html

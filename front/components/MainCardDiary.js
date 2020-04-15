@@ -29,6 +29,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import Router, {useRouter} from 'next/router'
+import moment from "moment";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -141,6 +142,11 @@ const MainCardDiary = ({diary}) => {
             });
         }
     }, [loginUser && loginUser.id, diary && diary.id, liked]);
+
+    //신고버튼
+    const onClickReport = () => {
+        return alert('신고가 접수되었습니다.');
+    }
     return (
         <Grid item>
             <Card className={classes.root}>
@@ -175,7 +181,7 @@ const MainCardDiary = ({diary}) => {
                             </a></Link>}
 
                     // 날짜
-                    subheader={diary.createdAt && diary.createdAt}
+                    subheader={moment(diary.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
                 />
                 <Popper open={listOpened} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                     {({ TransitionProps, placement }) => (
@@ -194,7 +200,7 @@ const MainCardDiary = ({diary}) => {
                                             </MenuList>
                                             :
                                             <MenuList autoFocusItem={listOpened} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                                <MenuItem onClick={onClickDelete(diary.id)}><AnnouncementIcon style={{marginRight:10}} />신고</MenuItem>
+                                                <MenuItem onClick={onClickReport}><AnnouncementIcon style={{marginRight:10}} />신고</MenuItem>
                                             </MenuList>
                                     }
                                 </ClickAwayListener>
