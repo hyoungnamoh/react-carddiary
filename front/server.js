@@ -48,7 +48,7 @@ app.prepare().then(() => {
    });
 
 
-   server.listen(3642, () => {
-       console.log('next+express running on port 3642')
+   server.listen(prod ? process.env.PORT : 3642, () => {
+       console.log(`next+express running on port ${process.env.PORT}`);
    })
 });
