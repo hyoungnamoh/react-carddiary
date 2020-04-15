@@ -28,6 +28,11 @@ app.use(cors({//cors 오류 잡아줌 도메인이 다른데 요청을 할 경�
     credentials: true,
 }));
 
+//서버 확인
+app.get('/', (req, res) => {
+    res.send('react carddiary 백엔드 정상 동작!');
+});
+
 //request.body 관련 middleware
 app.use(express.json()); //json으로 변환해줌
 app.use(express.urlencoded({ extended: true})); //body로 넣어줌
@@ -60,5 +65,5 @@ app.use('/api/diaries', diariesAPIRouter);
 app.use('/api/sign', signAPIRouter);
 
 app.listen(process.env.NODE_ENV === 'production' ? process.env.PORT :  3603, () => {
-    console.log(`server is running on localhost:3603`);
+    console.log(`server is running on ${process.env.PORT}`);
 });
