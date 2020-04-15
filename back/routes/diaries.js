@@ -123,7 +123,6 @@ router.get('/favorite', async (req, res, next) => {
 //해시태그 게시물 가져오기
 router.get('/hashtag/:tag', async (req, res, next) => {
     try{
-        console.log('req.params.tag', req.params.tag);
         let where = {};
         if(parseInt(req.query.lastId, 10)){
             where = {

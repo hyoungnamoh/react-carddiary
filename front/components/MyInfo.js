@@ -103,7 +103,7 @@ const MyInfo = () => {
                     label="비밀번호"
                     type="password"
                     className={classes.textFields}
-                    defaultValue='0000000000'
+                    value='0000000000'
                     disabled
                 />
                 <TextField
@@ -111,7 +111,7 @@ const MyInfo = () => {
                     label="비밀번호 확인"
                     type="password"
                     className={classes.textFields}
-                    defaultValue='0000000000'
+                    value='0000000000'
                     disabled
                 />
                 {loginUser && personalUser && (personalUser.id !== loginUser.id) &&

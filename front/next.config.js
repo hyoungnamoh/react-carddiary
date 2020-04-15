@@ -37,7 +37,6 @@ module.exports = withBundleAnalyzer({
         }
 
         //next 에서 넣어주는 바벨로더 등
-        // console.log('rules', config.module.rules[0]);
         return {
             ...config, //기존 설정을 리턴하고 덮어 씌움
 

@@ -2,7 +2,7 @@ import '@babel/polyfill';
 import React, {useEffect} from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
-import {Provider, useSelector} from 'react-redux';
+import {Provider} from 'react-redux';
 import AppLayout from '../components/AppLayout';
 import axios from "axios";
 import reducer from "../reducers";
@@ -12,7 +12,6 @@ import {applyMiddleware, compose, createStore} from 'redux';
 import rootSaga from '../sagas';
 import {LOAD_USER_REQUEST} from "../reducers/user";
 import withReduxSaga from "next-redux-saga";
-import {useRouter} from "next/router";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const CardDiary = ({Component, store, pageProps}) => {
@@ -73,7 +72,6 @@ const configureStore = (initialState, options) => {
     const sagaMiddleware = createSagaMiddleware();
 
     const middlewares = [sagaMiddleware, (store) => (next) => (action) => {
-        console.log(action);
         next(action);
     }];
 

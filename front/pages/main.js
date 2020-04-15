@@ -77,21 +77,21 @@ const Main = () => {
     return (
         <>
             <Grid container>
-                <Grid xs={3}>
+                <Grid item md={3}>
                     <TodoList/>
                 </Grid>
-                <Grid container xs={7} className={classes.diariesContainer}>
+                <Grid item md={7} className={classes.diariesContainer}>
                     {cardDiaries.map(v => {
                         return (
                             <MainCardDiary key={v.id} diary={v}/>
                         )})}
-                    <Grid md={12}>
+                    <Grid item md={12}>
                         {!hasMoreDiary &&
                         <Typography variant="body2" color="textSecondary" align="center" style={{width:'100%', marginTop:'3%', marginLeft:'-13%'}}>더 표시할 게시물이 없습니다.</Typography>
                         }
                     </Grid>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item md={2}>
                     <FollowDrawer/>
                 </Grid>
 

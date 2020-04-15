@@ -29,12 +29,6 @@ app.prepare().then(() => {
            secure: false,
        },
     }));
-
-   //유저별 모든 다이어리 가져오기
-   //  server.get('/diaries/:id', (req, res) => {
-   //      console.log('유저별 모든 다이어리 가져오기');
-   //      return app.render(req, res, '/diaries', {id: req.params.id});
-   //  });
     //다이어리 상세보기
     server.get('/diary/:id', (req, res) => {
         return app.render(req, res, '/cardDiaryDetails', {id: req.params.id});
@@ -46,7 +40,6 @@ app.prepare().then(() => {
     //해시태그 페이지
     server.get('/diary/hashtag/:tag', async (req, res) => {
         const tag = await req.params.tag.replace(/(^\s*)|(\s*$)/gi, "");
-        console.log('/diary/hashtag/:tag', tag);
         return app.render(req, res, '/hashtag', {tag: tag});
     });
     //* 모든 get 요청 처리

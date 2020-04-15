@@ -33,7 +33,6 @@ import {
     SEARCH_EMAIL_REQUEST,
     SEARCH_HASHTAG_REQUEST
 } from "../reducers/user";
-import Main from "./Main";
 import {useRouter} from "next/router";
 import {Button, Grid} from "@material-ui/core";
 import {LOAD_DIARY_REQUEST} from "../reducers/diary";

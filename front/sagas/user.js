@@ -416,7 +416,6 @@ function removeTodoAPI(todoId) {
 
 function* removeTodo(action) {
     try {
-        console.log('removeTodo',action.data);
         const result = yield call(removeTodoAPI, action.data);
         yield put({
             type: REMOVE_TODO_SUCCESS,

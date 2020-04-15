@@ -67,7 +67,6 @@ const FollowDrawer = () => {
             data: userId,
         });
     }
-    console.log(followingList);
 
     return (
         <Drawer
@@ -93,9 +92,9 @@ const FollowDrawer = () => {
             <List>
                 {drawerFollowList
                     ?
-                    followingList.map((v, i) => (
-                        <Link href={{ pathname: '/user', query: { userId: v.id}}} as={`/user/${v.id}`}>
-                            <ListItem button key={v.id}>
+                    followingList.map((v) => (
+                        <Link href={{ pathname: '/user', query: { userId: v.id}}} as={`/user/${v.id}`} key={v.id}>
+                            <ListItem button >
                                 <ListItemAvatar >
                                     <Avatar
                                         aria-label="recipe"
@@ -112,9 +111,9 @@ const FollowDrawer = () => {
                         </Link>
                     ))
                     :
-                    followerList.map((v, i) => (
-                        <Link href={{ pathname: '/user', query: { userId: v.id}}} as={`/user/${v.id}`}>
-                            <ListItem button key={v.id}>
+                    followerList.map((v) => (
+                        <Link href={{ pathname: '/user', query: { userId: v.id}}} as={`/user/${v.id}`} key={v.id}>
+                            <ListItem button >
                                 <ListItemAvatar >
                                     <Avatar
                                         aria-label="recipe"

@@ -144,7 +144,6 @@ router.delete('/:id', async (req, res, next) => {
 //다이어리 수정하기
 router.patch('/editDiary', upload.none(), async (req, res, next) => {
     try{
-        console.log("req.editDiary.editDiary.editDiary", req.body);
         const isFavorite = req.body.isFavorite ? 0 : 1;
         const isPublic = req.body.isPublic.trim() === "publicDiary"  ? 1 : 0;
 

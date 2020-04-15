@@ -13,9 +13,10 @@ import Link from "next/link";
 import {
     CHANGE_CURRENTPAGE_REQUEST,
     LOAD_FOLLOWERLIST_REQUEST,
-    LOAD_FOLLOWINGLIST_REQUEST,
+    LOAD_FOLLOWINGLIST_REQUEST, LOAD_TODO_REQUEST,
     LOAD_USER_REQUEST
 } from "../reducers/user";
+import TodoList from "../components/TodoList";
 
 
 
@@ -54,15 +55,14 @@ const Hashtag = ({tag}) => {
             return;
         }
     }, [loginUser, isLoggingOut]);
-    console.log('hashtagDiaries', hashtagDiaries);
-    console.log('hashtagDiaries tag', tag);
-    console.log(Math.floor(Math.random() * hashtagDiaries.length));
 
     return (
         <>
             <Grid container>
-                <Grid xs={3}/>
-                <Grid container xs={6} className={classes.diariesContainer}>
+                <Grid item xs={3} style={{marginTop:'3%'}}>
+                    <TodoList/>
+                </Grid>
+                <Grid item xs={6} className={classes.diariesContainer}>
                         <GridList className={classes.gridList} cols={3} style={{ height: 'auto' }}>
                             <GridListTile key="Subheader" >
                                 {/*<ListSubheader>{tag}</ListSubheader>*/}
@@ -121,6 +121,9 @@ Hashtag.getInitialProps = async (context) => {
     context.store.dispatch({
         type: CHANGE_CURRENTPAGE_REQUEST,
         data: 'Hashtag Page',
+    });
+    context.store.dispatch({
+        type: LOAD_TODO_REQUEST,
     });
     return { tag: context.query.tag, }
 }

@@ -37,14 +37,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 const MyInfoEdit = ({loginUser}) => {
-    // console.log('MyInfoEdit', loginUser.ProfileImage[0]);
     const dispatch = useDispatch();
     const classes = useStyles();
     const {isEditing, profileImagePath, personalUser} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser; //페이지가 자기 페이지인지, 다른 유저 페이지인지 구분해서 user 분기처리
     const userProfileImage = user.ProfileImage[0] && user.ProfileImage[0].src;
-
-    // console.log('MyInfo', user.ProfileImage[0].src);
 
     //정규표현식
     const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;

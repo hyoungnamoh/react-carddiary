@@ -95,7 +95,7 @@ const UserPageSearchbar = () => {
                             input: classes.inputInput,
                         }}
                         inputProps={{ 'aria-label': 'search' }}
-                        value={searchKeyword}
+                        value={searchKeyword ? searchKeyword : ' '}
                         onChange={onChangeSearchKeyword}
                     />
                     <IconButton aria-label="share" onClick={onClickFavoriteSearch}>
@@ -109,7 +109,7 @@ const UserPageSearchbar = () => {
                     </IconButton>
                 </div>
             </div>
-            <Grid md={12}/>
+            <Grid item md={12}/>
             {
                 filteredDiaries.map(v => {
                     return (

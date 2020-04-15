@@ -104,7 +104,6 @@ router.patch('/edit', async (req, res, next) => {
 router.post('/profile', upload.single('image'), (req, res) => { //array(프론트에서 append 한 이름), array = 여러장, single = 한장, fields = 이미지 여러개 올릴 때 이름을 각기 다르게 받을 수 있음, none = 파일을 하나도 안올릴 경우
     //파일이 넘어오는 위치, single 이면 req.file
     res.json(req.file.filename); //파일명 전달
-    // console.log(req.file.filename);
 });
 
 //:id 팔로우 하기

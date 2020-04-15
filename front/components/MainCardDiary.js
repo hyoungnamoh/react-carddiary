@@ -125,7 +125,6 @@ const MainCardDiary = ({diary}) => {
     };
 
     const onClickLike = useCallback(() => {
-        console.log('onClickLike');
         if(!loginUser) {
             router.push('/');
             return alert('로그인이 필요합니다.');

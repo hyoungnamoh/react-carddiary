@@ -51,7 +51,6 @@ const TodoList = () => {
         setOnAdd(false);
     }
     const onClickTodoRemove = (todoId) => () => {
-        console.log(todoId);
         dispatch({
             type: REMOVE_TODO_REQUEST,
             data:todoId,

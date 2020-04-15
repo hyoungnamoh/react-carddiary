@@ -167,7 +167,6 @@ function loadFavoriteAPI() {
 function* loadFavorite() {
     try {
         const result = yield call(loadFavoriteAPI);
-        console.log('loadFavorite', result);
         yield put({
             type:LOAD_FAVORITE_SUCCESS,
             data: result.data,

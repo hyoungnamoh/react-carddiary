@@ -157,7 +157,7 @@ const User = () => {
                 </Grid>
                 <Grid container md={9} spacing={3} className={classes.diariesContainer}>
                     <UserPageSearchbar/>
-                    <Grid md={12}>
+                    <Grid item md={12}>
                         {hasMoreDiary
                             ? <Button color="primary" size="large" style={{marginLeft: '45%', marginTop:'3%'}} onClick={onClickViewMore}>더보기</Button>
                             : loginUserCardDiaries.length > 8 && <Typography variant="body2" color="textSecondary" align="center" style={{width:'100%', marginTop:'3%'}}>더 표시할 게시물이 없습니다.</Typography>

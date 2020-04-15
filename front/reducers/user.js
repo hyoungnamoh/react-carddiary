@@ -125,7 +125,6 @@ const reducer = (state = initialState, action) => {
             }
 
             case LOG_IN_FAILURE : {
-                console.log('action.reason', action.reason);
                 draft.logInErrorReason = action.reason;
                 draft.isLoggingIn = false;
                 draft.isLoading = false;
@@ -158,7 +157,6 @@ const reducer = (state = initialState, action) => {
             }
             case LOG_OUT_FAILURE : {
                 draft.isLoggingOut= false;
-                console.log(action.error);
                 break;
             }
             case LOAD_USER_REQUEST : {
@@ -176,7 +174,6 @@ const reducer = (state = initialState, action) => {
             }
             case LOAD_USER_FAILURE : {
                 draft.isSigningUp= false;
-                console.log(action.error);
                 break;
             }
             case EDIT_USER_REQUEST : {
@@ -263,7 +260,6 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_USERS_SUCCESS: {
-                console.log('LOAD_USERS_SUCCESS', action.data);
                 draft.users = action.data;
                 break;
             }

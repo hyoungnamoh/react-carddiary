@@ -25,8 +25,6 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 120,
         marginLeft: theme.spacing(5),
     },
-    selectEmpty: {
-    },
     inputBaseMargin: {
         marginTop: theme.spacing(2),
     },
@@ -55,11 +53,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 const WritePage = () => {
-    // const { loginUser } = useSelector(state => state.user);
-    // const router = useRouter();
-    // if(!loginUser){
-    //     router.push("/");
-    // }
     const dispatch = useDispatch();
     const {imagePaths, cardDiaries, isDiaryAdding, diaryAdded} = useSelector(state => state.diary);
     const { loginUser, isLoggingOut, } = useSelector(state => state.user);
@@ -76,11 +69,10 @@ const WritePage = () => {
     }, [loginUser, isLoggingOut]);
 
     const [files, setFiles] = useState([]); //드랍존 이미지 파일
-    const [isOpened, setIsOpened] = useState(false); //드랍존 모달 오픈
     const [isPublic, setIsPublic] = useState("publicDiary"); //공개여부 라디오버튼
     const [diaryTitle, setDiaryTitle] = useState(''); //다이어리 제목
     const [diaryContent, setDiaryContent] = useState(''); //다이어리 내용
-    const [isFavorite, setIsFavorite] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false); //즐겨찾는 다이어리
 
     /*
         드랍존 핸들링
@@ -101,11 +93,6 @@ const WritePage = () => {
             data: imageFormData,
         })
     }, [files]);
-    const handleSave = (files) => {
-        //Saving files to state for further use and closing Modal.
-        setFiles(files);
-        setIsOpened(false);
-    }
 
     /*
         폼 핸들링
@@ -169,7 +156,18 @@ const WritePage = () => {
         return `${fileName}가 삭제되었습니다!`
     }
     const getFileAddedMessage = (fileName) => {
-        return `${fileName}가 추가되었습니다!`
+        if(Array.isArray(fileName)){
+            const addedMessage = fileName.map((v, i) =>{
+                if (i === fileName.length -1){
+                    return v;
+                } else{
+                    return v + ', '
+                }
+            });
+            return `${addedMessage}가 추가되었습니다!`
+        }else{
+            return `${fileName}가 추가되었습니다!`
+        }
     }
     const getFileLimitExceedMessage = (filesLimit) => {
         return `최대 ${filesLimit}장까지만 첨부할 수 있습니다.`
@@ -180,7 +178,7 @@ const WritePage = () => {
 
     return(
         <Grid container>
-        <Grid md={6}/>
+        <Grid item md={6}/>
         <Paper variant="outlined" className={classes.papers}>
             <form  noValidate autoComplete="off" className={classes.root} style={{marginTop:"1%", marginBottom:"2%"}} encType={"multipart/form-data"}>
                 <Grid container >
@@ -231,9 +229,7 @@ const WritePage = () => {
                                         style={{height:"30px", width:"100%", textAlign:"right", }}
                                     >
                                         <option aria-label="None" value="" />
-                                        <option value={10}>Ten</option>
-                                        <option value={20}>Twenty</option>
-                                        <option value={30}>Thirty</option>
+                                        <option value={10}>추가할 예정입니다.. ^^</option>
                                     </Select>
                                 </FormControl>
                             </Grid>
@@ -290,7 +286,6 @@ const WritePage = () => {
 }
 
 WritePage.getInitialProps = async (context) => {
-    const state = context.store.getState();
     context.store.dispatch({
         type: CHANGE_CURRENTPAGE_REQUEST,
         data: 'Write Page',
