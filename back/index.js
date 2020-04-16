@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const expressSessin = require('express-session');
 const dotenv = require('dotenv');
 const passport = require('passport');
+const dev = process.env.NODE_ENV !== 'develoment'; //개발모드
+const prod = process.env.NODE_ENV === 'production'; //배포모드
 
 const db = require('./models');
 const userAPIRouter = require('./routes/user');
@@ -18,7 +20,6 @@ dotenv.config(); //.env 실행 password 읽어옴
 passportConfig(); //passport 실행
 
 const app = express();
-const prod = process.env.NODE_ENV === 'production';
 
 //로깅 관련 middleware
 app.use(morgan('dev')); //로깅 남겨 줌
