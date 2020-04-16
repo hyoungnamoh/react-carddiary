@@ -4,6 +4,7 @@
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/config/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +75,7 @@
       <workItem from="1586961165619" duration="11535000" />
       <workItem from="1587016769743" duration="951000" />
       <workItem from="1587017851307" duration="1292000" />
-      <workItem from="1587022279524" duration="5377000" />
+      <workItem from="1587022279524" duration="5999000" />
     </task>
     <servers />
   </component>
