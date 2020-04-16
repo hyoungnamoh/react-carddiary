@@ -17,6 +17,7 @@ import {
     REMOVE_FOLLOW_REQUEST
 } from "../reducers/user";
 import Link from "next/link";
+import {backUrl} from "../config/config";
 
 const drawerWidth = 400;
 const useStyles = makeStyles((theme) => ({
@@ -99,7 +100,7 @@ const FollowDrawer = () => {
                                     <Avatar
                                         aria-label="recipe"
                                         className={classes.avatar}
-                                        src={ v.ProfileImage ? `http://localhost:3603/${v.ProfileImage[0].src}` :  null}
+                                        src={ v.ProfileImage ? `${backUrl}/${v.ProfileImage[0].src}` :  null}
                                     />
                                 </ListItemAvatar>
                                 {/*<ListItemText primary={v.userName} />*/}
@@ -118,7 +119,7 @@ const FollowDrawer = () => {
                                     <Avatar
                                         aria-label="recipe"
                                         className={classes.avatar}
-                                        src={ v.ProfileImage ? `http://localhost:3603/${v.ProfileImage[0].src}` :  null}
+                                        src={ v.ProfileImage ? `${backUrl}/${v.ProfileImage[0].src}` :  null}
                                     />
                                 </ListItemAvatar>
                                 <ListItemText primary={v.userName} secondary={v.email}/>

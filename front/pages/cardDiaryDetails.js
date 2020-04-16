@@ -34,6 +34,7 @@ import BorderColorIcon from "@material-ui/icons/BorderColor";
 import AnnouncementIcon from "@material-ui/icons/Announcement";
 import moment from "moment"
 import {cardDiaryDetailsStyle} from "../styles/cardDiaryDetailsStyle";
+import {backUrl} from "../config/config";
 
 
 
@@ -134,7 +135,7 @@ const cardDiaryDetails = () => {
                         <Avatar
                             aria-label="recipe"
                             className={classes.avatar}
-                            src={ cardDiary.User && cardDiary.User.ProfileImage ? `http://localhost:3603/${cardDiary.User.ProfileImage[0].src}` :  null}
+                            src={ cardDiary.User && cardDiary.User.ProfileImage ? `${backUrl}/${cardDiary.User.ProfileImage[0].src}` :  null}
                         >
                         </Avatar>
                     </a></Link>
@@ -180,7 +181,7 @@ const cardDiaryDetails = () => {
             <div className="carousel-wrapper"  >
                 <Carousel infiniteLoop showThumbs={false} >
                     {cardDiary.Images && cardDiary.Images.map((v, i) => (
-                        <div key={v.id} style={{height: 'auto'}}><img src={`http://localhost:3603/${cardDiary.Images[i].src}`}/></div>
+                        <div key={v.id} style={{height: 'auto'}}><img src={`${backUrl}/${cardDiary.Images[i].src}`}/></div>
                         ))}
                 </Carousel>
             </div>

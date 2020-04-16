@@ -2,9 +2,9 @@ import {all, call, fork} from 'redux-saga/effects';
 import user from './user';
 import axios from "axios";
 import diary from "./diary";
+import {backUrl} from "../config/config";
 
-//공용으로 사용할 axios base url
-axios.defaults.baseURL = 'http://localhost:3603/api';
+axios.defaults.baseURL = `${backUrl}/api`;
 
 export default function* rootSaga() {
     yield all([

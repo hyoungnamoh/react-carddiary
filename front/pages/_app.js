@@ -13,11 +13,12 @@ import rootSaga from '../sagas';
 import {LOAD_USER_REQUEST} from "../reducers/user";
 import withReduxSaga from "next-redux-saga";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import {backUrl} from "../config/config";
 
 const CardDiary = ({Component, store, pageProps}) => {
 
     //공용으로 사용할 axios base url
-    axios.defaults.baseURL = 'http://localhost:3603/api';
+    axios.defaults.baseURL = `${backUrl}/api`;
     // const {loginUser} = useSelector(state => state.user);
     // const router = useRouter();
     useEffect(() => {

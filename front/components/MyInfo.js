@@ -10,6 +10,7 @@ import {
     LOAD_FOLLOWINGS_REQUEST
 } from "../reducers/user";
 import {useRouter} from "next/router";
+import {backUrl} from "../config/config";
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -88,7 +89,7 @@ const MyInfo = () => {
             <div>
                 <Avatar
                     alt="Remy Sharp"
-                    src={ personalUser && personalUser.ProfileImage[0].src ? `http://localhost:3603/${personalUser.ProfileImage[0].src}` :  null}
+                    src={ personalUser && personalUser.ProfileImage[0].src ? `${backUrl}/${personalUser.ProfileImage[0].src}` :  null}
                     // src={null }
                     // src={ !profileImagePath ? loginUser.ProfileImage[0].src && `http://localhost:3603/${loginUser.ProfileImage[0].src}` : `http://localhost:3603/${profileImagePath}`}
                     className={classes.avatar}

@@ -30,6 +30,7 @@ import BorderColorIcon from '@material-ui/icons/BorderColor';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import Router, {useRouter} from 'next/router'
 import moment from "moment";
+import {backUrl} from "../config/config";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -157,7 +158,7 @@ const MainCardDiary = ({diary}) => {
                             <Avatar
                                 aria-label="recipe"
                                 className={classes.avatar}
-                                src={ diary && diary.User.ProfileImage ? `http://localhost:3603/${diary.User.ProfileImage[0].src}` :  null}
+                                src={ diary && diary.User.ProfileImage ? `${backUrl}/${diary.User.ProfileImage[0].src}` :  null}
                             >
                             </Avatar>
                         </a></Link>
@@ -210,7 +211,7 @@ const MainCardDiary = ({diary}) => {
                 {/*사진*/}
                 <CardMedia
                     className={classes.media}
-                    image={`http://localhost:3603/${diary.Images[0] && diary.Images[0].src}`}
+                    image={`${backUrl}/${diary.Images[0] && diary.Images[0].src}`}
                     title={diary.diaryTitle && diary.diaryTitle}
                     onClick={onCarousel}
                 />
@@ -227,7 +228,7 @@ const MainCardDiary = ({diary}) => {
                             <Carousel
                             >
                                 {diary.Images && diary.Images.map((v, i) => (
-                                    <div key={v}><img  src={`http://localhost:3603/${diary.Images[i].src}`}/></div>
+                                    <div key={v}><img  src={`${backUrl}/${diary.Images[i].src}`}/></div>
                                 ))}
                             </Carousel>
                         </div>

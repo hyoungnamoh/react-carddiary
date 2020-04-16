@@ -17,6 +17,7 @@ import {
     LOAD_USER_REQUEST
 } from "../reducers/user";
 import TodoList from "../components/TodoList";
+import {backUrl} from "../config/config";
 
 
 
@@ -66,11 +67,11 @@ const Hashtag = ({tag}) => {
                         <GridList className={classes.gridList} cols={3} style={{ height: 'auto' }}>
                             <GridListTile key="Subheader" >
                                 {/*<ListSubheader>{tag}</ListSubheader>*/}
-                                <img src={hashtagDiaries[0] && `http://localhost:3603/${hashtagDiaries[Math.floor(Math.random() * hashtagDiaries.length)].Images[0].src}`} alt={tag} style={{}}/>
+                                <img src={hashtagDiaries[0] && `${backUrl}/${hashtagDiaries[Math.floor(Math.random() * hashtagDiaries.length)].Images[0].src}`} alt={tag} style={{}}/>
                             </GridListTile>
                             {hashtagDiaries.length !== 0 && hashtagDiaries.map((tile) => (
                                 <GridListTile key={tile.id}>
-                                    <img src={`http://localhost:3603/${tile.Images[0].src}`} alt={tile.diaryTitle} />
+                                    <img src={`${backUrl}/${tile.Images[0].src}`} alt={tile.diaryTitle} />
                                     <GridListTileBar
                                         title={tile.diaryTitle}
                                         subtitle={<span>by: {tile.User.userName}</span>}

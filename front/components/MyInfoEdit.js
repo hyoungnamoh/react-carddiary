@@ -6,6 +6,7 @@ import {EDIT_USER_REQUEST, USER_EDITFORM_REQUEST} from "../reducers/user";
 import {useDispatch, useSelector} from "react-redux";
 import {DropzoneArea, DropzoneDialog} from "material-ui-dropzone";
 import {UPLOAD_IMAGES_REQUEST, UPLOAD_PROFILE_REQUEST} from "../reducers/diary";
+import {backUrl} from "../config/config";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -172,7 +173,7 @@ const MyInfoEdit = ({loginUser}) => {
             <div>
                     <Avatar
                         alt="Remy Sharp"
-                        src={ profileImagePath ?  `http://localhost:3603/${profileImagePath}` : userProfileImage  ? `http://localhost:3603/${userProfileImage}` : userProfileImage}
+                        src={ profileImagePath ?  `${backUrl}/${profileImagePath}` : userProfileImage  ? `${backUrl}/${userProfileImage}` : userProfileImage}
                         className={classes.avatar}
                         onClick={onClickImageUpload}
                     />
