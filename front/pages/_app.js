@@ -17,10 +17,6 @@ import {backUrl} from "../config/config";
 
 const CardDiary = ({Component, store, pageProps}) => {
 
-    //공용으로 사용할 axios base url
-    axios.defaults.baseURL = `${backUrl}/api`;
-    // const {loginUser} = useSelector(state => state.user);
-    // const router = useRouter();
     useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles) {
