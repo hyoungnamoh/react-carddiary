@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/_app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/config/config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +74,7 @@
       <workItem from="1586961165619" duration="11535000" />
       <workItem from="1587016769743" duration="951000" />
       <workItem from="1587017851307" duration="1292000" />
-      <workItem from="1587022279524" duration="3929000" />
+      <workItem from="1587022279524" duration="5377000" />
     </task>
     <servers />
   </component>
@@ -123,17 +122,17 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1707.1027@0.0.1707.1027" timestamp="1587013573181" />
-    <state x="842" y="242" width="776" height="538" key="find.popup" timestamp="1587026958355">
+    <state x="842" y="242" width="776" height="538" key="find.popup" timestamp="1587027886226">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="842" y="242" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1587026958355" />
+    <state x="842" y="242" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1587027886226" />
     <state x="510" y="238" key="run.anything.popup" timestamp="1586932618484">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="510" y="238" key="run.anything.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586932618484" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587016786580">
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587028156530">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1587016786580" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1587028156530" />
   </component>
 </project>
