@@ -9,7 +9,7 @@ const prod = process.env.NODE_ENV === 'production'; //배포모드
 const path = require('path');
 
 //express와 next 연결
-const app = next({ prod }); //true
+const app = next({ dev }); //true
 const handle = app.getRequestHandler();
 
 dotenv.config();
