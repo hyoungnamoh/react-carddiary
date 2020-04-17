@@ -28,6 +28,7 @@ module.exports = withBundleAnalyzer({
     webpack(config) {
         //NODE_ENV 배포환경인지 개발환경인지 구분
         const prod = process.env.NODE_ENV === 'production';
+        console.log('prod', prod);
 
         const plugins = [
             ...config.plugins,

@@ -8,7 +8,7 @@ const dev = process.env.NODE_ENV !== 'develoment'; //개발모드
 const prod = process.env.NODE_ENV === 'production'; //배포모드
 
 //express와 next 연결
-const app = next({ dev }); //true
+const app = next({ prod }); //true
 const handle = app.getRequestHandler();
 
 dotenv.config();
@@ -17,13 +17,14 @@ app.prepare().then(() => {
    const server = express(); //next
 
    server.use(morgan('dev'));
+    server.use('/', express.static(path.join(__dirname, 'public')));
    server.use(express.json());
    server.use(express.urlencoded({extended:true}));
    server.use(cookieParser(process.env.COOKIE_SECRET)) //백엔드와 똑같이 설정 해줘야 함, 서버가 두갠데 쿠키 시크릿이 달라지면 서로의 쿠키를 해독 못함
    server.use(expressSession({
        resave: false,
        saveUninitialized: false,
-       secret: '',
+       secret: process.env.COOKIE_SECRET,
        cookie: {
            hasOwnProperty: true,
            secure: false,
@@ -49,6 +50,6 @@ app.prepare().then(() => {
 
 
    server.listen(prod ? process.env.PORT : 3642, () => {
-       console.log(`next+express running on port ${process.env.PORT}`);
+       console.log(`next+express running on port ${prod ? process.env.PORT : 3642}`);
    })
 });
