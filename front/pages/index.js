@@ -108,6 +108,12 @@ const Index = () => {
         });
     },[email, password]);
 
+    const onPressEnter = (e) => {
+        if (e.key === 'Enter') {
+            onSubmitForm(e);
+        }
+    };
+
     return(
         <Grid container component="main" className={classes.root}>
             <CssBaseline />
@@ -134,6 +140,7 @@ const Index = () => {
                             value={email}
                             onChange={onChangeEmail}
                             inputRef={emailRef}
+                            onKeyPress={onPressEnter}
                         />
                         <TextField
                             variant="outlined"
@@ -148,6 +155,7 @@ const Index = () => {
                             value={password}
                             onChange={onChangePassword}
                             inputRef={passwordRef}
+                            onKeyPress={onPressEnter}
                         />
                         <Button
                             type="button"
