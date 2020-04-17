@@ -165,15 +165,14 @@ const editPage = () => {
         });
     }
     /*
-        글 작성 완료 후 페이지 이동
+        글 수정 완료 후 페이지 이동
     */
     useEffect(() => {
-
         if(diaryAdded){
             dispatch({
                 type: ADDED_DAIRY_SWITCHING,
             });
-            // router.push('/');
+            router.push('/');
         }
 
     }, [diaryAdded === true]);

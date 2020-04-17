@@ -3,16 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/back/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/back/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/routes/diary.js" beforeDir="false" afterPath="$PROJECT_DIR$/back/routes/diary.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/CardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/CardDiary.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/FollowDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/FollowDrawer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/MainCardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/MainCardDiary.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/MyInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/MyInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/MyInfoEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/MyInfoEdit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/cardDiaryDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/cardDiaryDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/hashtag.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/hashtag.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/editDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/editDiary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +79,7 @@
       <workItem from="1587022279524" duration="7169000" />
       <workItem from="1587035708033" duration="7152000" />
       <workItem from="1587049311547" duration="13366000" />
-      <workItem from="1587110486531" duration="8607000" />
+      <workItem from="1587110486531" duration="12948000" />
     </task>
     <servers />
   </component>
@@ -134,17 +127,17 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1707.1027@0.0.1707.1027" timestamp="1587013573181" />
-    <state x="842" y="242" width="776" height="538" key="find.popup" timestamp="1587121606493">
+    <state x="842" y="242" width="776" height="538" key="find.popup" timestamp="1587125833871">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="842" y="242" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1587121606493" />
+    <state x="842" y="242" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1587125833871" />
     <state x="510" y="238" key="run.anything.popup" timestamp="1586932618484">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="510" y="238" key="run.anything.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586932618484" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587116260461">
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587125464358">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1587116260461" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1587125464358" />
   </component>
 </project>
