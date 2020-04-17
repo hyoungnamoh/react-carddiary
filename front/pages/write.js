@@ -144,7 +144,7 @@ const WritePage = () => {
             dispatch({
                 type: ADDED_DAIRY_SWITCHING,
             });
-            // router.push('/');
+            router.push('/');
         }
 
     }, [diaryAdded === true]);
@@ -156,6 +156,7 @@ const WritePage = () => {
         return `${fileName}가 삭제되었습니다!`
     }
     const getFileAddedMessage = (fileName) => {
+        console.log(fileName);
         if(Array.isArray(fileName)){
             const addedMessage = fileName.map((v, i) =>{
                 if (i === fileName.length -1){

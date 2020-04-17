@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/back/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/front/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/components/AppLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/AppLayout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/components/MyInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/MyInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/_app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/write.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/write.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +80,8 @@
       <workItem from="1587017851307" duration="1292000" />
       <workItem from="1587022279524" duration="7169000" />
       <workItem from="1587035708033" duration="7152000" />
-      <workItem from="1587049311547" duration="10795000" />
+      <workItem from="1587049311547" duration="13366000" />
+      <workItem from="1587110486531" duration="1613000" />
     </task>
     <servers />
   </component>
@@ -126,10 +129,10 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1707.1027@0.0.1707.1027" timestamp="1587013573181" />
-    <state x="842" y="242" width="776" height="538" key="find.popup" timestamp="1587104980665">
+    <state x="842" y="242" width="776" height="538" key="find.popup" timestamp="1587112096056">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="842" y="242" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1587104980665" />
+    <state x="842" y="242" width="776" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1587112096056" />
     <state x="510" y="238" key="run.anything.popup" timestamp="1586932618484">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>

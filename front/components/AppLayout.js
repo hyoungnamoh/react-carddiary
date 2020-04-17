@@ -243,7 +243,7 @@ const AppLayout = ({ children }) => {
     };
 
     //서치바 핸들링
-    const onChangeSearchText = (e) => {
+    const onChangeSearchText = useCallback((e) => {
         setSearchText(e.target.value);
         if(searchOption === 'email'){
             dispatch({
@@ -256,8 +256,7 @@ const AppLayout = ({ children }) => {
                 data: e.target.value,
             });
         }
-
-    }
+    },[searchText, searchOption, searchResult]);
     const onClickSearch = () => {
         if(searchOption === 'email'){
             if(!searchText){

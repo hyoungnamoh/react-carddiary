@@ -55,7 +55,7 @@ const Main = () => {
     //무한스크롤링 스크롤 이벤트
     const onScroll = () => {
         if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300){
-            if(hasMoreDiary){
+            if(hasMoreDiary && cardDiaries.length > 4){
                 const lastId = cardDiaries.length !== 0 && cardDiaries[cardDiaries.length -1].id ;
                 if(!countRef.current.includes(lastId)){ //호출 할 lastId가 이미 사용했던거면 막음
                     dispatch({
@@ -86,7 +86,7 @@ const Main = () => {
                             <MainCardDiary key={v.id} diary={v}/>
                         )})}
                     <Grid item md={12}>
-                        {!hasMoreDiary &&
+                        {!hasMoreDiary && countRef.current.length !== 0 &&
                         <Typography variant="body2" color="textSecondary" align="center" style={{width:'100%', marginTop:'3%', marginLeft:'-13%'}}>더 표시할 게시물이 없습니다.</Typography>
                         }
                     </Grid>
