@@ -257,12 +257,12 @@ const AppLayout = ({ children }) => {
             });
         }
     },[searchText, searchOption, searchResult]);
-    const onClickSearch = () => {
+    const onClickSearch = useCallback(() => {
         if(searchOption === 'email'){
             if(!searchText){
                 return alert('검색할 이메일을 입력해주세요.');
             }
-            if(searchResult){
+            if(searchResult && !'undefined'){
                 router.push(`/user/${searchResult.id}`);
             } else{
                 alert('존재하지 않는 이메일입니다.');
@@ -271,7 +271,7 @@ const AppLayout = ({ children }) => {
             if(!searchText){
                 return alert('검색할 해시태그명을 입력해주세요.');
             }
-            if(searchResult){
+            if(searchResult && !'undefined'){
                 router.push(`/diary/hashtag/${searchResult.name}`);
             } else{
                 alert('존재하지 않는 해시태그입니다.');
@@ -280,7 +280,7 @@ const AppLayout = ({ children }) => {
             alert('옵션을 선택해주세요!')
         }
 
-    }
+    }, [searchText, searchOption, searchResult]);
 
     const handleChangeSelect = (e) => {
         setSearchOption(e.target.value);
