@@ -15,7 +15,7 @@ AWS.config.update({
 const upload = multer({
     storage: multerS3({ //저장 옵션 서버쪽 디스크에 저장
         s3: new AWS.S3(),
-        bucket: 'react-nodebird',
+        bucket: 'react-carddiary',
         key(req, file, cb) {
             cb(null, `original/${+new Date()}${path.basename(file.originalname)}`);
         },
