@@ -6,6 +6,7 @@ const expressSession = require('express-session');
 const dotenv = require('dotenv');
 const dev = process.env.NODE_ENV !== 'develoment'; //개발모드
 const prod = process.env.NODE_ENV === 'production'; //배포모드
+const path = require('path');
 
 //express와 next 연결
 const app = next({ prod }); //true
