@@ -32,10 +32,12 @@ module.exports = withBundleAnalyzer({
         const plugins = [
             ...config.plugins,
             new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /^\.\/ko$/), //moment js tree shaking
-            new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-                'process.env.DEBUG': JSON.stringify(process.env.DEBUG)
+            new webpack.optimize.UglifyJsPlugin({
+                sourceMap: options.devtool && (options.devtool.indexOf("sourcemap") >= 0 || options.devtool.indexOf("source-map") >= 0)
             }),
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': JSON.stringify('production')
+            })
         ];
         if(prod){
             plugins.push(new CompressionPlugin());
