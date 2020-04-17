@@ -16,7 +16,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {backUrl} from "../config/config";
 
 const CardDiary = ({Component, store, pageProps}) => {
-    console.log('backUrl',backUrl);
+    console.log('backUrl 왜이러니',backUrl);
 
     useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side');
