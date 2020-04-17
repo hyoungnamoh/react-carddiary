@@ -173,7 +173,7 @@ const MyInfoEdit = ({loginUser}) => {
             <div>
                     <Avatar
                         alt="Remy Sharp"
-                        src={ profileImagePath ?  `${backUrl}/${profileImagePath}` : userProfileImage  ? `${backUrl}/${userProfileImage}` : userProfileImage}
+                        src={ profileImagePath ?  `${profileImagePath}` : userProfileImage  ? `${backUrl}/${userProfileImage}` : userProfileImage}
                         className={classes.avatar}
                         onClick={onClickImageUpload}
                     />

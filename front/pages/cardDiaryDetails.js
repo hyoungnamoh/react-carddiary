@@ -135,7 +135,7 @@ const cardDiaryDetails = () => {
                         <Avatar
                             aria-label="recipe"
                             className={classes.avatar}
-                            src={ cardDiary.User && cardDiary.User.ProfileImage ? `${backUrl}/${cardDiary.User.ProfileImage[0].src}` :  null}
+                            src={ cardDiary.User && cardDiary.User.ProfileImage ? `${cardDiary.User.ProfileImage[0].src}` :  null}
                         >
                         </Avatar>
                     </a></Link>
@@ -181,7 +181,7 @@ const cardDiaryDetails = () => {
             <div className="carousel-wrapper"  >
                 <Carousel infiniteLoop showThumbs={false} >
                     {cardDiary.Images && cardDiary.Images.map((v, i) => (
-                        <div key={v.id} style={{height: 'auto'}}><img src={`${backUrl}/${cardDiary.Images[i].src}`}/></div>
+                        <div key={v.id} style={{height: 'auto'}}><img src={`${cardDiary.Images[i].src}`}/></div>
                         ))}
                 </Carousel>
             </div>

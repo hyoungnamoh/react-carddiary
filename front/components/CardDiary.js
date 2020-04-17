@@ -180,7 +180,7 @@ const CardDiary = ({diary}) => {
                             <Avatar
                                 aria-label="recipe"
                                 className={classes.avatar}
-                                src={ diary && diary.User.ProfileImage ? `${backUrl}/${diary.User.ProfileImage[0].src}` :  null}
+                                src={ diary && diary.User.ProfileImage ? `${diary.User.ProfileImage[0].src}` :  null}
                             >
                             </Avatar>
                         </a></Link>
@@ -233,7 +233,7 @@ const CardDiary = ({diary}) => {
                 {/*사진*/}
                 <CardMedia
                     className={classes.media}
-                    image={`${backUrl}/${diary.Images[0] && diary.Images[0].src}`}
+                    image={`${diary.Images[0] && diary.Images[0].src}`}
                     title={diary.diaryTitle && diary.diaryTitle}
                     onClick={onCarousel}
                 />
@@ -250,7 +250,7 @@ const CardDiary = ({diary}) => {
                             <Carousel
                             >
                                 {diary.Images && diary.Images.map((v, i) => (
-                                    <div style={{height: '500px'}} key={v}><img  src={`${backUrl}/${diary.Images[i].src}`}/></div>
+                                    <div style={{height: '500px'}} key={v}><img  src={`${diary.Images[i].src}`}/></div>
                                 ))}
                             </Carousel>
                         </div>

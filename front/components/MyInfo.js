@@ -90,7 +90,7 @@ const MyInfo = () => {
             <div>
                 <Avatar
                     alt="Remy Sharp"
-                    src={ personalUser && personalUser.ProfileImage[0].src ? `${backUrl}/${personalUser.ProfileImage[0].src}` :  null}
+                    src={ personalUser && personalUser.ProfileImage[0].src ? `${personalUser.ProfileImage[0].src}` :  null}
                     // src={null }
                     // src={ !profileImagePath ? loginUser.ProfileImage[0].src && `http://localhost:3603/${loginUser.ProfileImage[0].src}` : `http://localhost:3603/${profileImagePath}`}
                     className={classes.avatar}

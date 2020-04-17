@@ -100,7 +100,7 @@ const FollowDrawer = () => {
                                     <Avatar
                                         aria-label="recipe"
                                         className={classes.avatar}
-                                        src={ v.ProfileImage ? `${backUrl}/${v.ProfileImage[0].src}` :  null}
+                                        src={ v.ProfileImage ? `${v.ProfileImage[0].src}` :  null}
                                     />
                                 </ListItemAvatar>
                                 {/*<ListItemText primary={v.userName} />*/}
@@ -119,7 +119,7 @@ const FollowDrawer = () => {
                                     <Avatar
                                         aria-label="recipe"
                                         className={classes.avatar}
-                                        src={ v.ProfileImage ? `${backUrl}/${v.ProfileImage[0].src}` :  null}
+                                        src={ v.ProfileImage ? `${v.ProfileImage[0].src}` :  null}
                                     />
                                 </ListItemAvatar>
                                 <ListItemText primary={v.userName} secondary={v.email}/>
