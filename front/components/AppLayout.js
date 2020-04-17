@@ -256,13 +256,13 @@ const AppLayout = ({ children }) => {
                 data: e.target.value,
             });
         }
-    },[searchText, searchOption, searchResult]);
+    },[searchText,  searchResult]);
     const onClickSearch = useCallback(() => {
         if(searchOption === 'email'){
             if(!searchText){
                 return alert('검색할 이메일을 입력해주세요.');
             }
-            if(searchResult && !'undefined'){
+            if(searchResult && searchResult.id){
                 router.push(`/user/${searchResult.id}`);
             } else{
                 alert('존재하지 않는 이메일입니다.');
@@ -271,7 +271,7 @@ const AppLayout = ({ children }) => {
             if(!searchText){
                 return alert('검색할 해시태그명을 입력해주세요.');
             }
-            if(searchResult && !'undefined'){
+            if(searchResult && searchResult.id){
                 router.push(`/diary/hashtag/${searchResult.name}`);
             } else{
                 alert('존재하지 않는 해시태그입니다.');
