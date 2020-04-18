@@ -9,10 +9,17 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Link from "next/link";
 import Box from "@material-ui/core/Box";
-import {LOG_IN_REQUEST} from "../reducers/user";
+import {
+    CHANGE_CURRENTPAGE_REQUEST,
+    LOAD_FOLLOWINGLIST_REQUEST,
+    LOAD_USER_REQUEST,
+    LOG_IN_REQUEST
+} from "../reducers/user";
 import {makeStyles} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
+import {LOAD_FAVORITE_REQUEST, LOAD_USER_DIARIES_REQUEST} from "../reducers/diary";
+import User from "./user";
 
 const Copyright = () => {
     return (
@@ -183,5 +190,15 @@ const Index = () => {
         </Grid>
     )
 }
-
+Index.getInitialProps = async (context) => {
+    let userId = 0;
+    const queryId = context.query.userId && parseInt(context.query.userId, 10);
+    if(queryId){
+        userId = queryId;
+    }
+    context.store.dispatch({
+        type: LOAD_USER_REQUEST,
+        data: userId,
+    });
+}
 export default Index;

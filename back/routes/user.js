@@ -6,19 +6,22 @@ const passport = require('passport');
 const db = require('../models');
 const multer = require('multer');
 const { isLoggedIn } = require('./middleware');
+const AWS = require('aws-sdk');
+const multerS3 = require('multer-s3');
 
+AWS.config.update({
+    region: 'ap-northeast-2',
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+});
 //업로드 설정
 const upload = multer({
-    storage: multer.diskStorage({ //저장 옵션 서버쪽 디스크에 저장
-        destination(req, file, done){
-            done(null, 'uploads'); //어떤 폴더에 저장할지
-            //(서버에러, 성공했을때)
+    storage: multerS3({ //저장 옵션 서버쪽 디스크에 저장
+        s3: new AWS.S3(),
+        bucket: 'react-carddiary',
+        key(req, file, cb) {
+            cb(null, `original/${+new Date()}${path.basename(file.originalname)}`);
         },
-        filename(req, file, done){ //파일이름 옵션
-            const ext = path.extname(file.originalname); //확장자 추출
-            const basename = path.basename(file.originalname, ext);
-            done(null, basename + new Date().valueOf() + ext);
-        }
     }),
     limits: { fileSize: 20 * 1024 * 1024 }, //파일크기 제한 옵션
 });
@@ -100,10 +103,15 @@ router.patch('/edit', async (req, res, next) => {
     }
 });
 
+// //이미지 업로드하기
+// router.post('/profile', upload.single('image'), (req, res) => { //array(프론트에서 append 한 이름), array = 여러장, single = 한장, fields = 이미지 여러개 올릴 때 이름을 각기 다르게 받을 수 있음, none = 파일을 하나도 안올릴 경우
+//     //파일이 넘어오는 위치, single 이면 req.file
+//     res.json(req.file.filename); //파일명 전달
+// });
+
 //이미지 업로드하기
-router.post('/profile', upload.single('image'), (req, res) => { //array(프론트에서 append 한 이름), array = 여러장, single = 한장, fields = 이미지 여러개 올릴 때 이름을 각기 다르게 받을 수 있음, none = 파일을 하나도 안올릴 경우
-    //파일이 넘어오는 위치, single 이면 req.file
-    res.json(req.file.filename); //파일명 전달
+router.post('/profile', upload.single('image'), (req, res) => {
+    res.json(req.file.location);
 });
 
 //:id 팔로우 하기

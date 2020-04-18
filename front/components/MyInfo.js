@@ -10,7 +10,6 @@ import {
     LOAD_FOLLOWINGS_REQUEST
 } from "../reducers/user";
 import {useRouter} from "next/router";
-import {backUrl} from "../config/config";
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -46,8 +45,7 @@ const MyInfo = () => {
     const {isEditing, profileImagePath, personalUser, loginUser, followingList} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser;
     const [isFollowedUser, setIsFollowedUser] = useState(false);
-
-
+    console.log('personalUser', personalUser);
     //내가 팔로잉 하고있는 대상인지 확인
     useEffect(() => {
         if(followingList.length !== 0 && personalUser){
@@ -55,6 +53,7 @@ const MyInfo = () => {
             setIsFollowedUser(followedUser.length !== 0);
         }
     }, [personalUser]);
+
 
     //수정하기 버튼
     const onEdit = useCallback(() => {
@@ -90,7 +89,7 @@ const MyInfo = () => {
             <div>
                 <Avatar
                     alt="Remy Sharp"
-                    src={ personalUser && personalUser.ProfileImage[0].src ? `${personalUser.ProfileImage[0].src}` :  null}
+                    src={ personalUser ? personalUser.ProfileImage[0].src : loginUser ? loginUser.ProfileImage[0].src :  null}
                     // src={null }
                     // src={ !profileImagePath ? loginUser.ProfileImage[0].src && `http://localhost:3603/${loginUser.ProfileImage[0].src}` : `http://localhost:3603/${profileImagePath}`}
                     className={classes.avatar}

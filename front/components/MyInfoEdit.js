@@ -2,10 +2,9 @@ import React, {useCallback, useRef, useState} from "react";
 import {Avatar, Button, makeStyles, TextField} from "@material-ui/core";
 import ClearIcon from "@material-ui/icons/Clear";
 import DoneIcon from "@material-ui/icons/Done";
-import {EDIT_USER_REQUEST, USER_EDITFORM_REQUEST} from "../reducers/user";
+import {EDIT_USER_REQUEST, UPLOAD_PROFILE_REQUEST, USER_EDITFORM_REQUEST} from "../reducers/user";
 import {useDispatch, useSelector} from "react-redux";
 import {DropzoneArea, DropzoneDialog} from "material-ui-dropzone";
-import {UPLOAD_IMAGES_REQUEST, UPLOAD_PROFILE_REQUEST} from "../reducers/diary";
 import {backUrl} from "../config/config";
 
 
@@ -42,7 +41,8 @@ const MyInfoEdit = ({loginUser}) => {
     const classes = useStyles();
     const {isEditing, profileImagePath, personalUser} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser; //페이지가 자기 페이지인지, 다른 유저 페이지인지 구분해서 user 분기처리
-    const userProfileImage = user.ProfileImage[0] && user.ProfileImage[0].src;
+    const userProfileImage = loginUser.ProfileImage[0] && loginUser.ProfileImage[0].src;
+    console.log(loginUser);
 
     //정규표현식
     const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -116,13 +116,14 @@ const MyInfoEdit = ({loginUser}) => {
                 userName: editUserName,
                 email: editEmail,
                 password: editPassword,
-                profileImagePath: profileImagePath,
+                profileImagePath: profileImagePath ? profileImagePath : userProfileImage,
             }
         });
         dispatch({
             type: USER_EDITFORM_REQUEST
         });
-    }, [editUserName, editEmail, editPassword, editPasswordConfirm]);
+
+    }, [editUserName, editEmail, editPassword, editPasswordConfirm, profileImagePath]);
 
     const onEditCancel = useCallback(() => {
         dispatch({
@@ -134,26 +135,13 @@ const MyInfoEdit = ({loginUser}) => {
         return alert('이메일은 변경이 불가능합니다.');
     };
 
-    const onDropzone = () => {
-        setIsDropzoneOpend(true);
-    };
-
-    const onSaveDropzone = (file) => {
-        setProfileImage(file);
-        setIsDropzoneOpend(false);
-    };
-
-    const onCloseDropzone = () => {
-        setIsDropzoneOpend(false);
-    };
-
     //이미지 업로드 버튼 클릭
     const onClickImageUpload = useCallback(() => {
         imageInput.current.click();
     }, [imageInput.current]);
 
     //실제로 이미지 업로드 했을 때
-    const onChangeImages = useCallback((e) => {
+    const onChangeImages = (e) => {
         const imageFormData = new FormData();
         // imageFormData.append('image', e.target.file);
         [].forEach.call(e.target.files, (f) => {
@@ -163,8 +151,8 @@ const MyInfoEdit = ({loginUser}) => {
             type: UPLOAD_PROFILE_REQUEST,
             data: imageFormData,
         })
-    }, []);
-
+    };
+    console.log('profileImagePath',profileImagePath);
     return (
         <>
             <Button style={{float:"right"}} onClick={onEditCancel}><ClearIcon /></Button>
@@ -173,7 +161,8 @@ const MyInfoEdit = ({loginUser}) => {
             <div>
                     <Avatar
                         alt="Remy Sharp"
-                        src={ profileImagePath ?  `${profileImagePath}` : userProfileImage  ? `${userProfileImage}` : userProfileImage}
+                        src={ profileImagePath ?  profileImagePath : userProfileImage  ? userProfileImage : userProfileImage}
+                        // src={null}
                         className={classes.avatar}
                         onClick={onClickImageUpload}
                     />

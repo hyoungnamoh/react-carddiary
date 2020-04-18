@@ -30,7 +30,6 @@ import BorderColorIcon from '@material-ui/icons/BorderColor';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import Router, {useRouter} from 'next/router'
 import moment from "moment";
-import {backUrl} from "../config/config";
 
 const useStyles = makeStyles(theme => ({
     root: {

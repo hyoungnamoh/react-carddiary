@@ -1,6 +1,5 @@
 //유저 정보 store
 import produce from "immer";
-import {UPLOAD_PROFILE_FAILURE, UPLOAD_PROFILE_REQUEST, UPLOAD_PROFILE_SUCCESS} from "./diary";
 
 export const initialState = { //초기값
     isLoggingOut: false, //로그아웃 시도중
@@ -107,6 +106,12 @@ export const SEARCH_HASHTAG_SUCCESS = 'SEARCH_HASHTAG_SUCCESS';
 export const SEARCH_HASHTAG_FAILURE = 'SEARCH_HASHTAG_FAILURE';
 
 
+//프로필 이미지 업로드하는 액션
+export const UPLOAD_PROFILE_REQUEST = 'UPLOAD_PROFILE_REQUEST';
+export const UPLOAD_PROFILE_SUCCESS = 'UPLOAD_PROFILE_SUCCESS';
+export const UPLOAD_PROFILE_FAILURE = 'UPLOAD_PROFILE_FAILURE';
+
+
 //setState
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
@@ -182,6 +187,7 @@ const reducer = (state = initialState, action) => {
             case EDIT_USER_SUCCESS : {
                 draft.profileImagePath = null;
                 draft.loginUser = action.data;
+                draft.personalUser = action.data;
                 break;
             }
             case EDIT_USER_FAILURE : {
