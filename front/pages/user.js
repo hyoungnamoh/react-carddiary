@@ -114,9 +114,11 @@ const User = () => {
 
     const countRef = useRef([]);
     const router = useRouter();
-
+    console.log(loginUser, '1');
     useEffect(() => {
-        if(!loginUser && !isLoggedIn){
+        console.log(loginUser, '2');
+        if(!loginUser){
+            console.log(loginUser, '3');
             router.push('/');
             return;
         }
