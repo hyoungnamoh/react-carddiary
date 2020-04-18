@@ -109,14 +109,14 @@ const User = () => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
-    const {loginUser, isEditing, personalUser, followingList, isLoggingOut} = useSelector(state => state.user);
+    const {loginUser, isEditing, personalUser, followingList, isLoggingOut, isLoggedIn} = useSelector(state => state.user);
     const {loginUserCardDiaries, isFavoriteCard, hasMoreDiary} = useSelector(state => state.diary);
 
     const countRef = useRef([]);
     const router = useRouter();
 
     useEffect(() => {
-        if(!loginUser){
+        if(!loginUser && !isLoggedIn){
             router.push('/');
             return;
         }
