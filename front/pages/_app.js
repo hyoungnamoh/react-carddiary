@@ -54,8 +54,9 @@ CardDiary.getInitialProps = async (context) => {
     }
     //user 정보 가져오기
     if(!state.user.loginUser){
-        await ctx.store.dispatch({
+        ctx.store.dispatch({
             type: LOAD_USER_REQUEST,
+            data: 0,
         });
     }
     if(context.Component.getInitialProps){
