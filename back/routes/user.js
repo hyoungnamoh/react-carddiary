@@ -27,7 +27,7 @@ const upload = multer({
 });
 
 // 내 정보 가져오기
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
     try {
         const user = await db.User.findOne({
             where: {id: req.user.id},
@@ -110,7 +110,7 @@ router.patch('/edit', async (req, res, next) => {
 // });
 
 //이미지 업로드하기
-router.post('/profile', upload.single('image'), (req, res) => {
+router.post('/profile', upload.single('image'), (req, res, next) => {
     res.json(req.file.location);
 });
 
