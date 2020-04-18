@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 const passport = require('passport');
 const dev = process.env.NODE_ENV !== 'develoment'; //개발모드
 const prod = process.env.NODE_ENV === 'production'; //배포모드
-
+const hpp = require('hpp');
 const db = require('./models');
 const userAPIRouter = require('./routes/user');
 const diaryAPIRouter = require('./routes/diary');
@@ -21,14 +21,27 @@ passportConfig(); //passport 실행
 
 const app = express(prod);
 
-//로깅 관련 middleware
-app.use(morgan('dev')); //로깅 남겨 줌
+if(prod){
+    app.use(hpp());
+    app.use(morgan('combined'));
+    app.use(cors({
+        origin: 'http://carddiary.site',
+        credentials: true,
+    }));
+} else{
+    //로깅 관련 middleware
+    app.use(morgan('dev')); //로깅 남겨 줌
 
-//cors 에러 middleware
-app.use(cors({//cors 오류 잡아줌 도메인이 다른데 요청을 할 경우 서버에서 거절함. 이걸 해결 해 줌
-    origin: true, //요청 주소와 같게
-    credentials: true,
-}));
+    //cors 에러 middleware
+    app.use(cors({//cors 오류 잡아줌 도메인이 다른데 요청을 할 경우 서버에서 거절함. 이걸 해결 해 줌
+        origin: true, //요청 주소와 같게
+        credentials: true,
+    }));
+}
+
+
+
+
 
 //서버 확인
 app.get('/', (req, res) => {
@@ -49,6 +62,7 @@ app.use(expressSessin({ //session 사용하게 해 줌
     cookie: {
         httpOnly: true, //쿠키를 자바스크립트에서 접근 못하게 함
         secure: false, //https 사용 시 true로 해야함
+        domain: prod && '.carddiary.site', //front 와 server 쿠키 통일, 여기서 .이 프론트 주소와 서버 주소 모두 사용할 수 있게 함
     },
     name: 'hyoungnam'
 }));
