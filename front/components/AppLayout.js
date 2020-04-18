@@ -285,6 +285,7 @@ const AppLayout = ({ children }) => {
     const handleChangeSelect = (e) => {
         setSearchOption(e.target.value);
     };
+    console.log('appbar loginUser', loginUser);
     return (
         <>
             {loginUser ?
