@@ -39,10 +39,6 @@ if(prod){
     }));
 }
 
-
-
-
-
 //서버 확인
 app.get('/', (req, res) => {
     res.send('react carddiary 백엔드 정상 동작!');
