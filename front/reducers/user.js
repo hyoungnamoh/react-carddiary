@@ -313,17 +313,19 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case SEARCH_EMAIL_REQUEST: {
+                draft.isSearching = true;
                 break;
             }
             case SEARCH_EMAIL_SUCCESS: {
                 draft.searchResult = action.data;
+                draft.isSearching = false;
                 break;
             }
             case SEARCH_EMAIL_FAILURE: {
                 break;
             }
             case SEARCH_HASHTAG_REQUEST: {
-                draft.isSearching = true;
+                draft.isSearching = !draft.isSearching;
                 break;
             }
             case SEARCH_HASHTAG_SUCCESS: {

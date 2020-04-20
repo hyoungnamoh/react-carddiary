@@ -174,7 +174,7 @@ const AppLayout = ({ children }) => {
     const [searchMargin, setSearchMargin] = useState(['15%', '-15%']); //검색바 마진
     const [searchText, setSearchText] = useState('');
     const searchRef = useRef('');
-    const [searchOption, setSearchOption] = useState('');
+    const [searchOption, setSearchOption] = useState('none');
 
     //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
     const {loginUser, isLoggingOut} = useSelector(state => state.user);
@@ -245,47 +245,73 @@ const AppLayout = ({ children }) => {
     //서치바 핸들링
     const onChangeSearchText = useCallback((e) => {
         setSearchText(e.target.value);
+        // if(searchOption === 'email'){
+        //     dispatch({
+        //         type: SEARCH_EMAIL_REQUEST,
+        //         data: e.target.value,
+        //     });
+        // }else if(searchOption === 'hashtag'){
+        //     dispatch({
+        //         type: SEARCH_HASHTAG_REQUEST,
+        //         data: e.target.value,
+        //     });
+        // }
+    },[searchText,  searchResult]);
+    const onClickSearch = useCallback( () => {
+        // console.log('searchOption', searchOption);
+        if(searchOption === 'email' && !searchText){
+            return alert('이메일을 입력해주세요.');
+        } else if(searchOption === 'hashtag' && !searchText){
+            return alert('해시태그를 입력해주세요.');
+        } else if(searchOption === 'none'){
+            return alert('옵션을 선택해 주세요.');
+        }
         if(searchOption === 'email'){
             dispatch({
                 type: SEARCH_EMAIL_REQUEST,
-                data: e.target.value,
+                data: searchText,
             });
-        }else if(searchOption === 'hashtag'){
+        } else if(searchOption === 'hashtag'){
             dispatch({
                 type: SEARCH_HASHTAG_REQUEST,
-                data: e.target.value,
+                data: searchText,
             });
         }
-    },[searchText,  searchResult]);
-    const onClickSearch = useCallback(() => {
-        if(searchOption === 'email'){
-            if(!searchText){
-                return alert('검색할 이메일을 입력해주세요.');
-            }
-            if(searchResult && searchResult.id){
-                router.push(`/user/${searchResult.id}`);
-            } else{
-                alert('존재하지 않는 이메일입니다.');
-            }
-        } else if(searchOption === 'hashtag'){
-            if(!searchText){
-                return alert('검색할 해시태그명을 입력해주세요.');
-            }
-            if(searchResult && searchResult.id){
-                router.push(`/diary/hashtag/${searchResult.name}`);
-            } else{
-                alert('존재하지 않는 해시태그입니다.');
-            }
-        } else {
-            alert('옵션을 선택해주세요!')
-        }
+        // if(searchOption === 'email'){
+        //     if(!searchText){
+        //         return alert('검색할 이메일을 입력해주세요.');
+        //     }
+        //     if(searchResult && searchResult.id){
+        //         router.push(`/user/${searchResult.id}`);
+        //     } else{
+        //         alert('존재하지 않는 이메일입니다.');
+        //     }
+        // } else if(searchOption === 'hashtag'){
+        //     if(!searchText){
+        //         return alert('검색할 해시태그명을 입력해주세요.');
+        //     }
+        //     if(searchResult && searchResult.id){
+        //         router.push(`/diary/hashtag/${searchResult.name}`);
+        //     } else{
+        //         alert('존재하지 않는 해시태그입니다.');
+        //     }
+        // } else {
+        //     alert('옵션을 선택해주세요!')
+        // }
 
     }, [searchText, searchOption, searchResult]);
 
+    useEffect(() => {
+        console.log(searchResult, isSearching);
+        if((!searchResult || Object.keys(searchResult).length === 0)){
+            alert('검색 결과가 없습니다.');
+        }
+    }, [isSearching, searchResult]);
+
     const handleChangeSelect = (e) => {
+        console.log(e.target.value);
         setSearchOption(e.target.value);
     };
-    console.log('appbar loginUser', loginUser);
     return (
         <>
             {loginUser ?
