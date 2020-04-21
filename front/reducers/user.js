@@ -21,6 +21,7 @@ export const initialState = { //초기값
     todoList:[], //모든 유저
     isSearching: false, //검색중
     searchResult: {}, //검색결과
+    searchError: '',
     
 };
 
@@ -319,9 +320,12 @@ const reducer = (state = initialState, action) => {
             case SEARCH_EMAIL_SUCCESS: {
                 draft.searchResult = action.data;
                 draft.isSearching = false;
+                // draft.isSearching = !!action.data;
                 break;
             }
             case SEARCH_EMAIL_FAILURE: {
+                draft.searchError=action.error;
+                draft.isSearching = false;
                 break;
             }
             case SEARCH_HASHTAG_REQUEST: {

@@ -265,7 +265,10 @@ router.get('/emailSearch/:searchKeyword', async (req, res, next) => {
             where: { email: req.params.searchKeyword },
             attributes:['id'],
         },);
-        res.json(user);
+        if(!user){
+            return res.status(401).send('존재하는 이메일이 없습니다.');
+        }
+        return res.json(user);
     }catch (e) {
         console.error(e);
         next(e);

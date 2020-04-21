@@ -167,7 +167,7 @@ const AppLayout = ({ children }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
-    const {currentPage, defaultPage, isSearching, searchResult} = useSelector(state => state.user);
+    const {currentPage, defaultPage, isSearching, searchResult, searchError} = useSelector(state => state.user);
     const [pageName, setPageName] = useState('');
     const [value, setValue] = useState(0);
     const [tabMargin, setTabMargin] = useState(['25%', '-25%']); //로고 마진
@@ -302,11 +302,14 @@ const AppLayout = ({ children }) => {
     }, [searchText, searchOption, searchResult]);
 
     useEffect(() => {
-        console.log(searchResult, isSearching);
-        if((!searchResult || Object.keys(searchResult).length === 0)){
-            alert('검색 결과가 없습니다.');
+        if(searchError){
+            return alert('검색 결과가 없습니다.');
+        } else{
+            console.log(isSearching, searchResult);
+            return alert('검색 결과가 있습니다.');
         }
-    }, [isSearching, searchResult]);
+
+    }, [isSearching === true, searchResult, searchError]);
 
     const handleChangeSelect = (e) => {
         console.log(e.target.value);
