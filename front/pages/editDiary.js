@@ -259,23 +259,21 @@ const editPage = () => {
                     {/*옵션 시작*/}
                     <Grid container>
                         <Grid item md={3}/>
-                        <Grid item md={2}>
-                            <FormControl variant="outlined" className={classes.formControl}>
-                                <h3>저장위치</h3>
-                                <Select
-                                    required={true}
-                                    native
-                                    style={{height:"30px", width:"100%", textAlign:"right", }}
-                                >
-                                    <option aria-label="None" value="" />
-                                    <option value={10}>Ten</option>
-                                    <option value={20}>Twenty</option>
-                                    <option value={30}>Thirty</option>
-                                </Select>
-                            </FormControl>
-                        </Grid>
+                        {/*<Grid item md={2}>*/}
+                        {/*    <FormControl variant="outlined" className={classes.formControl}>*/}
+                        {/*        <h3>저장위치</h3>*/}
+                        {/*        <Select*/}
+                        {/*            required={true}*/}
+                        {/*            native*/}
+                        {/*            style={{height:"30px", width:"100%", textAlign:"right", }}*/}
+                        {/*        >*/}
+                        {/*            <option aria-label="None" value="" />*/}
+                        {/*            <option value={10}>추가할 예정입니다!</option>*/}
+                        {/*        </Select>*/}
+                        {/*    </FormControl>*/}
+                        {/*</Grid>*/}
                         {/*공개 여부*/}
-                        <Grid item md={2}>
+                        <Grid item md={3}>
                             <FormControl variant="outlined" className={classes.formControl}>
                                 <h3>공개여부</h3>
                                 <RadioGroup row aria-label="position" name="position" defaultValue="top" value={isPublic} onChange={radioChange}>
@@ -295,7 +293,7 @@ const editPage = () => {
                             </FormControl>
                         </Grid>
                         {/*즐겨찾기*/}
-                        <Grid item md={1}>
+                        <Grid item md={2}>
                             <FormControlLabel
                                 checked={isFavorite}
                                 control={<Checkbox color="primary" />}
