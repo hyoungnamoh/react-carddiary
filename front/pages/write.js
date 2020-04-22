@@ -214,6 +214,7 @@ const WritePage = () => {
                                 getFileLimitExceedMessage={getFileLimitExceedMessage}
                                 getDropRejectMessage={getDropRejectMessage}
                                 acceptedFiles={['image/*']}
+                                maxFileSize={5000000}
                             />
                         </Grid>
                         <Grid  item md={2}/>
