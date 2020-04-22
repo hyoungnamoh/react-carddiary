@@ -234,9 +234,9 @@ const cardDiaryDetails = () => {
                 </IconButton>
                 }
                 {/*공유 아이콘*/}
-                <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton>
+                {/*<IconButton aria-label="share">*/}
+                {/*    <ShareIcon />*/}
+                {/*</IconButton>*/}
             </CardActions>
         </Card>
     );

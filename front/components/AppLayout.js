@@ -175,6 +175,7 @@ const AppLayout = ({ children }) => {
     const [searchText, setSearchText] = useState('');
     const searchRef = useRef('');
     const [searchOption, setSearchOption] = useState('none');
+    const mounted = useRef(false);
 
     //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
     const {loginUser, isLoggingOut} = useSelector(state => state.user);
@@ -302,14 +303,18 @@ const AppLayout = ({ children }) => {
     }, [searchText, searchOption, searchResult]);
 
     useEffect(() => {
-        if(searchError){
-            return alert('검색 결과가 없습니다.');
+        console.log('useEffect!');
+        if(!mounted.current){
+            mounted.current = true;
         } else{
-            console.log(isSearching, searchResult);
-            return alert('검색 결과가 있습니다.');
+            if(searchError){
+                return alert('검색 결과가 없습니다.');
+            } else{
+                console.log(isSearching, searchResult);
+                return alert('검색 결과가 있습니다.');
+            }
         }
-
-    }, [isSearching === true, searchResult, searchError]);
+    }, [searchResult, searchError]);
 
     const handleChangeSelect = (e) => {
         console.log(e.target.value);
