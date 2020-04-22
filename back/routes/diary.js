@@ -148,10 +148,17 @@ router.delete('/:id', async (req, res, next) => {
 //다이어리 수정하기
 router.patch('/editDiary', upload.none(), async (req, res, next) => {
     try{
+        const hashtags = req.body.diaryContent.match(/#[^\s]+/g);
         const isFavorite = req.body.isFavorite ? 0 : 1;
         const isPublic = req.body.isPublic.trim() === "publicDiary"  ? 1 : 0;
-
         const diary = await db.Diary.findOne({ where: { id: req.body.id}});
+
+        if(hashtags){
+            const result = await Promise.all(hashtags.map(tag => db.Hashtag.findOrCreate({ //찾아서 있으면 찾고 없으면 생성
+                where: { name: tag.slice(1).toLowerCase() },//# 자르고 소문자로 통일
+            })));
+            await diary.addHashtags(result.map(r => r[0])); //시퀄라이즈가 만들어주는 함수 Diary와 Hashtag 의 관계를 추가해주는 역할, add 외에도 get,set,remove 등 있음
+        }
 
         //원래 있던 이미지를 모두 지움
         await db.Image.destroy({ where: {DiaryId: req.body.id }});
