@@ -303,15 +303,14 @@ const AppLayout = ({ children }) => {
     }, [searchText, searchOption, searchResult]);
 
     useEffect(() => {
-        console.log('useEffect!');
+        console.log('useEffect!', searchResult);
         if(!mounted.current){
             mounted.current = true;
         } else{
-            if(searchError){
+            if(searchError && !searchResult.id){
                 return alert('검색 결과가 없습니다.');
             } else{
-                console.log(isSearching, searchResult);
-                return alert('검색 결과가 있습니다.');
+                return router.push(`/user/${searchResult.id}`);
             }
         }
     }, [searchResult, searchError]);
