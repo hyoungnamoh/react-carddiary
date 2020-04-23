@@ -67,8 +67,8 @@ const Index = () => {
     const {logInErrorReason, isLoggingIn, loginUser} = useSelector(state => state.user);
     const router = useRouter();
     const classes = useStyles();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('carddiary@naver.com');
+    const [password, setPassword] = useState('carddiary');
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     

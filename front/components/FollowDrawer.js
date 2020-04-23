@@ -19,13 +19,13 @@ import {
 import Link from "next/link";
 import {backUrl} from "../config/config";
 
-const drawerWidth = 400;
+const drawerWidth = '24%';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
     appBar: {
-        width: `calc(100% - ${drawerWidth}px)`,
+        width: `calc(100% - ${drawerWidth})`,
         marginLeft: drawerWidth,
     },
     drawer: {
