@@ -340,6 +340,7 @@ const AppLayout = ({ children }) => {
                             <Toolbar >
                                 <IconButton variant="h6" onClick={onClickMainPage} style={{marginLeft:tabMargin[1], marginRight:tabMargin[0]}}>
                                     Card Diary
+                                    {/*<img src='http://localhost:3642/logo.png' alt='CardDiary' style={{width:100, height:80}}/>*/}
                                 </IconButton>
                                 <Tabs value={value} onChange={handleChange} aria-label="Menu" style={{marginLeft:'7%', marginRight:'-7%'}}>
                                     <Tab label="Main" onClick={onClickMainPage}/>
