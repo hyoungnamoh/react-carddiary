@@ -306,11 +306,16 @@ const AppLayout = ({ children }) => {
         console.log('useEffect!', searchResult);
         if(!mounted.current){
             mounted.current = true;
+            return;
         } else{
             if(searchError && !searchResult.id){
                 return alert('검색 결과가 없습니다.');
             } else{
-                return router.push(`/user/${searchResult.id}`);
+                if(searchOption === 'email'){
+                    return router.push(`/user/${searchResult.id}`);
+                } else{
+                    return router.push(`/diary/hashtag/${searchResult.name}`);
+                }
             }
         }
     }, [searchResult, searchError]);

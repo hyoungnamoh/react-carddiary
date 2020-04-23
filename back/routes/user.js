@@ -283,6 +283,9 @@ router.get('/hashtagSearch/:searchKeyword', async (req, res, next) => {
             where: { name: decodeURIComponent(req.params.searchKeyword) },
             attributes:['name'],
         },);
+        if(!hashtag){
+            return res.status(401).send('존재하는 해시태그가 없습니다.');
+        }
         res.json(hashtag);
     }catch (e) {
         console.error(e);

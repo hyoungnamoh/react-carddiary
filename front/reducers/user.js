@@ -326,14 +326,15 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case SEARCH_HASHTAG_REQUEST: {
-                draft.isSearching = !draft.isSearching;
                 break;
             }
             case SEARCH_HASHTAG_SUCCESS: {
                 draft.searchResult = action.data;
+                draft.searchError='';
                 break;
             }
             case SEARCH_HASHTAG_FAILURE: {
+                draft.searchError=action.error;
                 break;
             }
 
