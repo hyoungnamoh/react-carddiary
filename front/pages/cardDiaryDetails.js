@@ -42,7 +42,7 @@ const cardDiaryDetails = () => {
     const classes = cardDiaryDetailsStyle();
     const dispatch = useDispatch();
     const router = useRouter();
-    const {loginUser, isLoggingOut} = useSelector(state => state.user);
+    const {loginUser, isLoggingOut, isLoggedIn} = useSelector(state => state.user);
     const {cardDiary, favoriteDiaries} = useSelector(state => state.diary);
     const [listOpened, setListOpened] = useState(false); //떙땡땡 리스트 제어
     const anchorRef = useRef(null);//떙땡땡 버튼 ref
@@ -50,12 +50,14 @@ const cardDiaryDetails = () => {
     const liked = loginUser && cardDiary.Likers && cardDiary.Likers.find(v => v.id === loginUser.id); //좋아요 눌렀는지 여부
     const [isViewMore, setViewMore] = useState(false); //더보기
 
-    //로그아웃 또는 로그인 안한 사용자가 들어올 경우 메인으로 돌리기
+    //로그아웃 또는 로그인하지 않은 사용자 처리
     useEffect(() => {
-        if(!loginUser){
+        if(!loginUser || !isLoggedIn){
             router.push('/');
             return;
         }
+        console.log(loginUser);
+        return;
     }, [loginUser, isLoggingOut]);
 
     const onClickViewMore = () => {

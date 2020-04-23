@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 const editPage = () => {
     const dispatch = useDispatch();
     const {imagePaths, isDiaryAdding, diaryAdded, cardDiary} = useSelector(state => state.diary);
-    const { loginUser, isLoggingOut, } = useSelector(state => state.user);
+    const { loginUser, isLoggingOut, isLoggedIn} = useSelector(state => state.user);
     const router = useRouter();
 
     const classes = useStyles();
@@ -86,12 +86,14 @@ const editPage = () => {
     const [isFavorite, setIsFavorite] = useState(false); //즐겨찾기
     const [uploadedImage, setUploadedImage] = useState('');
 
-    //로그아웃 또는 로그인 안한 사용자가 들어올 경우 메인으로 돌리기
+    //로그아웃 또는 로그인하지 않은 사용자 처리
     useEffect(() => {
-        if(!loginUser){
+        if(!loginUser || !isLoggedIn){
             router.push('/');
             return;
         }
+        console.log(loginUser);
+        return;
     }, [loginUser, isLoggingOut]);
 
     useEffect(() => {

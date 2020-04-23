@@ -44,17 +44,18 @@ const useStyles = makeStyles((theme) => ({
 const Hashtag = ({tag}) => {
     const classes = useStyles();
     const {hashtagDiaries} = useSelector(state => state.diary);
-    const { loginUser, isLoggingOut,} = useSelector(state => state.user);
+    const { loginUser, isLoggingOut, isLoggedIn} = useSelector(state => state.user);
     const dispatch = useDispatch();
     const router = useRouter();
     const countRef = useRef([]); //무한 스크롤링 시 lastId 를 저장 할 배열
 
-    //로그아웃 또는 로그인 안한 사용자가 들어올 경우 메인으로 돌리기
+    //로그아웃 또는 로그인하지 않은 사용자 처리
     useEffect(() => {
-        if(!loginUser){
+        if(!loginUser || !isLoggedIn){
             router.push('/');
             return;
         }
+        return;
     }, [loginUser, isLoggingOut]);
 
     return (

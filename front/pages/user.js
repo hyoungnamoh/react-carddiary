@@ -114,17 +114,16 @@ const User = () => {
 
     const countRef = useRef([]);
     const router = useRouter();
+
+    //로그아웃 또는 로그인하지 않은 사용자 처리
     useEffect(() => {
-        if(!loginUser && !isLoggedIn){
+        if(!loginUser || !isLoggedIn){
             router.push('/');
             return;
         }
         console.log(loginUser);
         return;
     }, [loginUser, isLoggingOut]);
-
-
-
 
     //더보기 버튼
     const onClickViewMore = () => {

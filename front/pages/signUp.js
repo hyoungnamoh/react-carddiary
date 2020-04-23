@@ -145,7 +145,6 @@ const SignUp = () => {
         return;
     }, [password]);
 
-
     //비밀번호, 비밀번호 확인 일치 여부 확인
     const onChangeConfirmPassword = useCallback((e) => {
         setConfirmPassword(e.target.value);
@@ -183,12 +182,10 @@ const SignUp = () => {
             confirmPasswordRef.current.focus();
             return;
         }
-
         //유효성 검사
         if(!isUserNameValid || !isPasswordValid || !isEmailValid || !isConfirmPasswordValid){
             return;
         }
-
         dispatch({
             type: SIGN_UP_REQUEST,
             data: {
@@ -197,12 +194,7 @@ const SignUp = () => {
                 password,
             }
         });
-
-
     }, [userName, email, password, confirmPassword]);
-
-
-
 
     return (
         <Container component="main" maxWidth="xs">
