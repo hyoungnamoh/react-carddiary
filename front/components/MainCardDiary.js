@@ -30,37 +30,11 @@ import BorderColorIcon from '@material-ui/icons/BorderColor';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import Router, {useRouter} from 'next/router'
 import moment from "moment";
+import { mainCardDiaryStyle } from "../styles/MainCardDiaryStyle";
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        width: "700px",
-        maxHeight: "800px",
-        marginBottom:"3%",
-    },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
-    },
-    avatar: {
-        backgroundColor: red[500],
-    },
-    starIcon:{
-        color: yellow[700],
-    },
-    modal: {
-        marginLeft: '27%',
-        marginTop: '15%',
-        maxWidth: '750px',
-        maxHeight: '750px',
-        width: '60%',
-        height: '60%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-}));
+
 const MainCardDiary = ({diary}) => {
-    const classes = useStyles();
+    const classes = mainCardDiaryStyle();
     const dispatch = useDispatch();
     const { personalUser, loginUser} = useSelector(state => state.user);
     const {cardDiaries, favoriteDiaries} = useSelector(state => state.diary);

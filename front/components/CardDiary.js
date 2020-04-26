@@ -35,37 +35,11 @@ import FavoriteTwoToneIcon from '@material-ui/icons/FavoriteTwoTone';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";
 import moment from "moment";
-import {backUrl} from "../config/config";
+import {CardDiaryStyle} from "../styles/CardDiaryStyle"
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        width: "330px",
-        height: "430px",
-    },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
-    },
-    avatar: {
-        backgroundColor: red[500],
-    },
-    starIcon:{
-        color: yellow[700],
-    },
-    modal: {
-        marginLeft: '35%',
-        marginTop: '20%',
-        maxWidth: '500px',
-        maxHeight: '500px',
-        width: '40%',
-        height: '40%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-}));
+
 const CardDiary = ({diary}) => {
-    const classes = useStyles();
+    const classes = CardDiaryStyle();
     const dispatch = useDispatch();
     const { personalUser, loginUser} = useSelector(state => state.user);
     const {cardDiaries, favoriteDiaries, loginUserCardDiaries} = useSelector(state => state.diary);

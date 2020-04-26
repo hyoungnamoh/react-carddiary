@@ -35,10 +35,7 @@ import {
 } from "../reducers/user";
 import {useRouter} from "next/router";
 import {Button, Grid} from "@material-ui/core";
-import {LOAD_DIARY_REQUEST} from "../reducers/diary";
-import editPage from "../pages/editDiary";
-
-const drawerWidth = 240;
+import {BootstrapInput, AppLayoutStyle} from "../styles/AppLayoutStyle"
 
 //AppBar 색 변경
 const theme = createMuiTheme({
@@ -52,119 +49,10 @@ const theme = createMuiTheme({
     },
 });
 
-//메인 스타일
-const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    hide: {
-        display: 'none',
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
-    },
-    toolbar: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-    },
-    search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            // marginLeft: theme.spacing(1),
-            width: 'auto',
-        },
-    },
-    searchIcon: {
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    inputRoot: {
-        color: 'inherit',
-    },
-    inputInput: {
-        padding: theme.spacing(2, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
-    },
-    margin: {
-        margin: theme.spacing(1),
-        // marginRight:0,
-    },
-}));
-
-
-const BootstrapInput = withStyles((theme) => ({
-    root: {
-        'label + &': {
-            marginTop: theme.spacing(3),
-        },
-    },
-    input: {
-        marginTop: 5,
-        borderRadius: 4,
-        position: 'relative',
-        backgroundColor: theme.palette.background.paper,
-        border: '1px solid #ced4da',
-        fontSize: 14,
-        padding: '5px 5px 5px 5px',
-        transition: theme.transitions.create(['border-color', 'box-shadow']),
-        // Use the system font instead of the default Roboto font.
-        fontFamily: [
-            '-apple-system',
-            'BlinkMacSystemFont',
-            '"Segoe UI"',
-            'Roboto',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"',
-        ].join(','),
-        '&:focus': {
-            borderRadius: 4,
-            borderColor: '#80bdff',
-            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-        },
-    },
-}))(InputBase);
 const AppLayout = ({ children }) => {
 
 
-    const classes = useStyles();
+    const classes = AppLayoutStyle();
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const {currentPage, defaultPage, isSearching, searchResult, searchError} = useSelector(state => state.user);
@@ -246,17 +134,6 @@ const AppLayout = ({ children }) => {
     //서치바 핸들링
     const onChangeSearchText = useCallback((e) => {
         setSearchText(e.target.value);
-        // if(searchOption === 'email'){
-        //     dispatch({
-        //         type: SEARCH_EMAIL_REQUEST,
-        //         data: e.target.value,
-        //     });
-        // }else if(searchOption === 'hashtag'){
-        //     dispatch({
-        //         type: SEARCH_HASHTAG_REQUEST,
-        //         data: e.target.value,
-        //     });
-        // }
     },[searchText,  searchResult]);
     const onClickSearch = useCallback( () => {
         // console.log('searchOption', searchOption);
@@ -278,28 +155,6 @@ const AppLayout = ({ children }) => {
                 data: searchText,
             });
         }
-        // if(searchOption === 'email'){
-        //     if(!searchText){
-        //         return alert('검색할 이메일을 입력해주세요.');
-        //     }
-        //     if(searchResult && searchResult.id){
-        //         router.push(`/user/${searchResult.id}`);
-        //     } else{
-        //         alert('존재하지 않는 이메일입니다.');
-        //     }
-        // } else if(searchOption === 'hashtag'){
-        //     if(!searchText){
-        //         return alert('검색할 해시태그명을 입력해주세요.');
-        //     }
-        //     if(searchResult && searchResult.id){
-        //         router.push(`/diary/hashtag/${searchResult.name}`);
-        //     } else{
-        //         alert('존재하지 않는 해시태그입니다.');
-        //     }
-        // } else {
-        //     alert('옵션을 선택해주세요!')
-        // }
-
     }, [searchText, searchOption, searchResult]);
 
     useEffect(() => {

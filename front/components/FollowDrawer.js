@@ -17,34 +17,11 @@ import {
     REMOVE_FOLLOW_REQUEST
 } from "../reducers/user";
 import Link from "next/link";
-import {backUrl} from "../config/config";
+import {followDrawerStyle} from "../styles/FollowDrawerStyle";
 
-const drawerWidth = '24%';
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    appBar: {
-        width: `calc(100% - ${drawerWidth})`,
-        marginLeft: drawerWidth,
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-    },
-    drawerPaper: {
-        width: drawerWidth,
-    },
-    // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
-    content: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.default,
-        padding: theme.spacing(3),
-    },
-}));
+
 const FollowDrawer = () => {
-    const classes = useStyles();
+    const classes = followDrawerStyle();
     const dispatch = useDispatch();
     const {followingList, followerList} = useSelector(state => state.user);
     const [drawerFollowList, setDrawerFollowList] = useState(0);
