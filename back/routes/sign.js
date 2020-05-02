@@ -87,10 +87,21 @@ router.post('/signIn', (req, res, next) => {//(Strategy 명
 });
 
 // 로그아웃 기능
-router.post('/logout', (req, res) => {
+router.post('/logout', async (req, res) => {
+    await db.Log.create({
+        logType: 'logOut',
+    });
     req.logout();
     req.session.destroy();
     res.send('logout 성공');
+});
+
+// 메인페이지 로그 기능
+router.post('/log', async (req, res) => {
+    await db.Log.create({
+        logType: 'main',
+    });
+    res.send('log');
 });
 
 module.exports = router;

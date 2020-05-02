@@ -113,6 +113,9 @@ export const UPLOAD_PROFILE_REQUEST = 'UPLOAD_PROFILE_REQUEST';
 export const UPLOAD_PROFILE_SUCCESS = 'UPLOAD_PROFILE_SUCCESS';
 export const UPLOAD_PROFILE_FAILURE = 'UPLOAD_PROFILE_FAILURE';
 
+//Log
+export const REQUEST_MAIN_LOG = 'REQUEST_MAIN_LOG';
+
 
 //setState
 const reducer = (state = initialState, action) => {
@@ -335,6 +338,9 @@ const reducer = (state = initialState, action) => {
             }
             case SEARCH_HASHTAG_FAILURE: {
                 draft.searchError=action.error;
+                break;
+            }
+            case REQUEST_MAIN_LOG: {
                 break;
             }
 

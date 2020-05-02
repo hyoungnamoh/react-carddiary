@@ -9,15 +9,17 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Link from "next/link";
 import Box from "@material-ui/core/Box";
+import axios from "axios";
 import {
     CHANGE_CURRENTPAGE_REQUEST,
     LOAD_FOLLOWINGLIST_REQUEST,
     LOAD_USER_REQUEST,
-    LOG_IN_REQUEST
+    LOG_IN_REQUEST, REQUEST_MAIN_LOG
 } from "../reducers/user";
 import {makeStyles} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
+import {backUrl} from "../config/config";
 import {LOAD_FAVORITE_REQUEST, LOAD_USER_DIARIES_REQUEST} from "../reducers/diary";
 import User from "./user";
 
@@ -120,6 +122,10 @@ const Index = () => {
             onSubmitForm(e);
         }
     };
+
+    dispatch({
+        type: REQUEST_MAIN_LOG,
+    })
 
     return(
         <Grid container component="main" className={classes.root}>

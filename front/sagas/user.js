@@ -1,4 +1,4 @@
-import {all, takeLatest, fork, put, call, take, takeEvery, delay} from 'redux-saga/effects';
+import {all, takeLatest, fork, put, call, take, takeEvery, delay, throttle} from 'redux-saga/effects';
 import {
     LOG_IN_REQUEST,
     LOG_IN_SUCCESS,
@@ -44,9 +44,10 @@ import {
     SEARCH_EMAIL_SUCCESS,
     SEARCH_HASHTAG_REQUEST,
     SEARCH_HASHTAG_SUCCESS,
-    SEARCH_HASHTAG_FAILURE, UPLOAD_PROFILE_SUCCESS, UPLOAD_PROFILE_FAILURE, UPLOAD_PROFILE_REQUEST
+    SEARCH_HASHTAG_FAILURE, UPLOAD_PROFILE_SUCCESS, UPLOAD_PROFILE_FAILURE, UPLOAD_PROFILE_REQUEST, REQUEST_MAIN_LOG
 } from "../reducers/user";
 import axios from 'axios';
+import {LOAD_DIARIES_REQUEST} from "../reducers/diary";
 
 
 
@@ -488,6 +489,26 @@ function* whatchSearchHashtag() {
     yield takeLatest(SEARCH_HASHTAG_REQUEST, searchHashtag);
 }
 
+/*
+   메인 로그 찍기
+ */
+function mainLogAPI() {
+    return axios.post(`/sign/log`, {}, {
+        withCredentials: true,
+    });
+}
+
+function* mainLog() {
+    try {
+        yield call(mainLogAPI);
+    }catch (e) {
+        console.log(e);
+    }
+}
+function* watMainLog() {
+    yield throttle(1000, REQUEST_MAIN_LOG, mainLog);
+}
+
 //시작점
 export default function* userSaga() {
     //watch = 이벤트 리스너
@@ -509,5 +530,6 @@ export default function* userSaga() {
         fork(watchRemoveTodo),
         fork(whatchSearchEmail),
         fork(whatchSearchHashtag),
+        fork(watMainLog),
     ]);
 }
