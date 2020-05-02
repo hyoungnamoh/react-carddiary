@@ -30,6 +30,12 @@ router.post('/signUp', async (req, res, next) => {
             email: req.body.email,
             password: hashedPassword,
         });
+
+        //Log
+        await db.Log.create({
+            logType: 'signIn',
+        });
+
         return res.status(200).json(newUser);
     }catch (e) {
         console.error(e);
@@ -68,6 +74,9 @@ router.post('/signIn', (req, res, next) => {//(Strategy 명
                         attributes: ['src'],
                     },],
                     attributes: ['userName', 'id', 'email'],
+                });
+                await db.Log.create({
+                    logType: 'logIn',
                 });
                 return res.json(fullUser);
             } catch (e) {

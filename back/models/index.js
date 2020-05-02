@@ -12,6 +12,7 @@ db.Diary = require('./diary')(sequelize, Sequelize);
 db.User = require('./user')(sequelize, Sequelize);
 db.Todo = require('./todo')(sequelize, Sequelize);
 db.ProfileImage = require('./profileImage')(sequelize, Sequelize);
+db.Log = require('./log')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
