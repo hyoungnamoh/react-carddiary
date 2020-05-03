@@ -13,42 +13,93 @@ import {useRouter} from "next/router";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {blue, green} from '@material-ui/core/colors';
 import {CHANGE_CURRENTPAGE_REQUEST} from "../reducers/user";
+
+const minWidth = 790;
 const useStyles = makeStyles((theme) => ({
-    root: {
-        '& .MuiTextField-root': {
-            margin: theme.spacing(1),
-            width: '100%',
-        },
+    paperWrapper:{
+        display:'flex',
+        justifyContent:"center",
+        width: '100vw',
+
+    },
+    writePaper:{
+        display:'flex',
+        width:'70%',
+        justifyContent:"center",
+        margin:'3%',
+    },
+    form: {
+        display:'flex',
+        width: '100%',
+        flexDirection:'column',
+        alignItems:'center',
     },
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 120,
         marginLeft: theme.spacing(5),
     },
     inputBaseMargin: {
         marginTop: theme.spacing(2),
     },
-    buttonProgress: {
-        color: blue[500],
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        marginTop: 20,
-        marginLeft: -13,
-    },
-    wrapper: {
+    // buttonProgress: {
+    //     color: blue[500],
+    //     position: 'absolute',
+    //     top: '50%',
+    //     left: '50%',
+    //     marginTop: 20,
+    //     marginLeft: -13,
+    // },
+    buttonWrapper: {
         margin: theme.spacing(1),
         position: 'relative',
     },
-    papers:{
-        marginTop:"3%",
-        marginBottom:"3%",
-        width: "75%",
-        marginLeft: "12.5%"
+    dropzone:{
+        width:'70%',
+        marginTop:'2%',
+
     },
-    buttonClassname:{
-        padding:"9%"
-    }
+    formControlWrapper:{
+        width:'70%',
+        display:'flex',
+        justifyContent:'space-between',
+        marginTop:'2%',
+    },
+    settingWrapper:{
+        display:'flex',
+        justifyContent:'flex-start',
+    },
+    textFieldWrapper:{
+        width:'70%',
+        display:'flex',
+        flexDirection:'column',
+    },
+    [`@media (max-width: ${minWidth}px)`]: {
+        writePaper:{
+            width:'100%',
+            justifyContent:"center",
+            marginTop: '10%',
+        },
+        dropzone:{
+            width:'90%',
+            height:'80%',
+        },
+        formControlWrapper:{
+            width:'90%',
+            flexDirection:'column',
+        },
+        textFieldWrapper:{
+            width:'90%',
+            maxHeight:'300px',
+        },
+        settingWrapper:{
+            flexDirection:'column',
+        },
+        buttonWrapper: {
+            display:'flex',
+            justifyContent:'flex-end',
+        },
+    },
+
 }));
 
 
@@ -70,7 +121,6 @@ const WritePage = () => {
             router.push('/');
             return;
         }
-        console.log(loginUser);
         return;
     }, [loginUser, isLoggingOut]);
 
@@ -177,18 +227,11 @@ const WritePage = () => {
     }
 
     return(
-        <Grid container>
-        <Grid item md={6}/>
-        <Paper variant="outlined" className={classes.papers}>
-            <form  noValidate autoComplete="off" className={classes.root} style={{marginTop:"1%", marginBottom:"2%"}} encType={"multipart/form-data"}>
-                <Grid container >
-                    <Grid item md={3}/>
-                    <Grid item md={6}>
-                        <TextField required id="standard-required" label="제목" value={diaryTitle} onChange={onChangeDiaryTitle}/>
-                    </Grid>
-                    <Grid item md={3}/>
-                    <Grid item md={3}/>
-                    <Grid item md={6}>
+        <div className={classes.paperWrapper}>
+            <Paper variant="outlined" className={classes.writePaper}>
+                <form  noValidate autoComplete="off" className={classes.form}  encType={"multipart/form-data"}>
+                    <div className={classes.textFieldWrapper}>
+                        <TextField required id="standard-required" label="제목" value={diaryTitle} onChange={onChangeDiaryTitle} style={{marginTop:'2%'}}/>
                         <TextField
                             id="outlined-multiline-static"
                             label="내용"
@@ -198,90 +241,84 @@ const WritePage = () => {
                             required={true}
                             value={diaryContent}
                             onChange={onChangeDiaryContent}
+                            style={{marginTop:'2%'}}
                         />
-                    </Grid>
-                    <Grid item md={3}/>
-                    </Grid>
-                    <Grid container>
-                        <Grid item md={3}/>
-                        <Grid item md={6} style={{marginLeft: 10}}>
-                            <DropzoneArea
-                                onChange={onChangeImages}
-                                dropzoneText="이미지 추가하기"
-                                filesLimit={10}
-                                getFileRemovedMessage={getFileRemovedMessage}
-                                getFileAddedMessage={getFileAddedMessage}
-                                getFileLimitExceedMessage={getFileLimitExceedMessage}
-                                getDropRejectMessage={getDropRejectMessage}
-                                acceptedFiles={['image/*']}
-                                maxFileSize={5000000}
-                            />
-                        </Grid>
-                        <Grid  item md={2}/>
-                        {/*옵션 시작*/}
-                        <Grid container>
-                            <Grid item md={3}/>
-                            {/*<Grid item md={2}>*/}
-                            {/*    <FormControl variant="outlined" className={classes.formControl}>*/}
-                            {/*        <h3>저장위치</h3>*/}
-                            {/*        <Select*/}
-                            {/*            required={true}*/}
-                            {/*            native*/}
-                            {/*            style={{height:"30px", width:"100%", textAlign:"right", }}*/}
-                            {/*        >*/}
-                            {/*            <option aria-label="None" value="" />*/}
-                            {/*            <option value={10}>추가할 예정입니다!</option>*/}
-                            {/*        </Select>*/}
-                            {/*    </FormControl>*/}
-                            {/*</Grid>*/}
-                            {/*공개 여부*/}
-                            <Grid item md={3}>
-                                <FormControl variant="outlined" className={classes.formControl}>
-                                        <h3>공개여부</h3>
-                                        <RadioGroup row aria-label="position" name="position" defaultValue="top" value={isPublic} onChange={radioChange}>
-                                            <FormControlLabel
-                                                value="publicDiary"
-                                                control={<Radio color="primary" />}
-                                                label="공개"
-                                                labelPlacement="end"
-                                            />
-                                            <FormControlLabel
-                                                value="privateDiary"
-                                                control={<Radio color="primary" />}
-                                                label="비공개"
-                                                labelPlacement="end"
-                                            />
-                                        </RadioGroup>
-                                </FormControl>
-                            </Grid>
-                            {/*즐겨찾기*/}
-                            <Grid item md={2}>
+                    </div>
+                    <div className={classes.dropzone}>
+                        <DropzoneArea
+                            onChange={onChangeImages}
+                            dropzoneText="이미지 추가하기"
+                            filesLimit={10}
+                            getFileRemovedMessage={getFileRemovedMessage}
+                            getFileAddedMessage={getFileAddedMessage}
+                            getFileLimitExceedMessage={getFileLimitExceedMessage}
+                            getDropRejectMessage={getDropRejectMessage}
+                            acceptedFiles={['image/*']}
+                            maxFileSize={5000000}
+                            useChipsForPreview={true}
+                        />
+                    </div>
+                    {/*옵션 시작*/}
+                    {/*<Grid item md={2}>*/}
+                    {/*    <FormControl variant="outlined" className={classes.formControl}>*/}
+                    {/*        <h3>저장위치</h3>*/}
+                    {/*        <Select*/}
+                    {/*            required={true}*/}
+                    {/*            native*/}
+                    {/*            style={{height:"30px", width:"100%", textAlign:"right", }}*/}
+                    {/*        >*/}
+                    {/*            <option aria-label="None" value="" />*/}
+                    {/*            <option value={10}>추가할 예정입니다!</option>*/}
+                    {/*        </Select>*/}
+                    {/*    </FormControl>*/}
+                    {/*</Grid>*/}
+                    {/*공개 여부*/}
+                    <div className={classes.formControlWrapper}>
+                        <div className={classes.settingWrapper}>
+                            <FormControl variant="outlined" className={classes.formControl}>
+                                    <h3>공개여부</h3>
+                                    <RadioGroup row aria-label="position" name="position" defaultValue="top" value={isPublic} onChange={radioChange}>
+                                        <FormControlLabel
+                                            value="publicDiary"
+                                            control={<Radio color="primary" />}
+                                            label="공개"
+                                            labelPlacement="end"
+                                        />
+                                        <FormControlLabel
+                                            value="privateDiary"
+                                            control={<Radio color="primary" />}
+                                            label="비공개"
+                                            labelPlacement="end"
+                                        />
+                                    </RadioGroup>
+                            </FormControl>
+                            <FormControl variant="outlined" className={classes.formControl}>
+                                <h3>즐겨찾기 여부</h3>
                                 <FormControlLabel
                                     checked={isFavorite}
                                     control={<Checkbox color="primary" />}
                                     label="즐겨찾기"
                                     labelPlacement="start"
-                                    style={{marginLeft:0, marginTop:2}}
                                     onChange={onChangeFavorite}
+                                    labelPlacement="end"
                                 />
+                            </FormControl>
+                            {/*즐겨찾기*/}
 
-                            </Grid>
-                            <Grid item md={1}>
-                                <div className={classes.wrapper} >
-                                    <Button variant="outlined"
-                                            className={classes.buttonClassname}
-                                            disabled={isDiaryAdding}
-                                            onClick={onSubmitForm} color="primary" style={{marginTop:"70%"}}>
-                                        작성하기
-                                    </Button>
-                                    {isDiaryAdding && <CircularProgress size={24} className={classes.buttonProgress} />}
-                                </div>
-                            </Grid>
-                    </Grid>
-                </Grid>
-            </form>
-        </Paper>
-        </Grid>
+                        </div>
+                        <div className={classes.buttonWrapper} >
+                            <Button variant="outlined"
+                                    className={classes.buttonClassname}
+                                    disabled={isDiaryAdding}
+                                    onClick={onSubmitForm} color="primary" >
+                                작성하기
+                            </Button>
+                            {isDiaryAdding && <CircularProgress size={24} className={classes.buttonProgress} />}
+                        </div>
+                    </div>
+                </form>
+            </Paper>
+        </div>
 
     )
 }
