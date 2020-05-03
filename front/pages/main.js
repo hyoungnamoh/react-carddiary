@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Main = () => {
-    const matches = useMediaQuery('(min-width:1000px)');
+
     const classes = useStyles();
     const {cardDiaries, hasMoreDiary, isRequestingDiary} = useSelector(state => state.diary);
     const { loginUser, isLoggingOut, followingList, isLoggedIn} = useSelector(state => state.user);

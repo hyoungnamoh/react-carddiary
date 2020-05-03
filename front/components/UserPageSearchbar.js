@@ -7,6 +7,7 @@ import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
 import {yellow} from "@material-ui/core/colors";
 import {useSelector} from "react-redux";
 import CardDiary from "./CardDiary";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const minWidth = 500;
 const useStyles = makeStyles((theme) => ({

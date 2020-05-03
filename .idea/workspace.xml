@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/components/UserPageSearchbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/UserPageSearchbar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/pages/editDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/editDiary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/pages/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/pages/write.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/write.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/server.js" afterDir="false" />
     </list>
@@ -84,7 +86,7 @@
       <workItem from="1587189879154" duration="44643000" />
       <workItem from="1587878869644" duration="1120000" />
       <workItem from="1587912833548" duration="613000" />
-      <workItem from="1588433002647" duration="46659000" />
+      <workItem from="1588433002647" duration="47335000" />
     </task>
     <servers />
   </component>
@@ -132,10 +134,10 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1707.1027@0.0.1707.1027" timestamp="1587013573181" />
-    <state x="450" y="191" width="874" height="538" key="find.popup" timestamp="1588524660682">
+    <state x="450" y="191" width="874" height="538" key="find.popup" timestamp="1588525055122">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="450" y="191" width="874" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1588524660682" />
+    <state x="450" y="191" width="874" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1588525055122" />
     <state x="510" y="238" key="run.anything.popup" timestamp="1586932618484">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>

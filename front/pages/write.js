@@ -13,6 +13,7 @@ import {useRouter} from "next/router";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {blue, green} from '@material-ui/core/colors';
 import {CHANGE_CURRENTPAGE_REQUEST} from "../reducers/user";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const minWidth = 790;
 const useStyles = makeStyles((theme) => ({
@@ -114,6 +115,7 @@ const WritePage = () => {
     const [diaryTitle, setDiaryTitle] = useState(''); //다이어리 제목
     const [diaryContent, setDiaryContent] = useState(''); //다이어리 내용
     const [isFavorite, setIsFavorite] = useState(false); //즐겨찾는 다이어리
+    const isPhone = useMediaQuery('(max-width:768px)');
 
     //로그아웃 또는 로그인하지 않은 사용자 처리
     useEffect(() => {
@@ -255,7 +257,7 @@ const WritePage = () => {
                             getDropRejectMessage={getDropRejectMessage}
                             acceptedFiles={['image/*']}
                             maxFileSize={10000000}
-                            useChipsForPreview={true}
+                            useChipsForPreview={isPhone}
                         />
                     </div>
                     {/*옵션 시작*/}
