@@ -60,18 +60,16 @@ const TodoList = () => {
         <> 
             <Paper style={{
                 display: 'inline - block',
-                position: 'sticky',
-                top: '12%',
-                left:'1%',
-                width: '90%',
-                height: '800px',
+                width: '100%',
+                height: '100%',
             }}>
-                <List dense component="div" role="list">
-                    <ListSubheader component="div" id="nested-list-subheader" style={{textAlign:'center', fontSize:25,}}>
+                <List dense component="div" role="list" style={{}}>
+                    <ListSubheader component="div" id="nested-list-subheader" style={{display:'flex', textAlign:'center', fontSize:'1.5em', justifyContent:'center'}}>
                         To - Do List
+                        <div style={{display:'flex', }}>
                         { !onAdd
                             ?
-                            <ListItemSecondaryAction>
+                            <ListItemSecondaryAction >
                                 <IconButton edge="end" aria-label="remove" onClick={onClickTodoAdd}>
                                     <AddIcon />
                                 </IconButton>
@@ -83,6 +81,7 @@ const TodoList = () => {
                                 </IconButton>
                             </ListItemSecondaryAction>
                         }
+                        </div>
                     </ListSubheader>
                     <Divider />
                     { onAdd &&

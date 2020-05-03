@@ -207,7 +207,7 @@ const MainCardDiary = ({diary}) => {
                         </div>
                     </Fade>
                 </Modal>
-                <CardContent style={{height:"102px"}}>
+                <CardContent >
                     <Typography variant="body2" color="textSecondary" component="p">
                         {diary.diaryContent && diary.diaryContent.slice(0,220).split(/(#[^\s]+)/g).map((v) => {
                             if(v.match(/#[^\s]+/)){

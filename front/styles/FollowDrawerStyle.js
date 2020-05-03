@@ -1,13 +1,13 @@
 import {makeStyles} from "@material-ui/core/styles";
 
-const drawerWidth = '24%';
+const drawerWidth = '25vw';
 export const followDrawerStyle = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
     appBar: {
         width: `calc(100% - ${drawerWidth})`,
-        marginLeft: drawerWidth,
+        // marginLeft: drawerWidth,
     },
     drawer: {
         width: drawerWidth,

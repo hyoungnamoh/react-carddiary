@@ -123,6 +123,7 @@ const Index = () => {
         }
     };
 
+    //Log
     dispatch({
         type: REQUEST_MAIN_LOG,
     })

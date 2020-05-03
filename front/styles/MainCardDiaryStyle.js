@@ -3,8 +3,10 @@ import {red, yellow} from "@material-ui/core/colors";
 
 export const mainCardDiaryStyle = makeStyles(theme => ({
     root: {
-        width: "700px",
-        maxHeight: "800px",
+        width:'50vw',
+        height: '100%',
+        maxWidth: '800px',
+        // maxHeight: '750px',
         marginBottom:"3%",
     },
     media: {

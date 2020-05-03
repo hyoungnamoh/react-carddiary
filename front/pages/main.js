@@ -15,27 +15,65 @@ import {useRouter} from "next/router";
 import MainCardDiary from "../components/MainCardDiary";
 import TodoList from "../components/TodoList";
 import Typography from "@material-ui/core/Typography";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
-
+const minWidth = 1000;
 const useStyles = makeStyles((theme) => ({
-    root: {
+    mainContainer: {
         display: 'flex',
     },
-    // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
-    content: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.default,
-        padding: theme.spacing(3),
+    mainCardDiaryWrapper: {
+        display:'flex',
+        flexDirection:'column',
+        alignItems:'center',
+        width:'50vw',
+        marginTop: '3%',
+        marginLeft:'3%',
+        marginRight:'3%'
     },
-    diariesContainer: {
-        marginTop:"3%",
-        marginBottom:"3%",
-        marginLeft:"4%",
+    todoListWrapper:{
+        display:'flex', width:'25vw',
+        position: 'sticky',
+        top: '12%',
+        // left:'1%',
+        height: '800px',
+
     },
+
+    typography: {
+        width:'100%',
+        marginTop:'3%',
+        marginLeft:'-13%',
+    },
+    followerDrawWrapper:{
+        display:'flex',
+        width:'25vw'
+    },
+    [`@media (max-width: ${minWidth}px)`]: {
+        mainContainer:{
+            flexDirection:'column',
+            alignItems:'center',
+            width:'100vw',
+        },
+        mainCardDiaryWrapper: {
+            width:'100%',
+
+        },
+        todoListWrapper:{
+            position: 'static',
+            width:'100%',
+        },
+        followerDrawWrapper:{
+            width:'100%',
+        }
+    },
+
+
 }));
+
 const Main = () => {
+    const matches = useMediaQuery('(min-width:1000px)');
     const classes = useStyles();
     const {cardDiaries, hasMoreDiary} = useSelector(state => state.diary);
     const { loginUser, isLoggingOut, followingList, followerList, isLoggedIn} = useSelector(state => state.user);
@@ -51,6 +89,7 @@ const Main = () => {
         }
 
     }, [loginUser, isLoggingOut]);
+    console.log(matches);
 
     //무한스크롤링 스크롤 이벤트
     const onScroll = () => {
@@ -76,26 +115,23 @@ const Main = () => {
 
     return (
         <>
-            <Grid container>
-                <Grid item md={3}>
+            <div className={classes.mainContainer}>
+                <div className={classes.todoListWrapper}>
                     <TodoList/>
-                </Grid>
-                <Grid item md={7} className={classes.diariesContainer}>
+                </div>
+                <div className={classes.mainCardDiaryWrapper}>
                     {cardDiaries.map(v => {
-                        return (
-                            <MainCardDiary key={v.id} diary={v}/>
-                        )})}
-                    <Grid item md={12}>
-                        {!hasMoreDiary && countRef.current.length !== 0 &&
-                        <Typography variant="body2" color="textSecondary" align="center" style={{width:'100%', marginTop:'3%', marginLeft:'-13%'}}>더 표시할 게시물이 없습니다.</Typography>
-                        }
-                    </Grid>
-                </Grid>
-                <Grid item md={2}>
-                    <FollowDrawer/>
-                </Grid>
-
-            </Grid>
+                    return (
+                        <MainCardDiary key={v.id} diary={v} />
+                    )})}
+                </div>
+                <div>
+                    {!hasMoreDiary && countRef.current.length !== 0 &&
+                    <Typography className={classes.typography} variant="body2" color="textSecondary" align="center">더 표시할 게시물이 없습니다.</Typography>
+                    }
+                </div>
+                <FollowDrawer className={classes.followerDrawWrapper}/>
+            </div>
         </>
     );
 }
