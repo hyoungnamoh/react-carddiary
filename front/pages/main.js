@@ -57,16 +57,16 @@ const useStyles = makeStyles((theme) => ({
             width:'100vw',
         },
         mainCardDiaryWrapper: {
-            width:'100%',
-
         },
         todoListWrapper:{
             position: 'static',
-            width:'100%',
+            width:'80%',
+            height:'auto',
+            marginTop:'10%',
         },
         followerDrawWrapper:{
-            width:'100%',
-        }
+            display:'none',
+        },
     },
 
 
@@ -130,7 +130,9 @@ const Main = () => {
                     <Typography className={classes.typography} variant="body2" color="textSecondary" align="center">더 표시할 게시물이 없습니다.</Typography>
                     }
                 </div>
-                <FollowDrawer className={classes.followerDrawWrapper}/>
+                <div className={classes.followerDrawWrapper}>
+                    <FollowDrawer />
+                </div>
             </div>
         </>
     );

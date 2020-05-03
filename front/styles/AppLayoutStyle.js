@@ -2,7 +2,7 @@ import {createMuiTheme, fade, makeStyles, withStyles} from "@material-ui/core/st
 import InputBase from "@material-ui/core/InputBase";
 
 
-const minWidth = 1258
+const minWidth = 1000
 export const BootstrapInput = withStyles((theme) => ({
     root: {
         'label + &': {
@@ -126,8 +126,17 @@ export const AppLayoutStyle = makeStyles(theme => ({
         justifyContent:'center',
         width:'50vw',
     },
+    drawer:{
+        display:'none',
+    },
+    toolbarWrapper:{
+        display:'flex',
+    },
 
-    [`@media (max-width: ${minWidth}px)`]: {
+    [`@media all and (max-width:${minWidth}px)`]: {
+        toolbar:{
+
+        },
         searchIcon:{
             display:'none',
             width:'0vw',
@@ -142,5 +151,19 @@ export const AppLayoutStyle = makeStyles(theme => ({
         tabs:{
             width:'70vw',
         },
+        logo :{
+            padding:0,
+        },
+        toolbarWrapper:{
+            flexDirection: 'column',
+        },
+        logoButton:{
+            padding:0,
+        }
+
+    },
+    // @media all and (min-width:768px) and (max-width:1024px) { … } // 뷰포트 너비가 768px 이상 '그리고' 1024px 이하이면 실행
+    [`@media all and (max-width: 1000px`]: {
+
     },
 }));

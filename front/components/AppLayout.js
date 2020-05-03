@@ -29,7 +29,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import {useDispatch, useSelector} from "react-redux";
 import {
     CHANGE_CURRENTPAGE_REQUEST,
-    LOG_OUT_REQUEST,
+    LOG_OUT_REQUEST, REQUEST_SWITCHING_DRAW,
     SEARCH_EMAIL_REQUEST,
     SEARCH_HASHTAG_REQUEST
 } from "../reducers/user";
@@ -55,7 +55,7 @@ const AppLayout = ({ children }) => {
     const classes = AppLayoutStyle();
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
-    const {currentPage, defaultPage, isSearching, searchResult, searchError} = useSelector(state => state.user);
+    const {currentPage, defaultPage, isSearching, searchResult, searchError,isOpenedDraw} = useSelector(state => state.user);
     const [pageName, setPageName] = useState('');
     const [value, setValue] = useState(0);
     const [tabMargin, setTabMargin] = useState(['25%', '-25%']); //로고 마진
@@ -176,7 +176,9 @@ const AppLayout = ({ children }) => {
     }, [searchResult, searchError]);
 
     const handleDrawerOpen = () => {
-        setOpen(true);
+        dispatch({
+            type: REQUEST_SWITCHING_DRAW,
+        });
     };
 
     const handleChangeSelect = (e) => {
@@ -196,64 +198,68 @@ const AppLayout = ({ children }) => {
                             color="default"
                             style={{display:'flex', }}
                         >
-                            <Toolbar style={{display:'flex',}}>
-                                <div className={classes.logo} style={{}}>
-                                    <IconButton variant="h6" onClick={onClickMainPage} >
-                                        Card Diary
-                                        {/*<img src='http://localhost:3642/logo.png' alt='CardDiary' style={{width:100, height:80}}/>*/}
-                                    </IconButton>
-                                </div>
-                                <div className={classes.tabs}>
-                                    <Tabs value={value} onChange={handleChange} aria-label="Menu" style={{display:'flex', }}>
-                                        <Tab label="Main" onClick={onClickMainPage} style={{width:'10vw'}}/>
-                                        <Tab label="Write" onClick={onClickWritePage} style={{width:'10vw'}}/>
-                                        <Tab label="User" onClick={onClickUserPage} style={{width:'10vw'}}/>
-                                        {pageName && <Tab label={pageName} style={{width:'10vw'}}/>}
-                                        <Tab label="Log Out" onClick={onLogOut} style={{width:'10vw'}}/>
-                                    </Tabs>
-                                </div>
-                                <div className={classes.formControllerWrapper}>
-                                    <FormControl>
-                                        <NativeSelect
-                                            id="demo-customized-select-native"
-                                            value={searchOption}
-                                            onChange={handleChangeSelect}
-                                            input={<BootstrapInput />}
-                                        >
-                                            <option value={'none'}>선택</option>
-                                            <option value={'email'}>이메일</option>
-                                            <option value={'hashtag'}>해시태그</option>
-                                        </NativeSelect>
-                                    </FormControl>
-                                    <div className={classes.search} >
-                                        <div className={classes.searchIcon}>
-                                            <SearchIcon />
-                                        </div>
-                                        <InputBase
-                                            placeholder="Search…"
-                                            classes={{
-                                                root: classes.inputRoot,
-                                                input: classes.inputInput,
-                                            }}
-                                            inputProps={{ 'aria-label': 'search' }}
-                                            value={searchText}
-                                            onChange={onChangeSearchText}
-                                            ref={searchRef}
-                                        />
-                                        <Button onClick={onClickSearch}>검색</Button>
+                            <div >
+                                <Toolbar className={classes.toolbarWrapper}>
+                                    <div className={classes.logo}>
+                                        <IconButton variant="h6" onClick={onClickMainPage} className={classes.logoButton} >
+                                            Card Diary
+                                            {/*<img src='http://localhost:3642/logo.png' alt='CardDiary' style={{width:100, height:80}}/>*/}
+                                        </IconButton>
                                     </div>
-                                </div>
-                                <IconButton
-                                    color="inherit"
-                                    aria-label="open drawer"
-                                    edge="end"
-                                    onClick={handleDrawerOpen}
-                                    className={clsx(open && classes.hide)}
-                                >
-                                    <MenuIcon />
-                                </IconButton>
-                            </Toolbar>
-
+                                    <div className={classes.tabs}>
+                                        <Tabs value={value} onChange={handleChange} aria-label="Menu" style={{display:'flex', justifyContent:'spaceBetween'}}>
+                                            <Tab label="Main" onClick={onClickMainPage} style={{width:'10vw', padding:0,}}/>
+                                            <Tab label="Write" onClick={onClickWritePage} style={{width:'10vw', padding:0,}}/>
+                                            <Tab label="User" onClick={onClickUserPage} style={{width:'10vw', padding:0,}}/>
+                                            {pageName && <Tab label={pageName} style={{width:'10vw', padding:0,}}/>}
+                                            <Tab label="Log Out" onClick={onLogOut} style={{width:'10vw', padding:0,}}/>
+                                        </Tabs>
+                                    </div>
+                                    <div className={classes.formControllerWrapper}>
+                                        <FormControl>
+                                            <NativeSelect
+                                                id="demo-customized-select-native"
+                                                value={searchOption}
+                                                onChange={handleChangeSelect}
+                                                input={<BootstrapInput />}
+                                            >
+                                                <option value={'none'}>선택</option>
+                                                <option value={'email'}>이메일</option>
+                                                <option value={'hashtag'}>해시태그</option>
+                                            </NativeSelect>
+                                        </FormControl>
+                                        <div className={classes.search} >
+                                            <div className={classes.searchIcon}>
+                                                <SearchIcon />
+                                            </div>
+                                            <InputBase
+                                                placeholder="Search…"
+                                                classes={{
+                                                    root: classes.inputRoot,
+                                                    input: classes.inputInput,
+                                                }}
+                                                inputProps={{ 'aria-label': 'search' }}
+                                                value={searchText}
+                                                onChange={onChangeSearchText}
+                                                ref={searchRef}
+                                            />
+                                            <Button onClick={onClickSearch}>검색</Button>
+                                        </div>
+                                    </div>
+                                    {/*햄버거버튼*/}
+                                    <div className={classes.drawer}>
+                                        <IconButton
+                                            color="inherit"
+                                            aria-label="open drawer"
+                                            edge="end"
+                                            onClick={handleDrawerOpen}
+                                            className={clsx(isOpenedDraw && classes.hide)}
+                                        >
+                                            <MenuIcon />
+                                        </IconButton>
+                                    </div>
+                                </Toolbar>
+                            </div>
                         </AppBar>
                         <main className={classes.content}>
                             <div className={classes.toolbar} />

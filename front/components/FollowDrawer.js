@@ -15,7 +15,7 @@ import {
     ADD_FOLLOW_REQUEST,
     LOAD_FOLLOWERLIST_REQUEST,
     LOAD_FOLLOWINGLIST_REQUEST,
-    REMOVE_FOLLOW_REQUEST
+    REMOVE_FOLLOW_REQUEST, REQUEST_SWITCHING_DRAW
 } from "../reducers/user";
 import Link from "next/link";
 import {followDrawerStyle} from "../styles/FollowDrawerStyle";
@@ -27,7 +27,7 @@ const FollowDrawer = () => {
     const classes = followDrawerStyle();
     const theme = useTheme();
     const dispatch = useDispatch();
-    const {followingList, followerList} = useSelector(state => state.user);
+    const {followingList, followerList, isOpenedDraw} = useSelector(state => state.user);
     const [drawerFollowList, setDrawerFollowList] = useState(0);
     const [open, setOpen] = useState(false);
     const handleChange = (event, newValue) => {
@@ -50,7 +50,9 @@ const FollowDrawer = () => {
         });
     }
     const handleDrawerClose = () => {
-        setOpen(false);
+        dispatch({
+            type:REQUEST_SWITCHING_DRAW,
+        });
     };
 
     return (
@@ -65,9 +67,11 @@ const FollowDrawer = () => {
             >
                 <div className={classes.toolbar} />
                 <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose}>
-                        <ChevronRightIcon />
-                    </IconButton>
+                    {isOpenedDraw &&
+                        <IconButton onClick={handleDrawerClose}>
+                            <ChevronRightIcon />
+                        </IconButton>
+                    }
                     <Tabs
                         value={drawerFollowList}
                         onChange={handleChange}

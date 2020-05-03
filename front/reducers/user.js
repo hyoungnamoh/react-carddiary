@@ -22,7 +22,7 @@ export const initialState = { //초기값
     isSearching: false, //검색중
     searchResult: {}, //검색결과
     searchError: '',
-    
+    isOpenedDraw: false,
 };
 
 //로그인하는 액션
@@ -115,6 +115,11 @@ export const UPLOAD_PROFILE_FAILURE = 'UPLOAD_PROFILE_FAILURE';
 
 //Log
 export const REQUEST_MAIN_LOG = 'REQUEST_MAIN_LOG';
+
+//팔로워 팔로잉 목록창 제어 액션
+export const REQUEST_SWITCHING_DRAW = 'REQUEST_SWITCHING_DRAW';
+export const SUCCESS_SWITCHING_DRAW = 'SUCCESS_SWITCHING_DRAW';
+export const FAILURE_SWITCHING_DRAW = 'FAILURE_SWITCHING_DRAW';
 
 
 //setState
@@ -341,6 +346,16 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case REQUEST_MAIN_LOG: {
+                break;
+            }
+            case REQUEST_SWITCHING_DRAW: {
+                draft.isOpenedDraw = !draft.isOpenedDraw;
+                break;
+            }
+            case SUCCESS_SWITCHING_DRAW: {
+                break;
+            }
+            case FAILURE_SWITCHING_DRAW: {
                 break;
             }
 

@@ -1,6 +1,7 @@
 import {makeStyles} from "@material-ui/core/styles";
 import {red, yellow} from "@material-ui/core/colors";
 
+const minWidth = 1000;
 export const mainCardDiaryStyle = makeStyles(theme => ({
     root: {
         width:'50vw',
@@ -29,5 +30,10 @@ export const mainCardDiaryStyle = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    [`@media (max-width: ${minWidth}px)`]: {
+        root: {
+            width:'80vw',
+        },
     },
 }));
