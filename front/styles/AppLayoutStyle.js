@@ -2,9 +2,7 @@ import {createMuiTheme, fade, makeStyles, withStyles} from "@material-ui/core/st
 import InputBase from "@material-ui/core/InputBase";
 
 
-const drawerWidth = '24%';
-
-
+const minWidth = 1258
 export const BootstrapInput = withStyles((theme) => ({
     root: {
         'label + &': {
@@ -39,6 +37,12 @@ export const BootstrapInput = withStyles((theme) => ({
             boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
         },
     },
+    [`@media (max-width: ${minWidth}px)`]: {
+        root:{
+            display: 'none',
+            width:'0vw',
+        },
+    },
 }))(InputBase);
 
 //메인 스타일
@@ -56,11 +60,6 @@ export const AppLayoutStyle = makeStyles(theme => ({
     },
     hide: {
         display: 'none',
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
     },
     toolbar: {
         display: 'flex',
@@ -111,5 +110,37 @@ export const AppLayoutStyle = makeStyles(theme => ({
     margin: {
         margin: theme.spacing(1),
         // marginRight:0,
+    },
+    formControllerWrapper: {
+        display:'flex',
+        justifyContent:'center',
+        width:'25vw',
+    },
+    logo:{
+        display:'flex',
+        justifyContent:'center',
+        width:'20vw',
+    },
+    tabs: {
+        display:'flex',
+        justifyContent:'center',
+        width:'50vw',
+    },
+
+    [`@media (max-width: ${minWidth}px)`]: {
+        searchIcon:{
+            display:'none',
+            width:'0vw',
+        },
+        search:{
+            display:'none',
+            width:'0vw',
+        },
+        formControllerWrapper: {
+            width:'0vw',
+        },
+        tabs:{
+            width:'70vw',
+        },
     },
 }));

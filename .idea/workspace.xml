@@ -3,13 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/MainCardDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/MainCardDiary.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/TodoList.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/TodoList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/components/AppLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/AppLayout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/components/FollowDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/FollowDrawer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/styles/AppLayoutStyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/styles/AppLayoutStyle.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/styles/FollowDrawerStyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/styles/FollowDrawerStyle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/styles/MainCardDiaryStyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/styles/MainCardDiaryStyle.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +86,7 @@
       <workItem from="1587189879154" duration="44643000" />
       <workItem from="1587878869644" duration="1120000" />
       <workItem from="1587912833548" duration="613000" />
-      <workItem from="1588433002647" duration="16040000" />
+      <workItem from="1588433002647" duration="20039000" />
     </task>
     <servers />
   </component>
@@ -144,9 +142,9 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="510" y="238" key="run.anything.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586932618484" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1588486575996">
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1588491089092">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1588486575996" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1588491089092" />
   </component>
 </project>

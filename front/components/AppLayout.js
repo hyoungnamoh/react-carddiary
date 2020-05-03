@@ -175,6 +175,10 @@ const AppLayout = ({ children }) => {
         }
     }, [searchResult, searchError]);
 
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
     const handleChangeSelect = (e) => {
         console.log(e.target.value);
         setSearchOption(e.target.value);
@@ -190,51 +194,66 @@ const AppLayout = ({ children }) => {
                                 [classes.appBarShift]: open,
                             })}
                             color="default"
-                            style={{alignItems:"center"}}
+                            style={{display:'flex', }}
                         >
-                            <Toolbar >
-                                <IconButton variant="h6" onClick={onClickMainPage} style={{marginLeft:tabMargin[1], marginRight:tabMargin[0]}}>
-                                    Card Diary
-                                    {/*<img src='http://localhost:3642/logo.png' alt='CardDiary' style={{width:100, height:80}}/>*/}
-                                </IconButton>
-                                <Tabs value={value} onChange={handleChange} aria-label="Menu" style={{marginLeft:'7%', marginRight:'-7%'}}>
-                                    <Tab label="Main" onClick={onClickMainPage}/>
-                                    <Tab label="Write" onClick={onClickWritePage}/>
-                                    <Tab label="User" onClick={onClickUserPage}/>
-                                    {pageName && <Tab label={pageName} />}
-                                    <Tab label="Log Out" onClick={onLogOut}/>
-                                </Tabs>
-                                <FormControl className={classes.margin} style={{marginLeft:searchMargin[0], marginRight:searchMargin[1]}}>
-                                    <NativeSelect
-                                        id="demo-customized-select-native"
-                                        value={searchOption}
-                                        onChange={handleChangeSelect}
-                                        input={<BootstrapInput />}
-
-                                    >
-                                        <option value={'none'}>선택</option>
-                                        <option value={'email'}>이메일</option>
-                                        <option value={'hashtag'}>해시태그</option>
-                                    </NativeSelect>
-                                </FormControl>
-                                <div className={classes.search} style={{marginLeft:searchMargin[0], marginRight:searchMargin[1]}}>
-                                    <div className={classes.searchIcon}>
-                                        <SearchIcon />
-                                    </div>
-                                    <InputBase
-                                        placeholder="Search…"
-                                        classes={{
-                                            root: classes.inputRoot,
-                                            input: classes.inputInput,
-                                        }}
-                                        inputProps={{ 'aria-label': 'search' }}
-                                        value={searchText}
-                                        onChange={onChangeSearchText}
-                                        ref={searchRef}
-                                    />
-                                    <Button onClick={onClickSearch}>검색</Button>
+                            <Toolbar style={{display:'flex',}}>
+                                <div className={classes.logo} style={{}}>
+                                    <IconButton variant="h6" onClick={onClickMainPage} >
+                                        Card Diary
+                                        {/*<img src='http://localhost:3642/logo.png' alt='CardDiary' style={{width:100, height:80}}/>*/}
+                                    </IconButton>
                                 </div>
+                                <div className={classes.tabs}>
+                                    <Tabs value={value} onChange={handleChange} aria-label="Menu" style={{display:'flex', }}>
+                                        <Tab label="Main" onClick={onClickMainPage} style={{width:'10vw'}}/>
+                                        <Tab label="Write" onClick={onClickWritePage} style={{width:'10vw'}}/>
+                                        <Tab label="User" onClick={onClickUserPage} style={{width:'10vw'}}/>
+                                        {pageName && <Tab label={pageName} style={{width:'10vw'}}/>}
+                                        <Tab label="Log Out" onClick={onLogOut} style={{width:'10vw'}}/>
+                                    </Tabs>
+                                </div>
+                                <div className={classes.formControllerWrapper}>
+                                    <FormControl>
+                                        <NativeSelect
+                                            id="demo-customized-select-native"
+                                            value={searchOption}
+                                            onChange={handleChangeSelect}
+                                            input={<BootstrapInput />}
+                                        >
+                                            <option value={'none'}>선택</option>
+                                            <option value={'email'}>이메일</option>
+                                            <option value={'hashtag'}>해시태그</option>
+                                        </NativeSelect>
+                                    </FormControl>
+                                    <div className={classes.search} >
+                                        <div className={classes.searchIcon}>
+                                            <SearchIcon />
+                                        </div>
+                                        <InputBase
+                                            placeholder="Search…"
+                                            classes={{
+                                                root: classes.inputRoot,
+                                                input: classes.inputInput,
+                                            }}
+                                            inputProps={{ 'aria-label': 'search' }}
+                                            value={searchText}
+                                            onChange={onChangeSearchText}
+                                            ref={searchRef}
+                                        />
+                                        <Button onClick={onClickSearch}>검색</Button>
+                                    </div>
+                                </div>
+                                <IconButton
+                                    color="inherit"
+                                    aria-label="open drawer"
+                                    edge="end"
+                                    onClick={handleDrawerOpen}
+                                    className={clsx(open && classes.hide)}
+                                >
+                                    <MenuIcon />
+                                </IconButton>
                             </Toolbar>
+
                         </AppBar>
                         <main className={classes.content}>
                             <div className={classes.toolbar} />
