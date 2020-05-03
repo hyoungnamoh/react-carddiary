@@ -5,7 +5,7 @@ export const initialState = {
     loginUserCardDiaries:[], //다이어리들
     cardDiaries:[], //다이어리들
     cardDiary:{}, //개별 다이어리
-    isDiaryAdding: false, //프로그래스바 로딩중
+    isRequestingDiary: false, //프로그래스바 로딩중
     diaryAdded: false, //글작성 완료(route)
     favoriteDiaries:[], //별 누른 다이어리들
     hasMoreDiary: false, //더 불러올 다이어리가 있는지
@@ -46,12 +46,12 @@ export const LOAD_DIARY_REQUEST = 'LOAD_DIARY_REQUEST';
 export const LOAD_DIARY_SUCCESS = 'LOAD_DIARY_SUCCESS';
 export const LOAD_DIARY_FAILURE = 'LOAD_DIARY_FAILURE';
 
-//모든 다이어리 가져오는 액션
+//메인 다이어리 가져오는 액션
 export const LOAD_DIARIES_REQUEST = 'LOAD_DIARIES_REQUEST';
 export const LOAD_DIARIES_SUCCESS = 'LOAD_DIARIES_SUCCESS';
 export const LOAD_DIARIES_FAILURE = 'LOAD_DIARIES_FAILURE';
 
-//모든 다이어리 가져오는 액션
+//다이어리 삭제하는 액션
 export const DELETE_DIARY_REQUEST = 'DELETE_DIARY_REQUEST';
 export const DELETE_DIARY_SUCCESS = 'DELETE_DIARY_SUCCESS';
 export const DELETE_DIARY_FAILURE = 'DELETE_DIARY_FAILURE';
@@ -93,19 +93,19 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case ADD_DIARY_REQUEST: {
-                draft.isDiaryAdding = true;
+                draft.isRequestingDiary = true;
                 draft.diaryAdded = false;
                 break;
             }
             case ADD_DIARY_SUCCESS: {
                 draft.cardDiaries.unshift(action.data);
                 draft.imagePaths = [];
-                draft.isDiaryAdding = false;
+                draft.isRequestingDiary = false;
                 draft.diaryAdded = true;
                 break;
             }
             case ADD_DIARY_FAILURE: {
-                draft.isDiaryAdding = false;
+                draft.isRequestingDiary = false;
                 break;
             }
             case ADDED_DAIRY_SWITCHING: {
@@ -154,6 +154,7 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case LOAD_DIARIES_REQUEST: {
+                draft.isRequestingDiary = true;
                 draft.loginUserCardDiaries=[];
                 draft.cardDiary={};
                 draft.cardDiaries = !action.lastId ? [] : draft.cardDiaries;
@@ -165,9 +166,11 @@ const reducer = (state = initialState, action) => {
                     draft.cardDiaries.push(diary);
                 });
                 draft.hasMoreDiary = action.data.length === 5;
+                draft.isRequestingDiary = false;
                 break;
             }
             case LOAD_DIARIES_FAILURE: {
+                draft.isRequestingDiary = false;
                 break;
             }
             case DELETE_DIARY_REQUEST: {
@@ -187,18 +190,18 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case EDIT_DIARY_REQUEST: {
-                draft.isDiaryAdding = true;
+                draft.isRequestingDiary = true;
                 draft.diaryAdded = false;
                 break;
             }
             case EDIT_DIARY_SUCCESS: {
                 draft.imagePaths = [];
-                draft.isDiaryAdding = false;
+                draft.isRequestingDiary = false;
                 draft.diaryAdded = true;
                 break;
             }
             case EDIT_DIARY_FAILURE: {
-                draft.isDiaryAdding = false;
+                draft.isRequestingDiary = false;
                 break;
             }
             case LOAD_HASHTAG_REQUEST: {

@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from "react";
-import {Grid, Tabs, Tab, Button} from "@material-ui/core";
+import {Grid, Tabs, Tab, Button, CircularProgress} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import {LOAD_DIARIES_REQUEST, LOAD_FAVORITE_REQUEST} from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
@@ -29,14 +29,14 @@ const useStyles = makeStyles((theme) => ({
         alignItems:'center',
         width:'50vw',
         marginTop: '3%',
-        marginLeft:'3%',
+        marginLeft:'4%',
         marginRight:'3%'
     },
     todoListWrapper:{
         display:'flex', width:'25vw',
         position: 'sticky',
         top: '12%',
-        // left:'1%',
+        left:'1%',
         height: '800px',
 
     },
@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     followerDrawWrapper:{
         display:'flex',
         width:'25vw'
+    },
+    progress:{
+
     },
     [`@media (max-width: ${minWidth}px)`]: {
         mainContainer:{
@@ -66,6 +69,9 @@ const useStyles = makeStyles((theme) => ({
         followerDrawWrapper:{
             display:'none',
         },
+        typography: {
+            fontSize:'0.7em',
+        },
     },
 
 
@@ -74,8 +80,8 @@ const useStyles = makeStyles((theme) => ({
 const Main = () => {
     const matches = useMediaQuery('(min-width:1000px)');
     const classes = useStyles();
-    const {cardDiaries, hasMoreDiary} = useSelector(state => state.diary);
-    const { loginUser, isLoggingOut, followingList, followerList, isLoggedIn} = useSelector(state => state.user);
+    const {cardDiaries, hasMoreDiary, isRequestingDiary} = useSelector(state => state.diary);
+    const { loginUser, isLoggingOut, followingList, isLoggedIn} = useSelector(state => state.user);
     const dispatch = useDispatch();
     const router = useRouter();
     const countRef = useRef([]); //무한 스크롤링 시 lastId 를 저장 할 배열
@@ -88,7 +94,10 @@ const Main = () => {
         }
 
     }, [loginUser, isLoggingOut]);
-    console.log(matches);
+
+    useEffect(() => {
+        console.log('isRequestingDiary',isRequestingDiary);
+    }, [isRequestingDiary]);
 
     //무한스크롤링 스크롤 이벤트
     const onScroll = () => {
@@ -123,12 +132,18 @@ const Main = () => {
                     return (
                         <MainCardDiary key={v.id} diary={v} />
                     )})}
-                </div>
-                <div>
-                    {!hasMoreDiary && countRef.current.length !== 0 &&
-                    <Typography className={classes.typography} variant="body2" color="textSecondary" align="center">더 표시할 게시물이 없습니다.</Typography>
+                    {isRequestingDiary &&
+                        <div className={classes.progress}>
+                            <CircularProgress color="secondary" />
+                        </div>
                     }
+                    <div style={{margin:'5% 5%'}}>
+                        {!hasMoreDiary && countRef.current.length !== 0 &&
+                        <Typography className={classes.typography}  color="textSecondary" align="center">더 표시할 게시물이 없습니다.</Typography>
+                        }
+                    </div>
                 </div>
+
                 <div className={classes.followerDrawWrapper}>
                     <FollowDrawer />
                 </div>
