@@ -144,7 +144,7 @@ const CardDiary = ({diary}) => {
         return alert('신고가 접수되었습니다.');
     }
     return (
-            <Card style={{marginTop:'1%', }}>
+            <Card style={{width:'100%'}}>
                 <CardHeader
                     // 아바타
                     avatar={
@@ -175,7 +175,7 @@ const CardDiary = ({diary}) => {
                             </a></Link>}
 
                     // 날짜
-                    subheader={moment(diary.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
+                    subheader={moment(diary.createdAt).format('MMMM Do YYYY, hh:mm:ss a')}
                 />
                 <Popper open={listOpened} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                     {({ TransitionProps, placement }) => (

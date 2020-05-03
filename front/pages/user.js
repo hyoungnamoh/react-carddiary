@@ -31,25 +31,11 @@ import {useRouter} from "next/router";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";
 import UserPageSearchbar from "../components/UserPageSearchbar";
 
-const minWidth = 1000;
+const minWidth = 500;
 const useStyles = makeStyles((theme) => ({
     info:{
-        margin:"3%",
-        width:"20vw",
-    },
-    textFieldWrapper: {
-        width: '40ch',
-        height: "100%",
-        position: "relative",
-        zIndex: 1,
-        top: 0,
-        left: 0,
-        overflow: "auto",
+        margin:'10%',
 
-    },
-    textFields:{
-        width:'100%',
-        marginTop:'10%',
     },
     avatar:{
         width: "85%",
@@ -57,38 +43,13 @@ const useStyles = makeStyles((theme) => ({
         marginLeft:"5%",
     },
     diariesContainer: {
-        marginTop:"5%",
-        marginBottom:"5%",
-        width: '60vw',
-        display: 'flex',
-        flexWrap:"wrap",
-        justifyContent: 'space-between',
-        // flexDirection:'column',
+        // marginTop:"5%",
+        // marginBottom:"5%",
+        // width: '60vw',
+        // display: 'flex',
+        // flexWrap:"wrap",
+        // justifyContent: 'space-between',
 
-    },
-    search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.black, 0.15),
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.black, 0.25),
-        },
-        // marginLeft: '80%',
-        marginTop: 0,
-        // width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            width: 'auto',
-        },
-    },
-    searchIcon: {
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     inputRoot: {
         color: 'inherit',
@@ -111,23 +72,28 @@ const useStyles = makeStyles((theme) => ({
         color: yellow[700],
     },
     userPaper:{
-        marginLeft:'5%',
-        marginRight:'5%',
-        marginBottom:'3%',
-        marginTop:'3%'
+        width:'85%',
+        marginTop:'5%',
+        marginBottom:'5%',
     },
-
+    paperWrapper:{
+        display:'flex',
+        justifyContent:"center",
+        width: '100vw',
+    },
     [`@media (max-width: ${minWidth}px)`]: {
-        userPaper:{
+        paperWrapper:{
             marginTop:'10%',
         },
-        info:{
-          width:'100vw'
-        },
+        // info:{
+        //   width:'100vw',
+        // },
         diariesContainer:{
             // flexDirection: 'column',
             // alignItems: 'center',
-            justifyContent:'center',
+        },
+        userPaper:{
+            width:'100%',
         },
     },
 }));
@@ -166,29 +132,35 @@ const User = () => {
         }
     }
     return (
-        <Paper variant="outlined" className={classes.userPaper}>
-            <Grid container>
-                    <div className={classes.info}>
-                        {isEditing
-                            ?
-                            // 내 정보 수정
-                            <MyInfoEdit loginUser={loginUser}/>
-                            :
-                            <MyInfo loginUser={loginUser}/>
-                            // 내 정보
-                        }
-                    </div>
-                <div className={classes.diariesContainer}>
-                    <UserPageSearchbar/>
-                    <div >
-                        {hasMoreDiary
-                            ? <Button color="primary" size="large" style={{marginLeft: '45%', marginTop:'3%'}} onClick={onClickViewMore}>더보기</Button>
-                            : loginUserCardDiaries.length > 8 && <Typography variant="body2" color="textSecondary" align="center" style={{width:'100%', marginTop:'3%'}}>더 표시할 게시물이 없습니다.</Typography>
-                        }
-                    </div>
-                </div>
-            </Grid>
-        </Paper>
+        <div className={classes.paperWrapper}>
+            <Paper className={classes.userPaper}>
+                <Grid container>
+                    <Grid item md={3}>
+                        <div className={classes.info}>
+                            {isEditing
+                                ?
+                                // 내 정보 수정
+                                <MyInfoEdit loginUser={loginUser}/>
+                                :
+                                <MyInfo loginUser={loginUser}/>
+                                // 내 정보
+                            }
+                        </div>
+                    </Grid>
+                    <Grid item md={9}>
+                        <div className={classes.diariesContainer}>
+                            <UserPageSearchbar/>
+                            <div style={{display:'flex', justifyContent:'center', margin:'5%'}}>
+                                {hasMoreDiary
+                                    ? <Button color="primary" size="large"  onClick={onClickViewMore}>더보기</Button>
+                                    : loginUserCardDiaries.length > 8 && <Typography variant="body2" color="textSecondary"  >더 표시할 게시물이 없습니다.</Typography>
+                                }
+                            </div>
+                        </div>
+                    </Grid>
+                </Grid>
+            </Paper>
+        </div>
     );
 };
 

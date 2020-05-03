@@ -12,18 +12,11 @@ import {
 import {useRouter} from "next/router";
 
 const useStyles = makeStyles((theme) => ({
-    root:{
-        margin:"10%",
-    },
     textFieldWrapper: {
-        width: '40ch',
-        height: "100%",
-        position: "relative",
+        width: '90%',
         zIndex: 1,
         top: 0,
         left: 0,
-        overflow: "auto",
-
     },
     textFields:{
         width:'100%',
@@ -31,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar:{
         width: "85%",
-        height: 250,
-        marginLeft:"5%",
+        height: "85%",
+        marginLeft:'5%',
     },
     diariesContainer: {
         marginTop:"5%",
@@ -45,7 +38,6 @@ const MyInfo = () => {
     const {isEditing, profileImagePath, personalUser, loginUser, followingList} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser;
     const [isFollowedUser, setIsFollowedUser] = useState(false);
-    console.log('personalUser', personalUser);
     //내가 팔로잉 하고있는 대상인지 확인
     useEffect(() => {
         if(followingList.length !== 0 && personalUser){
@@ -85,7 +77,6 @@ const MyInfo = () => {
             {loginUser && (!personalUser || loginUser.id === personalUser.id) &&
                 <Button style={{float: "right"}} onClick={onEdit}><EditIcon/></Button>
             }
-
             <div>
                 <Avatar
                     alt="Remy Sharp"

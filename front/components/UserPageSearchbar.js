@@ -8,13 +8,18 @@ import {yellow} from "@material-ui/core/colors";
 import {useSelector} from "react-redux";
 import CardDiary from "./CardDiary";
 
-
+const minWidth = 500;
 const useStyles = makeStyles((theme) => ({
     root:{
         margin:"10%",
     },
+    searchWrapper:{
+        display:'flex',
+        justifyContent:'flex-end',
+    },
     search: {
-        position: 'relative',
+        display:'flex',
+        width:'300px',
         borderRadius: theme.shape.borderRadius,
         backgroundColor: fade(theme.palette.common.black, 0.15),
         '&:hover': {
@@ -22,40 +27,44 @@ const useStyles = makeStyles((theme) => ({
         },
         // marginLeft: '80%',
         marginTop: 0,
-        // width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            width: 'auto',
-        },
     },
     searchIcon: {
-        padding: theme.spacing(0, 2),
+        padding: theme.spacing(2, 2),
         height: '100%',
         position: 'absolute',
         pointerEvents: 'none',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     inputRoot: {
         color: 'inherit',
     },
     inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
+        padding: 0,
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
         paddingBottom:0,
         transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
     },
     starIcon:{
+        display:'flex',
         color: yellow[700],
+    },
+    cardWrapper:{
+        marginTop:'3%',
+    },
+    [`@media (max-width: ${minWidth}px)`]: {
+        userPaper:{
+            marginTop:'10%',
+        },
+        cardWrapper:{
+            marginTop:'10%',
+        },
+        search: {
+            width:'90%',
+        },
+        searchWrapper:{
+            justifyContent:'center',
+        },
     },
 }));
 const UserPageSearchbar = () => {
@@ -83,39 +92,44 @@ const UserPageSearchbar = () => {
     }), [onFilteredSearching, loginUserCardDiaries, searchKeyword,]);
     return (
         <>
-            <div style={{marginLeft:'70%', marginTop: -30, marginBottom:'3%'}}>
-                <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                        <SearchIcon />
-                    </div>
-                    <InputBase
-                        placeholder="Search…"
-                        classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                        }}
-                        inputProps={{ 'aria-label': 'search' }}
-                        value={searchKeyword ? searchKeyword : ' '}
-                        onChange={onChangeSearchKeyword}
-                    />
-                    <IconButton aria-label="share" onClick={onClickFavoriteSearch}>
-                        {
-                            onFilteredSearching
-                                ? <StarRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
-                                : <StarBorderRoundedIcon fontSize="large" color="inherit"
-                                                         className={classes.starIcon}/>
+            <div style={{}}>
+                <div className={classes.searchWrapper}>
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
+                        </div>
+                        <InputBase
+                            placeholder="Search…"
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            inputProps={{ 'aria-label': 'search' }}
+                            value={searchKeyword ? searchKeyword : ''}
+                            onChange={onChangeSearchKeyword}
+                        />
+                        <IconButton aria-label="share" onClick={onClickFavoriteSearch}>
+                            {
+                                onFilteredSearching
+                                    ? <StarRoundedIcon fontSize="large" color="inherit" className={classes.starIcon}/>
+                                    : <StarBorderRoundedIcon fontSize="large" color="inherit"
+                                                             className={classes.starIcon}/>
 
-                        }
-                    </IconButton>
+                            }
+                        </IconButton>
+                    </div>
                 </div>
             </div>
-            <div style={{display:'flex'}}/>
-            {
-                filteredDiaries.map(v => {
-                    return (
-                        <CardDiary key={v.id} diary={v}/>
-                    )})
-            }
+            <div style={{display:'flex', flexWrap:'wrap', justifyContent:'space-around', }}>
+                {
+                    filteredDiaries.map(v => {
+                        return (
+                            <div className={classes.cardWrapper}>
+                                <CardDiary key={v.id} diary={v}/>
+                            </div>
+                        )})
+                }
+            </div>
         </>
     );
 };

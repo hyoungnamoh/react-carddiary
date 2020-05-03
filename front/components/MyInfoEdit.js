@@ -9,18 +9,11 @@ import {backUrl} from "../config/config";
 
 
 const useStyles = makeStyles((theme) => ({
-    root:{
-        margin:"10%",
-    },
     textFieldWrapper: {
-        width: '40ch',
-        height: "100%",
-        position: "relative",
+        width: '90%',
         zIndex: 1,
         top: 0,
         left: 0,
-        overflow: "auto",
-
     },
     textFields:{
         width:'100%',
@@ -28,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar:{
         width: "85%",
-        height: 250,
-        marginLeft:"5%",
+        height: "85%",
+        marginLeft:'5%',
     },
     diariesContainer: {
         marginTop:"5%",
