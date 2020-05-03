@@ -127,7 +127,7 @@ const UserPageSearchbar = () => {
                             <div className={classes.cardWrapper}>
                                 <CardDiary key={v.id} diary={v}/>
                             </div>
-                        )})
+                    )})
                 }
             </div>
         </>

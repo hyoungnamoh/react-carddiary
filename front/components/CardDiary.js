@@ -144,7 +144,7 @@ const CardDiary = ({diary}) => {
         return alert('신고가 접수되었습니다.');
     }
     return (
-            <Card style={{width:'100%'}}>
+            <Card style={{width:'100%', maxWidth:'330px', minWidth:'330px'}}>
                 <CardHeader
                     // 아바타
                     avatar={
