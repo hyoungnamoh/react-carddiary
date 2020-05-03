@@ -208,11 +208,11 @@ const AppLayout = ({ children }) => {
                                     </div>
                                     <div className={classes.tabs}>
                                         <Tabs value={value} onChange={handleChange} aria-label="Menu" style={{display:'flex', justifyContent:'spaceBetween'}}>
-                                            <Tab label="Main" onClick={onClickMainPage} style={{width:'10vw', padding:0,}}/>
-                                            <Tab label="Write" onClick={onClickWritePage} style={{width:'10vw', padding:0,}}/>
-                                            <Tab label="User" onClick={onClickUserPage} style={{width:'10vw', padding:0,}}/>
-                                            {pageName && <Tab label={pageName} style={{width:'10vw', padding:0,}}/>}
-                                            <Tab label="Log Out" onClick={onLogOut} style={{width:'10vw', padding:0,}}/>
+                                            <Tab label="Main" onClick={onClickMainPage} className={classes.tab} />
+                                            <Tab label="Write" onClick={onClickWritePage} className={classes.tab}/>
+                                            <Tab label="User" onClick={onClickUserPage} className={classes.tab}/>
+                                            {pageName && <Tab label={pageName} className={classes.tab}/>}
+                                            <Tab label="Log Out" onClick={onLogOut} className={classes.tab}/>
                                         </Tabs>
                                     </div>
                                     <div className={classes.formControllerWrapper}>

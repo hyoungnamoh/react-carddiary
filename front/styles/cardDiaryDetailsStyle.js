@@ -1,13 +1,12 @@
 import {makeStyles} from "@material-ui/core/styles";
 import {red, yellow} from "@material-ui/core/colors";
-
+const minWidth = 1000;
 export const cardDiaryDetailsStyle = makeStyles((theme) => ({
     root: {
         width: "70%",
         marginLeft: "15%",
         marginTop: "3%",
         marginBottom:"3%",
-
     },
     media: {
         height: 0,
@@ -28,5 +27,10 @@ export const cardDiaryDetailsStyle = makeStyles((theme) => ({
     },
     starIcon:{
         color: yellow[700],
+    },
+    [`@media (max-width: ${minWidth}px)`]: {
+        root:{
+            marginTop:'15%',
+        }
     },
 }));

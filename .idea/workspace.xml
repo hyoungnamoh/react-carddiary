@@ -4,12 +4,10 @@
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/AppLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/AppLayout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/FollowDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/FollowDrawer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/pages/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/reducers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/reducers/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/styles/AppLayoutStyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/styles/AppLayoutStyle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/styles/MainCardDiaryStyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/styles/MainCardDiaryStyle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/styles/cardDiaryDetailsStyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/styles/cardDiaryDetailsStyle.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +86,7 @@
       <workItem from="1587189879154" duration="44643000" />
       <workItem from="1587878869644" duration="1120000" />
       <workItem from="1587912833548" duration="613000" />
-      <workItem from="1588433002647" duration="25153000" />
+      <workItem from="1588433002647" duration="26797000" />
     </task>
     <servers />
   </component>
@@ -136,17 +134,17 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1707.1027@0.0.1707.1027" timestamp="1587013573181" />
-    <state x="833" y="242" width="874" height="538" key="find.popup" timestamp="1588494863925">
+    <state x="450" y="191" width="874" height="538" key="find.popup" timestamp="1588498188703">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="833" y="242" width="874" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1588494863925" />
+    <state x="450" y="191" width="874" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1588498188703" />
     <state x="510" y="238" key="run.anything.popup" timestamp="1586932618484">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="510" y="238" key="run.anything.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1586932618484" />
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1588496871817">
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1588498240381">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1588496871817" />
+    <state x="943" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1588498240381" />
   </component>
 </project>

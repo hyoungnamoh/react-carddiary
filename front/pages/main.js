@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
     typography: {
         width:'100%',
         marginTop:'3%',
-        marginLeft:'-13%',
     },
     followerDrawWrapper:{
         display:'flex',

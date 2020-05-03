@@ -126,12 +126,16 @@ export const AppLayoutStyle = makeStyles(theme => ({
         justifyContent:'center',
         width:'50vw',
     },
+    tab:{
+        padding:0,
+    },
     drawer:{
         display:'none',
     },
     toolbarWrapper:{
         display:'flex',
     },
+
 
     [`@media all and (max-width:${minWidth}px)`]: {
         toolbar:{
@@ -149,7 +153,10 @@ export const AppLayoutStyle = makeStyles(theme => ({
             width:'0vw',
         },
         tabs:{
-            width:'70vw',
+            width:'100vw',
+        },
+        tab:{
+            width:'10vw', padding:0,
         },
         logo :{
             padding:0,
