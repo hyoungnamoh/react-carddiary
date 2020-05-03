@@ -254,7 +254,7 @@ const WritePage = () => {
                             getFileLimitExceedMessage={getFileLimitExceedMessage}
                             getDropRejectMessage={getDropRejectMessage}
                             acceptedFiles={['image/*']}
-                            maxFileSize={5000000}
+                            maxFileSize={10000000}
                             useChipsForPreview={true}
                         />
                     </div>

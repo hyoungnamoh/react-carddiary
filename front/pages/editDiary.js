@@ -237,7 +237,7 @@ const editPage = () => {
                             getFileLimitExceedMessage={getFileLimitExceedMessage}
                             getDropRejectMessage={getDropRejectMessage}
                             acceptedFiles={['image/*']}
-                            maxFileSize={5000000}
+                            maxFileSize={10000000}
                         />
                         <List
                             component="nav"
