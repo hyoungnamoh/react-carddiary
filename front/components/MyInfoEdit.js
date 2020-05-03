@@ -42,7 +42,6 @@ const MyInfoEdit = ({loginUser}) => {
     const {isEditing, profileImagePath, personalUser} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser; //페이지가 자기 페이지인지, 다른 유저 페이지인지 구분해서 user 분기처리
     const userProfileImage = loginUser.ProfileImage[0] && loginUser.ProfileImage[0].src;
-    console.log(loginUser);
 
     //정규표현식
     const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -77,21 +76,6 @@ const MyInfoEdit = ({loginUser}) => {
 
 
     const onComplete = useCallback(() => {
-        // axios.post('/sign/emailCheck', {
-        //     email:editEmail,
-        // }).then((result) => {
-        //
-        //     if(result.data){
-        //         extEmail = false;
-        //     } else{
-        //         extEmail = true;
-        //     }});
-        // if(!extEmail){
-        //     return alert("이미 사용중인 이메일입니다.");
-        // }
-        // if(!editEmail){
-        //     return alert('변경할 이메일을 입력해주세요.');
-        // }
         if(!editUserName){
             return alert('변경할 이름을 입력해주세요.');
         }
@@ -152,7 +136,6 @@ const MyInfoEdit = ({loginUser}) => {
             data: imageFormData,
         })
     };
-    console.log('profileImagePath',profileImagePath);
     return (
         <>
             <Button style={{float:"right"}} onClick={onEditCancel}><ClearIcon /></Button>

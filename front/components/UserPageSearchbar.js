@@ -109,7 +109,7 @@ const UserPageSearchbar = () => {
                     </IconButton>
                 </div>
             </div>
-            <Grid item md={12}/>
+            <div style={{display:'flex'}}/>
             {
                 filteredDiaries.map(v => {
                     return (

@@ -144,8 +144,7 @@ const CardDiary = ({diary}) => {
         return alert('신고가 접수되었습니다.');
     }
     return (
-        <Grid item>
-            <Card className={classes.root}>
+            <Card style={{marginTop:'1%', }}>
                 <CardHeader
                     // 아바타
                     avatar={
@@ -273,7 +272,6 @@ const CardDiary = ({diary}) => {
                     {/*</IconButton>*/}
                 </CardActions>
             </Card>
-        </Grid>
     );
 }
 

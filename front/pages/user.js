@@ -31,10 +31,11 @@ import {useRouter} from "next/router";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";
 import UserPageSearchbar from "../components/UserPageSearchbar";
 
-
+const minWidth = 1000;
 const useStyles = makeStyles((theme) => ({
-    root:{
-      margin:"10%",
+    info:{
+        margin:"3%",
+        width:"20vw",
     },
     textFieldWrapper: {
         width: '40ch',
@@ -58,6 +59,12 @@ const useStyles = makeStyles((theme) => ({
     diariesContainer: {
         marginTop:"5%",
         marginBottom:"5%",
+        width: '60vw',
+        display: 'flex',
+        flexWrap:"wrap",
+        justifyContent: 'space-between',
+        // flexDirection:'column',
+
     },
     search: {
         position: 'relative',
@@ -103,6 +110,26 @@ const useStyles = makeStyles((theme) => ({
     starIcon:{
         color: yellow[700],
     },
+    userPaper:{
+        marginLeft:'5%',
+        marginRight:'5%',
+        marginBottom:'3%',
+        marginTop:'3%'
+    },
+
+    [`@media (max-width: ${minWidth}px)`]: {
+        userPaper:{
+            marginTop:'10%',
+        },
+        info:{
+          width:'100vw'
+        },
+        diariesContainer:{
+            // flexDirection: 'column',
+            // alignItems: 'center',
+            justifyContent:'center',
+        },
+    },
 }));
 
 const User = () => {
@@ -121,7 +148,6 @@ const User = () => {
             router.push('/');
             return;
         }
-        console.log(loginUser);
         return;
     }, [loginUser, isLoggingOut]);
 
@@ -140,10 +166,9 @@ const User = () => {
         }
     }
     return (
-        <Paper variant="outlined" style={{marginLeft:'5%', marginRight:'5%', marginBottom:'3%', marginTop:'3%'}}>
+        <Paper variant="outlined" className={classes.userPaper}>
             <Grid container>
-                <Grid item md={3} >
-                    <div className={classes.root}>
+                    <div className={classes.info}>
                         {isEditing
                             ?
                             // 내 정보 수정
@@ -151,19 +176,17 @@ const User = () => {
                             :
                             <MyInfo loginUser={loginUser}/>
                             // 내 정보
-
                         }
                     </div>
-                </Grid>
-                <Grid container md={9} spacing={3} className={classes.diariesContainer}>
+                <div className={classes.diariesContainer}>
                     <UserPageSearchbar/>
-                    <Grid item md={12}>
+                    <div >
                         {hasMoreDiary
                             ? <Button color="primary" size="large" style={{marginLeft: '45%', marginTop:'3%'}} onClick={onClickViewMore}>더보기</Button>
                             : loginUserCardDiaries.length > 8 && <Typography variant="body2" color="textSecondary" align="center" style={{width:'100%', marginTop:'3%'}}>더 표시할 게시물이 없습니다.</Typography>
                         }
-                    </Grid>
-                </Grid>
+                    </div>
+                </div>
             </Grid>
         </Paper>
     );
