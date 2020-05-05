@@ -6,32 +6,12 @@ import {EDIT_USER_REQUEST, UPLOAD_PROFILE_REQUEST, USER_EDITFORM_REQUEST} from "
 import {useDispatch, useSelector} from "react-redux";
 import {DropzoneArea, DropzoneDialog} from "material-ui-dropzone";
 import {backUrl} from "../config/config";
+import {MyInfoEditStyle} from '../styles/MyInfoEditStyle';
 
 
-const useStyles = makeStyles((theme) => ({
-    textFieldWrapper: {
-        width: '90%',
-        zIndex: 1,
-        top: 0,
-        left: 0,
-    },
-    textFields:{
-        width:'100%',
-        marginTop:'10%',
-    },
-    avatar:{
-        width: "85%",
-        height: "85%",
-        marginLeft:'5%',
-    },
-    diariesContainer: {
-        marginTop:"5%",
-        marginBottom:"5%",
-    }
-}));
 const MyInfoEdit = ({loginUser}) => {
     const dispatch = useDispatch();
-    const classes = useStyles();
+    const classes = MyInfoEditStyle();
     const {isEditing, profileImagePath, personalUser} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser; //페이지가 자기 페이지인지, 다른 유저 페이지인지 구분해서 user 분기처리
     const userProfileImage = loginUser.ProfileImage[0] && loginUser.ProfileImage[0].src;

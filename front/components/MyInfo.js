@@ -9,32 +9,11 @@ import {
     REMOVE_FOLLOW_REQUEST,
     LOAD_FOLLOWINGS_REQUEST
 } from "../reducers/user";
-import {useRouter} from "next/router";
+import {MyInfoStyle} from '../styles/MyInfoStyle';
 
-const useStyles = makeStyles((theme) => ({
-    textFieldWrapper: {
-        width: '90%',
-        zIndex: 1,
-        top: 0,
-        left: 0,
-    },
-    textFields:{
-        width:'100%',
-        marginTop:'10%',
-    },
-    avatar:{
-        width: "85%",
-        height: "85%",
-        marginLeft:'5%',
-    },
-    diariesContainer: {
-        marginTop:"5%",
-        marginBottom:"5%",
-    }
-}));
 const MyInfo = () => {
     const dispatch = useDispatch();
-    const classes = useStyles();
+    const classes = MyInfoStyle();
     const {isEditing, profileImagePath, personalUser, loginUser, followingList} = useSelector(state => state.user);
     const user = personalUser ? personalUser : loginUser;
     const [isFollowedUser, setIsFollowedUser] = useState(false);

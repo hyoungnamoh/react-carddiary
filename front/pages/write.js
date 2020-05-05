@@ -42,14 +42,6 @@ const useStyles = makeStyles((theme) => ({
     inputBaseMargin: {
         marginTop: theme.spacing(2),
     },
-    // buttonProgress: {
-    //     color: blue[500],
-    //     position: 'absolute',
-    //     top: '50%',
-    //     left: '50%',
-    //     marginTop: 20,
-    //     marginLeft: -13,
-    // },
     buttonWrapper: {
         margin: theme.spacing(1),
         position: 'relative',
@@ -260,21 +252,6 @@ const WritePage = () => {
                             useChipsForPreview={isPhone}
                         />
                     </div>
-                    {/*옵션 시작*/}
-                    {/*<Grid item md={2}>*/}
-                    {/*    <FormControl variant="outlined" className={classes.formControl}>*/}
-                    {/*        <h3>저장위치</h3>*/}
-                    {/*        <Select*/}
-                    {/*            required={true}*/}
-                    {/*            native*/}
-                    {/*            style={{height:"30px", width:"100%", textAlign:"right", }}*/}
-                    {/*        >*/}
-                    {/*            <option aria-label="None" value="" />*/}
-                    {/*            <option value={10}>추가할 예정입니다!</option>*/}
-                    {/*        </Select>*/}
-                    {/*    </FormControl>*/}
-                    {/*</Grid>*/}
-                    {/*공개 여부*/}
                     <div className={classes.formControlWrapper}>
                         <div className={classes.settingWrapper}>
                             <FormControl variant="outlined" className={classes.formControl}>
