@@ -167,10 +167,12 @@ export const AppLayoutStyle = makeStyles(theme => ({
         logoButton:{
             padding:0,
         }
-
     },
     // @media all and (min-width:768px) and (max-width:1024px) { … } // 뷰포트 너비가 768px 이상 '그리고' 1024px 이하이면 실행
     [`@media all and (max-width: 1000px`]: {
-        
+        drawer:{
+            display:'flex',
+            justifyContent:'flex-end',
+        },
     },
 }));

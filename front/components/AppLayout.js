@@ -22,6 +22,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputLabel from '@material-ui/core/InputLabel';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+
 /*
     material - ui
  */
@@ -50,8 +52,6 @@ const theme = createMuiTheme({
 });
 
 const AppLayout = ({ children }) => {
-
-
     const classes = AppLayoutStyle();
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
@@ -64,6 +64,7 @@ const AppLayout = ({ children }) => {
     const searchRef = useRef('');
     const [searchOption, setSearchOption] = useState('none');
     const mounted = useRef(false);
+    const isPhone = useMediaQuery('(max-width:768px)');
 
     //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
     const {loginUser, isLoggingOut} = useSelector(state => state.user);
@@ -214,6 +215,17 @@ const AppLayout = ({ children }) => {
                                             {pageName && <Tab label={pageName} className={classes.tab}/>}
                                             <Tab label="Log Out" onClick={onLogOut} className={classes.tab}/>
                                         </Tabs>
+                                        {/*햄버거버튼*/}
+                                        <div className={clsx((!isPhone || isOpenedDraw) && classes.hide)}>
+                                            <IconButton
+                                                color="inherit"
+                                                aria-label="open drawer"
+                                                edge="end"
+                                                onClick={handleDrawerOpen}
+                                            >
+                                                <MenuIcon />
+                                            </IconButton>
+                                        </div>
                                     </div>
                                     <div className={classes.formControllerWrapper}>
                                         <FormControl>
@@ -245,18 +257,6 @@ const AppLayout = ({ children }) => {
                                             />
                                             <Button onClick={onClickSearch}>검색</Button>
                                         </div>
-                                    </div>
-                                    {/*햄버거버튼*/}
-                                    <div className={classes.drawer}>
-                                        <IconButton
-                                            color="inherit"
-                                            aria-label="open drawer"
-                                            edge="end"
-                                            onClick={handleDrawerOpen}
-                                            className={clsx(isOpenedDraw && classes.hide)}
-                                        >
-                                            <MenuIcon />
-                                        </IconButton>
                                     </div>
                                 </Toolbar>
                             </div>
