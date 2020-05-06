@@ -18,18 +18,23 @@ import {
     REMOVE_FOLLOW_REQUEST, REQUEST_SWITCHING_DRAW
 } from "../reducers/user";
 import Link from "next/link";
-import {followDrawerStyle} from "../styles/FollowDrawerStyle";
+import {followDrawerStylePhone, followDrawerStyleWeb, followDrawerStyleHide} from "../styles/FollowDrawerStyle";
 import {useTheme} from "@material-ui/styles";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 
 const FollowDrawer = () => {
-    const classes = followDrawerStyle();
+    const isPhone = useMediaQuery('(max-width:768px)');
     const theme = useTheme();
     const dispatch = useDispatch();
     const {followingList, followerList, isOpenedDraw} = useSelector(state => state.user);
     const [drawerFollowList, setDrawerFollowList] = useState(0);
     const [open, setOpen] = useState(false);
+    console.log('isOpenedDraw, isPhone', !(isOpenedDraw || isPhone));
+    const classes = !isPhone ? followDrawerStyleWeb() : isOpenedDraw ? followDrawerStylePhone() : followDrawerStyleHide();
+
+    // const classes = followDrawerStyle();
     const handleChange = (event, newValue) => {
         setDrawerFollowList(newValue);
     };

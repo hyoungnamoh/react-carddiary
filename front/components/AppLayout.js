@@ -65,7 +65,6 @@ const AppLayout = ({ children }) => {
     const [searchOption, setSearchOption] = useState('none');
     const mounted = useRef(false);
     const isPhone = useMediaQuery('(max-width:768px)');
-
     //사용자가 어느 페이지에서 접속할지 모르기 때문에 공통 레이아웃으로 뺌
     const {loginUser, isLoggingOut} = useSelector(state => state.user);
     const router = useRouter();
@@ -159,7 +158,6 @@ const AppLayout = ({ children }) => {
     }, [searchText, searchOption, searchResult]);
 
     useEffect(() => {
-        console.log('useEffect!', searchResult);
         if(!mounted.current){
             mounted.current = true;
             return;
@@ -183,7 +181,6 @@ const AppLayout = ({ children }) => {
     };
 
     const handleChangeSelect = (e) => {
-        console.log(e.target.value);
         setSearchOption(e.target.value);
     };
     return (
@@ -216,7 +213,7 @@ const AppLayout = ({ children }) => {
                                             <Tab label="Log Out" onClick={onLogOut} className={classes.tab}/>
                                         </Tabs>
                                         {/*햄버거버튼*/}
-                                        <div className={clsx((!isPhone || isOpenedDraw) && classes.hide)}>
+                                        <div className={clsx((!isPhone && isOpenedDraw) && classes.hide)}>
                                             <IconButton
                                                 color="inherit"
                                                 aria-label="open drawer"

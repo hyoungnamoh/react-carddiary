@@ -1,4 +1,5 @@
 import React, {useEffect, useRef} from "react";
+import clsx from 'clsx';
 import {Grid, Tabs, Tab, Button, CircularProgress} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import {LOAD_DIARIES_REQUEST, LOAD_FAVORITE_REQUEST} from "../reducers/diary";
@@ -45,9 +46,15 @@ const useStyles = makeStyles((theme) => ({
         width:'100%',
         marginTop:'3%',
     },
-    followerDrawWrapper:{
+    followerDrawWrapperWeb:{
         display:'flex',
         width:'25vw'
+    },
+    followerDrawWrapperPhone:{
+        display:'flex',
+    },
+    followerDrawWrapperHide:{
+        display:'none',
     },
     progress:{
 
@@ -66,9 +73,7 @@ const useStyles = makeStyles((theme) => ({
             height:'auto',
             marginTop:'10%',
         },
-        followerDrawWrapper:{
-            display:'none',
-        },
+
         typography: {
             fontSize:'0.7em',
         },
@@ -81,9 +86,10 @@ const Main = () => {
 
     const classes = useStyles();
     const {cardDiaries, hasMoreDiary, isRequestingDiary} = useSelector(state => state.diary);
-    const { loginUser, isLoggingOut, followingList, isLoggedIn} = useSelector(state => state.user);
+    const { loginUser, isLoggingOut, followingList, isLoggedIn, isOpenedDraw} = useSelector(state => state.user);
     const dispatch = useDispatch();
     const router = useRouter();
+    const isPhone = useMediaQuery('(max-width:1000px)');
     const countRef = useRef([]); //무한 스크롤링 시 lastId 를 저장 할 배열
 
     //로그아웃 또는 로그인 안한 사용자가 들어올 경우 메인으로 돌리기
@@ -96,7 +102,6 @@ const Main = () => {
     }, [loginUser, isLoggingOut]);
 
     useEffect(() => {
-        console.log('isRequestingDiary',isRequestingDiary);
     }, [isRequestingDiary]);
 
     //무한스크롤링 스크롤 이벤트
@@ -143,8 +148,8 @@ const Main = () => {
                         }
                     </div>
                 </div>
-
-                <div className={classes.followerDrawWrapper}>
+                {/*<div className={clsx(!isOpenedDraw ? classes.followerDrawWrapperHide : isPhone ? classes.followerDrawWrapperPhone : classes.followerDrawWrapperWeb)}>*/}
+                <div className={classes.followerDrawWrapperPhone}>
                     <FollowDrawer />
                 </div>
             </div>
