@@ -56,7 +56,6 @@ const cardDiaryDetails = () => {
             router.push('/');
             return;
         }
-        console.log(loginUser);
         return;
     }, [loginUser, isLoggingOut]);
 

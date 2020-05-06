@@ -29,7 +29,6 @@ const upload = multer({
 // 내 정보 가져오기
 router.get('/', async (req, res, next) => {
     try {
-        console.log(req.user);
         const user = await db.User.findOne({
             where: {id: req.user.id},
             include: [{
