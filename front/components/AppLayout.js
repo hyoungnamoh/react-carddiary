@@ -183,6 +183,15 @@ const AppLayout = ({ children }) => {
     const handleChangeSelect = (e) => {
         setSearchOption(e.target.value);
     };
+
+    useEffect(() => {
+        dispatch({
+            type: REQUEST_SWITCHING_DRAW,
+            data: true,
+        });
+    }, [isPhone]);
+    console.log('isPhone', isPhone);
+    console.log('isOpenedDraw', isOpenedDraw);
     return (
         <>
             {loginUser ?

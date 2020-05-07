@@ -2,7 +2,7 @@ import '@babel/polyfill';
 import React, {useEffect} from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import AppLayout from '../components/AppLayout';
 import axios from "axios";
 import reducer from "../reducers";
@@ -10,10 +10,11 @@ import withRedux from 'next-redux-wrapper';
 import createSagaMiddleware from 'redux-saga';
 import {applyMiddleware, compose, createStore} from 'redux';
 import rootSaga from '../sagas';
-import {LOAD_USER_REQUEST} from "../reducers/user";
+import {LOAD_USER_REQUEST, REQUEST_SWITCHING_DRAW} from "../reducers/user";
 import withReduxSaga from "next-redux-saga";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {backUrl} from "../config/config";
+import {useMediaQuery} from "@material-ui/core";
 
 const CardDiary = ({Component, store, pageProps}) => {
     // console.log('backUrl',backUrl);

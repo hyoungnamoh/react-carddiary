@@ -4,13 +4,9 @@
     <list default="true" id="c2e307ad-c068-4d77-a97e-951e25846e04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/components/AppLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/AppLayout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/components/FollowDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/components/FollowDrawer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/_app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/editDiary.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/editDiary.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/pages/write.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/pages/write.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front/reducers/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/reducers/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front/styles/FollowDrawerStyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/front/styles/FollowDrawerStyle.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +86,7 @@
       <workItem from="1587878869644" duration="1120000" />
       <workItem from="1587912833548" duration="613000" />
       <workItem from="1588433002647" duration="48337000" />
-      <workItem from="1588636078698" duration="24154000" />
+      <workItem from="1588636078698" duration="25458000" />
     </task>
     <servers />
   </component>
@@ -138,10 +134,10 @@
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
     <state x="1084" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1707.1027@0.0.1707.1027" timestamp="1588826779877" />
-    <state x="450" y="191" width="874" height="538" key="find.popup" timestamp="1588829250042">
+    <state x="450" y="191" width="874" height="538" key="find.popup" timestamp="1588831169154">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>
-    <state x="450" y="191" width="874" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1588829250042" />
+    <state x="450" y="191" width="874" height="538" key="find.popup/0.0.1707.1027@0.0.1707.1027" timestamp="1588831169154" />
     <state x="510" y="238" key="run.anything.popup" timestamp="1588827086887">
       <screen x="0" y="0" width="1707" height="1027" />
     </state>

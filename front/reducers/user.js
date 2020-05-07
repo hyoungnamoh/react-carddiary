@@ -21,8 +21,8 @@ export const initialState = { //초기값
     todoList:[], //모든 유저
     isSearching: false, //검색중
     searchResult: {}, //검색결과
-    searchError: '',
-    isOpenedDraw: false,
+    searchError: '', //검색에러
+    isOpenedDraw: false, //팔로우리스트 열고 닫기
 };
 
 //로그인하는 액션
@@ -349,6 +349,10 @@ const reducer = (state = initialState, action) => {
                 break;
             }
             case REQUEST_SWITCHING_DRAW: {
+                if(action.data){
+                    draft.isOpenedDraw = false;
+                    break;
+                }
                 draft.isOpenedDraw = !draft.isOpenedDraw;
                 break;
             }
