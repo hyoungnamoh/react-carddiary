@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Divider, ListItemSecondaryAction, Paper, TextField} from "@material-ui/core";
+import {Divider, ListItemSecondaryAction, Paper, TextField} from "@material-ui/core";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -8,7 +8,6 @@ import List from "@material-ui/core/List";
 import ListSubheader from '@material-ui/core/ListSubheader';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
 import ClearIcon from '@material-ui/icons/Clear';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';

@@ -9,29 +9,23 @@ import Typography from "@material-ui/core/Typography";
 import Link from "next/link";
 import CardActions from "@material-ui/core/CardActions";
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
-import ShareIcon from "@material-ui/icons/Share";
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
-import {Card, ClickAwayListener, Grid, Grow, MenuList, Paper, Popper} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-import {blue, green, red, yellow} from "@material-ui/core/colors";
+import {Card, ClickAwayListener, Grow, MenuList, Paper, Popper} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import styled from 'styled-components';
 import {
-    DELETE_DIARY_REQUEST, LIKE_DIARY_REQUEST,
-    ONCLICK_FAVORITE_REQUEST, UNLIKE_DIARY_REQUEST
+    DELETE_DIARY_REQUEST,
+    LIKE_DIARY_REQUEST,
+    ONCLICK_FAVORITE_REQUEST,
+    UNLIKE_DIARY_REQUEST
 } from "../reducers/diary";
 import {Carousel} from "react-responsive-carousel";
-import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Modal from "@material-ui/core/Modal";
 import DeleteIcon from '@material-ui/icons/Delete';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import Router, {useRouter} from 'next/router'
-import FavoriteTwoToneIcon from '@material-ui/icons/FavoriteTwoTone';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";
 import moment from "moment";

@@ -1,23 +1,21 @@
 import React, {useEffect, useRef} from "react";
-import {Grid, Tabs, Tab, GridListTile, GridListTileBar, GridList, CircularProgress} from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
-import {LOAD_DIARIES_REQUEST, LOAD_FAVORITE_REQUEST, LOAD_HASHTAG_REQUEST} from "../reducers/diary";
+import {Grid, GridList, GridListTile, GridListTileBar} from "@material-ui/core";
+import {makeStyles} from '@material-ui/core/styles';
+import {LOAD_HASHTAG_REQUEST} from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import MainCardDiary from "../components/MainCardDiary";
 import FollowDrawer from "../components/FollowDrawer";
 import Link from "next/link";
 import {
     CHANGE_CURRENTPAGE_REQUEST,
     LOAD_FOLLOWERLIST_REQUEST,
-    LOAD_FOLLOWINGLIST_REQUEST, LOAD_TODO_REQUEST,
+    LOAD_FOLLOWINGLIST_REQUEST,
+    LOAD_TODO_REQUEST,
     LOAD_USER_REQUEST
 } from "../reducers/user";
 import TodoList from "../components/TodoList";
-import {backUrl} from "../config/config";
 import Typography from "@material-ui/core/Typography";
 
 

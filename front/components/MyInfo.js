@@ -1,14 +1,8 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {Avatar, Button, makeStyles, TextField} from "@material-ui/core";
+import {Avatar, Button, TextField} from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    LOAD_USER_REQUEST,
-    USER_EDITFORM_REQUEST,
-    ADD_FOLLOW_REQUEST,
-    REMOVE_FOLLOW_REQUEST,
-    LOAD_FOLLOWINGS_REQUEST
-} from "../reducers/user";
+import {ADD_FOLLOW_REQUEST, REMOVE_FOLLOW_REQUEST, USER_EDITFORM_REQUEST} from "../reducers/user";
 import {MyInfoStyle} from '../styles/MyInfoStyle';
 
 const MyInfo = () => {

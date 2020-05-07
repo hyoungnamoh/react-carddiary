@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -7,19 +6,17 @@ import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import {red, yellow} from '@material-ui/core/colors';
-import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
-import { Carousel } from 'react-responsive-carousel';
+import {Carousel} from 'react-responsive-carousel';
 import {
     DELETE_DIARY_REQUEST,
     LIKE_DIARY_REQUEST,
     LOAD_DIARY_REQUEST,
     LOAD_FAVORITE_REQUEST,
-    LOAD_USER_DIARIES_REQUEST,
-    ONCLICK_FAVORITE_REQUEST, UNLIKE_DIARY_REQUEST
+    ONCLICK_FAVORITE_REQUEST,
+    UNLIKE_DIARY_REQUEST
 } from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
 import Router, {useRouter} from "next/router";
@@ -34,8 +31,6 @@ import BorderColorIcon from "@material-ui/icons/BorderColor";
 import AnnouncementIcon from "@material-ui/icons/Announcement";
 import moment from "moment"
 import {cardDiaryDetailsStyle} from "../styles/cardDiaryDetailsStyle";
-import {backUrl} from "../config/config";
-
 
 
 const cardDiaryDetails = () => {

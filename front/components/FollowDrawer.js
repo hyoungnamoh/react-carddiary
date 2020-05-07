@@ -1,25 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Avatar, Button, ListItemAvatar, ListItemSecondaryAction, Tab, Tabs} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import ListItemText from "@material-ui/core/ListItemText";
 import Drawer from "@material-ui/core/Drawer";
-import {makeStyles} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
 import IconButton from '@material-ui/core/IconButton';
 import clsx from 'clsx';
-import {
-    ADD_FOLLOW_REQUEST,
-    LOAD_FOLLOWERLIST_REQUEST,
-    LOAD_FOLLOWINGLIST_REQUEST,
-    REMOVE_FOLLOW_REQUEST, REQUEST_SWITCHING_DRAW
-} from "../reducers/user";
+import {ADD_FOLLOW_REQUEST, REMOVE_FOLLOW_REQUEST, REQUEST_SWITCHING_DRAW} from "../reducers/user";
 import Link from "next/link";
-import {followDrawerStylePhone, followDrawerStyleWeb, followDrawerStyleHide} from "../styles/FollowDrawerStyle";
+import {followDrawerStyleHide, followDrawerStylePhone, followDrawerStyleWeb} from "../styles/FollowDrawerStyle";
 import {useTheme} from "@material-ui/styles";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import useMediaQuery from "@material-ui/core/useMediaQuery";

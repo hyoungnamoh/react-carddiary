@@ -1,20 +1,17 @@
 import React, {useCallback, useState} from "react";
 import SearchIcon from "@material-ui/icons/Search";
-import {fade, Grid, InputBase, makeStyles} from "@material-ui/core";
+import {InputBase} from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
-import {yellow} from "@material-ui/core/colors";
 import {useSelector} from "react-redux";
 import CardDiary from "./CardDiary";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import {UserPageSearchbarStyle} from "../styles/UserPageSearchbarStyle";
 
 
 const UserPageSearchbar = () => {
     const classes = UserPageSearchbarStyle();
-    const {loginUser, isEditing, personalUser, followingList, isLoggingOut} = useSelector(state => state.user);
-    const {loginUserCardDiaries, isFavoriteCard, hasMoreDiary} = useSelector(state => state.diary);
+    const {loginUserCardDiaries} = useSelector(state => state.diary);
     const [searchKeyword, setSearchKeyword] = useState('');
 
     //즐겨찾기한 글만 보기
@@ -22,8 +19,6 @@ const UserPageSearchbar = () => {
     const onClickFavoriteSearch = () => {
         setOnFilteredSearching(!onFilteredSearching);
     };
-
-
     //검색 기능
     const onChangeSearchKeyword = (e) => {
         setSearchKeyword(e.target.value);

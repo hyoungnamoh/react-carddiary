@@ -1,11 +1,9 @@
 import React, {useCallback, useRef, useState} from "react";
-import {Avatar, Button, makeStyles, TextField} from "@material-ui/core";
+import {Avatar, Button, TextField} from "@material-ui/core";
 import ClearIcon from "@material-ui/icons/Clear";
 import DoneIcon from "@material-ui/icons/Done";
 import {EDIT_USER_REQUEST, UPLOAD_PROFILE_REQUEST, USER_EDITFORM_REQUEST} from "../reducers/user";
 import {useDispatch, useSelector} from "react-redux";
-import {DropzoneArea, DropzoneDialog} from "material-ui-dropzone";
-import {backUrl} from "../config/config";
 import {MyInfoEditStyle} from '../styles/MyInfoEditStyle';
 
 
@@ -20,8 +18,7 @@ const MyInfoEdit = ({loginUser}) => {
     const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     const nameRegex = /^[가-힣]{1,4}$/;
     const passwordRegExp = /^[a-zA-z0-9]{8,20}$/;
-
-
+    //state
     const [editEmail, setEditEmail] = useState(user.email && user.email);
     const [editUserName, setEditUserName] = useState(user.userName && user.userName);
     const [editPassword, setEditPassword] = useState('');

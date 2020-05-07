@@ -1,34 +1,13 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Avatar, Button, Grid, InputBase, Paper, TextField} from "@material-ui/core";
-import {
-    LOAD_DIARIES_REQUEST,
-    LOAD_FAVORITE_REQUEST,
-    LOAD_USER_DIARIES_REQUEST,
-    ONCLICK_FAVORITE_REQUEST
-} from "../reducers/diary";
+import React, {useEffect, useRef} from 'react';
+import {Button, Grid, makeStyles, Paper} from "@material-ui/core";
+import {LOAD_FAVORITE_REQUEST, LOAD_USER_DIARIES_REQUEST} from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
-import CardDiary from "../components/CardDiary";
-import {makeStyles, fade} from "@material-ui/core";
-import EditIcon from '@material-ui/icons/Edit';
-import DoneIcon from '@material-ui/icons/Done';
-import ClearIcon from '@material-ui/icons/Clear';
 import Typography from '@material-ui/core/Typography';
-import axios from "axios";
-import {
-    CHANGE_CURRENTPAGE_REQUEST,
-    EDIT_USER_REQUEST,
-    LOAD_FOLLOWINGLIST_REQUEST,
-    LOAD_USER_REQUEST,
-    USER_EDITFORM_REQUEST,
-} from "../reducers/user";
+import {CHANGE_CURRENTPAGE_REQUEST, LOAD_FOLLOWINGLIST_REQUEST, LOAD_USER_REQUEST,} from "../reducers/user";
 import MyInfoEdit from "../components/MyInfoEdit";
 import MyInfo from "../components/MyInfo";
-import SearchIcon from '@material-ui/icons/Search';
-import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
 import {yellow} from "@material-ui/core/colors";
-import IconButton from "@material-ui/core/IconButton";
 import {useRouter} from "next/router";
-import StarRoundedIcon from "@material-ui/icons/StarRounded";
 import UserPageSearchbar from "../components/UserPageSearchbar";
 
 const minWidth = 500;
@@ -43,12 +22,6 @@ const useStyles = makeStyles((theme) => ({
         marginLeft:"5%",
     },
     diariesContainer: {
-        // marginTop:"5%",
-        // marginBottom:"5%",
-        // width: '60vw',
-        // display: 'flex',
-        // flexWrap:"wrap",
-        // justifyContent: 'space-between',
 
     },
     inputRoot: {
@@ -85,12 +58,7 @@ const useStyles = makeStyles((theme) => ({
         paperWrapper:{
             marginTop:'10%',
         },
-        // info:{
-        //   width:'100vw',
-        // },
         diariesContainer:{
-            // flexDirection: 'column',
-            // alignItems: 'center',
         },
         userPaper:{
             width:'100%',

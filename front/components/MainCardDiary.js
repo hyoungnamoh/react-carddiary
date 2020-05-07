@@ -9,18 +9,17 @@ import Typography from "@material-ui/core/Typography";
 import Link from "next/link";
 import CardActions from "@material-ui/core/CardActions";
 import FavoriteBorderRoundedIcon from "@material-ui/icons/FavoriteBorderRounded";
-import ShareIcon from "@material-ui/icons/Share";
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
 import {Card, ClickAwayListener, Grid, Grow, MenuList, Paper, Popper} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-import {blue, green, red, yellow} from "@material-ui/core/colors";
 import {useDispatch, useSelector} from "react-redux";
 import MenuItem from '@material-ui/core/MenuItem';
 import StarRoundedIcon from '@material-ui/icons/StarRounded';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import {
-    DELETE_DIARY_REQUEST, LIKE_DIARY_REQUEST,
-    ONCLICK_FAVORITE_REQUEST, UNLIKE_DIARY_REQUEST
+    DELETE_DIARY_REQUEST,
+    LIKE_DIARY_REQUEST,
+    ONCLICK_FAVORITE_REQUEST,
+    UNLIKE_DIARY_REQUEST
 } from "../reducers/diary";
 import {Carousel} from "react-responsive-carousel";
 import Fade from "@material-ui/core/Fade";
@@ -30,7 +29,7 @@ import BorderColorIcon from '@material-ui/icons/BorderColor';
 import AnnouncementIcon from '@material-ui/icons/Announcement';
 import Router, {useRouter} from 'next/router'
 import moment from "moment";
-import { mainCardDiaryStyle } from "../styles/MainCardDiaryStyle";
+import {mainCardDiaryStyle} from "../styles/MainCardDiaryStyle";
 
 
 const MainCardDiary = ({diary}) => {

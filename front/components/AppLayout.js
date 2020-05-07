@@ -1,17 +1,12 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import Link from 'next/link';
 /*
     material - ui
  */
 import clsx from 'clsx';
-import {createMuiTheme, makeStyles, useTheme, fade, withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+import {createMuiTheme} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -19,25 +14,23 @@ import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import InputLabel from '@material-ui/core/InputLabel';
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-
-/*
-    material - ui
- */
-
 import {useDispatch, useSelector} from "react-redux";
 import {
     CHANGE_CURRENTPAGE_REQUEST,
-    LOG_OUT_REQUEST, REQUEST_SWITCHING_DRAW,
+    LOG_OUT_REQUEST,
+    REQUEST_SWITCHING_DRAW,
     SEARCH_EMAIL_REQUEST,
     SEARCH_HASHTAG_REQUEST
 } from "../reducers/user";
 import {useRouter} from "next/router";
-import {Button, Grid} from "@material-ui/core";
-import {BootstrapInput, AppLayoutStyle} from "../styles/AppLayoutStyle"
+import {Button} from "@material-ui/core";
+import {AppLayoutStyle, BootstrapInput} from "../styles/AppLayoutStyle"
+
+/*
+    material - ui
+ */
 
 //AppBar 색 변경
 const theme = createMuiTheme({

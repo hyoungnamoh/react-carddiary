@@ -1,22 +1,20 @@
 import React, {useEffect, useRef} from "react";
-import clsx from 'clsx';
-import {Grid, Tabs, Tab, Button, CircularProgress} from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
+import {CircularProgress} from "@material-ui/core";
+import {makeStyles} from '@material-ui/core/styles';
 import {LOAD_DIARIES_REQUEST, LOAD_FAVORITE_REQUEST} from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
 import {
     CHANGE_CURRENTPAGE_REQUEST,
     LOAD_FOLLOWERLIST_REQUEST,
-    LOAD_FOLLOWINGLIST_REQUEST, LOAD_TODO_REQUEST,
+    LOAD_FOLLOWINGLIST_REQUEST,
+    LOAD_TODO_REQUEST,
     LOAD_USER_REQUEST
 } from "../reducers/user";
-import CardDiary from "../components/CardDiary";
 import FollowDrawer from "../components/FollowDrawer";
 import {useRouter} from "next/router";
 import MainCardDiary from "../components/MainCardDiary";
 import TodoList from "../components/TodoList";
 import Typography from "@material-ui/core/Typography";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
 const minWidth = 1000;

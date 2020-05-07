@@ -1,31 +1,23 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {Button, Grid, Input, InputBase, Paper,FormControlLabel, Radio, Checkbox} from "@material-ui/core";
+import {Button, Checkbox, FormControlLabel, Grid, Paper, Radio} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import { makeStyles } from '@material-ui/core/styles';
-import {DropzoneArea, DropzoneDialog} from 'material-ui-dropzone'
+import {makeStyles} from '@material-ui/core/styles';
+import {DropzoneArea} from 'material-ui-dropzone'
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormLabel from '@material-ui/core/FormLabel';
-import {
-    ADD_DIARY_REQUEST,
-    ADDED_DAIRY_SWITCHING,
-    EDIT_DIARY_REQUEST,
-    LOAD_DIARY_REQUEST,
-    UPLOAD_IMAGES_REQUEST
-} from "../reducers/diary";
+import {ADDED_DAIRY_SWITCHING, EDIT_DIARY_REQUEST, LOAD_DIARY_REQUEST, UPLOAD_IMAGES_REQUEST} from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
 import {useRouter} from "next/router";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {blue, green} from '@material-ui/core/colors';
+import {blue} from '@material-ui/core/colors';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ExpandLess from '@material-ui/icons/ExpandLess';
 import ClearIcon from '@material-ui/icons/Clear';
 import {CHANGE_CURRENTPAGE_REQUEST} from "../reducers/user";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         '& .MuiTextField-root': {
