@@ -55,19 +55,30 @@ const useStyles = makeStyles((theme) => ({
             alignItems:'center',
             width:'100vw',
         },
-        mainCardDiaryWrapper: {
-        },
         todoListWrapper:{
             position: 'static',
             width:'80%',
             height:'auto',
             marginTop:'10%',
         },
-
         typography: {
             fontSize:'0.7em',
         },
-
+        gridList: {
+            display:'flex',
+            justifyContent:''
+        },
+        mainCardDiaryWrapper: {
+            flexDirection:'row',
+            width:'100vw',
+            marginTop: '3%',
+            marginLeft:'4%',
+            marginRight:'3%'
+        },
+        diariesContainer: {
+            marginTop:"3%",
+            marginBottom:"3%",
+        },
     },
 }));
 const Hashtag = ({tag}) => {
@@ -98,7 +109,7 @@ const Hashtag = ({tag}) => {
                         <Typography variant="h5" gutterBottom style={{marginBottom:'5%'}}>
                             '{tag}' 해시태그 검색결과 입니다.
                         </Typography>
-                            <GridList className={classes.gridList} cols={4}>
+                            <GridList className={classes.gridList} cols={3}>
                                 <GridListTile key="Subheader" >
                                     <img src={hashtagDiaries[0] && `${hashtagDiaries[Math.floor(Math.random() * hashtagDiaries.length)].Images[0].src}`} alt={tag} style={{}}/>
                                 </GridListTile>
