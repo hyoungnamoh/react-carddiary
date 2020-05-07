@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from "react";
-import {Grid, Tabs, Tab, GridListTile, GridListTileBar, GridList} from "@material-ui/core";
+import {Grid, Tabs, Tab, GridListTile, GridListTileBar, GridList, CircularProgress} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import {LOAD_DIARIES_REQUEST, LOAD_FAVORITE_REQUEST, LOAD_HASHTAG_REQUEST} from "../reducers/diary";
 import {useDispatch, useSelector} from "react-redux";
@@ -18,20 +18,24 @@ import {
 } from "../reducers/user";
 import TodoList from "../components/TodoList";
 import {backUrl} from "../config/config";
+import Typography from "@material-ui/core/Typography";
 
 
-
+const minWidth = 1000;
 const useStyles = makeStyles((theme) => ({
-    root: {
+    mainContainer: {
         display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        overflow: 'hidden',
-        backgroundColor: theme.palette.background.paper,
+    },
+    mainCardDiaryWrapper: {
+        display:'flex',
+        justifyContent:'flex-start',
+        flexDirection:'row',
+        width:'50vw',
+        marginTop: '3%',
+        marginLeft:'4%',
+        marginRight:'3%'
     },
     gridList: {
-        width: '100%',
-        height: '100%',
     },
     icon: {
         color: 'rgba(255, 255, 255, 0.54)',
@@ -39,6 +43,33 @@ const useStyles = makeStyles((theme) => ({
     diariesContainer: {
         marginTop:"3%",
         marginBottom:"3%",
+    },
+    todoListWrapper:{
+        display:'flex', width:'25vw',
+        position: 'sticky',
+        top: '12%',
+        left:'1%',
+        height: '800px',
+    },
+    [`@media (max-width: ${minWidth}px)`]: {
+        mainContainer:{
+            flexDirection:'column',
+            alignItems:'center',
+            width:'100vw',
+        },
+        mainCardDiaryWrapper: {
+        },
+        todoListWrapper:{
+            position: 'static',
+            width:'80%',
+            height:'auto',
+            marginTop:'10%',
+        },
+
+        typography: {
+            fontSize:'0.7em',
+        },
+
     },
 }));
 const Hashtag = ({tag}) => {
@@ -60,38 +91,43 @@ const Hashtag = ({tag}) => {
 
     return (
         <>
-            <Grid container>
-                <Grid item xs={3} style={{marginTop:'3%'}}>
+            <div className={classes.mainContainer}>
+                <div className={classes.todoListWrapper}>
                     <TodoList/>
-                </Grid>
-                <Grid item xs={6} className={classes.diariesContainer}>
-                        <GridList className={classes.gridList} cols={3} style={{ height: 'auto' }}>
-                            <GridListTile key="Subheader" >
-                                {/*<ListSubheader>{tag}</ListSubheader>*/}
-                                <img src={hashtagDiaries[0] && `${hashtagDiaries[Math.floor(Math.random() * hashtagDiaries.length)].Images[0].src}`} alt={tag} style={{}}/>
-                            </GridListTile>
-                            {hashtagDiaries.length !== 0 && hashtagDiaries.map((tile) => (
-                                <GridListTile key={tile.id}>
-                                    <img src={`${tile.Images[0].src}`} alt={tile.diaryTitle} />
-                                    <GridListTileBar
-                                        title={tile.diaryTitle}
-                                        subtitle={<span>by: {tile.User.userName}</span>}
-                                        actionIcon={
-                                            <Link href={{ pathname: '/cardDiaryDetails', query: { id: tile.id}}} as={`/diary/${tile.id}`}>
-                                                <IconButton aria-label={`info about ${tile.diaryTitle}`} className={classes.icon}>
-                                                    <InfoIcon />
-                                                </IconButton>
-                                            </Link>
-                                        }
-                                    />
+                </div>
+                <div className={classes.mainCardDiaryWrapper}>
+                    <Grid item xs={12} className={classes.diariesContainer}>
+                        <Typography variant="h5" gutterBottom style={{marginBottom:'5%'}}>
+                            '{tag}' 해시태그 검색결과 입니다.
+                        </Typography>
+                            <GridList className={classes.gridList} cols={4}>
+                                <GridListTile key="Subheader" >
+                                    <img src={hashtagDiaries[0] && `${hashtagDiaries[Math.floor(Math.random() * hashtagDiaries.length)].Images[0].src}`} alt={tag} style={{}}/>
                                 </GridListTile>
-                            ))}
-                        </GridList>
-                </Grid>
-                <Grid item xs={3}>
-                    <FollowDrawer/>
-                </Grid>
-            </Grid>
+                                {hashtagDiaries.length !== 0 && hashtagDiaries.map((tile) => (
+                                    <GridListTile key={tile.id} >
+                                        <img src={`${tile.Images[0].src}`} alt={tile.diaryTitle} />
+                                        <GridListTileBar
+                                            title={tile.diaryTitle}
+                                            subtitle={<span>by: {tile.User.userName}</span>}
+                                            actionIcon={
+                                                <Link href={{ pathname: '/cardDiaryDetails', query: { id: tile.id}}} as={`/diary/${tile.id}`}>
+                                                    <IconButton aria-label={`info about ${tile.diaryTitle}`} className={classes.icon}>
+                                                        <InfoIcon />
+                                                    </IconButton>
+                                                </Link>
+                                            }
+                                        />
+                                    </GridListTile>
+                                ))}
+                            </GridList>
+                    </Grid>
+                </div>
+                {/*<div className={clsx(!isOpenedDraw ? classes.followerDrawWrapperHide : isPhone ? classes.followerDrawWrapperPhone : classes.followerDrawWrapperWeb)}>*/}
+                <div className={classes.followerDrawWrapperPhone}>
+                    <FollowDrawer />
+                </div>
+            </div>
         </>
     );
 }

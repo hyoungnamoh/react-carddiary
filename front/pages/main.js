@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
         top: '12%',
         left:'1%',
         height: '800px',
-
     },
 
     typography: {
