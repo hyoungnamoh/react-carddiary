@@ -11,6 +11,7 @@ import Drawer from "@material-ui/core/Drawer";
 import {makeStyles} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
 import IconButton from '@material-ui/core/IconButton';
+import clsx from 'clsx';
 import {
     ADD_FOLLOW_REQUEST,
     LOAD_FOLLOWERLIST_REQUEST,
@@ -25,16 +26,14 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 
 const FollowDrawer = () => {
-    const isPhone = useMediaQuery('(max-width:768px)');
+    const isPhone = useMediaQuery('(max-width:834px)');
     const theme = useTheme();
     const dispatch = useDispatch();
     const {followingList, followerList, isOpenedDraw} = useSelector(state => state.user);
     const [drawerFollowList, setDrawerFollowList] = useState(0);
     const [open, setOpen] = useState(false);
-    console.log('isOpenedDraw, isPhone', !(isOpenedDraw || isPhone));
     const classes = !isPhone ? followDrawerStyleWeb() : isOpenedDraw ? followDrawerStylePhone() : followDrawerStyleHide();
 
-    // const classes = followDrawerStyle();
     const handleChange = (event, newValue) => {
         setDrawerFollowList(newValue);
     };
@@ -74,7 +73,7 @@ const FollowDrawer = () => {
                 <div className={classes.drawerHeader}>
                     {isOpenedDraw &&
                         <IconButton onClick={handleDrawerClose}>
-                            <ChevronRightIcon />
+                            <ChevronRightIcon classNmae={classes.drawerHeaderArrow}/>
                         </IconButton>
                     }
                     <Tabs
@@ -83,9 +82,10 @@ const FollowDrawer = () => {
                         indicatorColor="primary"
                         textColor="primary"
                         centered
+                        className={clsx(isPhone && classes.tabs)}
                     >
-                        <Tab label="팔로워" />
-                        <Tab label="팔로잉" />
+                        <Tab label="팔로워" className={clsx(isPhone && classes.tab)}/>
+                        <Tab label="팔로잉" className={clsx(isPhone && classes.tab)}/>
                     </Tabs>
                 </div>
 
@@ -94,41 +94,47 @@ const FollowDrawer = () => {
                     {drawerFollowList
                         ?
                         followingList.map((v) => (
-                            <Link href={{ pathname: '/user', query: { userId: v.id}}} as={`/user/${v.id}`} key={v.id}>
-                                <ListItem button >
-                                    <ListItemAvatar >
-                                        <Avatar
-                                            aria-label="recipe"
-                                            className={classes.avatar}
-                                            src={ v.ProfileImage ? `${v.ProfileImage[0].src}` :  null}
-                                        />
-                                    </ListItemAvatar>
-                                    {/*<ListItemText primary={v.userName} />*/}
-                                    <ListItemText primary={v.userName} secondary={v.email}/>
-                                    <ListItemSecondaryAction style={{width:'30%', }}>
-                                        <Button variant="outlined" color="primary" onClick={onClickUnFollow(v.id)}>언팔로우</Button>
-                                    </ListItemSecondaryAction>
-                                </ListItem>
-                            </Link>
+                            <div className={classes.listWrapper}>
+                                <Link href={{ pathname: '/user', query: { userId: v.id}}} as={`/user/${v.id}`} key={v.id}>
+                                    <ListItem button >
+                                        <ListItemAvatar >
+                                            <Avatar
+                                                aria-label="recipe"
+                                                className={classes.avatar}
+                                                src={ v.ProfileImage ? `${v.ProfileImage[0].src}` :  null}
+                                            />
+                                        </ListItemAvatar>
+                                        {/*<ListItemText primary={v.userName} />*/}
+                                        <ListItemText primary={v.userName} secondary={v.email} className={classes.userInfo}/>
+                                        <ListItemSecondaryAction >
+                                            <Button variant="outlined" color="primary" className={classes.followButton} onClick={onClickUnFollow(v.id)}>언팔로우</Button>
+                                        </ListItemSecondaryAction>
+                                    </ListItem>
+                                </Link>
+                            </div>
                         ))
                         :
                         followerList.map((v) => (
                             <Link href={{ pathname: '/user', query: { userId: v.id}}} as={`/user/${v.id}`} key={v.id}>
                                 <ListItem button >
-                                    <ListItemAvatar >
+                                    <ListItemAvatar className={classes.avatarWrapper}>
                                         <Avatar
                                             aria-label="recipe"
                                             className={classes.avatar}
                                             src={ v.ProfileImage ? `${v.ProfileImage[0].src}` :  null}
                                         />
                                     </ListItemAvatar>
-                                    <ListItemText primary={v.userName} secondary={v.email}/>
+                                    <div>
+                                        <ListItemText primary={v.userName} secondary={v.email} className={classes.userInfo}/>
+                                    </div>
+                                    <div>
                                     {
                                         followingList.filter(f => f.id === v.id).length === 0 &&
-                                        <ListItemSecondaryAction style={{width:'30%', }}>
-                                            <Button variant="outlined" color="primary" onClick={onClickFollow(v.id)}>팔로우</Button>
+                                        <ListItemSecondaryAction >
+                                            <Button variant="outlined" color="primary" className={classes.followButton} onClick={onClickFollow(v.id)}>팔로우</Button>
                                         </ListItemSecondaryAction>
                                     }
+                                    </div>
                                 </ListItem>
                             </Link>
                         ))

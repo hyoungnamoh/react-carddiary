@@ -24,9 +24,6 @@ const CardDiary = ({Component, store, pageProps}) => {
             jssStyles.parentNode.removeChild(jssStyles);
         }
     }, []);
-
-
-
     return (
         <Provider store={store}>
             <Head>

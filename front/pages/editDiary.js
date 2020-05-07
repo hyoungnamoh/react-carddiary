@@ -86,7 +86,7 @@ const editPage = () => {
     const [diaryContent, setDiaryContent] = useState(''); //다이어리 내용
     const [isFavorite, setIsFavorite] = useState(false); //즐겨찾기
     const [uploadedImage, setUploadedImage] = useState('');
-    const isPhone = useMediaQuery('(max-width:768px)');
+    const isPhone = useMediaQuery('(max-width:834px)');
 
     //로그아웃 또는 로그인하지 않은 사용자 처리
     useEffect(() => {

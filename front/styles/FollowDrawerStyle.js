@@ -1,18 +1,18 @@
 import {makeStyles} from "@material-ui/core/styles";
 
-const drawerWidthPhone = '70vw';
-const drawerWidthWeb = '25vw';
+const drawerWidthPhone = 70;
+const drawerWidthWeb = 25;
 export const followDrawerStylePhone = makeStyles((theme) => ({
         appBar: {
-            width: `calc(100% - ${drawerWidthPhone})`,
+            width: `calc(100% - ${drawerWidthPhone}vw)`,
             // marginLeft: drawerWidth,
         },
         drawer: {
-            width: drawerWidthPhone,
+            width: `${drawerWidthPhone}vw`,
             flexShrink: 0,
         },
         drawerPaper: {
-            width: drawerWidthPhone,
+            width: `${drawerWidthPhone}vw`,
         },
         // necessary for content to be below app bar
         toolbar: theme.mixins.toolbar,
@@ -27,8 +27,34 @@ export const followDrawerStylePhone = makeStyles((theme) => ({
             padding: theme.spacing(0, 1),
             // necessary for content to be below app bar
             ...theme.mixins.toolbar,
-            justifyContent: 'space-around',
-        }
+            marginTop:'3vh',
+        },
+        drawerHeaderArrow:{
+            display: 'flex',
+            width:'5%',
+        },
+        tabs:{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width:'80%',
+        },
+        tab:{
+            width:'50%',
+        },
+        listWrapper: {
+        },
+        avatarWrapper:{
+        },
+        avatar: {
+        },
+        userInfo:{
+        },
+        followButton:{
+            height:'20%',
+            marginBottom:'30%',
+            padding:0,
+        },
+
     }),
 );
 
@@ -37,15 +63,14 @@ export const followDrawerStyleWeb = makeStyles((theme) => ({
             display: 'flex',
         },
         appBar: {
-            width: `calc(100% - ${drawerWidthWeb})`,
-            // marginLeft: drawerWidth,
+            width: `calc(100% - ${drawerWidthWeb}vw)`,
         },
         drawer: {
-            width: drawerWidthWeb,
+            width: `${drawerWidthWeb}vw`,
             flexShrink: 0,
         },
         drawerPaper: {
-            width: drawerWidthWeb,
+            width: `${drawerWidthWeb}vw`,
         },
         // necessary for content to be below app bar
         toolbar: theme.mixins.toolbar,

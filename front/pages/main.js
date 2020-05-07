@@ -89,7 +89,6 @@ const Main = () => {
     const { loginUser, isLoggingOut, followingList, isLoggedIn, isOpenedDraw} = useSelector(state => state.user);
     const dispatch = useDispatch();
     const router = useRouter();
-    const isPhone = useMediaQuery('(max-width:1000px)');
     const countRef = useRef([]); //무한 스크롤링 시 lastId 를 저장 할 배열
 
     //로그아웃 또는 로그인 안한 사용자가 들어올 경우 메인으로 돌리기
