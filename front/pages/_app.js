@@ -15,7 +15,6 @@ import withReduxSaga from "next-redux-saga";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const CardDiary = ({Component, store, pageProps}) => {
-    // console.log('backUrl',backUrl);
 
     useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side');

@@ -129,7 +129,6 @@ const AppLayout = ({ children }) => {
         setSearchText(e.target.value);
     },[searchText,  searchResult]);
     const onClickSearch = useCallback( () => {
-        // console.log('searchOption', searchOption);
         if(searchOption === 'email' && !searchText){
             return alert('이메일을 입력해주세요.');
         } else if(searchOption === 'hashtag' && !searchText){
@@ -183,8 +182,6 @@ const AppLayout = ({ children }) => {
             data: true,
         });
     }, [isPhone]);
-    console.log('isPhone', isPhone);
-    console.log('isOpenedDraw', isOpenedDraw);
     return (
         <>
             {loginUser ?
