@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {Button, Checkbox, FormControlLabel, Grid, Paper, Radio} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import {makeStyles} from '@material-ui/core/styles';
 import {DropzoneArea} from 'material-ui-dropzone'
 import FormControl from '@material-ui/core/FormControl';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -17,51 +16,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ClearIcon from '@material-ui/icons/Clear';
 import {CHANGE_CURRENTPAGE_REQUEST} from "../reducers/user";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import {editDiaryStyle} from "../styles/editDiaryStyles";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        '& .MuiTextField-root': {
-            margin: theme.spacing(1),
-            width: '100%',
-        },
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-        marginLeft: theme.spacing(5),
-    },
-    selectEmpty: {
-    },
-    inputBaseMargin: {
-        marginTop: theme.spacing(2),
-    },
-    buttonProgress: {
-        color: blue[500],
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        marginTop: 20,
-        marginLeft: -13,
-    },
-    wrapper: {
-        margin: theme.spacing(1),
-        position: 'relative',
-    },
-    papers:{
-        width: "75%",
-        marginLeft: "12.5%"
-    },
-    buttonClassname:{
-        padding:"9%"
-    },
-    list: {
-        width: '100%',
-        backgroundColor: theme.palette.background.paper,
-    },
-    nested: {
-        paddingLeft: theme.spacing(4),
-    },
-}));
 
 
 const editPage = () => {
@@ -69,9 +25,7 @@ const editPage = () => {
     const {imagePaths, isDiaryAdding, diaryAdded, cardDiary} = useSelector(state => state.diary);
     const { loginUser, isLoggingOut, isLoggedIn} = useSelector(state => state.user);
     const router = useRouter();
-
-    const classes = useStyles();
-
+    const classes = editDiaryStyle();
     const [files, setFiles] = useState([]); //드랍존 이미지 파일
     const [isPublic, setIsPublic] = useState(cardDiary.isPublic ? "publicDiary" : "privateDiary"); //공개여부 라디오버튼
     const [diaryTitle, setDiaryTitle] = useState(''); //다이어리 제목
