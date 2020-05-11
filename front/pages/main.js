@@ -15,73 +15,14 @@ import {useRouter} from "next/router";
 import MainCardDiary from "../components/MainCardDiary";
 import TodoList from "../components/TodoList";
 import Typography from "@material-ui/core/Typography";
+import {mainStyle} from "../styles/mainStyles";
 
 
-const minWidth = 1000;
-const useStyles = makeStyles((theme) => ({
-    mainContainer: {
-        display: 'flex',
-    },
-    mainCardDiaryWrapper: {
-        display:'flex',
-        flexDirection:'column',
-        alignItems:'center',
-        width:'50vw',
-        marginTop: '3%',
-        marginLeft:'4%',
-        marginRight:'3%'
-    },
-    todoListWrapper:{
-        display:'flex', width:'25vw',
-        position: 'sticky',
-        top: '12%',
-        left:'1%',
-        height: '800px',
-    },
 
-    typography: {
-        width:'100%',
-        marginTop:'3%',
-    },
-    followerDrawWrapperWeb:{
-        display:'flex',
-        width:'25vw'
-    },
-    followerDrawWrapperPhone:{
-        display:'flex',
-    },
-    followerDrawWrapperHide:{
-        display:'none',
-    },
-    progress:{
-
-    },
-    [`@media (max-width: ${minWidth}px)`]: {
-        mainContainer:{
-            flexDirection:'column',
-            alignItems:'center',
-            width:'100vw',
-        },
-        mainCardDiaryWrapper: {
-        },
-        todoListWrapper:{
-            position: 'static',
-            width:'80%',
-            height:'auto',
-            marginTop:'10%',
-        },
-
-        typography: {
-            fontSize:'0.7em',
-        },
-    },
-
-
-}));
 
 const Main = () => {
 
-    const classes = useStyles();
+    const classes = mainStyle();
     const {cardDiaries, hasMoreDiary, isRequestingDiary} = useSelector(state => state.diary);
     const { loginUser, isLoggingOut, followingList, isLoggedIn, isOpenedDraw} = useSelector(state => state.user);
     const dispatch = useDispatch();
