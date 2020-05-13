@@ -81,7 +81,7 @@ const Hashtag = ({tag}) => {
     );
 }
 
-Hashtag.getInitialProps = async (context) => {
+Hashtag.getInitialProps = (context) => {
     let userId = 0;
     const queryId = context.query.id && parseInt(context.query.id, 10);
 

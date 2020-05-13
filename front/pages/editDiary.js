@@ -275,7 +275,7 @@ const editPage = () => {
     )
 }
 
-editPage.getInitialProps = async (context) => {
+editPage.getInitialProps = (context) => {
     const queryId = parseInt(context.query.id, 10);
     context.store.dispatch({
         type: CHANGE_CURRENTPAGE_REQUEST,

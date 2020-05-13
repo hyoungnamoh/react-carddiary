@@ -238,7 +238,7 @@ const cardDiaryDetails = () => {
     );
 }
 
-cardDiaryDetails.getInitialProps = async (context) => {
+cardDiaryDetails.getInitialProps = (context) => {
     let userId = 0;
     const queryId = context.query.id && parseInt(context.query.id, 10);
 

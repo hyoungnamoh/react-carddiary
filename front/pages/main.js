@@ -94,7 +94,7 @@ const Main = () => {
     );
 }
 
-Main.getInitialProps = async (context) => {
+Main.getInitialProps = (context) => {
     let userId = 0;
     const queryId = context.query.id && parseInt(context.query.id, 10);
 

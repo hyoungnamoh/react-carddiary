@@ -271,8 +271,4 @@ const AppLayout = ({ children }) => {
     );
 };
 
-AppLayout.getInitialProps = async (context) => {
-
-}
-
 export default AppLayout;

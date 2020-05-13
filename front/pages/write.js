@@ -302,7 +302,7 @@ const WritePage = () => {
     )
 }
 
-WritePage.getInitialProps = async (context) => {
+WritePage.getInitialProps = (context) => {
     context.store.dispatch({
         type: CHANGE_CURRENTPAGE_REQUEST,
         data: 'Write Page',

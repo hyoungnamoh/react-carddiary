@@ -132,7 +132,7 @@ const User = () => {
     );
 };
 
-User.getInitialProps = async (context) => {
+User.getInitialProps = (context) => {
     let userId = 0;
     const queryId = context.query.userId && parseInt(context.query.userId, 10);
     if(queryId){
