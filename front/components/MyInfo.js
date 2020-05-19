@@ -9,7 +9,6 @@ const MyInfo = () => {
     const dispatch = useDispatch();
     const classes = MyInfoStyle();
     const {isEditing, profileImagePath, personalUser, loginUser, followingList} = useSelector(state => state.user);
-    const user = personalUser ? personalUser : loginUser;
     const [isFollowedUser, setIsFollowedUser] = useState(false);
     //내가 팔로잉 하고있는 대상인지 확인
     useEffect(() => {

@@ -23,8 +23,6 @@ const MyInfoEdit = ({loginUser}) => {
     const [editUserName, setEditUserName] = useState(user.userName && user.userName);
     const [editPassword, setEditPassword] = useState('');
     const [editPasswordConfirm, setEditPasswordConfirm] = useState('');
-    const [isDropzoneOpend, setIsDropzoneOpend] = useState(false);
-    const [profileImage, setProfileImage] = useState([]);
     const imageInput = useRef(''); //이미지 input ref
 
     const onChangeEditEmail = useCallback((e) => {

@@ -19,7 +19,6 @@ const TodoList = () => {
     const {todoList} = useSelector(state => state.user);
     const [checked, setChecked] = useState([]);
     const [left, setLeft] = useState([0, 1, 2, 3]);
-    const [content, setContent] = useState(['일번', '이번', '삼번', '사번']);
     const [onAdd, setOnAdd] = useState(false);
     const [todoContent, setTodoContent] = useState('');
 
